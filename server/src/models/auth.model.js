@@ -19,12 +19,15 @@ class AuthModel {
     }
 
     findOne = async (params) => {
-        console.log(params);
         return await commonModel.findOne(this.tableName, params);
     }
 
     update = async (params, id) => {
         return await commonModel.update(this.tableName, params, id);
+    }
+
+    allEmployee= async () => {
+
     }
 }
 

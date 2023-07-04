@@ -1,7 +1,117 @@
-
+import {useContext, useEffect, useState} from 'react';
+import {AuthContext} from "../../context/AuthContext";
+import axios from "axios";
 
 
 const Dashboard = () => {
+    const {user} = useContext(AuthContext);
+    const token = user.token;
+    const [checkStatus, setCheckStatus] = useState("");
+
+    const [state, setState] = useState({
+        status: 400,
+        message: "Check in"
+    });
+
+    const checkInFunction = () => {
+        setState({
+            status: 200,
+            message: "Check in"
+        })
+    }
+    const checkOutFunction = () => {
+        setState({
+            message: "Check out",
+            status: 400,
+        })
+    }
+
+    const checkInCheckOut = () => {
+        return (
+            <div>
+                {
+                    state.status === 400 ? (
+                        <>
+                            <p>{state.message}</p>
+                            <button className="btn btn-sm btn-outline-primary" onClick={checkInFunction}>Check In
+                            </button>
+                        </>
+                    ) : ""
+                }
+
+                {
+                    state.status === 200 ? (
+                        <>
+                            <p>{state.message}</p>
+                            <button className="btn btn-sm btn-outline-primary" onClick={checkOutFunction}>Check Out
+                            </button>
+                        </>
+                    ) : ""
+                }
+            </div>
+        )
+    }
+
+    const checkIn = async (e) => {
+        e.preventDefault();
+        try {
+            const headers = {
+                Authorization: `Bearer ${token}`
+            };
+            const checkInState = await axios.post("/auth/check-in", null, {headers});
+            setState({
+                checkin: checkInState.status
+            });
+            console.log(state)
+            // navigate("/login");
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    const checkOut = async (e) => {
+        e.preventDefault();
+        try {
+            const headers = {
+                Authorization: `Bearer ${token}`
+            };
+            const checkInState = await axios.patch("/auth/check-out", null, {headers});
+            if (checkInState.status === 200) {
+                setState({
+                    checkin: 400
+                });
+            } else {
+                setState({
+                    checkin: 200
+                });
+            }
+
+            // navigate("/login");
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const fetchCheckInStatus = async () => {
+        try {
+            const headers = {
+                Authorization: `Bearer ${token}`
+            };
+            const response = await axios.get('/auth/check-in-status', {headers});
+            // console.log("data", response.data)
+
+            if (response.data && Array.isArray(response.data.checkInstatus) && response.data.checkInstatus.length > 0) {
+                const lastResult = response.data.checkInstatus[response.data.checkInstatus.length - 1];
+                console.log(lastResult)
+            }
+        } catch (error) {
+            console.log('Error in fetching check-in status:', error.message);
+        }
+    }
+
+    useEffect(() => {
+        fetchCheckInStatus();
+    }, []);
+
     return (
         <>
             <div className="content-wrapper">
@@ -10,17 +120,18 @@ const Dashboard = () => {
                         <div className="col-lg-8 mb-4 order-0">
                             <div className="card">
                                 <div className="d-flex align-items-end row">
+
                                     <div className="col-sm-7">
                                         <div className="card-body">
-                                            <h5 className="card-title text-primary">Congratulations John! 🎉</h5>
+                                            <h5 className="card-title text-primary">Welcome, {user.first_name} ! 🎉</h5>
                                             <p className="mb-4">
-                                                You have done <span className="fw-bold">72%</span> more sales today. Check your new badge in
-                                                your profile.
+                                                🌞 It's time for our daily check-in to get the day started on the right
+                                                foot. Looking forward to a productive and successful day ahead! 💪
                                             </p>
-
-                                            <a href="javascript:;" className="btn btn-sm btn-outline-primary">View Badges</a>
+                                            {checkInCheckOut()}
                                         </div>
                                     </div>
+
                                     <div className="col-sm-5 text-center text-sm-left">
                                         <div className="card-body pb-0 px-0 px-md-4">
                                             <img
@@ -40,7 +151,8 @@ const Dashboard = () => {
                                 <div className="col-lg-6 col-md-12 col-6 mb-4">
                                     <div className="card">
                                         <div className="card-body">
-                                            <div className="card-title d-flex align-items-start justify-content-between">
+                                            <div
+                                                className="card-title d-flex align-items-start justify-content-between">
                                                 <div className="avatar flex-shrink-0">
                                                     <img
                                                         src="../assets/img/icons/unicons/chart-success.png"
@@ -59,22 +171,25 @@ const Dashboard = () => {
                                                     >
                                                         <i className="bx bx-dots-vertical-rounded"></i>
                                                     </button>
-                                                    <div className="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                                                        <a className="dropdown-item" href="javascript:void(0);">View More</a>
-                                                        <a className="dropdown-item" href="javascript:void(0);">Delete</a>
+                                                    <div className="dropdown-menu dropdown-menu-end"
+                                                         aria-labelledby="cardOpt3">
+                                                        <a className="dropdown-item" href="/">View More</a>
+                                                        <a className="dropdown-item" href="/">Delete</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <span className="fw-semibold d-block mb-1">Profit</span>
                                             <h3 className="card-title mb-2">$12,628</h3>
-                                            <small className="text-success fw-semibold"><i className="bx bx-up-arrow-alt"></i> +72.80%</small>
+                                            <small className="text-success fw-semibold"><i
+                                                className="bx bx-up-arrow-alt"></i> +72.80%</small>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-lg-6 col-md-12 col-6 mb-4">
                                     <div className="card">
                                         <div className="card-body">
-                                            <div className="card-title d-flex align-items-start justify-content-between">
+                                            <div
+                                                className="card-title d-flex align-items-start justify-content-between">
                                                 <div className="avatar flex-shrink-0">
                                                     <img
                                                         src="../assets/img/icons/unicons/wallet-info.png"
@@ -93,15 +208,17 @@ const Dashboard = () => {
                                                     >
                                                         <i className="bx bx-dots-vertical-rounded"></i>
                                                     </button>
-                                                    <div className="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                                                        <a className="dropdown-item" href="javascript:void(0);">View More</a>
-                                                        <a className="dropdown-item" href="javascript:void(0);">Delete</a>
+                                                    <div className="dropdown-menu dropdown-menu-end"
+                                                         aria-labelledby="cardOpt6">
+                                                        <a className="dropdown-item" href="/">View More</a>
+                                                        <a className="dropdown-item" href="/">Delete</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <span>Sales</span>
                                             <h3 className="card-title text-nowrap mb-1">$4,679</h3>
-                                            <small className="text-success fw-semibold"><i className="bx bx-up-arrow-alt"></i> +28.42%</small>
+                                            <small className="text-success fw-semibold"><i
+                                                className="bx bx-up-arrow-alt"></i> +28.42%</small>
                                         </div>
                                     </div>
                                 </div>
@@ -128,10 +245,11 @@ const Dashboard = () => {
                                                     >
                                                         2022
                                                     </button>
-                                                    <div className="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
-                                                        <a className="dropdown-item" href="javascript:void(0);">2021</a>
-                                                        <a className="dropdown-item" href="javascript:void(0);">2020</a>
-                                                        <a className="dropdown-item" href="javascript:void(0);">2019</a>
+                                                    <div className="dropdown-menu dropdown-menu-end"
+                                                         aria-labelledby="growthReportId">
+                                                        <a className="dropdown-item" href="/">2021</a>
+                                                        <a className="dropdown-item" href="/">2020</a>
+                                                        <a className="dropdown-item" href="/">2019</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -139,10 +257,12 @@ const Dashboard = () => {
                                         <div id="growthChart"></div>
                                         <div className="text-center fw-semibold pt-3 mb-2">62% Company Growth</div>
 
-                                        <div className="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
+                                        <div
+                                            className="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
                                             <div className="d-flex">
                                                 <div className="me-2">
-                                                    <span className="badge bg-label-primary p-2"><i className="bx bx-dollar text-primary"></i></span>
+                                                    <span className="badge bg-label-primary p-2"><i
+                                                        className="bx bx-dollar text-primary"></i></span>
                                                 </div>
                                                 <div className="d-flex flex-column">
                                                     <small>2022</small>
@@ -151,7 +271,8 @@ const Dashboard = () => {
                                             </div>
                                             <div className="d-flex">
                                                 <div className="me-2">
-                                                    <span className="badge bg-label-info p-2"><i className="bx bx-wallet text-info"></i></span>
+                                                    <span className="badge bg-label-info p-2"><i
+                                                        className="bx bx-wallet text-info"></i></span>
                                                 </div>
                                                 <div className="d-flex flex-column">
                                                     <small>2021</small>
@@ -168,9 +289,11 @@ const Dashboard = () => {
                                 <div className="col-6 mb-4">
                                     <div className="card">
                                         <div className="card-body">
-                                            <div className="card-title d-flex align-items-start justify-content-between">
+                                            <div
+                                                className="card-title d-flex align-items-start justify-content-between">
                                                 <div className="avatar flex-shrink-0">
-                                                    <img src="../assets/img/icons/unicons/paypal.png" alt="Credit Card" className="rounded" />
+                                                    <img src="../assets/img/icons/unicons/paypal.png" alt="Credit Card"
+                                                         className="rounded"/>
                                                 </div>
                                                 <div className="dropdown">
                                                     <button
@@ -183,24 +306,28 @@ const Dashboard = () => {
                                                     >
                                                         <i className="bx bx-dots-vertical-rounded"></i>
                                                     </button>
-                                                    <div className="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
-                                                        <a className="dropdown-item" href="javascript:void(0);">View More</a>
-                                                        <a className="dropdown-item" href="javascript:void(0);">Delete</a>
+                                                    <div className="dropdown-menu dropdown-menu-end"
+                                                         aria-labelledby="cardOpt4">
+                                                        <a className="dropdown-item" href="/">View More</a>
+                                                        <a className="dropdown-item" href="/">Delete</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <span className="d-block mb-1">Payments</span>
                                             <h3 className="card-title text-nowrap mb-2">$2,456</h3>
-                                            <small className="text-danger fw-semibold"><i className="bx bx-down-arrow-alt"></i> -14.82%</small>
+                                            <small className="text-danger fw-semibold"><i
+                                                className="bx bx-down-arrow-alt"></i> -14.82%</small>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-6 mb-4">
                                     <div className="card">
                                         <div className="card-body">
-                                            <div className="card-title d-flex align-items-start justify-content-between">
+                                            <div
+                                                className="card-title d-flex align-items-start justify-content-between">
                                                 <div className="avatar flex-shrink-0">
-                                                    <img src="../assets/img/icons/unicons/cc-primary.png" alt="Credit Card" className="rounded" />
+                                                    <img src="../assets/img/icons/unicons/cc-primary.png"
+                                                         alt="Credit Card" className="rounded"/>
                                                 </div>
                                                 <div className="dropdown">
                                                     <button
@@ -214,25 +341,29 @@ const Dashboard = () => {
                                                         <i className="bx bx-dots-vertical-rounded"></i>
                                                     </button>
                                                     <div className="dropdown-menu" aria-labelledby="cardOpt1">
-                                                        <a className="dropdown-item" href="javascript:void(0);">View More</a>
-                                                        <a className="dropdown-item" href="javascript:void(0);">Delete</a>
+                                                        <a className="dropdown-item" href="/">View More</a>
+                                                        <a className="dropdown-item" href="/">Delete</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <span className="fw-semibold d-block mb-1">Transactions</span>
                                             <h3 className="card-title mb-2">$14,857</h3>
-                                            <small className="text-success fw-semibold"><i className="bx bx-up-arrow-alt"></i> +28.14%</small>
+                                            <small className="text-success fw-semibold"><i
+                                                className="bx bx-up-arrow-alt"></i> +28.14%</small>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-12 mb-4">
                                     <div className="card">
                                         <div className="card-body">
-                                            <div className="d-flex justify-content-between flex-sm-row flex-column gap-3">
-                                                <div className="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                                            <div
+                                                className="d-flex justify-content-between flex-sm-row flex-column gap-3">
+                                                <div
+                                                    className="d-flex flex-sm-column flex-row align-items-start justify-content-between">
                                                     <div className="card-title">
                                                         <h5 className="text-nowrap mb-2">Profile Report</h5>
-                                                        <span className="badge bg-label-warning rounded-pill">Year 2021</span>
+                                                        <span
+                                                            className="badge bg-label-warning rounded-pill">Year 2021</span>
                                                     </div>
                                                     <div className="mt-sm-auto">
                                                         <small className="text-success text-nowrap fw-semibold"
@@ -268,10 +399,11 @@ const Dashboard = () => {
                                         >
                                             <i className="bx bx-dots-vertical-rounded"></i>
                                         </button>
-                                        <div className="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics">
-                                            <a className="dropdown-item" href="javascript:void(0);">Select All</a>
-                                            <a className="dropdown-item" href="javascript:void(0);">Refresh</a>
-                                            <a className="dropdown-item" href="javascript:void(0);">Share</a>
+                                        <div className="dropdown-menu dropdown-menu-end"
+                                             aria-labelledby="orederStatistics">
+                                            <a className="dropdown-item" href="/">Select All</a>
+                                            <a className="dropdown-item" href="/">Refresh</a>
+                                            <a className="dropdown-item" href="/">Share</a>
                                         </div>
                                     </div>
                                 </div>
@@ -290,7 +422,8 @@ const Dashboard = () => {
                                                 ><i className="bx bx-mobile-alt"></i
                                                 ></span>
                                             </div>
-                                            <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div
+                                                className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
                                                     <h6 className="mb-0">Electronic</h6>
                                                     <small className="text-muted">Mobile, Earbuds, TV</small>
@@ -302,9 +435,11 @@ const Dashboard = () => {
                                         </li>
                                         <li className="d-flex mb-4 pb-1">
                                             <div className="avatar flex-shrink-0 me-3">
-                                                <span className="avatar-initial rounded bg-label-success"><i className="bx bx-closet"></i></span>
+                                                <span className="avatar-initial rounded bg-label-success"><i
+                                                    className="bx bx-closet"></i></span>
                                             </div>
-                                            <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div
+                                                className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
                                                     <h6 className="mb-0">Fashion</h6>
                                                     <small className="text-muted">T-shirt, Jeans, Shoes</small>
@@ -316,9 +451,11 @@ const Dashboard = () => {
                                         </li>
                                         <li className="d-flex mb-4 pb-1">
                                             <div className="avatar flex-shrink-0 me-3">
-                                                <span className="avatar-initial rounded bg-label-info"><i className="bx bx-home-alt"></i></span>
+                                                <span className="avatar-initial rounded bg-label-info"><i
+                                                    className="bx bx-home-alt"></i></span>
                                             </div>
-                                            <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div
+                                                className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
                                                     <h6 className="mb-0">Decor</h6>
                                                     <small className="text-muted">Fine Art, Dining</small>
@@ -334,7 +471,8 @@ const Dashboard = () => {
                                                 ><i className="bx bx-football"></i
                                                 ></span>
                                             </div>
-                                            <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div
+                                                className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
                                                     <h6 className="mb-0">Sports</h6>
                                                     <small className="text-muted">Football, Cricket Kit</small>
@@ -375,10 +513,11 @@ const Dashboard = () => {
                                 </div>
                                 <div className="card-body px-0">
                                     <div className="tab-content p-0">
-                                        <div className="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
+                                        <div className="tab-pane fade show active" id="navs-tabs-line-card-income"
+                                             role="tabpanel">
                                             <div className="d-flex p-4 pt-3">
                                                 <div className="avatar flex-shrink-0 me-3">
-                                                    <img src="../assets/img/icons/unicons/wallet.png" alt="User" />
+                                                    <img src="../assets/img/icons/unicons/wallet.png" alt="User"/>
                                                 </div>
                                                 <div>
                                                     <small className="text-muted d-block">Total Balance</small>
@@ -421,10 +560,11 @@ const Dashboard = () => {
                                         >
                                             <i className="bx bx-dots-vertical-rounded"></i>
                                         </button>
-                                        <div className="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
-                                            <a className="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-                                            <a className="dropdown-item" href="javascript:void(0);">Last Month</a>
-                                            <a className="dropdown-item" href="javascript:void(0);">Last Year</a>
+                                        <div className="dropdown-menu dropdown-menu-end"
+                                             aria-labelledby="transactionID">
+                                            <a className="dropdown-item" href="/">Last 28 Days</a>
+                                            <a className="dropdown-item" href="/">Last Month</a>
+                                            <a className="dropdown-item" href="/">Last Year</a>
                                         </div>
                                     </div>
                                 </div>
@@ -432,9 +572,11 @@ const Dashboard = () => {
                                     <ul className="p-0 m-0">
                                         <li className="d-flex mb-4 pb-1">
                                             <div className="avatar flex-shrink-0 me-3">
-                                                <img src="../assets/img/icons/unicons/paypal.png" alt="User" className="rounded" />
+                                                <img src="../assets/img/icons/unicons/paypal.png" alt="User"
+                                                     className="rounded"/>
                                             </div>
-                                            <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div
+                                                className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
                                                     <small className="text-muted d-block mb-1">Paypal</small>
                                                     <h6 className="mb-0">Send money</h6>
@@ -447,9 +589,11 @@ const Dashboard = () => {
                                         </li>
                                         <li className="d-flex mb-4 pb-1">
                                             <div className="avatar flex-shrink-0 me-3">
-                                                <img src="../assets/img/icons/unicons/wallet.png" alt="User" className="rounded" />
+                                                <img src="../assets/img/icons/unicons/wallet.png" alt="User"
+                                                     className="rounded"/>
                                             </div>
-                                            <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div
+                                                className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
                                                     <small className="text-muted d-block mb-1">Wallet</small>
                                                     <h6 className="mb-0">Mac'D</h6>
@@ -462,9 +606,11 @@ const Dashboard = () => {
                                         </li>
                                         <li className="d-flex mb-4 pb-1">
                                             <div className="avatar flex-shrink-0 me-3">
-                                                <img src="../assets/img/icons/unicons/chart.png" alt="User" className="rounded" />
+                                                <img src="../assets/img/icons/unicons/chart.png" alt="User"
+                                                     className="rounded"/>
                                             </div>
-                                            <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div
+                                                className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
                                                     <small className="text-muted d-block mb-1">Transfer</small>
                                                     <h6 className="mb-0">Refund</h6>
@@ -477,9 +623,11 @@ const Dashboard = () => {
                                         </li>
                                         <li className="d-flex mb-4 pb-1">
                                             <div className="avatar flex-shrink-0 me-3">
-                                                <img src="../assets/img/icons/unicons/cc-success.png" alt="User" className="rounded" />
+                                                <img src="../assets/img/icons/unicons/cc-success.png" alt="User"
+                                                     className="rounded"/>
                                             </div>
-                                            <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div
+                                                className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
                                                     <small className="text-muted d-block mb-1">Credit Card</small>
                                                     <h6 className="mb-0">Ordered Food</h6>
@@ -492,9 +640,11 @@ const Dashboard = () => {
                                         </li>
                                         <li className="d-flex mb-4 pb-1">
                                             <div className="avatar flex-shrink-0 me-3">
-                                                <img src="../assets/img/icons/unicons/wallet.png" alt="User" className="rounded" />
+                                                <img src="../assets/img/icons/unicons/wallet.png" alt="User"
+                                                     className="rounded"/>
                                             </div>
-                                            <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div
+                                                className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
                                                     <small className="text-muted d-block mb-1">Wallet</small>
                                                     <h6 className="mb-0">Starbucks</h6>
@@ -507,9 +657,11 @@ const Dashboard = () => {
                                         </li>
                                         <li className="d-flex">
                                             <div className="avatar flex-shrink-0 me-3">
-                                                <img src="../assets/img/icons/unicons/cc-warning.png" alt="User" className="rounded" />
+                                                <img src="../assets/img/icons/unicons/cc-warning.png" alt="User"
+                                                     className="rounded"/>
                                             </div>
-                                            <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div
+                                                className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
                                                     <small className="text-muted d-block mb-1">Mastercard</small>
                                                     <h6 className="mb-0">Ordered Food</h6>

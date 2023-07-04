@@ -26,7 +26,7 @@ const Login = () => {
                         <div className="card">
                             <div className="card-body">
                                 <div className="app-brand justify-content-center">
-                                    <a href="index.html" className="app-brand-link gap-2">
+                                    <a href="/" className="app-brand-link gap-2">
                                         <span className="app-brand-text demo text-body fw-bolder">Well Come</span>
                                     </a>
                                 </div>
@@ -79,7 +79,7 @@ const Login = () => {
 
                                 <p className="text-center">
                                     <span>New on our platform?</span>
-                                    <a href="auth-register-basic.html">
+                                    <a href="/register">
                                         <span>Create an account</span>
                                     </a>
                                 </p>

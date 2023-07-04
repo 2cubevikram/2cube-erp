@@ -3,7 +3,6 @@ import utils from '../utils/common.utils.js';
 
 class CommonModel {
     find = async (tableName, params = {}, order_by = {}, selectColumns = '*') => {
-        console.log(tableName, params, order_by, selectColumns);
         let sql = `SELECT ${selectColumns} FROM ${tableName}`;
 
         if (!Object.keys(params).length) {

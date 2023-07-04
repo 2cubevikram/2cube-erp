@@ -18,8 +18,10 @@ router.get('/id/:id', auth(), awaitHandlerFactory(AdminController.getEmployeeByI
 //User use
 router.patch('/user/edit', auth(), (UploadMediaController.uplodMedia), awaitHandlerFactory(EmployeeController.edit));
 router.get('/checkAttendance', auth(), awaitHandlerFactory(EmployeeController.checkAttendance));
+router.get('/checkAllAttendance', auth(), awaitHandlerFactory(EmployeeController.checkAllAttendance));
 router.post('/check-in', auth(), awaitHandlerFactory(EmployeeController.check_in));
 router.patch('/check-out', auth(), awaitHandlerFactory(EmployeeController.check_out));
+router.get('/check-in-status', auth(), awaitHandlerFactory(EmployeeController.checkInStatus));
 
 
 

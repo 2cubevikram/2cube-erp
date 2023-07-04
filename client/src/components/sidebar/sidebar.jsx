@@ -33,7 +33,7 @@ const Sidebar = () => {
                         </a>
                     </li>
                     <li className="menu-item">
-                        <a href="javascript:void(0);" className="menu-link menu-toggle">
+                        <a href="" className="menu-link menu-toggle">
                             <i className="menu-icon tf-icons bx bx-lock-open-alt"></i>
                             <div data-i18n="Authentications">Authentications</div>
                         </a>
@@ -58,7 +58,7 @@ const Sidebar = () => {
 
                     <li className="menu-header small text-uppercase"><span className="menu-header-text">Forms &amp; Tables</span></li>
                     <li className="menu-item">
-                        <a href="javascript:void(0);" className="menu-link menu-toggle">
+                        <a href="" className="menu-link menu-toggle">
                             <i className="menu-icon tf-icons bx bx-detail"></i>
                             <div data-i18n="Form Elements">Form Elements</div>
                         </a>
@@ -76,7 +76,7 @@ const Sidebar = () => {
                         </ul>
                     </li>
                     <li className="menu-item">
-                        <a href="javascript:void(0);" className="menu-link menu-toggle">
+                        <a href="" className="menu-link menu-toggle">
                             <i className="menu-icon tf-icons bx bx-detail"></i>
                             <div data-i18n="Form Layouts">Form Layouts</div>
                         </a>
