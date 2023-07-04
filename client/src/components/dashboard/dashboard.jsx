@@ -6,26 +6,33 @@ import axios from "axios";
 const Dashboard = () => {
     const {user} = useContext(AuthContext);
     const token = user.token;
-    const [checkStatus, setCheckStatus] = useState("");
 
     const [state, setState] = useState({
         status: 400,
         message: "Check in"
     });
 
-    const checkInFunction = () => {
+    const checkInFunction = async () => {
+        const headers = {
+            Authorization: `Bearer ${token}`
+        };
+        const checkInState = await axios.post("/auth/check-in", null, {headers});
         setState({
             status: 200,
-            message: "Check in"
+            message: checkInState.data,
         })
     }
-    const checkOutFunction = () => {
+    const checkOutFunction = async () => {
+        const headers = {
+            Authorization: `Bearer ${token}`
+        };
+        const checkInState = await axios.patch("/auth/check-out", null, {headers});
+
         setState({
-            message: "Check out",
+            message: checkInState.data,
             status: 400,
         })
     }
-
     const checkInCheckOut = () => {
         return (
             <div>
@@ -62,7 +69,7 @@ const Dashboard = () => {
             setState({
                 checkin: checkInState.status
             });
-            console.log(state)
+            // console.log(state)
             // navigate("/login");
         } catch (err) {
             console.log(err);
@@ -84,7 +91,6 @@ const Dashboard = () => {
                     checkin: 200
                 });
             }
-
             // navigate("/login");
         } catch (err) {
             console.log(err);
@@ -97,12 +103,16 @@ const Dashboard = () => {
                 Authorization: `Bearer ${token}`
             };
             const response = await axios.get('/auth/check-in-status', {headers});
-            // console.log("data", response.data)
+            const data = response.data;
+            const result = data[data.length - 1];
 
-            if (response.data && Array.isArray(response.data.checkInstatus) && response.data.checkInstatus.length > 0) {
-                const lastResult = response.data.checkInstatus[response.data.checkInstatus.length - 1];
-                console.log(lastResult)
-            }
+            const newState =
+                result.status === 'checkIn'
+                    ? {status: 200, message: 'Check in successfully !'}
+                    : result.status === 'checkOut'
+                        ? {status: 400, message: 'Check out successfully !'}
+                        : {status: 200, message: 'You are checked in !'};
+            setState(newState);
         } catch (error) {
             console.log('Error in fetching check-in status:', error.message);
         }
@@ -111,7 +121,6 @@ const Dashboard = () => {
     useEffect(() => {
         fetchCheckInStatus();
     }, []);
-
     return (
         <>
             <div className="content-wrapper">

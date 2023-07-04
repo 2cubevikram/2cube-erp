@@ -87,12 +87,9 @@ class EmployeeController {
             // const date = "2023-07-04";
 
             const result = await EmployeeModel.work_hours(employeeId, date);
-            console.log(result)
 
             let workingHours = 0;
             let minimumWorkingHours = 12;
-            let checkIn = '';
-            let checkOut = '';
             let checkInstatus = [];
 
             for (const row of result) {
@@ -192,8 +189,7 @@ class EmployeeController {
 
         try {
             const employeeId = req.currentUser.id;
-            // const data = req.body.date;
-            // const date = new Date();
+            // const date = '2023-07-05';
             const date = datePart;
 
             const result = await EmployeeModel.work_hours(employeeId, date);
