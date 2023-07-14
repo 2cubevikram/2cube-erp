@@ -1,5 +1,6 @@
 import {calculateDuration} from '../utils/function.js'
 import bcrypt from 'bcrypt';
+import moment from "moment";
 import jwt from 'jsonwebtoken';
 import AuthModel from '../models/auth.model.js';
 import EmployeeModel from '../models/employee.model.js';
@@ -59,14 +60,19 @@ class EmployeeController {
     timestamp = async (req, res, next) => {
         const tableAction = req.body.action;
         const id = req.body.id;
+        const currentDate = new Date();
+        console.log(currentDate);
+        req.body._time = moment().format('YYYY-MM-DD HH:mm:ss');
+
+        // res.send(req.body._in);
 
         const employee_id = req.currentUser.id
         let result;
 
         if (tableAction === "check") {
-            result = await EmployeeModel.timestamp(id, employee_id, req.body.method, req.body.status);
+            result = await EmployeeModel.timestamp(id, employee_id, req.body._time, req.body.method, req.body.status);
         } else {
-            result = await BreakModel.timestamp(id, employee_id, req.body.method, req.body.status);
+            result = await BreakModel.timestamp(id, employee_id, req.body._time, req.body.method, req.body.status);
         }
         if (!result) {
             return res.status(400).json({message: 'Something went wrong'});

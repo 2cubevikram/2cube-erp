@@ -85,7 +85,10 @@ class AdminController {
 
     checkTimeUpdate = async (req, res, next) => {
         const id = req.currentUser.id;
-        const userId = req.params.id;
+
+        const tableid = 1234;
+        const employee_id = req.currentUser.id
+        const currentDate = new Date();
 
         const user = await AuthModel.findOne({id});
 
@@ -93,11 +96,12 @@ class AdminController {
             res.status(401).send({message: 'Admin can edit'});
             return;
         }
-        // req.body._in = moment(`${req.body.date}T${req.body.time}`).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
 
-        req.body.updated_by = user.role;
-        //
-        const result = await AuthModel.checkTimeUpdate(req.body, req.currentUser.id);
+        req.body._in = currentDate.toISOString().slice(0, 19).replace('T', ' ');
+
+        // req.body.updated_by = user.role;
+        console.log(req.body._in);
+        // const result = await AuthModel.checkTimeUpdate(employee_id, req.body._in, req.body.status, req.body.method, tableid);
 
     }
 

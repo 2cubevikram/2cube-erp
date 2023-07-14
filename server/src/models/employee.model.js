@@ -5,8 +5,8 @@ class EmployeeModel {
     tableName = `attendance`;
     breakTable = `break_in_out`;
 
-    timestamp = async (id, employee_id, method, status) => {
-        return await commonModel.timestamp(this.tableName, id, employee_id, method, status);
+    timestamp = async (id, employee_id, _time, method, status) => {
+        return await commonModel.timestamp(this.tableName, id, employee_id, _time, method, status);
     }
 
     work_hours = async (employeeId, date) => {

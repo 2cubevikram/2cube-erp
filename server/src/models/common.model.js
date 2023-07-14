@@ -38,12 +38,12 @@ class CommonModel {
         return result;
     }
 
-    timestamp = async (tableName, id, employee_id, method, status) => {
+    timestamp = async (tableName, id, employee_id, _time, method, status) => {
         if (method === "ADD") {
-            const insertSql = `INSERT INTO ${tableName} (employee_id, status) VALUES (?, ?)`;
+            const insertSql = `INSERT INTO ${tableName} (employee_id, _in, status) VALUES (?, ?, ?)`;
             const selectSql = `SELECT * FROM ${tableName} WHERE id = LAST_INSERT_ID()`;
 
-            const insertResult = await query(insertSql, [employee_id, status]);
+            const insertResult = await query(insertSql, [employee_id, _time, status]);
             const newRowId = insertResult ? insertResult.insertId : 0;
 
             if (newRowId) {
@@ -62,9 +62,38 @@ class CommonModel {
                 const selectResult = await query(selectSql, [employee_id]);
                 return selectResult[selectResult.length - 1];
             }
-
             return null;
         }
+    }
+
+    checkTimeUpdate = async (tableName, employee_id, date, id, method, status) => {
+        // console.log(tableName, employee_id, date, id, method, status)
+        // if (method === "ADD") {
+        const insertSql = `INSERT INTO ${tableName} (employee_id, _in, status) VALUES (?, ?, ?)`;
+        const selectSql = `SELECT * FROM ${tableName} WHERE id = LAST_INSERT_ID()`;
+
+        const insertResult = await query(insertSql, [employee_id, date, status]);
+        const newRowId = insertResult ? insertResult.insertId : 0;
+
+        if (newRowId) {
+            const selectResult = await query(selectSql);
+            return selectResult[0];
+        }
+
+        return null;
+        // } else {
+        //     const updateSql = `UPDATE ${tableName} SET _out = ?,status = ? WHERE id = ?`;
+        //     const selectSql = `SELECT * FROM ${tableName} WHERE employee_id = ?`;
+        //
+        //     const updateResult = await query(updateSql, [status, date, id]);
+        //
+        //     if (updateResult.affectedRows > 0) {
+        //         const selectResult = await query(selectSql, [employee_id]);
+        //         return selectResult[selectResult.length - 1];
+        //     }
+        //
+        //     return null;
+        // }
     }
 
     work_hours = async (tableName, employeeId, date) => {
