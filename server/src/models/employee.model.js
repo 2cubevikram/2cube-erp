@@ -1,59 +1,45 @@
 import query from '../config/db-connection.js';
+import commonModel from "./common.model.js";
 
 class EmployeeModel {
     tableName = `attendance`;
-    check_in = async (employee_id) => {
-        const sql = `INSERT INTO ${this.tableName}
-        (employee_id,status)VALUES(?,?)`
+    breakTable = `break_in_out`;
 
-        const result = await query(sql, [employee_id, 'checkIn']);
-        const affectedRows = result ? result.affectedRows : 0;
-
-        return affectedRows;
-    }
-
-    check_out = async (employee_id) => {
-        const sql = `UPDATE attendance SET check_out = CURRENT_TIMESTAMP,status = 'checkOut' WHERE employee_id = ? AND check_out IS NULL`;
-
-        const result = await query(sql, [employee_id]);
-        const affectedRows = result ? result.affectedRows : 0;
-
-        return affectedRows;
-        // return await commonModel.update(this.tableName, employee_id);
-
+    timestamp = async (id, employee_id, method, status) => {
+        return await commonModel.timestamp(this.tableName, id, employee_id, method, status);
     }
 
     work_hours = async (employeeId, date) => {
-        const startDate = `${date} 00:00:00`;
-        const endDate = `${date} 23:59:59`;
-
-        let sql = `SELECT check_in, check_out, status FROM ${this.tableName} WHERE employee_id = ? AND check_in BETWEEN ? AND ?`;
-
-        return await query(sql, [employeeId, startDate, endDate]);
-
+        return await commonModel.work_hours(this.tableName, employeeId, date);
     }
 
-    work_hours_all = async (employeeId, date) => {
-        const startDate = `${date} 00:00:00`;
-        const endDate = `${date} 23:59:59`;
-
-        let sql = `SELECT check_in, check_out, status FROM ${this.tableName} WHERE employee_id = ? AND check_in BETWEEN ? AND ?`;
-
-        return await query(sql, [employeeId, startDate, endDate]);
-    };
+    check_work_hours = async (employeeId, date) => {
+        let check = await commonModel.work_hours(this.tableName, employeeId, date);
+        let breakin = [];
+        if (check.length > 0) {
+            check = check[check.length - 1];
+            breakin = await commonModel.work_hours(this.breakTable, employeeId, date);
+        } else {
+            check = [];
+        }
+        return {
+            "check": check,
+            "breakin": breakin
+        };
+    }
 
     calculateDuration = async (checkIn, checkOut) => {
-        const sql = 'SELECT TIMEDIFF(?, ?) AS duration';
-        const result = await query(sql, [checkOut, checkIn]);
-        return result[0].duration;
+        // const sql = 'SELECT TIMEDIFF(?, ?) AS duration';
+        // const result = await query(sql, [checkOut, checkIn]);
+        // return result[0].duration;
+
+        const durationInMillis = checkOut.getTime() - checkIn.getTime();
+        const durationInHours = durationInMillis / (1000 * 60 * 60);
+        return durationInHours.toString();
     }
 
     findOne = async (params) => {
         return await commonModel.findOne(this.tableName, params);
-    }
-
-    checkInStatus = async () => {
-
     }
 
 

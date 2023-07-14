@@ -26,12 +26,12 @@ const Sidebar = () => {
                         </a>
                     </li>
 
-                    <li className="menu-item">
-                        <a href="/profile" className="menu-link">
-                            <i className="menu-icon tf-icons bx bx-dock-top"></i>
-                            <div data-i18n="Account Settings">Profile</div>
-                        </a>
-                    </li>
+                    {/*<li className="menu-item">*/}
+                    {/*    <a href="/profile" className="menu-link">*/}
+                    {/*        <i className="menu-icon tf-icons bx bx-dock-top"></i>*/}
+                    {/*        <div data-i18n="Account Settings">Profile</div>*/}
+                    {/*    </a>*/}
+                    {/*</li>*/}
                     <li className="menu-item">
                         <a href="" className="menu-link menu-toggle">
                             <i className="menu-icon tf-icons bx bx-lock-open-alt"></i>

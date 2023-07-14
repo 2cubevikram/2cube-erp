@@ -1,22 +1,16 @@
-import { useContext, useRef } from "react";
-import { loginCall } from "../../apiCalls";
-import { AuthContext } from "../../context/AuthContext";
+import { useState} from "react";
+import { connect } from 'react-redux';
+import {login} from "../../redux/actions/authActions";
 
+const LoginForm = ({login}) => {
 
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-
-const Login = () => {
-    const email = useRef();
-    const password = useRef();
-    const { isFetching, dispatch } = useContext(AuthContext);
-
-    const submitHendler = (e) => {
+    const handleSubmit = e => {
         e.preventDefault();
-        loginCall(
-            { email: email.current.value, password: password.current.value },
-            dispatch
-        );
-    }
+        login(username, password);
+    };
 
     return (
         <>
@@ -33,7 +27,7 @@ const Login = () => {
                                 <h4 className="mb-2">Welcome to 2cube studio ! 👋</h4>
                                 <p className="mb-4">Please sign-in to your account and start the session</p>
 
-                                <form id="formAuthentication" className="mb-3" onSubmit={submitHendler}>
+                                <form id="formAuthentication" className="mb-3" onSubmit={handleSubmit}>
                                     <div className="mb-3">
                                         <label htmlFor="email" className="form-label">Email or Username</label>
                                         <input
@@ -43,7 +37,7 @@ const Login = () => {
                                             name="email-username"
                                             placeholder="Enter your email or username"
                                             autoFocus
-                                            ref={email}
+                                            onChange={e => setUsername(e.target.value)}
                                         />
                                     </div>
                                     <div className="mb-3 form-password-toggle">
@@ -61,19 +55,27 @@ const Login = () => {
                                                 name="password"
                                                 placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                                 aria-describedby="password"
-                                                ref={password}
+                                                onChange={e => setPassword(e.target.value)}
                                             />
-                                            <span className="input-group-text cursor-pointer"><i className="bx bx-hide"></i></span>
+                                            <span className="input-group-text cursor-pointer"><i
+                                                className="bx bx-hide"></i></span>
                                         </div>
                                     </div>
+                                    {/*{error && <div style={{ color: 'red' }}>Please enter a valid Email or Password!</div>}*/}
+                                    <br/>
                                     <div className="mb-3">
                                         <div className="form-check">
-                                            <input className="form-check-input" type="checkbox" id="remember-me" />
-                                            <label className="form-check-label" htmlFor="remember-me"> Remember Me </label>
+                                            <input className="form-check-input" type="checkbox" id="remember-me"/>
+                                            <label className="form-check-label" htmlFor="remember-me"> Remember
+                                                Me </label>
                                         </div>
                                     </div>
                                     <div className="mb-3">
-                                        <button className="btn btn-primary d-grid w-100" type="submit" disabled={isFetching}>Sign in</button>
+                                        <button className={"btn btn-primary d-grid w-100"} type="submit">Submit</button>
+
+                                        {/*<button className="btn btn-primary d-grid w-100" type="submit"*/}
+                                        {/*       >Sign in*/}
+                                        {/*</button>*/}
                                     </div>
                                 </form>
 
@@ -92,4 +94,5 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default connect(null, { login })(LoginForm);
+

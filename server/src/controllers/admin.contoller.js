@@ -2,6 +2,7 @@ import AuthModel from '../models/auth.model.js';
 import {v4 as uuid, validate as uuidValidate} from 'uuid';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import moment from 'moment';
 
 
 /******************************************************************************
@@ -26,17 +27,16 @@ class AdminController {
     login = async (req, res, next) => {
         const {email, password: pass} = req.body;
 
-        console.log(email);
         const user = await AuthModel.findOne({email});
 
         if (!user) {
-            res.status(400).send({message: 'Incorrect email or password.'});
+            res.status(400).send({message: 'Incorrect user name or email.'});
             return;
         }
 
         const isMatch = await bcrypt.compare(pass, user.password)
         if (!isMatch) {
-            res.status(400).send({message: 'Incorrect email or password.'});
+            res.status(400).send({message: 'Incorrect insert password.'});
             return;
         }
 
@@ -80,7 +80,25 @@ class AdminController {
         req.body.updated_at = new Date();
         console.log(req.body);
 
-        const result = await AuthModel.update(req.body, req.currentUser.id);
+        // const result = await AuthModel.update(req.body, req.currentUser.id);
+    }
+
+    checkTimeUpdate = async (req, res, next) => {
+        const id = req.currentUser.id;
+        const userId = req.params.id;
+
+        const user = await AuthModel.findOne({id});
+
+        if (user.role != 'Admin') {
+            res.status(401).send({message: 'Admin can edit'});
+            return;
+        }
+        // req.body._in = moment(`${req.body.date}T${req.body.time}`).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+
+        req.body.updated_by = user.role;
+        //
+        const result = await AuthModel.checkTimeUpdate(req.body, req.currentUser.id);
+
     }
 
     // hash password if it exists

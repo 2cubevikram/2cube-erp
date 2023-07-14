@@ -1,24 +1,18 @@
-import { useContext } from 'react';
-import { AuthContext } from "../../context/AuthContext";
 import {useNavigate} from "react-router-dom";
-
-
+import { useSelector } from 'react-redux';
+import {getUser} from "../../redux/reducers/authReducer";
+import { useDispatch } from 'react-redux';
+import {logoutUser} from "../../redux/actions/authActions";
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const { user } = useContext(AuthContext);
+    const user = useSelector(getUser);
+
+    const dispatch = useDispatch();
+
     const logoutHandler = (e) => {
         e.preventDefault();
-
-        localStorage.clear();
-        window.location.reload();
-        navigate('/')
-
-
-        // logout(
-        //     { email: email.current.value, password: password.current.value },
-        //     dispatch
-        // );
+        dispatch(logoutUser());
     };
     return (
         <>
@@ -61,6 +55,7 @@ const Navbar = () => {
                                                 </div>
                                             </div>
                                             <div className="flex-grow-1">
+
                                                 <span className="fw-semibold d-block">{user.first_name} {user.last_name}</span>
                                                 <small className="text-muted">{user.role}</small>
                                             </div>
@@ -96,7 +91,7 @@ const Navbar = () => {
                                     <div className="dropdown-divider"></div>
                                 </li>
                                 <li>
-                                    <a className="dropdown-item" href="/" onClick={logoutHandler}>
+                                    <a className="dropdown-item"  onClick={logoutHandler}>
                                         <i className="bx bx-power-off me-2"></i>
                                         <span className="align-middle">Log Out</span>
                                     </a>

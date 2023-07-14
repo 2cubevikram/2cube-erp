@@ -3,8 +3,9 @@ import commonModel from './common.model.js';
 
 class AuthModel {
     tableName = `users`;
+    attendance_tableName = `attendance`;
 
-    create = async ({ id, first_name, last_name, email, password, role }) => {
+    create = async ({id, first_name, last_name, email, password, role}) => {
         const sql = `INSERT INTO ${this.tableName}
         (id, first_name, last_name, email, password, role)VALUES(?,?,?,?,?,?)`
 
@@ -26,8 +27,9 @@ class AuthModel {
         return await commonModel.update(this.tableName, params, id);
     }
 
-    allEmployee= async () => {
-
+    checkTimeUpdate = async (params, id) => {
+        console.log(params, id)
+        // return await commonModel.update(this.attendance_tableName, params, id);
     }
 }
 

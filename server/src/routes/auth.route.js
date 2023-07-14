@@ -14,14 +14,19 @@ router.post('/login', awaitHandlerFactory(AdminController.login));
 router.patch('/edit', auth(), awaitHandlerFactory(AdminController.edit));
 router.get('/employees', auth(), awaitHandlerFactory(AdminController.getAllEmployee));
 router.get('/id/:id', auth(), awaitHandlerFactory(AdminController.getEmployeeById));
+router.patch('/check-time-edit', auth(), awaitHandlerFactory(AdminController.checkTimeUpdate));
 
 //User use
 router.patch('/user/edit', auth(), (UploadMediaController.uplodMedia), awaitHandlerFactory(EmployeeController.edit));
 router.get('/checkAttendance', auth(), awaitHandlerFactory(EmployeeController.checkAttendance));
-router.get('/checkAllAttendance', auth(), awaitHandlerFactory(EmployeeController.checkAllAttendance));
-router.post('/check-in', auth(), awaitHandlerFactory(EmployeeController.check_in));
-router.patch('/check-out', auth(), awaitHandlerFactory(EmployeeController.check_out));
 router.get('/check-in-status', auth(), awaitHandlerFactory(EmployeeController.checkInStatus));
+router.get('/break-count', auth(), awaitHandlerFactory(EmployeeController.break_calculation));
+router.get('/break-status', auth(), awaitHandlerFactory(EmployeeController.break_status));
+
+
+
+router.post('/timestamp', auth(), awaitHandlerFactory(EmployeeController.timestamp));
+router.patch('/timestamp', auth(), awaitHandlerFactory(EmployeeController.timestamp));
 
 
 

@@ -1,126 +1,22 @@
-import {useContext, useEffect, useState} from 'react';
-import {AuthContext} from "../../context/AuthContext";
-import axios from "axios";
+import React, {useEffect} from 'react';
+import CheckAction from "../user-action/check-action";
+import BreakAction from "../user-action/break-action";
+import {useDispatch, useSelector} from "react-redux";
+import {getDayStatus} from "../../redux/actions/breakAction";
 
 
 const Dashboard = () => {
-    const {user} = useContext(AuthContext);
-    const token = user.token;
 
-    const [state, setState] = useState({
-        status: 400,
-        message: "Check in"
-    });
-
-    const checkInFunction = async () => {
-        const headers = {
-            Authorization: `Bearer ${token}`
-        };
-        const checkInState = await axios.post("/auth/check-in", null, {headers});
-        setState({
-            status: 200,
-            message: checkInState.data,
-        })
-    }
-    const checkOutFunction = async () => {
-        const headers = {
-            Authorization: `Bearer ${token}`
-        };
-        const checkInState = await axios.patch("/auth/check-out", null, {headers});
-
-        setState({
-            message: checkInState.data,
-            status: 400,
-        })
-    }
-    const checkInCheckOut = () => {
-        return (
-            <div>
-                {
-                    state.status === 400 ? (
-                        <>
-                            <p>{state.message}</p>
-                            <button className="btn btn-sm btn-outline-primary" onClick={checkInFunction}>Check In
-                            </button>
-                        </>
-                    ) : ""
-                }
-
-                {
-                    state.status === 200 ? (
-                        <>
-                            <p>{state.message}</p>
-                            <button className="btn btn-sm btn-outline-primary" onClick={checkOutFunction}>Check Out
-                            </button>
-                        </>
-                    ) : ""
-                }
-            </div>
-        )
-    }
-
-    const checkIn = async (e) => {
-        e.preventDefault();
-        try {
-            const headers = {
-                Authorization: `Bearer ${token}`
-            };
-            const checkInState = await axios.post("/auth/check-in", null, {headers});
-            setState({
-                checkin: checkInState.status
-            });
-            // console.log(state)
-            // navigate("/login");
-        } catch (err) {
-            console.log(err);
-        }
-    }
-    const checkOut = async (e) => {
-        e.preventDefault();
-        try {
-            const headers = {
-                Authorization: `Bearer ${token}`
-            };
-            const checkInState = await axios.patch("/auth/check-out", null, {headers});
-            if (checkInState.status === 200) {
-                setState({
-                    checkin: 400
-                });
-            } else {
-                setState({
-                    checkin: 200
-                });
-            }
-            // navigate("/login");
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    const fetchCheckInStatus = async () => {
-        try {
-            const headers = {
-                Authorization: `Bearer ${token}`
-            };
-            const response = await axios.get('/auth/check-in-status', {headers});
-            const data = response.data;
-            const result = data[data.length - 1];
-
-            const newState =
-                result.status === 'checkIn'
-                    ? {status: 200, message: 'Check in successfully !'}
-                    : result.status === 'checkOut'
-                        ? {status: 400, message: 'Check out successfully !'}
-                        : {status: 200, message: 'You are checked in !'};
-            setState(newState);
-        } catch (error) {
-            console.log('Error in fetching check-in status:', error.message);
-        }
-    }
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.login.user);
 
     useEffect(() => {
-        fetchCheckInStatus();
-    }, []);
+        dispatch(getDayStatus({user}))
+    }, [dispatch, user]);
+
+    const _break = useSelector(state => state.break.status);
+    const _check = useSelector(state => state.check.status);
+
     return (
         <>
             <div className="content-wrapper">
@@ -132,12 +28,24 @@ const Dashboard = () => {
 
                                     <div className="col-sm-7">
                                         <div className="card-body">
-                                            <h5 className="card-title text-primary">Welcome, {user.first_name} ! 🎉</h5>
+                                            <h5 className="card-title text-primary">Welcome, {user.first_name} {user.last_name} ! 🎉</h5>
                                             <p className="mb-4">
                                                 🌞 It's time for our daily check-in to get the day started on the right
                                                 foot. Looking forward to a productive and successful day ahead! 💪
                                             </p>
-                                            {checkInCheckOut()}
+                                            <p>
+                                                {/*{*/}
+                                                {/*    state.status === "CheckIn" && Array.isArray(state) ? (*/}
+                                                {/*        state.map((item, index) => {*/}
+                                                {/*            {item}*/}
+                                                {/*        })*/}
+                                                {/*    ) : null*/}
+                                                {/*}*/}
+                                            </p>
+                                            <div className="btn_wrp1">
+                                                <CheckAction break_status={_break} check_status={_check}/>
+                                                <BreakAction break_status={_break} check_status={_check}/>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -187,10 +95,10 @@ const Dashboard = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <span className="fw-semibold d-block mb-1">Profit</span>
-                                            <h3 className="card-title mb-2">$12,628</h3>
-                                            <small className="text-success fw-semibold"><i
-                                                className="bx bx-up-arrow-alt"></i> +72.80%</small>
+                                            <span className="fw-semibold d-block mb-1">Day Work</span>
+                                            {/*<h3 className="card-title mb-2">Total {state.work.minimumWorkingHours}</h3>*/}
+                                            {/*<small className="text-success fw-semibold"><i*/}
+                                            {/*    className="bx bx-up-arrow-alt"></i>Worked {wokrHours}</small>*/}
                                         </div>
                                     </div>
                                 </div>
