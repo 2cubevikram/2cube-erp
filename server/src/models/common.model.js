@@ -38,7 +38,7 @@ class CommonModel {
         return result;
     }
 
-    timestamp = async (tableName, id, employee_id, _time, method, status) => {
+    timestamp = async (tableName, row_id, employee_id, _time, method, status) => {
         if (method === "ADD") {
             const insertSql = `INSERT INTO ${tableName} (employee_id, _in, status) VALUES (?, ?, ?)`;
             const selectSql = `SELECT * FROM ${tableName} WHERE id = LAST_INSERT_ID()`;
@@ -56,7 +56,7 @@ class CommonModel {
             const updateSql = `UPDATE ${tableName} SET _out = CURRENT_TIMESTAMP,status = ? WHERE id = ?`;
             const selectSql = `SELECT * FROM ${tableName} WHERE employee_id = ?`;
 
-            const updateResult = await query(updateSql, [status, id]);
+            const updateResult = await query(updateSql, [status, row_id]);
 
             if (updateResult.affectedRows > 0) {
                 const selectResult = await query(selectSql, [employee_id]);

@@ -14,7 +14,8 @@ router.post('/login', awaitHandlerFactory(AdminController.login));
 router.patch('/edit', auth(), awaitHandlerFactory(AdminController.edit));
 router.get('/employees', auth(), awaitHandlerFactory(AdminController.getAllEmployee));
 router.get('/id/:id', auth(), awaitHandlerFactory(AdminController.getEmployeeById));
-router.post('/check-time-edit', auth(), awaitHandlerFactory(AdminController.checkTimeUpdate));
+router.patch('/check-time-edit', auth(), awaitHandlerFactory(AdminController.checkTimeUpdate));
+router.patch('/break-time-edit', auth(), awaitHandlerFactory(AdminController.breakTimeUpdate));
 
 //User use
 router.patch('/user/edit', auth(), (UploadMediaController.uplodMedia), awaitHandlerFactory(EmployeeController.edit));

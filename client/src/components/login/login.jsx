@@ -10,6 +10,7 @@ const LoginForm = ({login}) => {
     const handleSubmit = e => {
         e.preventDefault();
         login(username, password);
+        console.log(login)
     };
 
     return (

@@ -5,8 +5,8 @@ class EmployeeModel {
     tableName = `attendance`;
     breakTable = `break_in_out`;
 
-    timestamp = async (id, employee_id, _time, method, status) => {
-        return await commonModel.timestamp(this.tableName, id, employee_id, _time, method, status);
+    timestamp = async (row_id, employee_id, _time, method, status, updated_by) => {
+        return await commonModel.timestamp(this.tableName, row_id, employee_id, _time, method, status, updated_by);
     }
 
     work_hours = async (employeeId, date) => {
@@ -40,6 +40,11 @@ class EmployeeModel {
 
     findOne = async (params) => {
         return await commonModel.findOne(this.tableName, params);
+    }
+
+    checkTimeUpdate = async (params, id) => {
+        // console.log(params, id)
+        return await commonModel.update(this.tableName, params, id);
     }
 
 

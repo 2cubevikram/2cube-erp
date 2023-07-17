@@ -64,8 +64,6 @@ class EmployeeController {
         console.log(currentDate);
         req.body._time = moment().format('YYYY-MM-DD HH:mm:ss');
 
-        // res.send(req.body._in);
-
         const employee_id = req.currentUser.id
         let result;
 

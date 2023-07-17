@@ -3,6 +3,8 @@ import {v4 as uuid, validate as uuidValidate} from 'uuid';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import moment from 'moment';
+import EmployeeModel from "../models/employee.model.js";
+import BreakModel from "../models/break.model.js";
 
 
 /******************************************************************************
@@ -85,24 +87,76 @@ class AdminController {
 
     checkTimeUpdate = async (req, res, next) => {
         const id = req.currentUser.id;
+        const tableAction = req.body.action;
+        const row_id = req.body.id;
+        let current_time = moment().format('YYYY-MM-DD HH:mm:ss');
 
-        const tableid = 1234;
-        const employee_id = req.currentUser.id
-        const currentDate = new Date();
+        if (req.body.time !== undefined && req.body.date !== undefined) {
+            current_time = moment(`${req.body.date}T${req.body.time}`).format('YYYY-MM-DD HH:mm:ss');
+        }
 
         const user = await AuthModel.findOne({id});
 
-        if (user.role != 'Admin') {
+        if (user.role !== 'Admin' && user.role !== 'HR') {
             res.status(401).send({message: 'Admin can edit'});
             return;
         }
 
-        req.body._in = currentDate.toISOString().slice(0, 19).replace('T', ' ');
+        let result;
+        if (req.body.action === 'in') {
+            const params = {
+                _in: current_time,
+                status: req.body.status,
+                updated_by: user.role
+            }
+            result = await EmployeeModel.checkTimeUpdate(params, row_id);
+        } else {
+            const params = {
+                _out: current_time,
+                status: req.body.status,
+                updated_by: user.role
+            }
+            result = await EmployeeModel.checkTimeUpdate(params, row_id);
+        }
 
-        // req.body.updated_by = user.role;
-        console.log(req.body._in);
-        // const result = await AuthModel.checkTimeUpdate(employee_id, req.body._in, req.body.status, req.body.method, tableid);
+        res.send(result);
+    }
 
+    breakTimeUpdate = async (req, res, next) => {
+        const id = req.currentUser.id;
+        const tableAction = req.body.action;
+        const row_id = req.body.id;
+        let current_time = moment().format('YYYY-MM-DD HH:mm:ss');
+
+        if (req.body.time !== undefined && req.body.date !== undefined) {
+            current_time = moment(`${req.body.date}T${req.body.time}`).format('YYYY-MM-DD HH:mm:ss');
+        }
+
+        const user = await AuthModel.findOne({id});
+
+        if (user.role !== 'Admin' && user.role !== 'HR') {
+            res.status(401).send({message: 'Admin can edit'});
+            return;
+        }
+
+        let result;
+        if (req.body.action === 'in') {
+            const params = {
+                _in: current_time,
+                status: req.body.status,
+                updated_by: user.role
+            }
+            result = await BreakModel.breakTimeUpdate(params, row_id);
+        } else {
+            const params = {
+                _out: current_time,
+                status: req.body.status,
+                updated_by: user.role
+            }
+            result = await BreakModel.breakTimeUpdate(params, row_id);
+        }
+
+        res.send(result);
     }
 
     // hash password if it exists

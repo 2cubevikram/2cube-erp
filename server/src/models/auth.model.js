@@ -26,10 +26,6 @@ class AuthModel {
     update = async (params, id) => {
         return await commonModel.update(this.tableName, params, id);
     }
-
-    checkTimeUpdate = async (employee_id, _in, status, method, id) => {
-        return await commonModel.checkTimeUpdate(this.attendance_tableName, employee_id, _in, status, method, id);
-    }
 }
 
 export default new AuthModel;
