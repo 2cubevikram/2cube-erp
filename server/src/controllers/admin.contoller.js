@@ -87,74 +87,71 @@ class AdminController {
 
     checkTimeUpdate = async (req, res, next) => {
         const id = req.currentUser.id;
-        const tableAction = req.body.action;
         const row_id = req.body.id;
-        let current_time = moment().format('YYYY-MM-DD HH:mm:ss');
-
-        if (req.body.time !== undefined && req.body.date !== undefined) {
-            current_time = moment(`${req.body.date}T${req.body.time}`).format('YYYY-MM-DD HH:mm:ss');
+        let inTime = null;
+        let outTime = null;
+        if (req.body._in !== null) {
+            inTime = moment(`${req.body.date}T${req.body._in}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss');
+        }
+        if (req.body._out !== null) {
+            outTime = moment(`${req.body.date}T${req.body._out}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss');
         }
 
         const user = await AuthModel.findOne({id});
 
         if (user.role !== 'Admin' && user.role !== 'HR') {
-            res.status(401).send({message: 'Admin can edit'});
+            res.status(401).send({message: 'Employees are not allowed to edit their recorded time.'});
             return;
         }
-
-        let result;
-        if (req.body.action === 'in') {
-            const params = {
-                _in: current_time,
-                status: req.body.status,
-                updated_by: user.role
-            }
-            result = await EmployeeModel.checkTimeUpdate(params, row_id);
-        } else {
-            const params = {
-                _out: current_time,
-                status: req.body.status,
-                updated_by: user.role
-            }
-            result = await EmployeeModel.checkTimeUpdate(params, row_id);
+        if(outTime === "Invalid date"){
+            req.body.status = "CHECK_IN";
+        }else{
+            req.body.status = "CHECK_OUT";
         }
+
+        const params = {
+            _in: inTime,
+            _out: outTime,
+            status: req.body.status,
+            updated_by: user.role
+        }
+        let result = await EmployeeModel.checkTimeUpdate(params, row_id);
 
         res.send(result);
     }
 
     breakTimeUpdate = async (req, res, next) => {
         const id = req.currentUser.id;
-        const tableAction = req.body.action;
         const row_id = req.body.id;
-        let current_time = moment().format('YYYY-MM-DD HH:mm:ss');
-
-        if (req.body.time !== undefined && req.body.date !== undefined) {
-            current_time = moment(`${req.body.date}T${req.body.time}`).format('YYYY-MM-DD HH:mm:ss');
+        let inTime = null;
+        let outTime = null;
+        if (req.body._in !== null) {
+            inTime = moment(`${req.body.date}T${req.body._in}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss');
+        }
+        if (req.body._out !== null) {
+            outTime = moment(`${req.body.date}T${req.body._out}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss');
         }
 
         const user = await AuthModel.findOne({id});
 
         if (user.role !== 'Admin' && user.role !== 'HR') {
-            res.status(401).send({message: 'Admin can edit'});
+            res.status(401).send({message: 'Employees are not allowed to edit their recorded time.'});
             return;
         }
 
-        let result;
-        if (req.body.action === 'in') {
-            const params = {
-                _in: current_time,
-                status: req.body.status,
-                updated_by: user.role
-            }
-            result = await BreakModel.breakTimeUpdate(params, row_id);
-        } else {
-            const params = {
-                _out: current_time,
-                status: req.body.status,
-                updated_by: user.role
-            }
-            result = await BreakModel.breakTimeUpdate(params, row_id);
+        if(outTime === "Invalid date"){
+            req.body.status = "BREAK_IN";
+        }else{
+            req.body.status = "BREAK_OUT";
         }
+
+        const params = {
+            _in: inTime,
+            _out: outTime,
+            status: req.body.status,
+            updated_by: user.role
+        }
+        let result = await BreakModel.breakTimeUpdate(params, row_id);
 
         res.send(result);
     }

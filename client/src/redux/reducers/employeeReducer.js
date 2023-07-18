@@ -6,6 +6,8 @@ const employeeReducer = (state = initialState, action) => {
             return action.payload;
         case 'GET_EMPLOYEE_FAILURE':
             return action.payload;
+        case 'BREAK_TIME_EDIT':
+            return action.payload;
         default:
             return state;
     }

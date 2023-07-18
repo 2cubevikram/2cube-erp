@@ -61,7 +61,6 @@ class EmployeeController {
         const tableAction = req.body.action;
         const id = req.body.id;
         const currentDate = new Date();
-        console.log(currentDate);
         req.body._time = moment().format('YYYY-MM-DD HH:mm:ss');
 
         const employee_id = req.currentUser.id
@@ -112,16 +111,7 @@ class EmployeeController {
                 workingHours += parseFloat(hours);
             }
             const breakResult = await this.break_calculation(req, res)
-            console.log(breakResult)
 
-            // const currentTime = new Date();
-            // const latestCheckIn = result.length > 0 ? new Date(result[result.length - 1].in) : null;
-
-            // if (latestCheckIn && latestCheckIn.toDateString() === currentTime.toDateString()) {
-            //     // User has a check-in entry for the current day
-            //     const duration = (currentTime - latestCheckIn) / 1000 / 60 / 60; // Duration in hours
-            //     workingHours += duration;
-            // }
             let breakHours = breakResult.brakeTimeHours;
             let workedgHours = workingHours - breakHours
             let remainWorkingHours = minimumWorkingHours - workedgHours;
@@ -208,12 +198,7 @@ class EmployeeController {
                 brakeTimeHours += parseFloat(hours);
             }
             const currentTime = new Date();
-            // const latestCheckIn = result.length > 0 ? new Date(result[result.length - 1].in) : null;
-            // if (latestCheckIn && latestCheckIn.toDateString() === currentTime.toDateString()) {
-            //     // User has a check-in entry for the current day
-            //     const duration = (currentTime - latestCheckIn) / 1000 / 60 / 60; // Duration in hours
-            //     brakeTimeHours += duration;
-            // }
+
             if (req.body.date !== undefined) {
                 console.log(
                     'for testing', 'EmpId', '-', employeeId, '/', 'WorkDate', '-', date, '/', 'B hours', '-', brakeTimeHours

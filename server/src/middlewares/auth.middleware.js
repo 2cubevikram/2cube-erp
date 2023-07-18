@@ -27,7 +27,7 @@ const auth = () => {
                 return;
             }
             if (user.status != 'Active' && user.status != 'Unverified') {
-                res.status(401).send({ message: 'Unauthorized' });
+                res.status(401).send({ message: 'Editing is limited to the respective account holders only' });
                 return;
             }
 

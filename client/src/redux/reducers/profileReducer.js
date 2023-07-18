@@ -18,6 +18,8 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 attendance:action.payload
             }
+        case 'BREAK_TIME_EDIT':
+            return action.payload;
         default:
             return state;
     }

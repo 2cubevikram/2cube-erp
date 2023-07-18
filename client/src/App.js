@@ -30,6 +30,7 @@ function App({state}) {
                     <Route exact path="/employees" element={state.login.isLoggedIn ? <Employee/> : <Navigate to="/Login"/>}></Route>
                     <Route exact path="/profile" element={state.login.isLoggedIn ? <Profile/> : <Navigate to="/Login"/>}></Route>
                     <Route exact path="/profile/:id" element={state.login.isLoggedIn ? <Profile/> : <Navigate to="/Login"/>}></Route>
+                    <Route exact path="/register" element={!state.login.isLoggedIn ? <Register/> : <Navigate to="/"/>}/>
                 </Routes>
             </Router>
         </>

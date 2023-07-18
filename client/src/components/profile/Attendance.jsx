@@ -1,12 +1,14 @@
-import {connect, useSelector} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
-import {useEffect} from "react";
-import {getAttendance} from "../../redux/actions/profileAction";
+import React, {useEffect, useState} from "react";
+import moment from "moment";
+import {getAttendance, breakTimeEdit} from "../../redux/actions/profileAction";
 import {formatDateTime} from "../../function/time";
 
 
-const Attendance = ({getAttendance}) => {
+const Attendance = ({getAttendance, breakTimeEdit}) => {
     const location = useLocation();
+    const [filterDate, setFilterDate] = useState();
 
     const id = location.state.id;
     const user = useSelector((state) => state.login.user);
@@ -34,11 +36,24 @@ const Attendance = ({getAttendance}) => {
         footer_data.working_hours = formatDateTime.convertMinutesToHours(minutes_to_hours);
     }
 
+    const handleClick = () => {
+        getAttendance({ user, id, filterDate });
+    };
+    const handleChange = (event) => {
+        setFilterDate(event.target.value);
+    };
+
+    const handleClear = () => {
+        setFilterDate('');
+        getAttendance({ user, id });
+    }
+
     useEffect(() => {
-        getAttendance({user, id});
-    }, [user]);
+        getAttendance({user, id, filterDate});
+    }, [getAttendance, user, id]);
 
     let DATA = "";
+
     if (attendance.check === null) {
         DATA = (
             <tr>
@@ -74,6 +89,14 @@ const Attendance = ({getAttendance}) => {
                                 <th>TYPE</th>
                                 <th>Total Time</th>
                                 <th>Actions</th>
+                                <input
+                                    type="date"
+                                    name="filterDate"
+                                    value={filterDate}
+                                    onChange={handleChange}
+                                />
+                                <button onClick={handleClick}>filter</button>
+                                <button onClick={handleClear}>clear</button>
                             </tr>
                             </thead>
                             <tbody className="table-border-bottom-0">
@@ -91,7 +114,7 @@ const Attendance = ({getAttendance}) => {
 }
 
 const Tfooter = (props) => {
-    const {data, remainWork} = props;
+    const {data} = props;
 
     return (
         <tfoot className="table-border-bottom-0">
@@ -107,9 +130,8 @@ const Tfooter = (props) => {
 }
 
 const TR = ({data}) => {
-
-
-    const inTime = formatDateTime.getTime(data._in)
+    const user = useSelector((state) => state.login.user);
+    const inTime = formatDateTime.getTime(data._in);
 
     let outTime = '';
     if (data._out) {
@@ -129,46 +151,130 @@ const TR = ({data}) => {
 
     const differenceTime = formatDateTime.TimeDifference(CheckinTime, CheckoutTime);
 
+    const [childValue, setChildValue] = useState(false);
+    const handleChange = (event) => {
+        const newValue = !childValue;
+        setChildValue(newValue);
+        console.log(newValue)
+    };
+
+    return (
+        <>
+            <tr className="table-default" key={data.id}>
+                <td>
+                    {inTime}
+                </td>
+                <td>{outTime}</td>
+                <td>{data.status}</td>
+                <td>
+                    {
+                        CheckoutTime ? (
+                            <span className="badge bg-label-primary me-1">{differenceTime}</span>
+                        ) : (<span>Out time not available</span>)
+                    }
+                </td>
+                <td>
+                    <div className="dropdown">
+                        {user.role === 'Admin' || user.role === 'HR' ? (
+                            <button onClick={handleChange}>edit</button>
+                        ) : null}
+                        <button type="button" className="btn p-0 dropdown-toggle hide-arrow"
+                                data-bs-toggle="dropdown">
+                            <i className="bx bx-dots-vertical-rounded"></i>
+                        </button>
+                        <div className="dropdown-menu">
+                            {/*<Link to={`/profile/${item.id}`} className="dropdown-item"><i*/}
+                            {/*    className="bx bx-edit-alt me-1"></i>Profile</Link>*/}
+                            {/*<Link*/}
+                            {/*    to={`/profile`}*/}
+                            {/*      state={{ id: data.id }}*/}
+                            {/*      onClick={handleChange}*/}
+                            {/*      className="dropdown-item"><i*/}
+                            {/*    className="bx bx-edit-alt me-1"></i>Edit</Link>*/}
+                            <a className="dropdown-item" href="/"><i
+                                className="bx bx-trash me-1"></i> Delete</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {
+                childValue ? (
+                    <EditableRow _data={data} inTime={inTime} outTime={outTime}/>
+                ) : ""
+            }
+        </>
+    )
+}
+
+
+const EditableRow = ({_data, inTime, outTime}) => {
+    const status = _data.status;
+    const dispatch = useDispatch();
+    const [_inTime, setInTime] = useState(inTime);
+    const [_outTime, setOutTime] = useState(outTime);
+    const [_status, setStatus] = useState(status);
+
+    const _date = formatDateTime.getDate(_data._in)
+
+    const user = useSelector((state) => state.login.user);
+
+    const dateParts = _date.split('/');
+    const day = dateParts[0].padStart(2, '0');
+    const month = dateParts[1].padStart(2, '0');
+    const year = dateParts[2];
+
+    const formattedDate = `${year}-${month}-${day}`;
+
+    const handleInTimeChange = (event) => {
+        setInTime(event.target.value);
+    };
+    const handleOutTimeChange = (event) => {
+        setOutTime(event.target.value);
+    };
+
+    const handleStatusChange = (event) => {
+        setStatus(event.target.value);
+    }
+
+    const _newInTime = moment(_inTime, "h:mm A").format("HH:mm:ss");
+    const _newOutTime = moment(_outTime, "h:mm A").format("HH:mm:ss");
+
+    const handleSave = () => {
+        const obj = {
+            'id': _data.id,
+            'date': formattedDate,
+            '_in': _newInTime,
+            '_out': _newOutTime,
+            'status': _status
+        }
+        // console.log(obj)
+        dispatch(breakTimeEdit({user, obj}));
+        window.location.reload();
+    };
     return (
         <tr className="table-default" key={"id"}>
+            {/*<td>*/}
+            {/*    /!*<input type="text" name="inTime" value={inTime}/>*!/*/}
+            {/*    <input type="date" name="inTime" value={_inTime} onChange={handleInTimeChange} />*/}
+            {/*</td>*/}
             <td>
-                {inTime}
-            </td>
-            <td>{outTime}</td>
-            <td>
-                {
-                    data.status
-                }
+                <input type="text" name="inTime" value={_inTime} onChange={handleInTimeChange}/>
             </td>
 
             <td>
-                {CheckoutTime ? (
-                    <span className="badge bg-label-primary me-1">
-                      {differenceTime}
-                    </span>
-                ) : (
-                    <span>Out time not available</span>
-                )}
+                <input type="text" name="outTime" value={_outTime} onChange={handleOutTimeChange}/>
+            </td>
+            <td><input type="text" name="status" value={_status} onChange={handleStatusChange}/></td>
+            <td>
+
             </td>
             <td>
                 <div className="dropdown">
-                    <button type="button" className="btn p-0 dropdown-toggle hide-arrow"
-                            data-bs-toggle="dropdown">
-                        <i className="bx bx-dots-vertical-rounded"></i>
-                    </button>
-                    <div className="dropdown-menu">
-                        {/*<Link to={`/profile/${item.id}`} className="dropdown-item"><i*/}
-                        {/*    className="bx bx-edit-alt me-1"></i>Profile</Link>*/}
-                        <a className="dropdown-item" href="/"><i
-                            className="bx bx-edit-alt me-1"></i> Edit</a>
-                        <a className="dropdown-item" href="/"><i
-                            className="bx bx-trash me-1"></i> Delete</a>
-                    </div>
+                    <button onClick={handleSave}>Save</button>
                 </div>
             </td>
         </tr>
     )
 }
-
 
 export default connect(null, {getAttendance})(Attendance);

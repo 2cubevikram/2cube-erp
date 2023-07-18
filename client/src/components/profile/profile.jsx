@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {useNavigate, useParams , useLocation} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 import {connect, useSelector} from "react-redux";
 import Account from "./Account";
 import Attendance from "./Attendance";
@@ -13,6 +13,8 @@ const Profile = ({getProfile}) => {
     const user = useSelector((state) => state.login.user);
     const profile = useSelector((state) => state.user.profile);
     const [activeTab, setActiveTab] = useState(1);
+    let currentTab;
+    activeTab === 1 ? currentTab = "Account" : currentTab = "Attendance";
 
     const handleTabClick = (tabNumber) => {
         setActiveTab(tabNumber);
@@ -39,8 +41,7 @@ const Profile = ({getProfile}) => {
     return (
         <>
             <div className="container-xxl flex-grow-1 container-p-y">
-                <h4 className="fw-bold py-3 mb-4"><span
-                    className="text-muted fw-light">Account Settings /</span> Account</h4>
+                <h4 className="fw-bold py-3 mb-4"><span className="text-muted fw-light">Account Settings /</span> {currentTab} <span className="text-muted fw-light"> Of {profile.first_name} {profile.last_name}</span></h4>
                 <div className="row">
                     <div className="col-md-12">
                         <ul className="nav nav-pills flex-column flex-md-row mb-3">
@@ -57,7 +58,7 @@ const Profile = ({getProfile}) => {
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="pages-account-settings-connections.html"
+                                <a className="nav-link" href="/profile"
                                 ><i className="bx bx-link-alt me-1"></i> Connections</a
                                 >
                             </li>
