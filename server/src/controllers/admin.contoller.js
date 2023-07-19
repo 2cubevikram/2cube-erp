@@ -6,7 +6,6 @@ import moment from 'moment';
 import EmployeeModel from "../models/employee.model.js";
 import BreakModel from "../models/break.model.js";
 
-
 /******************************************************************************
  *                              Auth Controller
  ******************************************************************************/
@@ -115,6 +114,7 @@ class AdminController {
             status: req.body.status,
             updated_by: user.role
         }
+        console.log(params)
         let result = await EmployeeModel.checkTimeUpdate(params, row_id);
 
         res.send(result);
@@ -152,6 +152,7 @@ class AdminController {
             updated_by: user.role
         }
         let result = await BreakModel.breakTimeUpdate(params, row_id);
+
 
         res.send(result);
     }

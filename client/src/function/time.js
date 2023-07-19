@@ -34,8 +34,6 @@ export const formatDateTime = {
     calculateTotal: function (arr) {
         let totalBreakTime = 0;
 
-
-
         for (let i = 0; i < arr.length; i++) {
             const inTime = new Date(arr[i]._in);
             const outTime = new Date(arr[i]._out || arr[i]._in);
@@ -55,7 +53,6 @@ export const formatDateTime = {
     },
 
     getCheckTimeToCurrentTime: function (inTime) {
-        // console.log(inTime)
         const currentTime = new Date();
         const currentHours = currentTime.getHours();
         const currentMinutes = currentTime.getMinutes();
@@ -77,8 +74,31 @@ export const formatDateTime = {
         const minutes = ("0" + diffMinutes).slice(-2);
         const result = `${hours}:${minutes}`;
 
-        const a = hours;
-        // console.log(result)
+        return result;
+    },
+    getCheckTimeToComplateTime: function (inTime, outTime) {
+        const currentTime = new Date(outTime);
+
+        const currentHours = currentTime.getHours();
+        const currentMinutes = currentTime.getMinutes();
+
+        const checkInTimeObj = new Date(inTime);
+        const checkInHours = checkInTimeObj.getHours();
+        const checkInMinutes = checkInTimeObj.getMinutes();
+
+        let diffHours = currentHours - checkInHours;
+        let diffMinutes = currentMinutes - checkInMinutes;
+
+        // Adjust the difference if minutes are negative
+        if (diffMinutes < 0) {
+            diffHours--;
+            diffMinutes += 60;
+        }
+
+        const hours = ("0" + diffHours).slice(-2);
+        const minutes = ("0" + diffMinutes).slice(-2);
+        const result = `${hours}:${minutes}`;
+
         return result;
     },
 

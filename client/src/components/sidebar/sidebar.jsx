@@ -1,13 +1,16 @@
-
+import {useSelector} from "react-redux";
+import {Link} from "react-router-dom";
+import React from "react";
 
 
 const Sidebar = () => {
+    const user = useSelector((state) => state.login.user);
     return (
         <>
             <aside id="layout-menu" className="layout-menu menu-vertical menu bg-menu-theme">
                 <div className="app-brand demo">
                     <a href="#" className="app-brand-link">
-                        
+
                     </a>
                 </div>
                 <div className="menu-inner-shadow"></div>
@@ -18,20 +21,24 @@ const Sidebar = () => {
                             <div data-i18n="Analytics">Dashboard</div>
                         </a>
                     </li>
+                    {
+                        user && (user.role === "Admin" || user.role === "HR") ? (
+                            <li className="menu-item">
+                                <a href="/employees" className="menu-link">
+                                    <i className="menu-icon tf-icons bx bx-table"></i>
+                                    <div data-i18n="Tables">Employees</div>
+                                </a>
+                            </li>
+                        ) : (
+                            <li className="menu-item">
+                                <Link to={`/profile`}
+                                      state={{id: user.id}}
+                                      className="menu-link"><i
+                                    className="menu-icon tf-icons bx bx-lock-open-alt"></i>Profile</Link>
+                            </li>)
+                    }
 
-                    <li className="menu-item">
-                        <a href="/employees" className="menu-link">
-                            <i className="menu-icon tf-icons bx bx-table"></i>
-                            <div data-i18n="Tables">Employees</div>
-                        </a>
-                    </li>
 
-                    {/*<li className="menu-item">*/}
-                    {/*    <a href="/profile" className="menu-link">*/}
-                    {/*        <i className="menu-icon tf-icons bx bx-dock-top"></i>*/}
-                    {/*        <div data-i18n="Account Settings">Profile</div>*/}
-                    {/*    </a>*/}
-                    {/*</li>*/}
                     <li className="menu-item">
                         <a href="" className="menu-link menu-toggle">
                             <i className="menu-icon tf-icons bx bx-lock-open-alt"></i>
@@ -56,7 +63,8 @@ const Sidebar = () => {
                         </ul>
                     </li>
 
-                    <li className="menu-header small text-uppercase"><span className="menu-header-text">Forms &amp; Tables</span></li>
+                    <li className="menu-header small text-uppercase"><span
+                        className="menu-header-text">Forms &amp; Tables</span></li>
                     <li className="menu-item">
                         <a href="" className="menu-link menu-toggle">
                             <i className="menu-icon tf-icons bx bx-detail"></i>

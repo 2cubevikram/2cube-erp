@@ -33,9 +33,19 @@ class CommonModel {
         const {columnSet, values} = utils.multipleColumnSet(params)
 
         const sql = `UPDATE ${tableName} SET ${columnSet} WHERE id = ?`;
-        const result = await query(sql, [...values, id]);
+        await query(sql, [...values, id]);
 
-        return result;
+        const selectSql1 = `SELECT * FROM ${tableName} WHERE id = ?`;
+        const selectSql = `SELECT * FROM ${tableName} WHERE employee_id = ? AND id=?`;
+
+        const result1 = await query(selectSql1, [id]);
+
+        const result = await query(selectSql, [result1[0].employee_id, result1[0].id]);
+
+        if (result.length > 0) {
+            return result[result.length - 1];
+        }
+        return null;
     }
 
     timestamp = async (tableName, row_id, employee_id, _time, method, status) => {

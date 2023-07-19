@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getProfile = ({user,id}) => async (dispatch) => {
+export const getProfile = ({user, id}) => async (dispatch) => {
     try {
         const response = await axios.get(`/auth/id/${id}`, {
             headers: {
@@ -13,7 +13,7 @@ export const getProfile = ({user,id}) => async (dispatch) => {
     }
 };
 
-export const getAttendance = ({user,id, filterDate }) => async (dispatch) => {
+export const getAttendance = ({user, id, filterDate}) => async (dispatch) => {
     try {
         const response = await axios.get(`/auth/check-in-status`, {
             headers: {
@@ -30,19 +30,11 @@ export const getAttendance = ({user,id, filterDate }) => async (dispatch) => {
     }
 };
 
-export const breakTimeEdit = ({ user, obj }) => async (dispatch) => {
-    let url;
-    switch (obj.status) {
-        case "CHECK_IN":
-        case "CHECK_OUT":
-            url = "/auth/check-time-edit";
-            break;
-        default:
-            url = "/auth/break-time-edit";
-    }
-
-    try {
-        const response = await axios.patch(url,
+export const breakTimeEdit = ({user, obj}) => async (dispatch) => {
+    console.log(obj)
+    if (obj.status === "CHECK_IN" || obj.status === "CHECK_OUT") {
+        console.log(obj.status)
+        const response = await axios.patch(`/auth/check-time-edit`,
             {
                 id: obj.id,
                 date: obj.date,
@@ -56,12 +48,26 @@ export const breakTimeEdit = ({ user, obj }) => async (dispatch) => {
                 },
             }
         );
-        console.log(response.data)
+        dispatch(check_time_edit(response.data));
+    } else {
+        console.log(obj.status)
+        const response = await axios.patch(`/auth/break-time-edit`,
+            {
+                id: obj.id,
+                date: obj.date,
+                _in: obj._in,
+                _out: obj._out,
+                status: obj.status,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            }
+        );
         dispatch(break_time_edit(response.data));
-    } catch (error) {
-        console.log(error);
-        // Add error handling logic or dispatch error actions here
     }
+
 };
 
 
@@ -77,5 +83,10 @@ export const get_user_attendance = (payload) => ({
 
 export const break_time_edit = (payload) => ({
     type: "BREAK_TIME_EDIT",
+    payload: payload,
+});
+
+export const check_time_edit = (payload) => ({
+    type: "CHECK_TIME_EDIT",
     payload: payload,
 });

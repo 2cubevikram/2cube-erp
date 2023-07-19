@@ -57,11 +57,11 @@ const Profile = ({getProfile}) => {
                                     <i className="bx bx-bell me-1"></i> Attendance
                                 </a>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="/profile"
-                                ><i className="bx bx-link-alt me-1"></i> Connections</a
-                                >
-                            </li>
+                            {/*<li className="nav-item">*/}
+                            {/*    <a className="nav-link" href="/profile"*/}
+                            {/*    ><i className="bx bx-link-alt me-1"></i> Leave</a*/}
+                            {/*    >*/}
+                            {/*</li>*/}
                         </ul>
                     </div>
                     {activeTab === 1 && <Account profile={profile}/>}

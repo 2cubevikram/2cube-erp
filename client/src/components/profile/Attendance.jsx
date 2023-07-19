@@ -6,7 +6,7 @@ import {getAttendance, breakTimeEdit} from "../../redux/actions/profileAction";
 import {formatDateTime} from "../../function/time";
 
 
-const Attendance = ({getAttendance, breakTimeEdit}) => {
+const Attendance = ({getAttendance}) => {
     const location = useLocation();
     const [filterDate, setFilterDate] = useState();
 
@@ -20,24 +20,27 @@ const Attendance = ({getAttendance, breakTimeEdit}) => {
         working_hours: 0,
         remaining_hours: 0
     }
-
+    let checkin_to_current_time;
     if (attendance.breakin && attendance.check) {
         footer_data.break = attendance.breakin.length;
         footer_data.break_time = formatDateTime.calculateTotal(attendance.breakin);
-
-        let checkin_to_current_time = formatDateTime.getCheckTimeToCurrentTime(attendance.check._in);
+        if (attendance.check._out == null) {
+            checkin_to_current_time = formatDateTime.getCheckTimeToCurrentTime(attendance.check._in);
+        }else{
+            checkin_to_current_time = formatDateTime.getCheckTimeToComplateTime(attendance.check._in, attendance.check._out);
+        }
         let checkin_to_current_time_minutes = formatDateTime.convertToMinutes(checkin_to_current_time);
         const totalBreakMinutes = formatDateTime.convertToMinutes(footer_data.break_time);
         const minutes_to_hours = checkin_to_current_time_minutes - totalBreakMinutes;
         const h = formatDateTime.convertToHour("8:00");
         const hh = h - minutes_to_hours;
-        footer_data.remaining_hours = formatDateTime.convertMinutesToHours(hh);
 
+        footer_data.remaining_hours = hh > 0 ? formatDateTime.convertMinutesToHours(hh) : 0;
         footer_data.working_hours = formatDateTime.convertMinutesToHours(minutes_to_hours);
     }
 
     const handleClick = () => {
-        getAttendance({ user, id, filterDate });
+        getAttendance({user, id, filterDate});
     };
     const handleChange = (event) => {
         setFilterDate(event.target.value);
@@ -45,7 +48,7 @@ const Attendance = ({getAttendance, breakTimeEdit}) => {
 
     const handleClear = () => {
         setFilterDate('');
-        getAttendance({ user, id });
+        getAttendance({user, id});
     }
 
     useEffect(() => {
@@ -155,7 +158,11 @@ const TR = ({data}) => {
     const handleChange = (event) => {
         const newValue = !childValue;
         setChildValue(newValue);
-        console.log(newValue)
+    };
+
+    const handleChildEditableRow = () => {
+        const newValue = !childValue;
+        setChildValue(newValue);
     };
 
     return (
@@ -199,7 +206,9 @@ const TR = ({data}) => {
             </tr>
             {
                 childValue ? (
-                    <EditableRow _data={data} inTime={inTime} outTime={outTime}/>
+                    <EditableRow _data={data} inTime={inTime} outTime={outTime}
+                                 onChildClick={handleChildEditableRow}
+                    />
                 ) : ""
             }
         </>
@@ -207,8 +216,9 @@ const TR = ({data}) => {
 }
 
 
-const EditableRow = ({_data, inTime, outTime}) => {
+const EditableRow = ({_data, inTime, outTime, onChildClick}) => {
     const status = _data.status;
+    console.log(_data)
     const dispatch = useDispatch();
     const [_inTime, setInTime] = useState(inTime);
     const [_outTime, setOutTime] = useState(outTime);
@@ -249,7 +259,7 @@ const EditableRow = ({_data, inTime, outTime}) => {
         }
         // console.log(obj)
         dispatch(breakTimeEdit({user, obj}));
-        window.location.reload();
+        onChildClick();
     };
     return (
         <tr className="table-default" key={"id"}>

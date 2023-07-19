@@ -65,15 +65,15 @@ const Account = ({profile}) => {
                                     placeholder="john.doe@example.com"
                                 />
                             </div>
-                            {/*<div className="mb-3 col-md-6">*/}
-                            {/*    <label htmlFor="organization" className="form-label">Organization</label>*/}
-                            {/*    <input*/}
-                            {/*        type="text"*/}
-                            {/*        className="form-control"*/}
-                            {/*        id="organization"*/}
-                            {/*        name="organization"*/}
-                            {/*    />*/}
-                            {/*</div>*/}
+                            <div className="mb-3 col-md-6">
+                                <label htmlFor="organization" className="form-label">Birth date</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="organization"
+                                    name="organization"
+                                />
+                            </div>
                             {/*<div className="mb-3 col-md-6">*/}
                             {/*    <label className="form-label" htmlFor="phoneNumber">Phone Number</label>*/}
                             {/*    <div className="input-group input-group-merge">*/}
@@ -116,33 +116,33 @@ const Account = ({profile}) => {
                     </form>
                 </div>
             </div>
-            <div className="card">
-                <h5 className="card-header">Delete Account</h5>
-                <div className="card-body">
-                    <div className="mb-3 col-12 mb-0">
-                        <div className="alert alert-warning">
-                            <h6 className="alert-heading fw-bold mb-1">Are you sure you want to delete your
-                                account?</h6>
-                            <p className="mb-0">Once you delete your account, there is no going back. Please be
-                                certain.</p>
-                        </div>
-                    </div>
-                    <form id="formAccountDeactivation">
-                        <div className="form-check mb-3">
-                            <input
-                                className="form-check-input"
-                                type="checkbox"
-                                name="accountActivation"
-                                id="accountActivation"
-                            />
-                            <label className="form-check-label" htmlFor="accountActivation"
-                            >I confirm my account deactivation</label
-                            >
-                        </div>
-                        <button type="submit" className="btn btn-danger deactivate-account">Deactivate Account</button>
-                    </form>
-                </div>
-            </div>
+            {/*<div className="card">*/}
+            {/*    <h5 className="card-header">Delete Account</h5>*/}
+            {/*    <div className="card-body">*/}
+            {/*        <div className="mb-3 col-12 mb-0">*/}
+            {/*            <div className="alert alert-warning">*/}
+            {/*                <h6 className="alert-heading fw-bold mb-1">Are you sure you want to delete your*/}
+            {/*                    account?</h6>*/}
+            {/*                <p className="mb-0">Once you delete your account, there is no going back. Please be*/}
+            {/*                    certain.</p>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*        <form id="formAccountDeactivation">*/}
+            {/*            <div className="form-check mb-3">*/}
+            {/*                <input*/}
+            {/*                    className="form-check-input"*/}
+            {/*                    type="checkbox"*/}
+            {/*                    name="accountActivation"*/}
+            {/*                    id="accountActivation"*/}
+            {/*                />*/}
+            {/*                <label className="form-check-label" htmlFor="accountActivation"*/}
+            {/*                >I confirm my account deactivation</label*/}
+            {/*                >*/}
+            {/*            </div>*/}
+            {/*            <button type="submit" className="btn btn-danger deactivate-account">Deactivate Account</button>*/}
+            {/*        </form>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </>
     )
 }
