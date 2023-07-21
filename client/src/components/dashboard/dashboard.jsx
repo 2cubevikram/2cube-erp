@@ -1,17 +1,19 @@
 import React, {useEffect} from 'react';
 import CheckAction from "../user-action/check-action";
 import BreakAction from "../user-action/break-action";
-import {useDispatch, useSelector} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {getDayStatus} from "../../redux/actions/breakAction";
-
+import {getAttendance} from "../../redux/actions/profileAction";
 
 const Dashboard = () => {
-
     const dispatch = useDispatch();
     const user = useSelector(state => state.login.user);
+    const attendance = useSelector((state) => state.user.attendance);
+    console.log('attendance', attendance)
 
     useEffect(() => {
         dispatch(getDayStatus({user}))
+        dispatch(getAttendance({user}));
     }, [dispatch, user]);
 
     const _break = useSelector(state => state.break.status);
@@ -28,7 +30,8 @@ const Dashboard = () => {
 
                                     <div className="col-sm-7">
                                         <div className="card-body">
-                                            <h5 className="card-title text-primary">Welcome, {user.first_name} {user.last_name} ! 🎉</h5>
+                                            <h5 className="card-title text-primary">Welcome, {user.first_name} {user.last_name} !
+                                                🎉</h5>
                                             <p className="mb-4">
                                                 🌞 It's time for our daily check-in to get the day started on the right
                                                 foot. Looking forward to a productive and successful day ahead! 💪
@@ -144,24 +147,50 @@ const Dashboard = () => {
                         <div className="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
                             <div className="card">
                                 <div className="row row-bordered g-0">
-                                    <div className="col-md-8">
-                                        <h5 className="card-header m-0 me-2 pb-3">Total Revenue</h5>
-                                        <div id="totalRevenueChart" className="px-2"></div>
-                                    </div>
-                                    <div className="col-md-4">
+                                    <div className="col-md-6">
                                         <div className="card-body">
                                             <div className="text-center">
                                                 <div className="dropdown">
-                                                    <button
-                                                        className="btn btn-sm btn-outline-primary dropdown-toggle"
-                                                        type="button"
-                                                        id="growthReportId"
-                                                        data-bs-toggle="dropdown"
-                                                        aria-haspopup="true"
-                                                        aria-expanded="false"
-                                                    >
-                                                        2022
-                                                    </button>
+                                                    {/*<h5 className="card-header m-0 me-2 pb-3">Total Revenue</h5>*/}
+                                                    {attendance.check && (
+                                                        <div>
+                                                            {/*<h5 className="card-header m-0 me-2 pb-3">Check</h5>*/}
+                                                            <p>{attendance.check._in}</p>
+                                                            <p>{attendance.check._out}</p>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-6">
+                                        <div className="card-body">
+                                            <div className="text-center">
+                                                <div className="dropdown">
+                                                    {attendance.check && (
+                                                        <div>
+                                                            {/*<h5 className="card-header m-0 me-2 pb-3">Check</h5>*/}
+                                                            <p>{attendance.check._in}</p>
+                                                            <p>{attendance.check._out}</p>
+                                                        </div>
+                                                    )}
+                                                    {/*{*/}
+                                                    {/*    attendance.breakin.break.map((item, index) => {*/}
+                                                    {/*            return (*/}
+                                                    {/*                <button*/}
+                                                    {/*                    className="btn btn-sm btn-outline-primary dropdown-toggle"*/}
+                                                    {/*                    type="button"*/}
+                                                    {/*                    // id="growthReportId"*/}
+                                                    {/*                    // data-bs-toggle="dropdown"*/}
+                                                    {/*                    aria-haspopup="true"*/}
+                                                    {/*                    aria-expanded="false"*/}
+                                                    {/*                >*/}
+                                                    {/*                    2022*/}
+                                                    {/*                </button>)*/}
+                                                    {/*        }*/}
+                                                    {/*    )*/}
+                                                    {/*}*/}
                                                     <div className="dropdown-menu dropdown-menu-end"
                                                          aria-labelledby="growthReportId">
                                                         <a className="dropdown-item" href="/">2021</a>
@@ -171,32 +200,32 @@ const Dashboard = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="growthChart"></div>
-                                        <div className="text-center fw-semibold pt-3 mb-2">62% Company Growth</div>
+                                        {/*<div id="growthChart"></div>*/}
+                                        {/*<div className="text-center fw-semibold pt-3 mb-2">62% Company Growth</div>*/}
 
-                                        <div
-                                            className="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
-                                            <div className="d-flex">
-                                                <div className="me-2">
-                                                    <span className="badge bg-label-primary p-2"><i
-                                                        className="bx bx-dollar text-primary"></i></span>
-                                                </div>
-                                                <div className="d-flex flex-column">
-                                                    <small>2022</small>
-                                                    <h6 className="mb-0">$32.5k</h6>
-                                                </div>
-                                            </div>
-                                            <div className="d-flex">
-                                                <div className="me-2">
-                                                    <span className="badge bg-label-info p-2"><i
-                                                        className="bx bx-wallet text-info"></i></span>
-                                                </div>
-                                                <div className="d-flex flex-column">
-                                                    <small>2021</small>
-                                                    <h6 className="mb-0">$41.2k</h6>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        {/*<div*/}
+                                        {/*    className="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">*/}
+                                        {/*    <div className="d-flex">*/}
+                                        {/*        <div className="me-2">*/}
+                                        {/*            <span className="badge bg-label-primary p-2"><i*/}
+                                        {/*                className="bx bx-dollar text-primary"></i></span>*/}
+                                        {/*        </div>*/}
+                                        {/*        <div className="d-flex flex-column">*/}
+                                        {/*            <small>2022</small>*/}
+                                        {/*            <h6 className="mb-0">$32.5k</h6>*/}
+                                        {/*        </div>*/}
+                                        {/*    </div>*/}
+                                        {/*    <div className="d-flex">*/}
+                                        {/*        <div className="me-2">*/}
+                                        {/*            <span className="badge bg-label-info p-2"><i*/}
+                                        {/*                className="bx bx-wallet text-info"></i></span>*/}
+                                        {/*        </div>*/}
+                                        {/*        <div className="d-flex flex-column">*/}
+                                        {/*            <small>2021</small>*/}
+                                        {/*            <h6 className="mb-0">$41.2k</h6>*/}
+                                        {/*        </div>*/}
+                                        {/*    </div>*/}
+                                        {/*</div>*/}
                                     </div>
                                 </div>
                             </div>
@@ -209,7 +238,8 @@ const Dashboard = () => {
                                             <div
                                                 className="card-title d-flex align-items-start justify-content-between">
                                                 <div className="avatar flex-shrink-0">
-                                                    <img src="../assets/img/icons/unicons/paypal.png" alt="Credit Card"
+                                                    <img src="../assets/img/icons/unicons/paypal.png"
+                                                         alt="Credit Card"
                                                          className="rounded"/>
                                                 </div>
                                                 <div className="dropdown">
@@ -257,7 +287,8 @@ const Dashboard = () => {
                                                     >
                                                         <i className="bx bx-dots-vertical-rounded"></i>
                                                     </button>
-                                                    <div className="dropdown-menu" aria-labelledby="cardOpt1">
+                                                    <div className="dropdown-menu"
+                                                         aria-labelledby="cardOpt1">
                                                         <a className="dropdown-item" href="/">View More</a>
                                                         <a className="dropdown-item" href="/">Delete</a>
                                                     </div>
@@ -283,7 +314,8 @@ const Dashboard = () => {
                                                             className="badge bg-label-warning rounded-pill">Year 2021</span>
                                                     </div>
                                                     <div className="mt-sm-auto">
-                                                        <small className="text-success text-nowrap fw-semibold"
+                                                        <small
+                                                            className="text-success text-nowrap fw-semibold"
                                                         ><i className="bx bx-chevron-up"></i> 68.2%</small
                                                         >
                                                         <h3 className="mb-0">$84,686k</h3>
@@ -300,7 +332,8 @@ const Dashboard = () => {
                     <div className="row">
                         <div className="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
                             <div className="card h-100">
-                                <div className="card-header d-flex align-items-center justify-content-between pb-0">
+                                <div
+                                    className="card-header d-flex align-items-center justify-content-between pb-0">
                                     <div className="card-title mb-0">
                                         <h5 className="m-0 me-2">Order Statistics</h5>
                                         <small className="text-muted">42.82k Total Sales</small>
@@ -343,7 +376,8 @@ const Dashboard = () => {
                                                 className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
                                                     <h6 className="mb-0">Electronic</h6>
-                                                    <small className="text-muted">Mobile, Earbuds, TV</small>
+                                                    <small className="text-muted">Mobile, Earbuds,
+                                                        TV</small>
                                                 </div>
                                                 <div className="user-progress">
                                                     <small className="fw-semibold">82.5k</small>
@@ -359,7 +393,8 @@ const Dashboard = () => {
                                                 className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
                                                     <h6 className="mb-0">Fashion</h6>
-                                                    <small className="text-muted">T-shirt, Jeans, Shoes</small>
+                                                    <small className="text-muted">T-shirt, Jeans,
+                                                        Shoes</small>
                                                 </div>
                                                 <div className="user-progress">
                                                     <small className="fw-semibold">23.8k</small>
@@ -392,7 +427,8 @@ const Dashboard = () => {
                                                 className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
                                                     <h6 className="mb-0">Sports</h6>
-                                                    <small className="text-muted">Football, Cricket Kit</small>
+                                                    <small className="text-muted">Football, Cricket
+                                                        Kit</small>
                                                 </div>
                                                 <div className="user-progress">
                                                     <small className="fw-semibold">99</small>
@@ -421,23 +457,28 @@ const Dashboard = () => {
                                             </button>
                                         </li>
                                         <li className="nav-item">
-                                            <button type="button" className="nav-link" role="tab">Expenses</button>
+                                            <button type="button" className="nav-link" role="tab">Expenses
+                                            </button>
                                         </li>
                                         <li className="nav-item">
-                                            <button type="button" className="nav-link" role="tab">Profit</button>
+                                            <button type="button" className="nav-link" role="tab">Profit
+                                            </button>
                                         </li>
                                     </ul>
                                 </div>
                                 <div className="card-body px-0">
                                     <div className="tab-content p-0">
-                                        <div className="tab-pane fade show active" id="navs-tabs-line-card-income"
+                                        <div className="tab-pane fade show active"
+                                             id="navs-tabs-line-card-income"
                                              role="tabpanel">
                                             <div className="d-flex p-4 pt-3">
                                                 <div className="avatar flex-shrink-0 me-3">
-                                                    <img src="../assets/img/icons/unicons/wallet.png" alt="User"/>
+                                                    <img src="../assets/img/icons/unicons/wallet.png"
+                                                         alt="User"/>
                                                 </div>
                                                 <div>
-                                                    <small className="text-muted d-block">Total Balance</small>
+                                                    <small className="text-muted d-block">Total
+                                                        Balance</small>
                                                     <div className="d-flex align-items-center">
                                                         <h6 className="mb-0 me-1">$459.10</h6>
                                                         <small className="text-success fw-semibold">
@@ -454,7 +495,8 @@ const Dashboard = () => {
                                                 </div>
                                                 <div>
                                                     <p className="mb-n1 mt-1">Expenses This Week</p>
-                                                    <small className="text-muted">$39 less than last week</small>
+                                                    <small className="text-muted">$39 less than last
+                                                        week</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -464,7 +506,8 @@ const Dashboard = () => {
                         </div>
                         <div className="col-md-6 col-lg-4 order-2 mb-4">
                             <div className="card h-100">
-                                <div className="card-header d-flex align-items-center justify-content-between">
+                                <div
+                                    className="card-header d-flex align-items-center justify-content-between">
                                     <h5 className="card-title m-0 me-2">Transactions</h5>
                                     <div className="dropdown">
                                         <button
@@ -495,10 +538,12 @@ const Dashboard = () => {
                                             <div
                                                 className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
-                                                    <small className="text-muted d-block mb-1">Paypal</small>
+                                                    <small
+                                                        className="text-muted d-block mb-1">Paypal</small>
                                                     <h6 className="mb-0">Send money</h6>
                                                 </div>
-                                                <div className="user-progress d-flex align-items-center gap-1">
+                                                <div
+                                                    className="user-progress d-flex align-items-center gap-1">
                                                     <h6 className="mb-0">+82.6</h6>
                                                     <span className="text-muted">USD</span>
                                                 </div>
@@ -512,10 +557,12 @@ const Dashboard = () => {
                                             <div
                                                 className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
-                                                    <small className="text-muted d-block mb-1">Wallet</small>
+                                                    <small
+                                                        className="text-muted d-block mb-1">Wallet</small>
                                                     <h6 className="mb-0">Mac'D</h6>
                                                 </div>
-                                                <div className="user-progress d-flex align-items-center gap-1">
+                                                <div
+                                                    className="user-progress d-flex align-items-center gap-1">
                                                     <h6 className="mb-0">+270.69</h6>
                                                     <span className="text-muted">USD</span>
                                                 </div>
@@ -529,10 +576,12 @@ const Dashboard = () => {
                                             <div
                                                 className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
-                                                    <small className="text-muted d-block mb-1">Transfer</small>
+                                                    <small
+                                                        className="text-muted d-block mb-1">Transfer</small>
                                                     <h6 className="mb-0">Refund</h6>
                                                 </div>
-                                                <div className="user-progress d-flex align-items-center gap-1">
+                                                <div
+                                                    className="user-progress d-flex align-items-center gap-1">
                                                     <h6 className="mb-0">+637.91</h6>
                                                     <span className="text-muted">USD</span>
                                                 </div>
@@ -540,16 +589,19 @@ const Dashboard = () => {
                                         </li>
                                         <li className="d-flex mb-4 pb-1">
                                             <div className="avatar flex-shrink-0 me-3">
-                                                <img src="../assets/img/icons/unicons/cc-success.png" alt="User"
+                                                <img src="../assets/img/icons/unicons/cc-success.png"
+                                                     alt="User"
                                                      className="rounded"/>
                                             </div>
                                             <div
                                                 className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
-                                                    <small className="text-muted d-block mb-1">Credit Card</small>
+                                                    <small className="text-muted d-block mb-1">Credit
+                                                        Card</small>
                                                     <h6 className="mb-0">Ordered Food</h6>
                                                 </div>
-                                                <div className="user-progress d-flex align-items-center gap-1">
+                                                <div
+                                                    className="user-progress d-flex align-items-center gap-1">
                                                     <h6 className="mb-0">-838.71</h6>
                                                     <span className="text-muted">USD</span>
                                                 </div>
@@ -563,10 +615,12 @@ const Dashboard = () => {
                                             <div
                                                 className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
-                                                    <small className="text-muted d-block mb-1">Wallet</small>
+                                                    <small
+                                                        className="text-muted d-block mb-1">Wallet</small>
                                                     <h6 className="mb-0">Starbucks</h6>
                                                 </div>
-                                                <div className="user-progress d-flex align-items-center gap-1">
+                                                <div
+                                                    className="user-progress d-flex align-items-center gap-1">
                                                     <h6 className="mb-0">+203.33</h6>
                                                     <span className="text-muted">USD</span>
                                                 </div>
@@ -574,16 +628,19 @@ const Dashboard = () => {
                                         </li>
                                         <li className="d-flex">
                                             <div className="avatar flex-shrink-0 me-3">
-                                                <img src="../assets/img/icons/unicons/cc-warning.png" alt="User"
+                                                <img src="../assets/img/icons/unicons/cc-warning.png"
+                                                     alt="User"
                                                      className="rounded"/>
                                             </div>
                                             <div
                                                 className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div className="me-2">
-                                                    <small className="text-muted d-block mb-1">Mastercard</small>
+                                                    <small
+                                                        className="text-muted d-block mb-1">Mastercard</small>
                                                     <h6 className="mb-0">Ordered Food</h6>
                                                 </div>
-                                                <div className="user-progress d-flex align-items-center gap-1">
+                                                <div
+                                                    className="user-progress d-flex align-items-center gap-1">
                                                     <h6 className="mb-0">-92.45</h6>
                                                     <span className="text-muted">USD</span>
                                                 </div>
@@ -603,3 +660,4 @@ const Dashboard = () => {
 }
 
 export default Dashboard
+// export default connect(null, {getAttendance})(Dashboard);

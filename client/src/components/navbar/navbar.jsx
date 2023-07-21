@@ -1,19 +1,39 @@
-import {useNavigate} from "react-router-dom";
-import { useSelector } from 'react-redux';
+import {Link, useNavigate} from "react-router-dom";
+import {useSelector} from 'react-redux';
 import {getUser} from "../../redux/reducers/authReducer";
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {logoutUser} from "../../redux/actions/authActions";
+import React, {useEffect, useState} from "react";
+import {getProfile} from "../../redux/actions/profileAction";
 
 const Navbar = () => {
-    const navigate = useNavigate();
     const user = useSelector(getUser);
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [profile, setUserProfile] = useState(user);
+    const userProfile = useSelector((state) => state.user.profile);
+
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
+    useEffect(() => {
+        if (userProfile !== null) {
+            setUserProfile(userProfile);
+        } else {
+            setUserProfile(user);
+        }
+    }, [userProfile, user]);
+
 
     const logoutHandler = (e) => {
         e.preventDefault();
         dispatch(logoutUser());
     };
+
+    useEffect(() => {
+        dispatch(getProfile({user, id: user.id}));
+    }, [dispatch, user])
+
+
     return (
         <>
             <nav
@@ -26,7 +46,7 @@ const Navbar = () => {
                     </a>
                 </div>
                 <div className="navbar-nav-right d-flex align-items-center"
-                    id="navbar-collapse">
+                     id="navbar-collapse">
                     <div className="navbar-nav align-items-center">
                         <div className="nav-item d-flex align-items-center">
                             <i className="bx bx-search fs-4 lh-0"></i>
@@ -34,15 +54,18 @@ const Navbar = () => {
                                 type="text"
                                 className="form-control border-0 shadow-none"
                                 placeholder="Search..."
-                                aria-label="Search..." />
+                                aria-label="Search..."/>
                         </div>
                     </div>
                     <ul className="navbar-nav flex-row align-items-center ms-auto">
                         <li className="nav-item navbar-dropdown dropdown-user dropdown">
                             <a className="nav-link dropdown-toggle hide-arrow"
-                                href="/" data-bs-toggle="dropdown">
+                               href="/" data-bs-toggle="dropdown">
                                 <div className="avatar avatar-online">
-                                    <img src="../assets/img/avatars/1.png" alt="true" className="w-px-40 h-auto rounded-circle" />
+                                    <img
+                                        src={PF + profile.profile}
+                                        className="w-px-40 h-auto rounded-circle"
+                                    />
                                 </div>
                             </a>
                             <ul className="dropdown-menu dropdown-menu-end">
@@ -51,13 +74,17 @@ const Navbar = () => {
                                         <div className="d-flex">
                                             <div className="flex-shrink-0 me-3">
                                                 <div className="avatar avatar-online">
-                                                    <img src="../assets/img/avatars/1.png" alt="true" className="w-px-40 h-auto rounded-circle" />
+                                                    <img
+                                                        src={PF + profile.profile} alt="true"
+                                                        className="w-px-40 h-auto rounded-circle"
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="flex-grow-1">
 
-                                                <span className="fw-semibold d-block">{user.first_name} {user.last_name}</span>
-                                                <small className="text-muted">{user.role}</small>
+                                                <span
+                                                    className="fw-semibold d-block">{profile.first_name} {profile.last_name}</span>
+                                                <small className="text-muted">{profile.role}</small>
                                             </div>
                                         </div>
                                     </a>
@@ -66,10 +93,10 @@ const Navbar = () => {
                                     <div className="dropdown-divider"></div>
                                 </li>
                                 <li>
-                                    <a className="dropdown-item" href="/profile">
-                                        <i className="bx bx-user me-2"></i>
-                                        <span className="align-middle">My Profile</span>
-                                    </a>
+                                    <Link to={`/profile`}
+                                          state={{id: user.id}}
+                                          className="dropdown-item"><i
+                                        className="bx bx-user me-2"></i>My Profile</Link>
                                 </li>
                                 <li>
                                     <a className="dropdown-item" href="/">
@@ -91,7 +118,7 @@ const Navbar = () => {
                                     <div className="dropdown-divider"></div>
                                 </li>
                                 <li>
-                                    <a className="dropdown-item"  onClick={logoutHandler}>
+                                    <a className="dropdown-item" onClick={logoutHandler}>
                                         <i className="bx bx-power-off me-2"></i>
                                         <span className="align-middle">Log Out</span>
                                     </a>

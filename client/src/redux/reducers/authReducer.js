@@ -4,18 +4,15 @@ let initialState = {
     error: null,
 };
 
-if (localStorage.getItem("user")){
+if (localStorage.getItem("user")) {
     initialState.isLoggedIn = true;
     initialState.user = JSON.parse(localStorage.getItem("user"));
 }
 
-
-
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'LOGIN_SUCCESS':
-        {
-            localStorage.setItem("user",JSON.stringify(action.payload))
+        case 'LOGIN_SUCCESS': {
+            localStorage.setItem("user", JSON.stringify(action.payload))
             return {
                 isLoggedIn: true,
                 user: action.payload,
@@ -35,6 +32,18 @@ const authReducer = (state = initialState, action) => {
                 user: null,
                 error: action.payload,
             };
+        case 'REGISTER_SUCCESS':
+            return {
+                isLoggedIn: false,
+                user: null,
+                error: null,
+            };
+        case 'REGISTER_FAILURE':
+            return {
+                isLoggedIn: false,
+                user: null,
+                error: action.payload,
+            }
         default:
             return state;
     }

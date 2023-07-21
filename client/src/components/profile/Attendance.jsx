@@ -26,7 +26,7 @@ const Attendance = ({getAttendance}) => {
         footer_data.break_time = formatDateTime.calculateTotal(attendance.breakin);
         if (attendance.check._out == null) {
             checkin_to_current_time = formatDateTime.getCheckTimeToCurrentTime(attendance.check._in);
-        }else{
+        } else {
             checkin_to_current_time = formatDateTime.getCheckTimeToComplateTime(attendance.check._in, attendance.check._out);
         }
         let checkin_to_current_time_minutes = formatDateTime.convertToMinutes(checkin_to_current_time);
@@ -215,10 +215,8 @@ const TR = ({data}) => {
     )
 }
 
-
 const EditableRow = ({_data, inTime, outTime, onChildClick}) => {
     const status = _data.status;
-    console.log(_data)
     const dispatch = useDispatch();
     const [_inTime, setInTime] = useState(inTime);
     const [_outTime, setOutTime] = useState(outTime);
@@ -263,10 +261,6 @@ const EditableRow = ({_data, inTime, outTime, onChildClick}) => {
     };
     return (
         <tr className="table-default" key={"id"}>
-            {/*<td>*/}
-            {/*    /!*<input type="text" name="inTime" value={inTime}/>*!/*/}
-            {/*    <input type="date" name="inTime" value={_inTime} onChange={handleInTimeChange} />*/}
-            {/*</td>*/}
             <td>
                 <input type="text" name="inTime" value={_inTime} onChange={handleInTimeChange}/>
             </td>

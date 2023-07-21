@@ -24,6 +24,16 @@ const Sidebar = () => {
                     {
                         user && (user.role === "Admin" || user.role === "HR") ? (
                             <li className="menu-item">
+                                <Link to={`/profile`}
+                                      state={{id: user.id}}
+                                      className="menu-link"><i
+                                    className="menu-icon tf-icons bx bx-lock-open-alt"></i>Profile</Link>
+                            </li>
+                        ) : "" 
+                    }
+                    {
+                        user && (user.role === "Admin" || user.role === "HR") ? (
+                            <li className="menu-item">
                                 <a href="/employees" className="menu-link">
                                     <i className="menu-icon tf-icons bx bx-table"></i>
                                     <div data-i18n="Tables">Employees</div>
@@ -37,8 +47,6 @@ const Sidebar = () => {
                                     className="menu-icon tf-icons bx bx-lock-open-alt"></i>Profile</Link>
                             </li>)
                     }
-
-
                     <li className="menu-item">
                         <a href="" className="menu-link menu-toggle">
                             <i className="menu-icon tf-icons bx bx-lock-open-alt"></i>

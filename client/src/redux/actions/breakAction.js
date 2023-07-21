@@ -86,7 +86,6 @@ export const getDayStatus = ({user}) => async dispatch => {
     dispatch(checkin(response.check));
 
     response.breakin.map((breaks) => {
-        console.log("breaks", breaks);
         if (breaks.status === "BREAK_IN") {
             dispatch(breakAll(breaks));
         }

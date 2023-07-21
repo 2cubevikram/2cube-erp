@@ -49,6 +49,11 @@ const profileReducer = (state = initialState, action) => {
                     })
                 }
             };
+        case 'ADD_USER_PROFILE':
+            return {
+                ...state,
+                profile: action.payload
+            }
         default:
             return state;
     }

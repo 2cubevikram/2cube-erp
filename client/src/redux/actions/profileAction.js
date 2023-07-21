@@ -70,6 +70,26 @@ export const breakTimeEdit = ({user, obj}) => async (dispatch) => {
 
 };
 
+export const addUserProfile = ({ user, obj }) => async (dispatch) => {
+    const formData = new FormData();
+    formData.append("first_name", obj.first_name);
+    formData.append("last_name", obj.last_name);
+    formData.append("birth_date", obj.birth_date);
+    const fileList = obj.file;
+    for (let i = 0; i < fileList.length; i++) {
+        const file = fileList[i];
+        formData.append("file", file);
+    }
+    const response = await axios.patch("/auth/add", formData, {
+        headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "multipart/form-data", // Set the content type to handle file uploads
+        },
+    });
+    dispatch(add_user_profile(response.data));
+};
+
+
 
 export const get_profile = (payload) => ({
     type: "GET_USER_PROFILE",
@@ -90,3 +110,9 @@ export const check_time_edit = (payload) => ({
     type: "CHECK_TIME_EDIT",
     payload: payload,
 });
+
+export const add_user_profile = (payload) => ({
+    type: "ADD_USER_PROFILE",
+    payload: payload,
+});
+

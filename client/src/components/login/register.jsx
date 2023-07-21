@@ -1,9 +1,10 @@
 import {useRef} from "react";
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
-
+import {useDispatch} from "react-redux";
+import {register} from "../../redux/actions/authActions";
 
 const Register = () => {
+    const dispatch = useDispatch();
     const first_name = useRef();
     const last_name = useRef();
     const email = useRef();
@@ -13,22 +14,16 @@ const Register = () => {
 
     const handleClick = async (e) => {
         e.preventDefault();
-        const user = {
+        const userData = {
             first_name: first_name.current.value,
             last_name: last_name.current.value,
             email: email.current.value,
             role: role.current.value,
             password: password.current.value,
         };
-        try {
-            await axios.post("/auth/register", user);
-            navigate("/login");
-        } catch (err) {
-            console.log(err);
-        }
-
-
-    }
+        dispatch(register({userData}));
+        navigate('/login');
+    };
 
     return (
         <>

@@ -1,4 +1,30 @@
+import {useRef, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {addUserProfile} from "../../redux/actions/profileAction";
+
 const Account = ({profile}) => {
+    const dispatch = useDispatch();
+    const [file, setFile] = useState(null);
+    const firstName = useRef();
+    const lastName = useRef();
+    const birth_date = useRef();
+
+    const user = useSelector((state) => state.login.user);
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    // console.log(file)
+    const submitHandler = async (e) => {
+        e.preventDefault();
+
+        const obj = {
+            first_name: firstName.current.value,
+            last_name: lastName.current.value,
+            birth_date: birth_date.current.value,
+            file: file
+        };
+        dispatch(addUserProfile({obj, user}));
+        // console.log(updatedUser);
+
+    };
     return (
         <>
             <div className="card mb-4">
@@ -6,7 +32,7 @@ const Account = ({profile}) => {
                 <div className="card-body">
                     <div className="d-flex align-items-start align-items-sm-center gap-4">
                         <img
-                            src="../assets/img/avatars/1.png"
+                            src={profile.profile ? PF + profile.profile : PF + "avatar.png"}
                             alt="user-avatar"
                             className="d-block rounded"
                             height="100"
@@ -17,17 +43,25 @@ const Account = ({profile}) => {
                             <label htmlFor="upload" className="btn btn-primary me-2 mb-4" tabIndex="0">
                                 <span className="d-none d-sm-block">Upload new photo</span>
                                 <i className="bx bx-upload d-block d-sm-none"></i>
+                                {/*<input*/}
+                                {/*    type="file"*/}
+                                {/*    id="upload"*/}
+                                {/*    className="account-file-input"*/}
+                                {/*    hidden*/}
+                                {/*    accept="image/png, image/jpeg"*/}
+                                {/*/>*/}
                                 <input
                                     type="file"
                                     id="upload"
                                     className="account-file-input"
                                     hidden
                                     accept="image/png, image/jpeg"
+                                    onChange={(e) => setFile(e.target.files)}
                                 />
                             </label>
                             <button type="button" className="btn btn-outline-secondary account-image-reset mb-4">
                                 <i className="bx bx-reset d-block d-sm-none"></i>
-                                <span className="d-none d-sm-block">Reset</span>
+                                <span className="d-none d-sm-block" onClick={() => setFile(null)}>Reset</span>
                             </button>
 
                             <p className="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
@@ -36,23 +70,27 @@ const Account = ({profile}) => {
                 </div>
                 <hr className="my-0"/>
                 <div className="card-body">
-                    <form id="formAccountSettings">
+                    <form id="formAccountSettings" onSubmit={submitHandler}>
                         <div className="row">
                             <div className="mb-3 col-md-6">
                                 <label htmlFor="firstName" className="form-label">First Name</label>
                                 <input
                                     className="form-control"
                                     type="text"
-                                    id="firstName"
                                     name="firstName"
+                                    ref={firstName}
                                     defaultValue={profile.first_name}
                                     autoFocus
                                 />
                             </div>
                             <div className="mb-3 col-md-6">
                                 <label htmlFor="lastName" className="form-label">Last Name</label>
-                                <input className="form-control" type="text" name="lastName" id="lastName"
-                                       defaultValue={profile.last_name}/>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    name="lastName"
+                                    ref={lastName}
+                                    defaultValue={profile.last_name}/>
                             </div>
                             <div className="mb-3 col-md-6">
                                 <label htmlFor="email" className="form-label">E-mail</label>
@@ -62,16 +100,19 @@ const Account = ({profile}) => {
                                     id="email"
                                     name="email"
                                     defaultValue={profile.email}
+                                    readOnly
                                     placeholder="john.doe@example.com"
                                 />
                             </div>
                             <div className="mb-3 col-md-6">
                                 <label htmlFor="organization" className="form-label">Birth date</label>
                                 <input
-                                    type="text"
                                     className="form-control"
-                                    id="organization"
-                                    name="organization"
+                                    type="text"
+                                    id="birth_date"
+                                    name="birth_date"
+                                    ref={birth_date}
+                                    defaultValue={profile.birth_date}
                                 />
                             </div>
                             {/*<div className="mb-3 col-md-6">*/}

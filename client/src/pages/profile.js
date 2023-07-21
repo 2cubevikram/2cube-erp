@@ -3,7 +3,6 @@ import Sidebar from '../components/sidebar/sidebar';
 import Navbar from '../components/navbar/navbar';
 import ProfileComp from '../components/profile/profile';
 
-
 const Profile = () => {
     return (
         <>

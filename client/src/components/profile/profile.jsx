@@ -9,7 +9,15 @@ const Profile = ({getProfile}) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const id = location.state.id;
+    const id = location.state ? location.state.id : 0 || 0;
+    useEffect(() => {
+        if (id === 0) {
+            navigate('/');
+        }
+    })
+    // if (id === 0) {
+    //     navigate('/');
+    // }
     const user = useSelector((state) => state.login.user);
     const profile = useSelector((state) => state.user.profile);
     const [activeTab, setActiveTab] = useState(1);
@@ -23,14 +31,14 @@ const Profile = ({getProfile}) => {
 
     useEffect(() => {
 
-        if (localStorage.getItem("account_tab")){
+        if (localStorage.getItem("account_tab")) {
             setActiveTab(parseInt(localStorage.getItem("account_tab")));
         }
 
-        if (id === undefined){
-            navigate('/employees');
-        }else{
-            getProfile({ user, id });
+        if (id === undefined) {
+            navigate('/');
+        } else {
+            getProfile({user, id});
         }
     }, [getProfile, id, user]);
 
@@ -41,21 +49,26 @@ const Profile = ({getProfile}) => {
     return (
         <>
             <div className="container-xxl flex-grow-1 container-p-y">
-                <h4 className="fw-bold py-3 mb-4"><span className="text-muted fw-light">Account Settings /</span> {currentTab} <span className="text-muted fw-light"> Of {profile.first_name} {profile.last_name}</span></h4>
+                <h4 className="fw-bold py-3 mb-4"><span
+                    className="text-muted fw-light">Account Settings /</span> {currentTab} <span
+                    className="text-muted fw-light"> Of {profile.first_name} {profile.last_name}</span></h4>
                 <div className="row">
                     <div className="col-md-12">
                         <ul className="nav nav-pills flex-column flex-md-row mb-3">
                             <li className="nav-item">
-                                <a className={`nav-link ${activeTab === 1 ? 'active' : ''}`}
-                                   onClick={() => handleTabClick(1)}>
+                                <button
+                                    className={`nav-link ${activeTab === 1 ? 'active' : ''}`}
+                                    onClick={() => handleTabClick(1)}
+                                >
                                     <i className="bx bx-user me-1"></i> Account
-                                </a>
+                                </button>
                             </li>
                             <li className="nav-item">
-                                <a className={`nav-link ${activeTab === 2 ? 'active' : ''}`}
-                                   onClick={() => handleTabClick(2)}>
+                                <button
+                                    className={`nav-link ${activeTab === 2 ? 'active' : ''}`}
+                                    onClick={() => handleTabClick(2)}>
                                     <i className="bx bx-bell me-1"></i> Attendance
-                                </a>
+                                </button>
                             </li>
                             {/*<li className="nav-item">*/}
                             {/*    <a className="nav-link" href="/profile"*/}

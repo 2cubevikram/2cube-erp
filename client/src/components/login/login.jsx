@@ -2,8 +2,7 @@ import { useState} from "react";
 import { connect } from 'react-redux';
 import {login} from "../../redux/actions/authActions";
 
-const LoginForm = ({login}) => {
-
+const LoginForm = ({login, error}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -12,7 +11,7 @@ const LoginForm = ({login}) => {
         login(username, password);
         console.log(login)
     };
-
+    console.log('error', error)
     return (
         <>
             <div className="container-xxl">
@@ -63,6 +62,7 @@ const LoginForm = ({login}) => {
                                         </div>
                                     </div>
                                     {/*{error && <div style={{ color: 'red' }}>Please enter a valid Email or Password!</div>}*/}
+                                    {error && <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>}
                                     <br/>
                                     <div className="mb-3">
                                         <div className="form-check">
@@ -73,10 +73,6 @@ const LoginForm = ({login}) => {
                                     </div>
                                     <div className="mb-3">
                                         <button className={"btn btn-primary d-grid w-100"} type="submit">Submit</button>
-
-                                        {/*<button className="btn btn-primary d-grid w-100" type="submit"*/}
-                                        {/*       >Sign in*/}
-                                        {/*</button>*/}
                                     </div>
                                 </form>
 
@@ -94,6 +90,8 @@ const LoginForm = ({login}) => {
         </>
     )
 }
-
+const mapStateToProps = state => ({
+    error: state.auth.error
+});
 export default connect(null, { login })(LoginForm);
-
+// export default connect(mapStateToProps, { login })(LoginForm);
