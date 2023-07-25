@@ -29,15 +29,23 @@ const breakReducer = (state = initialState, action) => {
                 })
             }
         case 'BREAK_ALL':
-            let obj1 = {
-                id: action.payload.id,
-                _in: action.payload._in,
-                _out: action.payload._out
+            const { id, _in, _out, status } = action.payload;
+
+            const isIdExists = state.break.some((item) => item.id === id);
+
+            if (!isIdExists) {
+                const newItem = { id, _in, _out };
+                return {
+                    ...state,
+                    status: status,
+                    break: [...state.break, newItem], // Add the new item to the array
+                };
             }
+
+            // If the id already exists, leave the array unchanged
             return {
                 ...state,
-                status: action.payload.status,
-                break: [...state.break, obj1]
+                status: status,
             }
         default:
             return state;

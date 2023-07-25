@@ -11,7 +11,6 @@ const LoginForm = ({login, error}) => {
         login(username, password);
         console.log(login)
     };
-    console.log('error', error)
     return (
         <>
             <div className="container-xxl">

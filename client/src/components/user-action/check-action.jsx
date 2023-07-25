@@ -21,11 +21,11 @@ const CheckAction = ({CheckIn, CheckOut, check_status, break_status}) => {
         <>
             {
                 check_status === "CHECK_OUT" || check_status == null ? (
-                    <button className="btn btn-sm btn-outline-primary"
+                    <button className="btn btn-primary"
                             onClick={e => checkinHandler(e)}>Check In </button>
                 ) : (
                     break_status !== "BREAK_IN" ? (
-                        <button className="btn btn-sm btn-outline-primary"
+                        <button className="btn btn-danger"
                                 onClick={e => checkoutHandler(e)}>Check Out </button>
                     ) : ""
                 )

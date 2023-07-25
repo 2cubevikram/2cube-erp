@@ -5,7 +5,6 @@ import moment from "moment";
 import {getAttendance, breakTimeEdit} from "../../redux/actions/profileAction";
 import {formatDateTime} from "../../function/time";
 
-
 const Attendance = ({getAttendance}) => {
     const location = useLocation();
     const [filterDate, setFilterDate] = useState();
@@ -91,7 +90,7 @@ const Attendance = ({getAttendance}) => {
                                 <th>OUT</th>
                                 <th>TYPE</th>
                                 <th>Total Time</th>
-                                <th>Actions</th>
+                                {/*<th>Actions</th>*/}
                                 <input
                                     type="date"
                                     name="filterDate"

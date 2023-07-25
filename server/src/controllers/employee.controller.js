@@ -1,4 +1,3 @@
-import {calculateDuration} from '../utils/function.js'
 import bcrypt from 'bcrypt';
 import moment from "moment";
 import jwt from 'jsonwebtoken';
@@ -12,56 +11,42 @@ import BreakModel from "../models/break.model.js";
  ******************************************************************************/
 
 class EmployeeController {
-    login = async (req, res, next) => {
-        const {email, password: pass} = req.body;
-
-        console.log(email);
-        const user = await AuthModel.findOne({email});
-
+    getUserById = async (req, res, next) => {
+        // console.log(req.body.id)
+        const user = await AuthModel.findOne({id: req.body.id});
         if (!user) {
-            res.status(400).send({message: 'Incorrect email or password.'});
-            return;
+            return res.status(404).send({message: 'User not found'});
         }
-
-        const isMatch = await bcrypt.compare(pass, user.password)
-        if (!isMatch) {
-            res.status(400).send({message: 'Incorrect email or password.'});
-            return;
-        }
-
-        // user matched
-        const secretKey = process.env.SECRET_JWT || "";
-        const token = jwt.sign({user_id: user.id.toString()}, secretKey, {
-            expiresIn: '2d'
-        });
 
         const {password, created_at, updated_at, ...userWithoutPassword} = user;
-        res.status(200).send({...userWithoutPassword, token});
+        res.send(userWithoutPassword);
     };
 
-    edit = async (req, res, next) => {
-        console.log(req.files[0].filename);
-
+    add_data = async (req, res, next) => {
         const id = req.currentUser.id;
-
-        const user = await AuthModel.findOne({id});
-        if (user.role !== 'Employee' || user.status !== 'Active') {
-            res.status(401).send({message: 'you have not permission to edit'});
-        }
-        // req.body.updated_at = CURRENT_TIMESTAMP
+        req.file ? req.body.profile = req.file.filename : req.body.profile = 'avatar.png';
         req.body.updated_at = new Date();
-        console.log(req.body);
 
-        // const result = await AuthModel.update(req.body, req.currentUser.id);
-        // res.send(result)
+        const params = {
+            ...req.body,
+        }
 
-    };
+        const result = await EmployeeModel.profile_update(params, id);
+
+        if (!result) {
+            return res.status(400).send({message: 'Unable to edit user'});
+        }
+
+        req.body.id = id;
+
+        this.getUserById(req, res, next);
+    }
 
     timestamp = async (req, res, next) => {
         const tableAction = req.body.action;
         const id = req.body.id;
         const currentDate = new Date();
-        console.log(currentDate);
+        // console.log(currentDate);
         req.body._time = moment().format('YYYY-MM-DD HH:mm:ss');
 
         const employee_id = req.currentUser.id
@@ -112,7 +97,7 @@ class EmployeeController {
                 workingHours += parseFloat(hours);
             }
             const breakResult = await this.break_calculation(req, res)
-            console.log(breakResult)
+            // console.log(breakResult)
 
             // const currentTime = new Date();
             // const latestCheckIn = result.length > 0 ? new Date(result[result.length - 1].in) : null;
@@ -180,6 +165,7 @@ class EmployeeController {
     };
 
     break_calculation = async (req, res, next) => {
+        console.log('break_calculation',req.body.date)
         let datePart;
         const date = new Date();
         const dateString = date.toISOString();

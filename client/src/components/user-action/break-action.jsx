@@ -23,20 +23,19 @@ const BreakAction = ({BreakIn, BreakOut, check_status, break_status}) => {
 
     return (
         <>
-            {
-                check_status !== "CHECK_OUT" ? (
-                    <>
-                        {
-                            break_status === "BREAK_OUT" ? (
-                                <button className="btn btn-sm btn-outline-primary"
-                                        onClick={e => breakinHandler(e)}>Break In </button>
-                            ) : (
-                                <button className="btn btn-sm btn-outline-primary"
-                                        onClick={e => breakoutHandler(e)}> Break Out </button>
-                            )
-                        }
-                    </>
-                ) : ""
+            {check_status !== "CHECK_OUT" && check_status !== null ? (
+                <>
+                    {
+                        break_status === "BREAK_OUT" ? (
+                            <button className="btn btn-primary"
+                                    onClick={e => breakinHandler(e)}>Break In </button>
+                        ) : (
+                            <button className="btn-danger btn"
+                                    onClick={e => breakoutHandler(e)}> Break Out </button>
+                        )
+                    }
+                </>
+            ) : ""
             }
 
         </>

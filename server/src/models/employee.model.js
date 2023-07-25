@@ -1,9 +1,9 @@
-import query from '../config/db-connection.js';
 import commonModel from "./common.model.js";
 
 class EmployeeModel {
     tableName = `attendance`;
     breakTable = `break_in_out`;
+    userTable = `users`;
 
     timestamp = async (row_id, employee_id, _time, method, status, updated_by) => {
         return await commonModel.timestamp(this.tableName, row_id, employee_id, _time, method, status, updated_by);
@@ -29,6 +29,7 @@ class EmployeeModel {
     }
 
     calculateDuration = async (checkIn, checkOut) => {
+        console.log('test test',checkIn, checkOut)
         // const sql = 'SELECT TIMEDIFF(?, ?) AS duration';
         // const result = await query(sql, [checkOut, checkIn]);
         // return result[0].duration;
@@ -45,6 +46,10 @@ class EmployeeModel {
     checkTimeUpdate = async (params, id) => {
         // console.log(params, id)
         return await commonModel.update(this.tableName, params, id);
+    }
+
+    profile_update = async (params, id) => {
+        return await commonModel.profile_update(this.userTable, params, id);
     }
 
 

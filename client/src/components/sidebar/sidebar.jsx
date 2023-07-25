@@ -48,10 +48,10 @@ const Sidebar = () => {
                             </li>)
                     }
                     <li className="menu-item">
-                        <a href="" className="menu-link menu-toggle">
-                            <i className="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                            <div data-i18n="Authentications">Authentications</div>
-                        </a>
+                        {/*<a href="" className="menu-link menu-toggle">*/}
+                        {/*    <i className="menu-icon tf-icons bx bx-lock-open-alt"></i>*/}
+                        {/*    <div data-i18n="Authentications">Authentications</div>*/}
+                        {/*</a>*/}
                         <ul className="menu-sub">
                             <li className="menu-item">
                                 <a href="auth-login-basic.html" className="menu-link" target="_blank">

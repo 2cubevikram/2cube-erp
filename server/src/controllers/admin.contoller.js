@@ -79,7 +79,7 @@ class AdminController {
         }
 
         req.body.updated_at = new Date();
-        console.log(req.body);
+        // console.log(req.body);
 
         // const result = await AuthModel.update(req.body, req.currentUser.id);
     }
@@ -102,9 +102,9 @@ class AdminController {
             res.status(401).send({message: 'Employees are not allowed to edit their recorded time.'});
             return;
         }
-        if(outTime === "Invalid date"){
+        if (outTime === "Invalid date") {
             req.body.status = "CHECK_IN";
-        }else{
+        } else {
             req.body.status = "CHECK_OUT";
         }
 
@@ -114,7 +114,7 @@ class AdminController {
             status: req.body.status,
             updated_by: user.role
         }
-        console.log(params)
+        // console.log(params)
         let result = await EmployeeModel.checkTimeUpdate(params, row_id);
 
         res.send(result);
@@ -139,9 +139,9 @@ class AdminController {
             return;
         }
 
-        if(outTime === "Invalid date"){
+        if (outTime === "Invalid date") {
             req.body.status = "BREAK_IN";
-        }else{
+        } else {
             req.body.status = "BREAK_OUT";
         }
 

@@ -14,7 +14,7 @@ let storage = multer.diskStorage({
 
 let uploadFileMiddleware = multer({
     storage: storage
-}).any("any");
+}).single("file");
 
 let uploadMediaFile = util.promisify(uploadFileMiddleware);
 

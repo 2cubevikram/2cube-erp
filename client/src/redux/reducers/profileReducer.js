@@ -50,6 +50,8 @@ const profileReducer = (state = initialState, action) => {
                 }
             };
         case 'ADD_USER_PROFILE':
+            console.log('ADD_USER_PROFILE', action.payload)
+            // localStorage.setItem("user", JSON.stringify(action.payload))
             return {
                 ...state,
                 profile: action.payload

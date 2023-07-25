@@ -45,7 +45,7 @@ export const EmployeeList = ({employees}) => {
                                 <i className="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div className="dropdown-menu">
-                                <Link to={`/profile`}
+                                <Link to={`/employees/profile`}
                                       state={{ id: item.id }}
                                       className="dropdown-item"><i
                                     className="bx bx-edit-alt me-1"></i>Profile</Link>

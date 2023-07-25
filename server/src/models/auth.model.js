@@ -3,7 +3,6 @@ import commonModel from './common.model.js';
 
 class AuthModel {
     tableName = `users`;
-    attendance_tableName = `testing_table`;
 
     create = async ({id, first_name, last_name, email, password, role}) => {
         const sql = `INSERT INTO ${this.tableName}

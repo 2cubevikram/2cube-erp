@@ -29,6 +29,28 @@ class CommonModel {
         return result[0];
     }
 
+    profile_update = async (tableName, params, id) => {
+        // const {columnSet, values} = utils.multipleColumnSet(params)
+        //
+        // const sql = `UPDATE ${tableName} SET ${columnSet} WHERE id = ?`;
+        // await query(sql, [...values, id]);
+        //
+        // const selectSql = `SELECT * FROM ${tableName} WHERE id = ?`;
+        // const result = await query(selectSql, [id]);
+        // console.log('result',result)
+        //
+        // if (result.length > 0) {
+        //     return result[result.length - 1];
+        // }
+        // return null;
+        const { columnSet, values } = utils.multipleColumnSet(params)
+
+        const sql = `UPDATE ${tableName} SET ${columnSet} WHERE id = ?`;
+        const result = await query(sql, [...values, id]);
+
+        return result;
+    }
+
     update = async (tableName, params, id) => {
         const {columnSet, values} = utils.multipleColumnSet(params)
 
@@ -39,7 +61,6 @@ class CommonModel {
         const selectSql = `SELECT * FROM ${tableName} WHERE employee_id = ? AND id=?`;
 
         const result1 = await query(selectSql1, [id]);
-
         const result = await query(selectSql, [result1[0].employee_id, result1[0].id]);
 
         if (result.length > 0) {

@@ -10,28 +10,34 @@ const Navbar = () => {
     const user = useSelector(getUser);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [profile, setUserProfile] = useState(user);
-    const userProfile = useSelector((state) => state.user.profile);
-
+    // const [main, setMainProfile] = useState(user);
+    // const [profile, setUserProfile] = useState(user);
+    // const mainProfile1 = useSelector((state) => state.user.profile);
+    // const userProfile = useSelector((state) => state.user.profile);
+    //
+    //
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-
-    useEffect(() => {
-        if (userProfile !== null) {
-            setUserProfile(userProfile);
-        } else {
-            setUserProfile(user);
-        }
-    }, [userProfile, user]);
-
-
+    //
+    // useEffect(() => {
+    //     if (userProfile !== null) {
+    //         setUserProfile(userProfile);
+    //     } else {
+    //         setUserProfile(user);
+    //     }
+    // }, [userProfile, user]);
+    //
+    //
     const logoutHandler = (e) => {
         e.preventDefault();
         dispatch(logoutUser());
     };
-
-    useEffect(() => {
-        dispatch(getProfile({user, id: user.id}));
-    }, [dispatch, user])
+    //
+    // useEffect(() => {
+    //     dispatch(getProfile({user, id: user.id}));
+    // }, [dispatch, user])
+    //
+    // console.log('userProfile', mainProfile1)
+    // console.log('user', user)
 
 
     return (
@@ -63,7 +69,7 @@ const Navbar = () => {
                                href="/" data-bs-toggle="dropdown">
                                 <div className="avatar avatar-online">
                                     <img
-                                        src={PF + profile.profile}
+                                        src={PF + user.profile}
                                         className="w-px-40 h-auto rounded-circle"
                                     />
                                 </div>
@@ -75,7 +81,7 @@ const Navbar = () => {
                                             <div className="flex-shrink-0 me-3">
                                                 <div className="avatar avatar-online">
                                                     <img
-                                                        src={PF + profile.profile} alt="true"
+                                                        src={PF + user.profile} alt="true"
                                                         className="w-px-40 h-auto rounded-circle"
                                                     />
                                                 </div>
@@ -83,8 +89,8 @@ const Navbar = () => {
                                             <div className="flex-grow-1">
 
                                                 <span
-                                                    className="fw-semibold d-block">{profile.first_name} {profile.last_name}</span>
-                                                <small className="text-muted">{profile.role}</small>
+                                                    className="fw-semibold d-block">{user.first_name} {user.last_name}</span>
+                                                <small className="text-muted">{user.role}</small>
                                             </div>
                                         </div>
                                     </a>

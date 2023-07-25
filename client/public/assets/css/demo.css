@@ -111,3 +111,64 @@
   flex-flow: wrap;
   justify-content: space-between;
 }
+
+/* customise css  start  */
+.table thead tr input[type="date"] {
+  background: #696cff;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  margin-right: 10px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.table thead tr input[type="date"]:hover {
+  background: #ccc;
+  color: #696cff;
+}
+
+.table thead tr button {
+  background: #696cff;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  margin-right: 10px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+.table thead tr button:hover {
+  background: #ccc;
+  color: #696cff;
+}
+tr.table-default {
+  border-bottom: 1px solid #ccc;
+}
+.dropdown button {
+  position: absolute;
+  top: -13px;
+  bottom: 0;
+  right: 100px;
+  left: auto;
+  border: none;
+  background: none;
+}
+.bx-dots-vertical-rounded:before {
+  content: "\ed17";
+  position: absolute;
+  top: 2px;
+  bottom: auto;
+  right: auto;
+  left: -5px;
+}
+
+tr.table-default input[type="text"] {
+  max-width: 110px;
+}
+button.btn.btn-danger {margin-right: 5px;}
+button.btn.btn-primary {margin-left: 5px;}
+
+
+
