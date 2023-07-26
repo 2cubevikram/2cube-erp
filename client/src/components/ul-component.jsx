@@ -49,8 +49,7 @@ export const EmployeeList = ({employees}) => {
                                       state={{ id: item.id }}
                                       className="dropdown-item"><i
                                     className="bx bx-edit-alt me-1"></i>Profile</Link>
-                                {/*<a className="dropdown-item" href="/"><i*/}
-                                {/*    className="bx bx-edit-alt me-1"></i> Edit</a>*/}
+
                                 <a className="dropdown-item" href="/"><i
                                     className="bx bx-trash me-1"></i> Delete</a>
                             </div>

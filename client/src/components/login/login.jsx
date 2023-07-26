@@ -89,8 +89,6 @@ const LoginForm = ({login, error}) => {
         </>
     )
 }
-const mapStateToProps = state => ({
-    error: state.auth.error
-});
+
 export default connect(null, { login })(LoginForm);
 // export default connect(mapStateToProps, { login })(LoginForm);

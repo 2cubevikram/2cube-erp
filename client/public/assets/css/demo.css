@@ -172,3 +172,9 @@ button.btn.btn-primary {margin-left: 5px;}
 
 
 
+.cs-card-body p {
+  margin: 0;
+}
+.card .table thead tr th {
+  padding-bottom: 30px !important;
+}

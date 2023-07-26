@@ -181,14 +181,20 @@ const TR = ({data}) => {
                 </td>
                 <td>
                     <div className="dropdown">
-                        {user.role === 'Admin' || user.role === 'HR' ? (
-                            <button onClick={handleChange}>edit</button>
-                        ) : null}
+
                         <button type="button" className="btn p-0 dropdown-toggle hide-arrow"
                                 data-bs-toggle="dropdown">
                             <i className="bx bx-dots-vertical-rounded"></i>
                         </button>
                         <div className="dropdown-menu">
+                            {user.role === 'Admin' || user.role === 'HR' ? (
+                                <>
+                                    <a
+                                        onClick={handleChange}
+                                        className="dropdown-item"><i
+                                        className="bx bx-trash me-1"></i> Edit</a>
+                                </>
+                            ) : null}
                             {/*<Link to={`/profile/${item.id}`} className="dropdown-item"><i*/}
                             {/*    className="bx bx-edit-alt me-1"></i>Profile</Link>*/}
                             {/*<Link*/}
@@ -197,8 +203,7 @@ const TR = ({data}) => {
                             {/*      onClick={handleChange}*/}
                             {/*      className="dropdown-item"><i*/}
                             {/*    className="bx bx-edit-alt me-1"></i>Edit</Link>*/}
-                            <a className="dropdown-item" href="/"><i
-                                className="bx bx-trash me-1"></i> Delete</a>
+                            <a className="dropdown-item" href="/"><i className="bx bx-trash me-1"></i> Delete</a>
                         </div>
                     </div>
                 </td>

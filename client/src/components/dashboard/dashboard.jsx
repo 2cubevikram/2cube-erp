@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import CheckAction from "../user-action/check-action";
 import BreakAction from "../user-action/break-action";
-import {connect, useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getDayStatus} from "../../redux/actions/breakAction";
 import {getAttendance} from "../../redux/actions/profileAction";
 import moment from 'moment';
@@ -64,13 +64,13 @@ const Dashboard = () => {
                             <div className="card">
                                 <div className="row row-bordered g-0">
                                     <div className="col-md-12">
-                                        <div className="card-body">
+                                        <div className="cs-card-body ">
                                             <div className="card-body">
                                                 {check_status.status && check_status.status !== null ? (
                                                     check_status.day && (
                                                         <div className="text-center">
                                                             <div className="alert alert-danger" role="alert">
-                                                                Check In - {moment(check_status.day._in).format('YYYY-MM-DD HH:mm:ss')}
+                                                                Check In - {moment(check_status.day._in).format('hh:mm A')}
                                                             </div>
                                                         </div>
                                                     )) : (
@@ -85,11 +85,11 @@ const Dashboard = () => {
                                                     break_status.break.map((item, index) => (
                                                         <div className="text-center" key={item.id}>
                                                             <div className="alert alert-success" role="alert">
-                                                                Break In - {moment(item._in).format('YYYY-MM-DD HH:mm:ss')}
+                                                                Break In - {moment(item._in).format('hh:mm A')}
                                                             </div>
                                                             {item._out && (
                                                                 <div className="alert alert-info" role="alert">
-                                                                    Break Out - {moment(item._out).format('YYYY-MM-DD HH:mm:ss')}
+                                                                    Break Out - {moment(item._out).format('hh:mm A')}
                                                                 </div>
                                                             )}
                                                         </div>
@@ -107,7 +107,7 @@ const Dashboard = () => {
                                                     check_status.day && (
                                                         <div className="text-center">
                                                             <div className="alert alert-danger" role="alert">
-                                                                Check out - {moment(check_status.day._out).format('YYYY-MM-DD HH:mm:ss')}
+                                                                Check out - {moment(check_status.day._out).format('hh:mm A')}
                                                             </div>
                                                         </div>
                                                     )) : (

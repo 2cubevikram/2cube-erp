@@ -15,9 +15,6 @@ const Profile = ({getProfile}) => {
             navigate('/');
         }
     })
-    // if (id === 0) {
-    //     navigate('/');
-    // }
     const user = useSelector((state) => state.login.user);
     const profile = useSelector((state) => state.user.profile);
     const [activeTab, setActiveTab] = useState(1);
@@ -30,7 +27,6 @@ const Profile = ({getProfile}) => {
     };
 
     useEffect(() => {
-
         if (localStorage.getItem("account_tab")) {
             setActiveTab(parseInt(localStorage.getItem("account_tab")));
         }

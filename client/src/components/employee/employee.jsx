@@ -1,5 +1,4 @@
-import React, {useContext, useEffect, useState, Fragment} from "react";
-import {Link} from 'react-router-dom';
+import React, {useEffect} from "react";
 import {getEmployee} from "../../redux/actions/employeeAction";
 import {connect, useSelector} from "react-redux";
 import {EmployeeList} from "../ul-component";
@@ -11,7 +10,7 @@ const Employee = ({getEmployee}) => {
 
     useEffect(() => {
         getEmployee({user});
-    }, [getEmployee]);
+    }, [getEmployee, user]);
 
     return (
         <>

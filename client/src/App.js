@@ -1,14 +1,12 @@
-import React, {useContext} from "react";
+import React from "react";
 
 
 import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
 import Home from "./pages/Home";
 import Employee from "./pages/Employee";
 import Profile from "./pages/profile";
-import Login from "./pages/Login";
 import Register from "./components/login/register";
 import {connect} from "react-redux";
-import {decrement,increment} from "./redux/actions/counterActions"
 import LoginForm from "./components/login/login";
 
 
