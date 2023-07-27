@@ -5,22 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/2cube-erp.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/css/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/css/demo.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/login/login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/sidebar/sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/sidebar/sidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/login/old_login.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/login/register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/register.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Account.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Account.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/profile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/toast-message/ErrorPopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/toast-message/ErrorPopup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/ul-component.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ul-component.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/user-action/break-action.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/user-action/break-action.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/user-action/check-action.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/user-action/check-action.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/redux/actions/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/authActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/breakAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/breakAction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/checkAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/checkAction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/employeeAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/employeeAction.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/redux/actions/profileAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/profileAction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/breakReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/breakReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/profileReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/profileReducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -156,7 +158,8 @@
       <workItem from="1690381319582" duration="6000" />
       <workItem from="1690381378392" duration="1475000" />
       <workItem from="1690433893786" duration="686000" />
-      <workItem from="1690449493625" duration="601000" />
+      <workItem from="1690449493625" duration="1321000" />
+      <workItem from="1690456242704" duration="10534000" />
     </task>
     <servers />
   </component>

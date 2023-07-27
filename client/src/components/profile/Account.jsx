@@ -32,8 +32,6 @@ const Account = ({profile}) => {
         dispatch(addUserProfile({obj, user}));
     };
 
-    console.log(profile)
-
     return (
         <>
             {isLoading ? (

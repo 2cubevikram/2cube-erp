@@ -36,7 +36,7 @@ const Profile = ({getProfile}) => {
         } else {
             getProfile({user, id});
         }
-    }, [getProfile, id, user]);
+    }, [getProfile, id, user,navigate]);
 
     if (!profile) {
         return null;

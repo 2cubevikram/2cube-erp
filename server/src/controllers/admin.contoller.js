@@ -85,6 +85,7 @@ class AdminController {
     }
 
     checkTimeUpdate = async (req, res, next) => {
+        console.log('test')
         const id = req.currentUser.id;
         const row_id = req.body.id;
         let inTime = null;
@@ -104,7 +105,7 @@ class AdminController {
         }
 
         if(user.role === 'HR' ){
-            res.send({message: 'Record editing not permitted. Kindly reach out to Admin for assistance. Thank you'});
+            res.status(400).send({message: 'Record editing not permitted. Kindly reach out to Admin for assistance. Thank you'});
             return;
         }
 
@@ -120,10 +121,10 @@ class AdminController {
             status: req.body.status,
             updated_by: user.role
         }
-        console.log(params)
-        // let result = await EmployeeModel.checkTimeUpdate(params, row_id);
-        //
-        // res.send(result);
+        // console.log(params)
+        let result = await EmployeeModel.checkTimeUpdate(params, row_id);
+
+        res.send(result);
     }
 
     breakTimeUpdate = async (req, res, next) => {

@@ -4,9 +4,11 @@ import React, {useEffect, useState} from "react";
 import moment from "moment";
 import {getAttendance, breakTimeEdit} from "../../redux/actions/profileAction";
 import {formatDateTime} from "../../function/time";
+import ErrorPopup from "../toast-message/ErrorPopup";
 
-const Attendance = ({getAttendance}) => {
+const Attendance = () => {
     const location = useLocation();
+    const dispatch = useDispatch();
     const [filterDate, setFilterDate] = useState();
 
     const id = location.state.id;
@@ -39,7 +41,7 @@ const Attendance = ({getAttendance}) => {
     }
 
     const handleClick = () => {
-        getAttendance({user, id, filterDate});
+        dispatch(getAttendance({user, id, filterDate}));
     };
     const handleChange = (event) => {
         setFilterDate(event.target.value);
@@ -47,11 +49,12 @@ const Attendance = ({getAttendance}) => {
 
     const handleClear = () => {
         setFilterDate('');
-        getAttendance({user, id});
+        dispatch(getAttendance({user, id}));
     }
 
     useEffect(() => {
-        getAttendance({user, id, filterDate});
+        dispatch(getAttendance({user, id, filterDate}));
+        // eslint-disable-next-line
     }, [getAttendance, user, id]);
 
     let DATA = "";
@@ -154,9 +157,14 @@ const TR = ({data}) => {
     const differenceTime = formatDateTime.TimeDifference(CheckinTime, CheckoutTime);
 
     const [childValue, setChildValue] = useState(false);
+    const [childValueMsg, setChildValueMsg] = useState(false);
     const handleChange = (event) => {
-        const newValue = !childValue;
-        setChildValue(newValue);
+        if (user.role !== "HR"){
+            const newValue = !childValue;
+            setChildValue(newValue);
+        }else {
+            setChildValueMsg("MSG");
+        }
     };
 
     const handleChildEditableRow = () => {
@@ -195,14 +203,6 @@ const TR = ({data}) => {
                                         className="bx bx-trash me-1"></i> Edit</a>
                                 </>
                             ) : null}
-                            {/*<Link to={`/profile/${item.id}`} className="dropdown-item"><i*/}
-                            {/*    className="bx bx-edit-alt me-1"></i>Profile</Link>*/}
-                            {/*<Link*/}
-                            {/*    to={`/profile`}*/}
-                            {/*      state={{ id: data.id }}*/}
-                            {/*      onClick={handleChange}*/}
-                            {/*      className="dropdown-item"><i*/}
-                            {/*    className="bx bx-edit-alt me-1"></i>Edit</Link>*/}
                             <a className="dropdown-item" href="/"><i className="bx bx-trash me-1"></i> Delete</a>
                         </div>
                     </div>
@@ -213,6 +213,11 @@ const TR = ({data}) => {
                     <EditableRow _data={data} inTime={inTime} outTime={outTime}
                                  onChildClick={handleChildEditableRow}
                     />
+                ) : ""
+            }
+            {
+                childValueMsg === "MSG" ? (
+                    <div className="error__msg">"Sorry, HR can't edit their own records."</div>
                 ) : ""
             }
         </>
@@ -251,7 +256,7 @@ const EditableRow = ({_data, inTime, outTime, onChildClick}) => {
     const _newInTime = moment(_inTime, "h:mm A").format("HH:mm:ss");
     const _newOutTime = moment(_outTime, "h:mm A").format("HH:mm:ss");
 
-    const handleSave = () => {
+    const handleSave = async () => {
         const obj = {
             'id': _data.id,
             'date': formattedDate,
@@ -259,9 +264,13 @@ const EditableRow = ({_data, inTime, outTime, onChildClick}) => {
             '_out': _newOutTime,
             'status': _status
         }
-        // console.log(obj)
-        dispatch(breakTimeEdit({user, obj}));
-        onChildClick();
+        try {
+            await dispatch(breakTimeEdit({user, obj}));
+            onChildClick();
+        } catch (error) {
+            console.log(error)
+        }
+
     };
     return (
         <tr className="table-default" key={"id"}>
@@ -285,4 +294,5 @@ const EditableRow = ({_data, inTime, outTime, onChildClick}) => {
     )
 }
 
-export default connect(null, {getAttendance})(Attendance);
+export default Attendance;
+// export default connect(null, {getAttendance})(Attendance);

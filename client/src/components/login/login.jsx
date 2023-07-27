@@ -2,6 +2,7 @@ import {useState} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {login} from "../../redux/actions/authActions";
 import ErrorPopup from "../toast-message/ErrorPopup";
+import {Link} from "react-router-dom";
 
 const LoginForm = () => {
     const dispatch = useDispatch();
@@ -89,9 +90,9 @@ const LoginForm = () => {
 
                                 <p className="text-center">
                                     <span>New on our platform?</span>
-                                    <a href="/register">
+                                    <Link to={"/register"}>
                                         <span>Create an account</span>
-                                    </a>
+                                    </Link>
                                 </p>
                             </div>
                         </div>

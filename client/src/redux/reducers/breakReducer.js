@@ -17,7 +17,6 @@ const breakReducer = (state = initialState, action) => {
                 break: [...state.break, obj]
             }
         case 'BREAK_OUT':
-            console.log("action", action.payload)
             return {
                 ...state,
                 status: action.payload.status,

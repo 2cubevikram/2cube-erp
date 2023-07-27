@@ -6,9 +6,8 @@ export const login = (email, password) => async dispatch => {
         const response = await axios.post(`${API_BASE_URL}/auth/login`, {email, password});
         dispatch(loginSuccess(response.data));
     }catch (error) {
-        // Dispatch the error action with the error message (if needed)
-        dispatch({ type: 'LOGIN_FAILURE', payload: error.message });
-        throw error.response.data.message; // Rethrow the error to the component's catch block
+        dispatch({ type: 'LOGIN_FAILURE', payload: error.response.data.message });
+        throw error.response.data.message;
     }
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
 
 const ErrorPopup = ({ error, onClose }) => {
+    console.log(error)
     const popupStyle = {
         position: "fixed",
         top: 0,
@@ -11,6 +12,7 @@ const ErrorPopup = ({ error, onClose }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        zIndex: 2
     };
 
     const popupContentStyle = {

@@ -32,26 +32,28 @@ export const getAttendance = ({user, id, filterDate}) => async (dispatch) => {
 };
 
 export const breakTimeEdit = ({user, obj}) => async (dispatch) => {
-    console.log(obj)
     if (obj.status === "CHECK_IN" || obj.status === "CHECK_OUT") {
-        console.log(obj.status)
-        const response = await axios.patch(`${API_BASE_URL}/auth/check-time-edit`,
-            {
-                id: obj.id,
-                date: obj.date,
-                _in: obj._in,
-                _out: obj._out,
-                status: obj.status,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
+        try {
+            const response = await axios.patch(`${API_BASE_URL}/auth/check-time-edit`,
+                {
+                    id: obj.id,
+                    date: obj.date,
+                    _in: obj._in,
+                    _out: obj._out,
+                    status: obj.status,
                 },
-            }
-        );
-        dispatch(check_time_edit(response.data));
+                {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                }
+            );
+            dispatch(check_time_edit(response.data));
+        } catch (error) {
+            dispatch({type: 'CHECK_TIME_EDIT_FAILED', payload: error.response.data.message });
+            throw error.response.data.message;
+        }
     } else {
-        console.log(obj.status)
         const response = await axios.patch(`${API_BASE_URL}/auth/break-time-edit`,
             {
                 id: obj.id,
@@ -71,7 +73,7 @@ export const breakTimeEdit = ({user, obj}) => async (dispatch) => {
 
 };
 
-export const addUserProfile = ({ user, obj }) => async (dispatch) => {
+export const addUserProfile = ({user, obj}) => async (dispatch) => {
     const formData = new FormData();
     formData.append("first_name", obj.first_name);
     formData.append("last_name", obj.last_name);
@@ -89,7 +91,6 @@ export const addUserProfile = ({ user, obj }) => async (dispatch) => {
     });
     dispatch(add_user_profile(response.data));
 };
-
 
 
 export const get_profile = (payload) => ({

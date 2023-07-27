@@ -1,6 +1,5 @@
 import React from 'react';
-import {connect, useDispatch, useSelector} from "react-redux";
-import breakReducer from "../../redux/reducers/breakReducer";
+import {connect, useSelector} from "react-redux";
 import {BreakIn, BreakOut} from "../../redux/actions/breakAction";
 
 const BreakAction = ({BreakIn, BreakOut, check_status, break_status}) => {
@@ -8,7 +7,6 @@ const BreakAction = ({BreakIn, BreakOut, check_status, break_status}) => {
     const user = useSelector(state => state.login.user);
     const breakState = useSelector(state => state.break);
 
-    const dispatch = useDispatch();
     const breakinHandler = e => {
         e.preventDefault();
         BreakIn(user);

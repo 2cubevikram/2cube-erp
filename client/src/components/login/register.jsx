@@ -1,5 +1,5 @@
 import {useRef} from "react";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {register} from "../../redux/actions/authActions";
 
@@ -94,9 +94,9 @@ const Register = () => {
 
                                 <p className="text-center">
                                     <span>Already have an account?</span>
-                                    <a href="/login">
+                                    <Link to={"/login"}>
                                         <span>Sign in instead</span>
-                                    </a>
+                                    </Link>
                                 </p>
                             </div>
                         </div>

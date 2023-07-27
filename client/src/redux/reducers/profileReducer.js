@@ -31,6 +31,10 @@ const profileReducer = (state = initialState, action) => {
                     }
                 }
             };
+        case 'CHECK_TIME_EDIT_FAILED':
+            return {
+                error: action.payload,
+            };
         case 'BREAK_TIME_EDIT':
             return {
                 ...state,

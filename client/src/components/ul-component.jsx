@@ -1,11 +1,11 @@
 import {Link} from "react-router-dom";
 import React from "react";
 
-export const Message = ({msg = "test", type = "alert"}) => {
-    return (
-        <div className={`alert alert-${type}`} role={`type`}>{msg}</div>
-    )
-}
+// export const Message = ({msg = "test", type = "alert"}) => {
+//     return (
+//         <div className={`alert alert-${type}`} role={`type`}>{msg}</div>
+//     )
+// }
 export const EmployeeList = ({employees}) => {
     return (
         <table className="table">

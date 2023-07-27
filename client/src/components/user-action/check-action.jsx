@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect, useDispatch, useSelector} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import {CheckIn, CheckOut} from "../../redux/actions/checkAction";
 
 const CheckAction = ({CheckIn, CheckOut, check_status, break_status}) => {
