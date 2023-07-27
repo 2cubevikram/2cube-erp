@@ -1,8 +1,9 @@
 import axios from "axios";
+import API_BASE_URL from "../../apiConfig";
 
 export const getProfile = ({user, id}) => async (dispatch) => {
     try {
-        const response = await axios.get(`/auth/id/${id}`, {
+        const response = await axios.get(`${API_BASE_URL}/auth/id/${id}`, {
             headers: {
                 Authorization: `Bearer ${user.token}`,
             },
@@ -15,7 +16,7 @@ export const getProfile = ({user, id}) => async (dispatch) => {
 
 export const getAttendance = ({user, id, filterDate}) => async (dispatch) => {
     try {
-        const response = await axios.get(`/auth/check-in-status`, {
+        const response = await axios.get(`${API_BASE_URL}/auth/check-in-status`, {
             headers: {
                 Authorization: `Bearer ${user.token}`,
             },
@@ -34,7 +35,7 @@ export const breakTimeEdit = ({user, obj}) => async (dispatch) => {
     console.log(obj)
     if (obj.status === "CHECK_IN" || obj.status === "CHECK_OUT") {
         console.log(obj.status)
-        const response = await axios.patch(`/auth/check-time-edit`,
+        const response = await axios.patch(`${API_BASE_URL}/auth/check-time-edit`,
             {
                 id: obj.id,
                 date: obj.date,
@@ -51,7 +52,7 @@ export const breakTimeEdit = ({user, obj}) => async (dispatch) => {
         dispatch(check_time_edit(response.data));
     } else {
         console.log(obj.status)
-        const response = await axios.patch(`/auth/break-time-edit`,
+        const response = await axios.patch(`${API_BASE_URL}/auth/break-time-edit`,
             {
                 id: obj.id,
                 date: obj.date,
@@ -80,7 +81,7 @@ export const addUserProfile = ({ user, obj }) => async (dispatch) => {
         const file = fileList[i];
         formData.append("file", file);
     }
-    const response = await axios.patch("/auth/add", formData, {
+    const response = await axios.patch(`${API_BASE_URL}/auth/add`, formData, {
         headers: {
             Authorization: `Bearer ${user.token}`,
             "Content-Type": "multipart/form-data", // Set the content type to handle file uploads

@@ -31,7 +31,7 @@ class AdminController {
         const user = await AuthModel.findOne({email});
 
         if (!user) {
-            res.status(400).send({message: 'Incorrect user name or email.'});
+            res.status(400).send({message: 'Incorrect email or password.'});
             return;
         }
 
@@ -102,6 +102,12 @@ class AdminController {
             res.status(401).send({message: 'Employees are not allowed to edit their recorded time.'});
             return;
         }
+
+        if(user.role === 'HR' ){
+            res.send({message: 'Record editing not permitted. Kindly reach out to Admin for assistance. Thank you'});
+            return;
+        }
+
         if (outTime === "Invalid date") {
             req.body.status = "CHECK_IN";
         } else {
@@ -114,10 +120,10 @@ class AdminController {
             status: req.body.status,
             updated_by: user.role
         }
-        // console.log(params)
-        let result = await EmployeeModel.checkTimeUpdate(params, row_id);
-
-        res.send(result);
+        console.log(params)
+        // let result = await EmployeeModel.checkTimeUpdate(params, row_id);
+        //
+        // res.send(result);
     }
 
     breakTimeUpdate = async (req, res, next) => {

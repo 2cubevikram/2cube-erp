@@ -10,7 +10,7 @@ const Sidebar = () => {
             <aside id="layout-menu" className="layout-menu menu-vertical menu bg-menu-theme">
                 <div className="app-brand demo">
                     <Link to={`/`} className="app-brand-link">
-                        test
+                        <p>2CUBE STUDIO</p>
                     </Link>
                 </div>
                 <div className="menu-inner-shadow"></div>

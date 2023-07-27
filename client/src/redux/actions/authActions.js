@@ -1,18 +1,20 @@
 import axios from 'axios';
+import API_BASE_URL from '../../apiConfig'
 
 export const login = (email, password) => async dispatch => {
     try {
-        const response = await axios.post('/auth/login', {email, password});
-        console.log(response.data)
+        const response = await axios.post(`${API_BASE_URL}/auth/login`, {email, password});
         dispatch(loginSuccess(response.data));
-    } catch (error) {
-        dispatch(loginFailure(error.response.data.message));
+    }catch (error) {
+        // Dispatch the error action with the error message (if needed)
+        dispatch({ type: 'LOGIN_FAILURE', payload: error.message });
+        throw error.response.data.message; // Rethrow the error to the component's catch block
     }
 };
 
 export const register = ({userData}) => async dispatch => {
     try {
-        const response = await axios.post('/auth/register', userData);
+        const response = await axios.post(`${API_BASE_URL}/auth/register`, userData);
         dispatch(registerSuccess(response.data));
     } catch (error) {
         dispatch(registerFailure(error.response.data.message));

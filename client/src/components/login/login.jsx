@@ -1,16 +1,27 @@
-import { useState} from "react";
-import { connect } from 'react-redux';
+import {useState} from "react";
+import {useDispatch, useSelector} from 'react-redux';
 import {login} from "../../redux/actions/authActions";
+import ErrorPopup from "../toast-message/ErrorPopup";
 
-const LoginForm = ({login, error}) => {
+const LoginForm = () => {
+    const dispatch = useDispatch();
+    const error = useSelector(state => state.login.error);
+
+    const [showError, setShowError] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [logError, setLogError] = useState('');
 
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        login(username, password);
-        console.log(login)
+        try {
+            await dispatch(login(username, password));
+        } catch (error) {
+            setShowError(true);
+            setLogError(error);
+        }
     };
+
     return (
         <>
             <div className="container-xxl">
@@ -61,7 +72,8 @@ const LoginForm = ({login, error}) => {
                                         </div>
                                     </div>
                                     {/*{error && <div style={{ color: 'red' }}>Please enter a valid Email or Password!</div>}*/}
-                                    {error && <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>}
+                                    {/*{showError && <ErrorPopup error={error} onClose={() => setShowError(false)} />}*/}
+                                    {error && showError && <ErrorPopup error={logError} onClose={() => setShowError(false)} />}
                                     <br/>
                                     <div className="mb-3">
                                         <div className="form-check">
@@ -90,5 +102,4 @@ const LoginForm = ({login, error}) => {
     )
 }
 
-export default connect(null, { login })(LoginForm);
-// export default connect(mapStateToProps, { login })(LoginForm);
+export default LoginForm;

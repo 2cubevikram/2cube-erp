@@ -1,5 +1,6 @@
 import axios from "axios";
 import {checkin} from "./checkAction";
+import API_BASE_URL from "../../apiConfig";
 
 export const BreakIn = (user) => async dispatch => {
     const headers = {
@@ -15,7 +16,7 @@ export const BreakIn = (user) => async dispatch => {
     let config = {
         method: "POST",
         maxBodyLength: Infinity,
-        url: '/auth/timestamp',
+        url: `${API_BASE_URL}/auth/timestamp`,
         headers: headers,
         data: data
     };
@@ -44,7 +45,7 @@ export const BreakOut = ({user, lastBreakData}) => async dispatch => {
     let config = {
         method: "PATCH",
         maxBodyLength: Infinity,
-        url: '/auth/timestamp',
+        url: `${API_BASE_URL}/auth/timestamp`,
         headers: headers,
         data: data
     };
@@ -71,7 +72,7 @@ export const getDayStatus = ({user}) => async dispatch => {
     let config = {
         method: "GET",
         maxBodyLength: Infinity,
-        url: '/auth/check-in-status',
+        url: `${API_BASE_URL}/auth/check-in-status`,
         headers: headers,
         // data: data
     };

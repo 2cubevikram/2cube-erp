@@ -1,4 +1,5 @@
 import axios from "axios";
+import API_BASE_URL from '../../apiConfig';
 
 export const CheckIn = (user) => async dispatch => {
     const headers = {
@@ -14,7 +15,7 @@ export const CheckIn = (user) => async dispatch => {
     let config = {
         method: "POST",
         maxBodyLength: Infinity,
-        url: '/auth/timestamp',
+        url: `${API_BASE_URL}/auth/timestamp`,
         headers: headers,
         data: data
     };
@@ -42,7 +43,7 @@ export const CheckOut = ({user,day}) => async dispatch => {
     let config = {
         method: "PATCH",
         maxBodyLength: Infinity,
-        url: '/auth/timestamp',
+        url: `${API_BASE_URL}/auth/timestamp`,
         headers: headers,
         data: data
     };

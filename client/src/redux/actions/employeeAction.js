@@ -1,8 +1,9 @@
 import axios from "axios";
+import API_BASE_URL from '../../apiConfig'
 
 export const getEmployee = ({user}) => async (dispatch) => {
     try {
-        const response = await axios.get(`/auth/employees`, {
+        const response = await axios.get(`${API_BASE_URL}/auth/employees`, {
             headers: {
                 Authorization: `Bearer ${user.token}`,
             },
