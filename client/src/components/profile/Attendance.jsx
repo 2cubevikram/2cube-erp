@@ -1,10 +1,9 @@
-import {connect, useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import moment from "moment";
 import {getAttendance, breakTimeEdit} from "../../redux/actions/profileAction";
 import {formatDateTime} from "../../function/time";
-import ErrorPopup from "../toast-message/ErrorPopup";
 
 const Attendance = () => {
     const location = useLocation();
