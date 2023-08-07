@@ -25,7 +25,7 @@ const Sidebar = () => {
                     {
                         user && (user.role === "Admin" || user.role === "HR") ? (
                             <li className="menu-item">
-                                <Link to={`/profile`}
+                                <Link to={"/profile"}
                                       state={{id: user.id}}
                                       className="menu-link"><i
                                     className="menu-icon tf-icons bx bx-lock-open-alt"></i>Profile</Link>
@@ -35,20 +35,41 @@ const Sidebar = () => {
                     {
                         user && (user.role === "Admin" || user.role === "HR") ? (
                             <li className="menu-item">
-                                <Link className="menu-link" to={'/employees'}>
-                                    <i className="menu-icon tf-icons bx bx-table"></i>
+                                <Link className="menu-link" to={"/employees"}>
+                                    <i className="menu-icon tf-icons bx bxs-group"></i>
                                     <div data-i18n="Tables">Employees</div>
                                 </Link>
 
                             </li>
                         ) : (
                             <li className="menu-item">
-                                <Link to={`/profile`}
+                                <Link to={"/profile"}
                                       state={{id: user.id}}
                                       className="menu-link"><i
                                     className="menu-icon tf-icons bx bx-lock-open-alt"></i>Profile</Link>
                             </li>)
                     }
+                    {
+                        user && (user.role === "Admin" || user.role === "HR") ? (
+                            <li className="menu-item">
+                                <Link to={"/to-day"}
+                                      // state={{id: user.id}}
+                                      className="menu-link"><i
+                                    className="menu-icon tf-icons bx bx-table"></i>To Day</Link>
+                            </li>
+                        ) : ""
+                    }
+                    {
+                        user && (user.role === "Admin" || user.role === "HR") ? (
+                            <li className="menu-item">
+                                <Link to={"/leave-app"}
+                                    // state={{id: user.id}}
+                                      className="menu-link"><i
+                                    className="menu-icon tf-icons bx bx-run"></i>Leave Application</Link>
+                            </li>
+                        ) : ""
+                    }
+
                     <li className="menu-item">
                         {/*<a href="" className="menu-link menu-toggle">*/}
                         {/*    <i className="menu-icon tf-icons bx bx-lock-open-alt"></i>*/}

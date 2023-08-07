@@ -35,7 +35,7 @@ const Attendance = () => {
         const h = formatDateTime.convertToHour("8:00");
         const hh = h - minutes_to_hours;
 
-        footer_data.remaining_hours = hh > 0 ? formatDateTime.convertMinutesToHours(hh) : 0;
+        footer_data.remaining_hours = hh > 0 ? formatDateTime.convertMinutesToHours(hh) : 'completed';
         footer_data.working_hours = formatDateTime.convertMinutesToHours(minutes_to_hours);
     }
 
@@ -68,7 +68,7 @@ const Attendance = () => {
         DATA = (
             <>
                 {
-                    <TR data={attendance.check}/>
+                    <TR  data={attendance.check}/>
                 }
                 {
                     attendance.breakin.map((item, index) => {
@@ -134,6 +134,7 @@ const Tfooter = (props) => {
 }
 
 const TR = ({data}) => {
+
     const user = useSelector((state) => state.login.user);
     const inTime = formatDateTime.getTime(data._in);
 
@@ -156,14 +157,15 @@ const TR = ({data}) => {
     const differenceTime = formatDateTime.TimeDifference(CheckinTime, CheckoutTime);
 
     const [childValue, setChildValue] = useState(false);
-    const [childValueMsg, setChildValueMsg] = useState(false);
+    // const [childValueMsg, setChildValueMsg] = useState(false);
     const handleChange = (event) => {
-        if (user.role !== "HR"){
-            const newValue = !childValue;
-            setChildValue(newValue);
-        }else {
-            setChildValueMsg("MSG");
-        }
+        // if (user.role !== "HR"){
+        const newValue = !childValue;
+        setChildValue(newValue);
+
+        // }else {
+        //     setChildValueMsg("MSG");
+        // }
     };
 
     const handleChildEditableRow = () => {
@@ -173,6 +175,7 @@ const TR = ({data}) => {
 
     return (
         <>
+
             <tr className="table-default" key={data.id}>
                 <td>
                     {inTime}
@@ -186,45 +189,45 @@ const TR = ({data}) => {
                         ) : (<span>Out time not available</span>)
                     }
                 </td>
-                <td>
-                    <div className="dropdown">
+                {user.role === 'Admin' || user.role === 'HR' ? (
+                    <td>
 
-                        <button type="button" className="btn p-0 dropdown-toggle hide-arrow"
-                                data-bs-toggle="dropdown">
-                            <i className="bx bx-dots-vertical-rounded"></i>
-                        </button>
-                        <div className="dropdown-menu">
-                            {user.role === 'Admin' || user.role === 'HR' ? (
+                        <div className="dropdown">
+                            <button type="button" className="btn p-0 dropdown-toggle hide-arrow"
+                                    data-bs-toggle="dropdown">
+                                <i className="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div className="dropdown-menu">
                                 <>
                                     <a
                                         onClick={handleChange}
                                         className="dropdown-item"><i
-                                        className="bx bx-trash me-1"></i> Edit</a>
+                                        className="bx bx-edit me-1"></i> Edit</a>
                                 </>
-                            ) : null}
-                            <a className="dropdown-item" href="/"><i className="bx bx-trash me-1"></i> Delete</a>
+                            </div>
                         </div>
-                    </div>
-                </td>
+                    </td>
+                ) : null}
             </tr>
             {
                 childValue ? (
-                    <EditableRow _data={data} inTime={inTime} outTime={outTime}
+                    <EditableRow  _data={data} inTime={inTime} outTime={outTime}
                                  onChildClick={handleChildEditableRow}
                     />
                 ) : ""
             }
-            {
-                childValueMsg === "MSG" ? (
-                    <div className="error__msg">"Sorry, HR can't edit their own records."</div>
-                ) : ""
-            }
+            {/*{*/}
+            {/*    childValueMsg === "MSG" ? (*/}
+            {/*        <div className="error__msg">"Sorry, HR can't edit their own records."</div>*/}
+            {/*    ) : ""*/}
+            {/*}*/}
         </>
     )
 }
 
 const EditableRow = ({_data, inTime, outTime, onChildClick}) => {
     const status = _data.status;
+    // const navigate = useNavigate();
     const dispatch = useDispatch();
     const [_inTime, setInTime] = useState(inTime);
     const [_outTime, setOutTime] = useState(outTime);
@@ -248,9 +251,9 @@ const EditableRow = ({_data, inTime, outTime, onChildClick}) => {
         setOutTime(event.target.value);
     };
 
-    const handleStatusChange = (event) => {
-        setStatus(event.target.value);
-    }
+    // const handleStatusChange = (event) => {
+    //     setStatus(event.target.value);
+    // }
 
     const _newInTime = moment(_inTime, "h:mm A").format("HH:mm:ss");
     const _newOutTime = moment(_outTime, "h:mm A").format("HH:mm:ss");
@@ -268,25 +271,40 @@ const EditableRow = ({_data, inTime, outTime, onChildClick}) => {
             onChildClick();
         } catch (error) {
             console.log(error)
+            // navigate('/employees');
         }
-
     };
     return (
-        <tr className="table-default" key={"id"}>
-            <td>
-                <input type="text" name="inTime" value={_inTime} onChange={handleInTimeChange}/>
-            </td>
-
-            <td>
-                <input type="text" name="outTime" value={_outTime} onChange={handleOutTimeChange}/>
-            </td>
-            <td><input type="text" name="status" value={_status} onChange={handleStatusChange}/></td>
-            <td>
-
-            </td>
-            <td>
-                <div className="dropdown">
-                    <button onClick={handleSave}>Save</button>
+        <tr className="full-width" key={"id"}>
+            <td colSpan="5">
+                <div className="container-xxl flex-grow-1 container-p-y">
+                    <div className="card">
+                        <div className="card-body">
+                            <div className="row">
+                                <div className=" col-md-3">
+                                    <label htmlFor="firstName" className="form-label">
+                                        Start Date
+                                    </label>
+                                    <input className={"form-control"} type="time" name="inTime" value={moment(_inTime, "h:mm A").format("HH:mm:ss")} onChange={handleInTimeChange}/>
+                                </div>
+                                <div className="col-md-3">
+                                    <label htmlFor="firstName" className="form-label">
+                                        Start Date
+                                    </label>
+                                    <input className={"form-control"} type="time" name="outTime" value={moment(_outTime, "h:mm A").format("HH:mm:ss")} onChange={handleOutTimeChange}/>
+                                </div>
+                                <div className=" col-md-3">
+                                    <label htmlFor="firstName" className="form-label">
+                                        Start Date
+                                    </label>
+                                    <div className={"form-control"}>{_status}</div>
+                                </div>
+                                <div className=" col-md-3">
+                                    <button className={"btn btn-primary"} onClick={handleSave}>Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </td>
         </tr>

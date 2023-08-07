@@ -62,7 +62,7 @@ const Register = () => {
                                             <option value="">Select</option>
                                             <option value="Admin">Admin</option>
                                             <option value="Employee">Employee</option>
-                                            <option value="Hr">Human Resource</option>
+                                            <option value="HR">Human Resource</option>
                                         </select>
                                     </div>
                                     <div className="mb-3 form-password-toggle">

@@ -1,13 +1,15 @@
 import {useEffect, useState} from "react";
 import {useNavigate, useLocation} from "react-router-dom";
-import {connect, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Account from "./Account";
 import Attendance from "./Attendance";
 import {getProfile} from "../../redux/actions/profileAction";
+import Leave from "./Leave";
 
-const Profile = ({getProfile}) => {
+const Profile = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const id = location.state ? location.state.id : 0 || 0;
     useEffect(() => {
@@ -19,7 +21,8 @@ const Profile = ({getProfile}) => {
     const profile = useSelector((state) => state.user.profile);
     const [activeTab, setActiveTab] = useState(1);
     let currentTab;
-    activeTab === 1 ? currentTab = "Account" : currentTab = "Attendance";
+    currentTab = activeTab === 1 ? "Account" : activeTab === 2 ? "Attendance" : activeTab === 3 ? "Leave" : "";
+
 
     const handleTabClick = (tabNumber) => {
         setActiveTab(tabNumber);
@@ -34,9 +37,10 @@ const Profile = ({getProfile}) => {
         if (id === undefined) {
             navigate('/');
         } else {
-            getProfile({user, id});
+            dispatch(getProfile({user, id}));
         }
-    }, [getProfile, id, user,navigate]);
+        // eslint-disable-next-line
+    }, [getProfile, id, user, navigate]);
 
     if (!profile) {
         return null;
@@ -66,19 +70,25 @@ const Profile = ({getProfile}) => {
                                     <i className="bx bx-bell me-1"></i> Attendance
                                 </button>
                             </li>
-                            {/*<li className="nav-item">*/}
-                            {/*    <a className="nav-link" href="/profile"*/}
-                            {/*    ><i className="bx bx-link-alt me-1"></i> Leave</a*/}
-                            {/*    >*/}
-                            {/*</li>*/}
+                            {
+                                user.id === profile.id ?
+                                    <li className="nav-item">
+                                        <button
+                                            className={`nav-link ${activeTab === 3 ? 'active' : ''}`}
+                                            onClick={() => handleTabClick(3)}>
+                                            <i className="bx bx-link-alt me-1"></i> Leave
+                                        </button>
+                                    </li> : ""
+                            }
                         </ul>
                     </div>
                     {activeTab === 1 && <Account profile={profile}/>}
                     {activeTab === 2 && <Attendance/>}
+                    {activeTab === 3 && <Leave/>}
                 </div>
             </div>
         </>
     )
 }
 
-export default connect(null, {getProfile})(Profile);
+export default Profile;

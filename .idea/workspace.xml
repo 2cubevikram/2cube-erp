@@ -6,7 +6,36 @@
   <component name="ChangeListManager">
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/css/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/css/demo.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/employee/employee.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/employee/employee.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/footer/footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/footer/footer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/login/register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/register.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Account.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Account.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/profile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/sidebar/sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/sidebar/sidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/ul-component.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ul-component.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Employee.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Employee.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/authActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/rootReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/rootReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/public/uploads/1690190125029-team-4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/public/uploads/1690281315885-2cube-studio.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/public/uploads/1690282779855-vikram ahir.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/common.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/common.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/employee.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/employee.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/routes/auth.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/auth.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +171,23 @@
       <workItem from="1690381378392" duration="1475000" />
       <workItem from="1690433893786" duration="686000" />
       <workItem from="1690449493625" duration="1321000" />
-      <workItem from="1690456242704" duration="11122000" />
+      <workItem from="1690456242704" duration="11165000" />
+      <workItem from="1690518529277" duration="9249000" />
+      <workItem from="1690781393215" duration="896000" />
+      <workItem from="1690785244378" duration="24511000" />
+      <workItem from="1690863898130" duration="21816000" />
+      <workItem from="1690950087240" duration="1162000" />
+      <workItem from="1690951282293" duration="12670000" />
+      <workItem from="1690967703776" duration="4536000" />
+      <workItem from="1690976042196" duration="11622000" />
+      <workItem from="1690989101983" duration="134000" />
+      <workItem from="1691053159872" duration="10000" />
+      <workItem from="1691056002520" duration="154000" />
+      <workItem from="1691056878397" duration="294000" />
+      <workItem from="1691057499109" duration="35000" />
+      <workItem from="1691124916984" duration="21596000" />
+      <workItem from="1691153307540" duration="5806000" />
+      <workItem from="1691382519077" duration="21396000" />
     </task>
     <servers />
   </component>

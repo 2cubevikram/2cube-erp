@@ -183,3 +183,53 @@ button.btn.btn-primary {margin-left: 5px;}
   color: red;
   padding-left: 20px;
 }
+
+.card-body img#uploadedAvatar {
+  object-fit: cover;
+}
+.avatar img {
+  height: 40px !important;
+  width: 40px !important;
+  object-fit: cover;
+}
+tr.full-width {
+  background: #f6f6f6;
+}
+
+tr.full-width td {
+  padding: 0;
+}
+
+.notification {
+  position: fixed;
+  top: 74px;
+  right: 135px;
+  left: auto;
+  background-color: #ff8e24ab;
+  border: 1px solid #ccc;
+  padding: 3px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-radius: 8px;
+  text-align: right;
+}
+.notification button {
+  background: none;
+  border: none;
+}
+
+.notification button svg path {
+  stroke: #ffff;
+}
+.notification button svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+.notification > a {
+  padding: 0 7px;
+}
+.birthday-highlight {
+  background-color: #59f738;
+  border-radius: 5px;
+}

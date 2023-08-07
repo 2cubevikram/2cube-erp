@@ -1,5 +1,7 @@
 import query from '../config/db-connection.js';
 import utils from '../utils/common.utils.js';
+import AuthModel from "./auth.model.js";
+import moment from "moment-timezone";
 
 class CommonModel {
     find = async (tableName, params = {}, order_by = {}, selectColumns = '*') => {
@@ -30,20 +32,7 @@ class CommonModel {
     }
 
     profile_update = async (tableName, params, id) => {
-        // const {columnSet, values} = utils.multipleColumnSet(params)
-        //
-        // const sql = `UPDATE ${tableName} SET ${columnSet} WHERE id = ?`;
-        // await query(sql, [...values, id]);
-        //
-        // const selectSql = `SELECT * FROM ${tableName} WHERE id = ?`;
-        // const result = await query(selectSql, [id]);
-        // console.log('result',result)
-        //
-        // if (result.length > 0) {
-        //     return result[result.length - 1];
-        // }
-        // return null;
-        const { columnSet, values } = utils.multipleColumnSet(params)
+        const {columnSet, values} = utils.multipleColumnSet(params)
 
         const sql = `UPDATE ${tableName} SET ${columnSet} WHERE id = ?`;
         const result = await query(sql, [...values, id]);
@@ -96,37 +85,6 @@ class CommonModel {
             return null;
         }
     }
-
-    checkTimeUpdate = async (tableName, employee_id, date, id, method, status) => {
-        // console.log(tableName, employee_id, date, id, method, status)
-        // if (method === "ADD") {
-        const insertSql = `INSERT INTO ${tableName} (employee_id, _in, status) VALUES (?, ?, ?)`;
-        const selectSql = `SELECT * FROM ${tableName} WHERE id = LAST_INSERT_ID()`;
-
-        const insertResult = await query(insertSql, [employee_id, date, status]);
-        const newRowId = insertResult ? insertResult.insertId : 0;
-
-        if (newRowId) {
-            const selectResult = await query(selectSql);
-            return selectResult[0];
-        }
-
-        return null;
-        // } else {
-        //     const updateSql = `UPDATE ${tableName} SET _out = ?,status = ? WHERE id = ?`;
-        //     const selectSql = `SELECT * FROM ${tableName} WHERE employee_id = ?`;
-        //
-        //     const updateResult = await query(updateSql, [status, date, id]);
-        //
-        //     if (updateResult.affectedRows > 0) {
-        //         const selectResult = await query(selectSql, [employee_id]);
-        //         return selectResult[selectResult.length - 1];
-        //     }
-        //
-        //     return null;
-        // }
-    }
-
     work_hours = async (tableName, employeeId, date) => {
         const startDate = `${date} 00:00:00`;
         const endDate = `${date} 23:59:59`;
@@ -136,6 +94,49 @@ class CommonModel {
 
         return await query(sql, [employeeId, startDate, endDate]);
     }
+    find_day_status = async (tableName, employee_id, date) => {
+        // const placeholders = employee_id.map(() => '?').join(', ');
+        // let sql = `SELECT employee_id,status FROM ${tableName} WHERE employee_id IN (${placeholders}) AND DATE(_in) = ?`;
+        //
+        // return await query(sql, [...employee_id, date]);
+
+        const placeholders = employee_id.map(() => '?').join(', ');
+        let sql = `SELECT employee_id, status FROM ${tableName} WHERE employee_id IN (${placeholders}) AND DATE(_in) = ? ORDER BY employee_id, _in DESC`;
+
+        const sqlParams = [...employee_id, date];
+        return await query(sql, sqlParams);
+    }
+    findAll = async (tableName, params, order_by) => {
+        let sql = `SELECT leave_application.*, users.first_name, users.last_name FROM leave_application JOIN users ON leave_application.employee_id = users.id ORDER BY leave_application.id DESC`;
+
+        return await query(sql);
+    }
+    leave_update = async (tableName, params, id) => {
+        const {columnSet, values} = utils.multipleColumnSet(params)
+
+        const sql = `UPDATE ${tableName} SET ${columnSet} WHERE id = ?`;
+        const result = await query(sql, [...values, id]);
+
+        return result;
+    }
+    getBirthday = async (tableName) => {
+        const sql = `SELECT id, first_name, last_name, profile, CONVERT_TZ(birth_date, '+00:00', @@session.time_zone) AS birth_date FROM users WHERE
+                            (
+                              DAY(birth_date) >= DAY(CURRENT_DATE())
+                              AND MONTH(birth_date) = MONTH(CURRENT_DATE())
+                              AND status = 'Active'
+                            ) -- Upcoming birthdays in the current month
+                            OR
+                            (
+                              DAY(birth_date) <= DAY(CURRENT_DATE())
+                              AND MONTH(birth_date) = MONTH(DATE_ADD(CURRENT_DATE(), INTERVAL 1 MONTH))
+                              AND status = 'Active'
+                            ) ORDER BY birth_date DESC  -- Upcoming birthdays in the next month (if today is the last day of the current month)
+                        `;
+        return await query(sql);
+
+    }
+
 
 }
 

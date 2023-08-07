@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2023 at 06:46 AM
+-- Generation Time: Aug 07, 2023 at 11:42 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -41,9 +41,16 @@ CREATE TABLE `attendance` (
 --
 
 INSERT INTO `attendance` (`id`, `employee_id`, `_in`, `_out`, `status`, `updated_by`) VALUES
-(1, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-07-25 10:12:00', '2023-07-25 19:45:44', 'CHECK_OUT', 'Admin'),
-(2, 'a02e3a13-e3ff-4c04-9c1b-792f226c2676', '2023-07-25 10:02:00', '2023-07-25 20:35:26', 'CHECK_OUT', 'Admin'),
-(3, '33780845-2110-4a3e-a037-b5f5e52ddf46', '2023-07-25 07:56:00', '2023-07-25 20:54:47', 'CHECK_OUT', 'Admin');
+(1, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-07-31 10:13:00', '2023-07-31 20:08:09', 'CHECK_OUT', 'Admin'),
+(2, '33780845-2110-4a3e-a037-b5f5e52ddf46', '2023-07-31 10:36:00', '2023-07-31 16:37:00', 'CHECK_OUT', 'HR'),
+(3, '8192f06b-9e76-4abb-8183-e24c682aa0e5', '2023-07-31 11:37:00', '2023-07-31 20:08:21', 'CHECK_OUT', 'HR'),
+(4, '33780845-2110-4a3e-a037-b5f5e52ddf46', '2023-08-01 09:57:00', '0000-00-00 00:00:00', 'CHECK_IN', 'Admin'),
+(5, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-08-01 09:48:13', '2023-08-01 20:12:46', 'CHECK_OUT', NULL),
+(6, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-08-02 09:43:32', '2023-08-02 20:41:33', 'CHECK_OUT', NULL),
+(7, '33780845-2110-4a3e-a037-b5f5e52ddf46', '2023-08-02 15:18:00', '2023-08-02 20:42:14', 'CHECK_OUT', 'Admin'),
+(8, '8192f06b-9e76-4abb-8183-e24c682aa0e5', '2023-08-02 17:59:11', '2023-08-02 19:26:42', 'CHECK_OUT', NULL),
+(10, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-08-04 09:52:05', '2023-08-04 20:11:13', 'CHECK_OUT', NULL),
+(11, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-08-07 09:57:12', NULL, 'CHECK_IN', NULL);
 
 -- --------------------------------------------------------
 
@@ -65,11 +72,48 @@ CREATE TABLE `break_in_out` (
 --
 
 INSERT INTO `break_in_out` (`id`, `employee_id`, `_in`, `_out`, `status`, `updated_by`) VALUES
-(1, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-07-25 13:30:00', '2023-07-25 14:33:00', 'BREAK_OUT', 'Admin'),
-(2, 'a02e3a13-e3ff-4c04-9c1b-792f226c2676', '2023-07-25 13:30:00', '2023-07-25 14:39:00', 'BREAK_OUT', 'Admin'),
-(3, '33780845-2110-4a3e-a037-b5f5e52ddf46', '2023-07-25 13:00:00', '2023-07-25 14:00:00', 'BREAK_OUT', 'Admin'),
-(4, '33780845-2110-4a3e-a037-b5f5e52ddf46', '2023-07-25 17:10:00', '2023-07-25 18:19:00', 'BREAK_OUT', 'Admin'),
-(5, '33780845-2110-4a3e-a037-b5f5e52ddf46', '2023-07-25 20:54:42', '2023-07-25 20:54:44', 'BREAK_OUT', NULL);
+(1, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-07-31 11:16:00', '2023-07-31 11:26:00', 'BREAK_OUT', 'HR'),
+(2, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-07-31 13:17:00', '2023-07-31 14:22:00', 'BREAK_OUT', 'Admin'),
+(3, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-07-31 18:53:28', '2023-07-31 18:53:31', 'BREAK_OUT', NULL),
+(4, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-07-31 18:53:43', '2023-07-31 20:08:07', 'BREAK_OUT', NULL),
+(5, '8192f06b-9e76-4abb-8183-e24c682aa0e5', '2023-07-31 18:56:07', '2023-07-31 20:08:20', 'BREAK_OUT', NULL),
+(6, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-08-01 13:07:46', '2023-08-01 14:02:39', 'BREAK_OUT', NULL),
+(7, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-08-01 14:46:14', '2023-08-01 15:04:33', 'BREAK_OUT', NULL),
+(8, '33780845-2110-4a3e-a037-b5f5e52ddf46', '2023-08-02 15:18:00', '2023-08-02 15:24:00', 'BREAK_OUT', 'Admin'),
+(9, '33780845-2110-4a3e-a037-b5f5e52ddf46', '2023-08-02 15:18:00', '2023-08-02 16:24:00', 'BREAK_OUT', 'Admin'),
+(10, '8192f06b-9e76-4abb-8183-e24c682aa0e5', '2023-08-02 17:10:00', '2023-08-02 17:59:00', 'BREAK_OUT', 'HR'),
+(11, '8192f06b-9e76-4abb-8183-e24c682aa0e5', '2023-08-02 17:59:00', '2023-08-02 17:59:00', 'BREAK_OUT', 'HR'),
+(12, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-08-02 13:03:00', '2023-08-02 13:58:00', 'BREAK_OUT', 'HR'),
+(13, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-08-02 19:10:00', '2023-08-02 19:22:00', 'BREAK_OUT', 'Admin'),
+(14, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-08-04 13:08:04', '2023-08-04 14:02:05', 'BREAK_OUT', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `leave_application`
+--
+
+CREATE TABLE `leave_application` (
+  `id` int(11) NOT NULL,
+  `employee_id` varchar(36) NOT NULL,
+  `app_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `leave_type` varchar(15) NOT NULL,
+  `reason` longtext NOT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `updated_by` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `leave_application`
+--
+
+INSERT INTO `leave_application` (`id`, `employee_id`, `app_date`, `start_date`, `end_date`, `leave_type`, `reason`, `status`, `updated_by`) VALUES
+(1, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-08-04 13:02:33', '0000-00-00', '0000-00-00', '', '', 'Applied', NULL),
+(2, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-08-04 14:25:05', '0000-00-00', '0000-00-00', '', '', 'Applied', NULL),
+(3, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-08-04 14:27:07', '0000-00-00', '0000-00-00', '', '', 'Applied', NULL),
+(4, '8192f06b-9e76-4abb-8183-e24c682aa0e5', '2023-08-04 14:27:38', '0000-00-00', '0000-00-00', '', '', 'Applied', NULL);
 
 -- --------------------------------------------------------
 
@@ -96,11 +140,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `profile`, `birth_date`, `status`, `created_at`, `updated_at`) VALUES
-('201b3960-90aa-4aaf-81df-1e82f65609ad', 'test', 'demo', 'test@gmail.com', '$2b$12$lKY2oxL/ULn9I3IRG.yVQuxzA97UlTLNPEQP55eoNSeKAe7ShkOSa', 'Employee', NULL, NULL, 'Active', '2023-07-03 07:14:27', NULL),
-('33780845-2110-4a3e-a037-b5f5e52ddf46', 'Mr.', 'Admin', 'admin@gmail.com', '$2b$12$qzap/h4RFne3ogpDjIqXaey6fYUFt6BdLENmizZFOsU5rZ1hVZIQW', 'Admin', '1690190125029-team-4.jpg', '0000-00-00', 'Active', '2023-06-24 12:25:17', '2023-07-24 09:15:25'),
-('8192f06b-9e76-4abb-8183-e24c682aa0e5', 'Hr', 'John', 'hr@gmail.com', '$2b$12$MYzIcQnTEOEny/j89Wp8cObwbo1PweMimvFP7hSKyovwvDf6K6aJq', 'HR', NULL, NULL, 'Active', '2023-06-24 12:26:40', NULL),
-('a02e3a13-e3ff-4c04-9c1b-792f226c2676', '2cube', 'Studio', '2cube@gmail.com', '$2b$12$mBFsKlybA4RYD2nprv9FR.stWYD5et0gIoENkLTp2VEJUBuwqudUq', 'Admin', '1690281315885-2cube-studio.jpeg', '0000-00-00', 'Active', '2023-07-21 07:01:15', '2023-07-25 10:35:15'),
-('c39bf89d-9613-44bc-baab-9878ca4bc56b', 'Vikram', 'Ahir', 'vikram@gmail.com', '$2b$12$g2Fb2zc22Z/6fy.s60iv0uz3U7pd0yIujCPRUYvBgqrbueThdAnq.', 'Employee', '1690282779855-vikram ahir.jpeg', '2010-10-09', 'Active', '2023-06-24 12:26:00', '2023-07-25 10:59:39');
+('201b3960-90aa-4aaf-81df-1e82f65609ad', 'test', 'demo', 'test@gmail.com', '$2b$12$lKY2oxL/ULn9I3IRG.yVQuxzA97UlTLNPEQP55eoNSeKAe7ShkOSa', 'Employee', '1690794088273-team-4.jpg', '2010-08-08', 'Active', '2023-07-03 07:14:27', '2023-07-31 09:01:28'),
+('33780845-2110-4a3e-a037-b5f5e52ddf46', 'Mr.', 'Admin', 'admin@gmail.com', '$2b$12$qzap/h4RFne3ogpDjIqXaey6fYUFt6BdLENmizZFOsU5rZ1hVZIQW', 'Admin', '1690794018050-2cube-studio.jpeg', '2020-11-11', 'Active', '2023-06-24 12:25:17', '2023-07-31 09:00:18'),
+('8192f06b-9e76-4abb-8183-e24c682aa0e5', 'Hr', 'John', 'hr@gmail.com', '$2b$12$MYzIcQnTEOEny/j89Wp8cObwbo1PweMimvFP7hSKyovwvDf6K6aJq', 'HR', '1690793945673-about-1.png', '2008-08-22', 'Active', '2023-06-24 12:26:40', '2023-07-31 08:59:05'),
+('a02e3a13-e3ff-4c04-9c1b-792f226c2676', '2cube', 'Studio', '2cube@gmail.com', '$2b$12$mBFsKlybA4RYD2nprv9FR.stWYD5et0gIoENkLTp2VEJUBuwqudUq', 'Admin', '1690794120784-2cube-studio.jpeg', '2023-01-31', 'Active', '2023-07-21 07:01:15', '2023-07-31 09:02:00'),
+('c39bf89d-9613-44bc-baab-9878ca4bc56b', 'Vikram', 'Ahir', 'vikram@gmail.com', '$2b$12$g2Fb2zc22Z/6fy.s60iv0uz3U7pd0yIujCPRUYvBgqrbueThdAnq.', 'Employee', '1690786119143-DSC00373.JPG', '2011-09-07', 'Active', '2023-06-24 12:26:00', '2023-07-31 06:48:39');
 
 --
 -- Indexes for dumped tables
@@ -119,6 +163,12 @@ ALTER TABLE `break_in_out`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `leave_application`
+--
+ALTER TABLE `leave_application`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -132,13 +182,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `break_in_out`
 --
 ALTER TABLE `break_in_out`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `leave_application`
+--
+ALTER TABLE `leave_application`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

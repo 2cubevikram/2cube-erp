@@ -1,15 +1,17 @@
 import React, {useEffect} from "react";
 import {getEmployee} from "../../redux/actions/employeeAction";
-import {connect, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {EmployeeList} from "../ul-component";
 
 
-const Employee = ({getEmployee}) => {
+const Employee = () => {
+    const dispatch = useDispatch();
     let user = useSelector(state => state.login.user);
     let employee = useSelector(state => state.employee);
 
     useEffect(() => {
-        getEmployee({user});
+        dispatch(getEmployee({user}));
+        // eslint-disable-next-line
     }, [getEmployee, user]);
 
     return (
@@ -27,4 +29,4 @@ const Employee = ({getEmployee}) => {
 }
 
 // export default Employee
-export default connect(null, {getEmployee})(Employee);
+export default Employee;

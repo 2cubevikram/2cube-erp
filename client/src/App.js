@@ -5,10 +5,11 @@ import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom
 import Home from "./pages/Home";
 import Employee from "./pages/Employee";
 import Profile from "./pages/profile";
-import Register from "./components/login/register";
+import DayStatus from "./pages/Daystatus";
+import Leaves from "./pages/Leaves"
 import {connect} from "react-redux";
 import LoginForm from "./components/login/login";
-
+import Register from "./components/login/register";
 
 
 function App({state}) {
@@ -25,6 +26,8 @@ function App({state}) {
 
                     <Route exact path="/login" element={!state.login.isLoggedIn ? <LoginForm/> : <Navigate to="/"/>}/>
                     <Route exact path="/" element={state.login.isLoggedIn ? <Home/> : <Navigate to="/Login"/>}></Route>
+                    <Route exact path="/to-day" element={state.login.isLoggedIn ? <DayStatus/> : <Navigate to="/Login"/>}></Route>
+                    <Route exact path="/leave-app" element={state.login.isLoggedIn ? <Leaves/> : <Navigate to="/Login"/>}></Route>
                     <Route exact path="/employees" element={state.login.isLoggedIn ? <Employee/> : <Navigate to="/Login"/>}></Route>
                     <Route exact path="/profile" element={state.login.isLoggedIn ? <Profile/> : <Navigate to="/Login"/>}></Route>
                     {/*<Route exact path="/profile/:id" element={state.login.isLoggedIn ? <Profile/> : <Navigate to="/Login"/>}></Route>*/}

@@ -1,5 +1,5 @@
 import AuthModel from '../models/auth.model.js';
-import {v4 as uuid, validate as uuidValidate} from 'uuid';
+import {v4 as uuid} from 'uuid';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import moment from 'moment';
@@ -29,7 +29,6 @@ class AdminController {
         const {email, password: pass} = req.body;
 
         const user = await AuthModel.findOne({email});
-
         if (!user) {
             res.status(400).send({message: 'Incorrect email or password.'});
             return;
@@ -85,7 +84,6 @@ class AdminController {
     }
 
     checkTimeUpdate = async (req, res, next) => {
-        console.log('test')
         const id = req.currentUser.id;
         const row_id = req.body.id;
         let inTime = null;
@@ -104,10 +102,10 @@ class AdminController {
             return;
         }
 
-        if(user.role === 'HR' ){
-            res.status(400).send({message: 'Record editing not permitted. Kindly reach out to Admin for assistance. Thank you'});
-            return;
-        }
+        // if(user.role === 'HR' ){
+        //     res.status(400).send({message: 'Record editing not permitted. Kindly reach out to Admin for assistance. Thank you'});
+        //     return;
+        // }
 
         if (outTime === "Invalid date") {
             req.body.status = "CHECK_IN";
@@ -124,7 +122,7 @@ class AdminController {
         // console.log(params)
         let result = await EmployeeModel.checkTimeUpdate(params, row_id);
 
-        res.send(result);
+        res.status(200).send(result);
     }
 
     breakTimeUpdate = async (req, res, next) => {
@@ -161,7 +159,44 @@ class AdminController {
         let result = await BreakModel.breakTimeUpdate(params, row_id);
 
 
-        res.send(result);
+        res.status(200).send(result);
+    }
+
+    to_day = async (req, res, next) => {
+        const allIds = [];
+        const result = await AuthModel.find({'status': 'Active'}, {'created_at': 'ASC'});
+
+        result.forEach(item => {
+            allIds.push(item.id);
+        });
+
+        let employee_ids = allIds
+
+        let date = new Date().toISOString().slice(0, 10);
+        const check = await EmployeeModel.find_day_attendance_status(employee_ids, date);
+        const break1 = await EmployeeModel.find_day_break_status(employee_ids, date);
+
+        const mergedResults = result.map(item => {
+            const checkData = check.find(checkItem => checkItem.employee_id === item.id);
+            const breakData = break1.find(breakItem => breakItem.employee_id === item.id);
+
+            return {
+                // ...item,
+                id: item.id,
+                first_name: item.first_name,
+                last_name: item.last_name,
+                profile: item.profile,
+                check: checkData ? checkData.status : null,
+                break: breakData ? breakData.status : null,
+            };
+        });
+
+        res.status(200).send(mergedResults);
+    }
+
+    getBirthday = async (req, res, next) => {
+        const result = await EmployeeModel.getBirtday();
+        res.status(200).send(result);
     }
 
     // hash password if it exists

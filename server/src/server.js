@@ -2,29 +2,42 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import path from 'path';
+import http from "http";
+import { Server } from 'socket.io';
 
 import HttpException from './utils/HttpException.utils.js';
 import errorMiddleware from './middlewares/error.middleware.js';
 import AuthRouter from './routes/auth.route.js';
 
-// Init express
 const app = express();
-// Init environment
 dotenv.config();
-// parse requests of content-type: application/json
-// parses incoming requests with JSON payloads
+
+const server = http.createServer(app);
+const io = new Server(server,{
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+});
+export { io };
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
 app.use('/public', express.static('public'));
 app.use(express.static(path.resolve()));
 
-// enabling cors for all requests by using cors middleware
 app.use(cors());
-// Enable pre-flight
 app.options("*", cors());
 
 const PORT = process.env.PORT || process.env.APP_PORT
+
+io.on('connection', (socket) => {
+    // console.log('a user connected', socket.id);
+});
+
+
+
 
 app.use(`/api/auth`, AuthRouter);
 
@@ -35,11 +48,9 @@ app.all('*', (req, res, next) => {
     next(err);
 });
 
-// Error middleware
 app.use(errorMiddleware);
 
-// Starting the server
-var server = app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}!`));
+server.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}!`));
 server.timeout = 120000;
 
 export default app;

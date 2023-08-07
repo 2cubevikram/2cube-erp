@@ -1,12 +1,9 @@
 import {Link} from "react-router-dom";
 import React from "react";
 
-// export const Message = ({msg = "test", type = "alert"}) => {
-//     return (
-//         <div className={`alert alert-${type}`} role={`type`}>{msg}</div>
-//     )
-// }
+
 export const EmployeeList = ({employees}) => {
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     return (
         <table className="table">
             <thead>
@@ -14,8 +11,6 @@ export const EmployeeList = ({employees}) => {
                 <th>Emp. Name</th>
                 <th>Email</th>
                 <th>User</th>
-                {/*<th>worked hours</th>*/}
-                {/*<th>remain working hours</th>*/}
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -31,8 +26,10 @@ export const EmployeeList = ({employees}) => {
                             <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
                                 data-bs-placement="top" className="avatar avatar-xs pull-up"
                                 title="Lilian Fuller">
-                                <img src="../assets/img/avatars/5.png" alt="true"
-                                     className="rounded-circle"/>
+                                <img
+                                    src={item.profile ? PF + item.profile : PF + "avatar.png"}
+                                    alt="no img"
+                                    className="rounded-circle"/>
                             </li>
                         </ul>
                     </td>
@@ -61,3 +58,4 @@ export const EmployeeList = ({employees}) => {
         </table>
     )
 }
+

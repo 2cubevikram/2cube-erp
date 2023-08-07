@@ -29,7 +29,6 @@ class EmployeeModel {
     }
 
     calculateDuration = async (checkIn, checkOut) => {
-        console.log('test test',checkIn, checkOut)
         // const sql = 'SELECT TIMEDIFF(?, ?) AS duration';
         // const result = await query(sql, [checkOut, checkIn]);
         // return result[0].duration;
@@ -50,6 +49,18 @@ class EmployeeModel {
 
     profile_update = async (params, id) => {
         return await commonModel.profile_update(this.userTable, params, id);
+    }
+
+    find_day_attendance_status = async (employee_ids, date) => {
+        return await commonModel.find_day_status(this.tableName, employee_ids, date);
+    }
+
+    find_day_break_status = async (employee_ids, date) => {
+        return await commonModel.find_day_status(this.breakTable, employee_ids, date);
+    }
+
+    getBirtday = async (date) => {
+        return await commonModel.getBirthday(this.userTable);
     }
 
 

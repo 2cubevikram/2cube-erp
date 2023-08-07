@@ -37,137 +37,135 @@ const Account = ({profile}) => {
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
-                <div className="card mb-4">
-                    <h5 className="card-header">Profile Details</h5>
-                    <div className="card-body">
-                        <div className="d-flex align-items-start align-items-sm-center gap-4">
-                            <img
-                                src={profile.profile ? PF + profile.profile : PF + "avatar.png"}
-                                alt="user-avatar"
-                                className="d-block rounded"
-                                height="100"
-                                width="100"
-                                id="uploadedAvatar"
-                            />
-                            {profile.id === user.id ?
-                                <div className="button-wrapper">
-                                    <label htmlFor="upload" className="btn btn-primary me-2 mb-4" tabIndex="0">
-                                        <span className="d-none d-sm-block">Upload photo</span>
-                                        <i className="bx bx-upload d-block d-sm-none"></i>
-                                        <input
-                                            type="file"
-                                            id="upload"
-                                            className="account-file-input"
-                                            hidden
-                                            accept="image/png, image/jpeg"
-                                            onChange={(e) => setFile(e.target.files)}
-                                        />
-                                    </label>
-                                    {/*<button type="button" className="btn btn-outline-secondary account-image-reset mb-4">*/}
-                                    {/*    <i className="bx bx-reset d-block d-sm-none"></i>*/}
-                                    {/*    <span className="d-none d-sm-block" onClick={() => setFile(null)}>Reset</span>*/}
-                                    {/*</button>*/}
-                                    <p className="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-                                </div>
-                                : ""
-                            }
-                        </div>
-                    </div>
-                    <hr className="my-0"/>
-                    <div className="card-body">
-                        <form id="formAccountSettings" onSubmit={submitHandler}>
-                            <div className="row">
-                                <div className="mb-3 col-md-6">
-                                    <label htmlFor="firstName" className="form-label">First Name</label>
-                                    <input
-                                        className="form-control"
-                                        type="text"
-                                        name="firstName"
-                                        value={firstName}
-                                        onChange={(e) => setFirstName(e.target.value)}
-                                        readOnly={user.id !== profile.id}
-                                        autoFocus
-                                    />
-                                </div>
-                                <div className="mb-3 col-md-6">
-                                    <label htmlFor="lastName" className="form-label">Last Name</label>
-                                    <input
-                                        className="form-control"
-                                        type="text"
-                                        name="lastName"
-                                        value={lastName}
-                                        onChange={(e) => setLastName(e.target.value)}
-                                        readOnly={user.id !== profile.id}
-                                    />
-                                </div>
-                                <div className="mb-3 col-md-6">
-                                    <label htmlFor="email" className="form-label">E-mail</label>
-                                    <input
-                                        className="form-control"
-                                        type="text"
-                                        id="email"
-                                        name="email"
-                                        value={profile.email}
-                                        readOnly
-                                        placeholder="john.doe@example.com"
-
-                                    />
-                                </div>
-                                <div className="mb-3 col-md-6">
-                                    <label htmlFor="organization" className="form-label">Birth date</label>
-                                    <input
-                                        className="form-control"
-                                        // type="text"
-                                        type="date"
-                                        id="birth_date"
-                                        name="birthDate"
-                                        value={ moment(birthDate).format('YYYY-MM-DD')}
-                                        onChange={(e) => setBirthDate(e.target.value)}
-                                        readOnly={user.id !== profile.id}
-                                    />
-                                </div>
-                                {/*<div className="mb-3 col-md-6">*/}
-                                {/*    <label className="form-label" htmlFor="phoneNumber">Phone Number</label>*/}
-                                {/*    <div className="input-group input-group-merge">*/}
-                                {/*        <span className="input-group-text">US (+1)</span>*/}
-                                {/*        <input*/}
-                                {/*            type="text"*/}
-                                {/*            id="phoneNumber"*/}
-                                {/*            name="phoneNumber"*/}
-                                {/*            className="form-control"*/}
-                                {/*            placeholder="202 555 0111"*/}
-                                {/*        />*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                                {/*<div className="mb-3 col-md-6">*/}
-                                {/*    <label htmlFor="address" className="form-label">Address</label>*/}
-                                {/*    <input type="text" className="form-control" id="address" name="address"*/}
-                                {/*           placeholder="Address"/>*/}
-                                {/*</div>*/}
-                                {/*<div className="mb-3 col-md-6">*/}
-                                {/*    <label htmlFor="state" className="form-label">State</label>*/}
-                                {/*    <input className="form-control" type="text" id="state" name="state"*/}
-                                {/*           placeholder="California"/>*/}
-                                {/*</div>*/}
-                                {/*<div className="mb-3 col-md-6">*/}
-                                {/*    <label htmlFor="zipCode" className="form-label">Zip Code</label>*/}
-                                {/*    <input*/}
-                                {/*        type="text"*/}
-                                {/*        className="form-control"*/}
-                                {/*        id="zipCode"*/}
-                                {/*        name="zipCode"*/}
-                                {/*        placeholder="231465"*/}
-                                {/*        maxLength="6"*/}
-                                {/*    />*/}
-                                {/*</div>*/}
+                <div className="container-xxl flex-grow-1 container-p-y">
+                    <div className="card">
+                        <h5 className="card-header">Profile Details</h5>
+                        <div className="card-body">
+                            <div className="d-flex align-items-start align-items-sm-center gap-4">
+                                <img
+                                    src={profile.profile ? PF + profile.profile : PF + "avatar.png"}
+                                    alt="user-avatar"
+                                    className="d-block rounded"
+                                    height="100"
+                                    width="100"
+                                    id="uploadedAvatar"
+                                />
+                                {profile.id === user.id ?
+                                    <div className="button-wrapper">
+                                        <label htmlFor="upload" className="btn btn-primary me-2 mb-4" tabIndex="0">
+                                            <span className="d-none d-sm-block">Upload photo</span>
+                                            <i className="bx bx-upload d-block d-sm-none"></i>
+                                            <input
+                                                type="file"
+                                                id="upload"
+                                                className="account-file-input"
+                                                hidden
+                                                accept="image/png, image/jpeg"
+                                                onChange={(e) => setFile(e.target.files)}
+                                            />
+                                        </label>
+                                        <p className="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                                    </div>
+                                    : ""
+                                }
                             </div>
-                            {user.id === profile.id ?
-                                <div className="mt-2">
-                                    <button type="submit" className="btn btn-primary me-2">Save changes</button>
-                                    <button type="reset" className="btn btn-outline-secondary">Cancel</button>
-                                </div> : ""
-                            }
-                        </form>
+                        </div>
+                        <hr className="my-0"/>
+                        <div className="card-body">
+                            <form id="formAccountSettings" onSubmit={submitHandler}>
+                                <div className="row">
+                                    <div className="mb-3 col-md-6">
+                                        <label htmlFor="firstName" className="form-label">First Name</label>
+                                        <input
+                                            className="form-control"
+                                            type="text"
+                                            name="firstName"
+                                            value={firstName}
+                                            onChange={(e) => setFirstName(e.target.value)}
+                                            readOnly={user.id !== profile.id}
+                                            autoFocus
+                                        />
+                                    </div>
+                                    <div className="mb-3 col-md-6">
+                                        <label htmlFor="lastName" className="form-label">Last Name</label>
+                                        <input
+                                            className="form-control"
+                                            type="text"
+                                            name="lastName"
+                                            value={lastName}
+                                            onChange={(e) => setLastName(e.target.value)}
+                                            readOnly={user.id !== profile.id}
+                                        />
+                                    </div>
+                                    <div className="mb-3 col-md-6">
+                                        <label htmlFor="email" className="form-label">E-mail</label>
+                                        <input
+                                            className="form-control"
+                                            type="text"
+                                            id="email"
+                                            name="email"
+                                            value={profile.email}
+                                            readOnly
+                                            placeholder="john.doe@example.com"
+
+                                        />
+                                    </div>
+                                    <div className="mb-3 col-md-6">
+                                        <label htmlFor="organization" className="form-label">Birth date</label>
+                                        <input
+                                            className="form-control"
+                                            // type="text"
+                                            type="date"
+                                            id="birth_date"
+                                            name="birthDate"
+                                            value={moment(birthDate).format('YYYY-MM-DD')}
+                                            onChange={(e) => setBirthDate(e.target.value)}
+                                            readOnly={user.id !== profile.id}
+                                        />
+                                    </div>
+                                    {/*<div className="mb-3 col-md-6">*/}
+                                    {/*    <label className="form-label" htmlFor="phoneNumber">Phone Number</label>*/}
+                                    {/*    <div className="input-group input-group-merge">*/}
+                                    {/*        <span className="input-group-text">US (+1)</span>*/}
+                                    {/*        <input*/}
+                                    {/*            type="text"*/}
+                                    {/*            id="phoneNumber"*/}
+                                    {/*            name="phoneNumber"*/}
+                                    {/*            className="form-control"*/}
+                                    {/*            placeholder="202 555 0111"*/}
+                                    {/*        />*/}
+                                    {/*    </div>*/}
+                                    {/*</div>*/}
+                                    {/*<div className="mb-3 col-md-6">*/}
+                                    {/*    <label htmlFor="address" className="form-label">Address</label>*/}
+                                    {/*    <input type="text" className="form-control" id="address" name="address"*/}
+                                    {/*           placeholder="Address"/>*/}
+                                    {/*</div>*/}
+                                    {/*<div className="mb-3 col-md-6">*/}
+                                    {/*    <label htmlFor="state" className="form-label">State</label>*/}
+                                    {/*    <input className="form-control" type="text" id="state" name="state"*/}
+                                    {/*           placeholder="California"/>*/}
+                                    {/*</div>*/}
+                                    {/*<div className="mb-3 col-md-6">*/}
+                                    {/*    <label htmlFor="zipCode" className="form-label">Zip Code</label>*/}
+                                    {/*    <input*/}
+                                    {/*        type="text"*/}
+                                    {/*        className="form-control"*/}
+                                    {/*        id="zipCode"*/}
+                                    {/*        name="zipCode"*/}
+                                    {/*        placeholder="231465"*/}
+                                    {/*        maxLength="6"*/}
+                                    {/*    />*/}
+                                    {/*</div>*/}
+                                </div>
+                                {user.id === profile.id ?
+                                    <div className="mt-2">
+                                        <button type="submit" className="btn btn-primary me-2">Save changes</button>
+                                        <button type="reset" className="btn btn-outline-secondary">Cancel</button>
+                                    </div> : ""
+                                }
+                            </form>
+                        </div>
                     </div>
                 </div>
             )}

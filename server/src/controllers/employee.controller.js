@@ -12,7 +12,6 @@ import BreakModel from "../models/break.model.js";
 
 class EmployeeController {
     getUserById = async (req, res, next) => {
-        // console.log(req.body.id)
         const user = await AuthModel.findOne({id: req.body.id});
         if (!user) {
             return res.status(404).send({message: 'User not found'});
@@ -46,7 +45,6 @@ class EmployeeController {
         const tableAction = req.body.action;
         const id = req.body.id;
         const currentDate = new Date();
-        // console.log(currentDate);
         req.body._time = moment().format('YYYY-MM-DD HH:mm:ss');
 
         const employee_id = req.currentUser.id
