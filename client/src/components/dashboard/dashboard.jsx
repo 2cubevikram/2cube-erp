@@ -138,9 +138,9 @@ const Dashboard = () => {
                                                                 <h6 className="mb-0">{item.last_name}</h6>
                                                             </div>
                                                             <div className="user-progress d-flex align-items-center gap-1">
-                                                                <h6 className="mb-0">{getDayOfWeekInCurrentYear(item.birth_date)} : </h6>
+                                                                <h6 className="mb-0">{ isBirthdayToday(item.birth_date) ? 'Today': getDayOfWeekInCurrentYear(item.birth_date) } : </h6>
                                                                 <span
-                                                                    className="text-muted">{moment(item.birth_date).format('DD-M')}</span>
+                                                                    className="text-muted">{moment(item.birth_date).format('DD-MM')}</span>
                                                             </div>
                                                         </div>
                                                     </li>
