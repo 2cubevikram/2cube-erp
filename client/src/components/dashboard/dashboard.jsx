@@ -49,10 +49,6 @@ const Dashboard = () => {
     const _break = useSelector(state => state.break.status);
     const _check = useSelector(state => state.check.status);
 
-    // const today_status = (moment(check_status._in).format('YYYY-MM-DD'))
-    const today_status = check_status.status;
-    console.log(today_status)
-
     return (
         <>
             <div className="content-wrapper">
@@ -70,8 +66,10 @@ const Dashboard = () => {
                                                 🌞 It's time for our daily check-in to get the day started on the right
                                                 foot. Looking forward to a productive and successful day ahead! 💪
                                             </p>
-                                            {today_status === "CHECK_OUT" ? (
-                                                <div className="alert alert-primary" role="alert">Your Day Was Completed! Have a great day! If you need any assistance, please contact the authorized person. 🌞</div>
+                                            {check_status.status === "CHECK_OUT" ? (
+                                                <div className="alert alert-primary" role="alert">Your Day Was
+                                                    Completed! Have a great day! If you need any assistance, please
+                                                    contact the authorized person. 🌞</div>
                                             ) : (
                                                 <div className="btn_wrp1">
                                                     <CheckAction break_status={_break} check_status={_check}/>
@@ -84,13 +82,14 @@ const Dashboard = () => {
                                     {notification &&
                                         <div className="notification__cover">
                                             <div className="notification">
-                                                <Link to={notification.link}>
+                                                <Link to={notification.link}
+                                                      state={{id: notification.id}}>
                                                     {notification.message}
                                                 </Link>
                                                 <button onClick={() => setNotification(null)}>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px"
                                                          viewBox="0 0 24 24">
-                                                        <path fill="none" stroke="#000000" stroke-width="2"
+                                                        <path fill="none" stroke="#000000" strokeWidth="2"
                                                               d="M7,7 L17,17 M7,17 L17,7"/>
                                                     </svg>
                                                 </button>
@@ -138,7 +137,7 @@ const Dashboard = () => {
                                                                 <h6 className="mb-0">{item.last_name}</h6>
                                                             </div>
                                                             <div className="user-progress d-flex align-items-center gap-1">
-                                                                <h6 className="mb-0">{ isBirthdayToday(item.birth_date) ? 'Today': getDayOfWeekInCurrentYear(item.birth_date) } : </h6>
+                                                                <h6 className="mb-0">{isBirthdayToday(item.birth_date) ? 'Today' : getDayOfWeekInCurrentYear(item.birth_date)} : </h6>
                                                                 <span
                                                                     className="text-muted">{moment(item.birth_date).format('DD-MM')}</span>
                                                             </div>

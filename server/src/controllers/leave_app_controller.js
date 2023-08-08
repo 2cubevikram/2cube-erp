@@ -14,20 +14,19 @@ class LeaveAppController {
         const id = req.body.employee_id;
 
         const user = await AuthModel.findOne({id});
-
+        // console.log(user)
         const result = await LeaveAppModel.create(req.body);
         if (result === 1) {
             await this.getLeavesById(req, res)
+
+            const result = await LeaveAppModel.findById({employee_id: req.currentUser.id}, {})
             req.body = {
+                id: result[result.length - 1],
                 employee_id: req.body.employee_id,
                 type: 'leave',
                 message: 'Leave Application from ' + user.first_name + ' ' + user.last_name,
             }
-            await notificationController.leaveNotification(req, res);
-            io.emit('new_leave_application', {
-                message: `notification from ${user.first_name} ${user.last_name}`,
-                link: '/leave-app'
-            });
+            await notificationController.createNotification(req, res);
         }else {
             return res.status(500).send({message: 'Something went wrong while applied leave'});
         }

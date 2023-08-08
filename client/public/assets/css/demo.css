@@ -233,3 +233,6 @@ tr.full-width td {
   background-color: #59f738;
   border-radius: 5px;
 }
+.highlighted-row {
+  background-color: #c1f9d4;
+}

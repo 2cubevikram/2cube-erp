@@ -43,9 +43,10 @@ export const EmployeeList = ({employees}) => {
                             </button>
                             <div className="dropdown-menu">
                                 <Link to={`/employees/profile`}
-                                      state={{ id: item.id }}
-                                      className="dropdown-item"><i
-                                    className="bx bx-edit-alt me-1"></i>Profile</Link>
+                                      state={{id: item.id}}
+                                      className="dropdown-item">
+                                    <i className="bx bx-edit-alt me-1"></i>Profile
+                                </Link>
 
                                 <a className="dropdown-item" href="/"><i
                                     className="bx bx-trash me-1"></i> Delete</a>

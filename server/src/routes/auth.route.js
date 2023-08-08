@@ -34,6 +34,8 @@ router.get('/leave-by-id', auth(), awaitHandlerFactory(LeaveAppController.getLea
 router.get('/all-leaves', auth(), awaitHandlerFactory(LeaveAppController.getAllLeaves));
 router.patch('/leave-update', auth(), awaitHandlerFactory(LeaveAppController.update));
 router.get('/get-notification', auth(), awaitHandlerFactory(NotificationController.getAllNotification));
+router.patch('/update-notification', auth(), awaitHandlerFactory(NotificationController.updateNotification));
+router.post('/add-notification', auth(), awaitHandlerFactory(NotificationController.createNotification));
 
 
 router.post('/timestamp', auth(), awaitHandlerFactory(EmployeeController.timestamp));

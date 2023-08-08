@@ -46,33 +46,36 @@ const Leave = () => {
                                     </tr>
                                     </thead>
                                     <tbody className="table-border-bottom-0">
-                                    {leaves.leave.map((item, index) => (
-                                        <tr key={item.key}>
-                                            <td>
-                                                {moment(item.app_date).format("DD-MM-YYYY")}
-                                            </td>
-                                            <td>
+                                    {
+                                        leaves.leave.map((item, index) => (
+                                            <tr key={item.key || index}>
+                                                <td>
+                                                    {moment(item.app_date).format("DD-MM-YYYY")}
+                                                </td>
+                                                <td>
                                                 <span className="badge bg-label-warning me-1">
                                                     {moment(item.start_date).format("DD-MM-YYYY")}
                                                 </span>
-                                            </td>
-                                            <td>
+                                                </td>
+                                                <td>
                                                 <span className="badge bg-label-warning me-1">
                                                     {moment(item.end_date).format("DD-MM-YYYY")}
                                                 </span>
-                                            </td>
-                                            <td>
-                                                <span className="badge bg-label-warning me-1">{item.leave_type}</span>
-                                            </td>
-                                            <td><span
-                                                className="badge bg-label-warning me-1">{excerpt(item.reason)}</span>
-                                            </td>
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        className="badge bg-label-warning me-1">{item.leave_type}</span>
+                                                </td>
+                                                <td><span
+                                                    className="badge bg-label-warning me-1">{excerpt(item.reason)}</span>
+                                                </td>
 
-                                            <td>
-                                                <span className="badge bg-label-warning me-1">{item.status}</span>
-                                            </td>
-                                        </tr>
-                                    ))}
+                                                <td>
+                                                    <span className="badge bg-label-warning me-1">{item.status}</span>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    }
                                     </tbody>
                                 </table>
                             )}

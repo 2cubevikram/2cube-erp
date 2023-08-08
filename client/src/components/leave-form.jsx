@@ -15,7 +15,6 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
     const [leave_type, setLeaveType] = useState("");
     const [reason, setReason] = useState("");
     const [status, setStatus] = useState("");
-    const [formKey, setFormKey] = useState(0);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -28,7 +27,10 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                 reason: reason
             }
             dispatch(leaveApplied({user, obj}))
-            setFormKey((prevKey) => prevKey + 1);
+            setStartDate("");
+            setEndDate("");
+            setLeaveType("");
+            setReason("");
         } else if (type === "UPDATE") {
             const obj = {
                 id: data.id,
@@ -72,7 +74,7 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                 }
 
                 <div className="card-body">
-                    <form id="formAccountSettings" key={formKey} onSubmit={submitHandler}>
+                    <form id="formAccountSettings" onSubmit={submitHandler}>
                         <div className="row">
                             <div className="mb-3 col-md-6">
                                 <label htmlFor="firstName" className="form-label">
@@ -85,7 +87,7 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                                     name="StartDate"
                                     value={start_date}
                                     onChange={(e) => setStartDate(e.target.value)}
-                                    required
+                                    // required
                                 />
                             </div>
                             <div className="mb-3 col-md-6">
@@ -99,14 +101,14 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                                     name="EndDate"
                                     value={end_date}
                                     onChange={(e) => setEndDate(e.target.value)}
-                                    required
+                                    // required
                                 />
                             </div>
                             <div className="mb-3 col-md-6">
                                 <label htmlFor="leaveType" className="form-label">
                                     Leave Type
                                 </label>
-                                <select className="form-select placement-dropdown" id="selectPlacement" required
+                                <select className="form-select placement-dropdown" id="selectPlacement"
                                         value={leave_type}
                                         onChange={(e) => setLeaveType(e.target.value)}>
                                     <option value="" disabled>Select Type</option>
@@ -126,7 +128,7 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                                     name="leaveReason"
                                     value={reason}
                                     onChange={(e) => setReason(e.target.value)}
-                                    required
+                                    // required
                                 />
                             </div>
                             {
@@ -146,8 +148,6 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                                 ) : ""
                             }
                         </div>
-
-
                         <div className="mt-2">
                             <button type="submit" className="btn btn-primary me-2">Submit</button>
                             {
@@ -158,7 +158,6 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                                         onClick={handleFormClose}>Cancel</button>
                                 ) : ""
                             }
-
                         </div>
                     </form>
                 </div>
@@ -166,6 +165,5 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
         </div>
     )
 }
-
 
 export default LeaveForm;

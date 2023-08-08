@@ -1,7 +1,5 @@
 import query from '../config/db-connection.js';
 import utils from '../utils/common.utils.js';
-import AuthModel from "./auth.model.js";
-import moment from "moment-timezone";
 
 class CommonModel {
     find = async (tableName, params = {}, order_by = {}, selectColumns = '*') => {
@@ -35,9 +33,7 @@ class CommonModel {
         const {columnSet, values} = utils.multipleColumnSet(params)
 
         const sql = `UPDATE ${tableName} SET ${columnSet} WHERE id = ?`;
-        const result = await query(sql, [...values, id]);
-
-        return result;
+        return await query(sql, [...values, id]);
     }
 
     update = async (tableName, params, id) => {

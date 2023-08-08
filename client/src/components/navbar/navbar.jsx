@@ -8,35 +8,12 @@ import React from "react";
 const Navbar = () => {
     const user = useSelector(getUser);
     const dispatch = useDispatch();
-    // const [main, setMainProfile] = useState(user);
-    // const [profile, setUserProfile] = useState(user);
-    // const mainProfile1 = useSelector((state) => state.user.profile);
-    // const userProfile = useSelector((state) => state.user.profile);
-    //
-    //
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-    //
-    // useEffect(() => {
-    //     if (userProfile !== null) {
-    //         setUserProfile(userProfile);
-    //     } else {
-    //         setUserProfile(user);
-    //     }
-    // }, [userProfile, user]);
-    //
-    //
+
     const logoutHandler = (e) => {
         e.preventDefault();
         dispatch(logoutUser());
     };
-    //
-    // useEffect(() => {
-    //     dispatch(getProfile({user, id: user.id}));
-    // }, [dispatch, user])
-    //
-    // console.log('userProfile', mainProfile1)
-    // console.log('user', user)
-
 
     return (
         <>
