@@ -1,6 +1,7 @@
 import LeaveAppModel from "../models/leave_app_model.js";
 import AuthModel from "../models/auth.model.js";
 import { io } from '../server.js';
+import notificationController from "./notification.controller.js";
 
 
 /******************************************************************************
@@ -13,11 +14,16 @@ class LeaveAppController {
         const id = req.body.employee_id;
 
         const user = await AuthModel.findOne({id});
-        console.log(user.first_name, user.last_name);
 
-        const result = await LeaveAppModel.create(req.body)
+        const result = await LeaveAppModel.create(req.body);
         if (result === 1) {
             await this.getLeavesById(req, res)
+            req.body = {
+                employee_id: req.body.employee_id,
+                type: 'leave',
+                message: 'Leave Application from ' + user.first_name + ' ' + user.last_name,
+            }
+            await notificationController.leaveNotification(req, res);
             io.emit('new_leave_application', {
                 message: `notification from ${user.first_name} ${user.last_name}`,
                 link: '/leave-app'

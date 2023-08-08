@@ -85,6 +85,7 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                                     name="StartDate"
                                     value={start_date}
                                     onChange={(e) => setStartDate(e.target.value)}
+                                    required
                                 />
                             </div>
                             <div className="mb-3 col-md-6">
@@ -98,13 +99,14 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                                     name="EndDate"
                                     value={end_date}
                                     onChange={(e) => setEndDate(e.target.value)}
+                                    required
                                 />
                             </div>
                             <div className="mb-3 col-md-6">
                                 <label htmlFor="leaveType" className="form-label">
                                     Leave Type
                                 </label>
-                                <select className="form-select placement-dropdown" id="selectPlacement"
+                                <select className="form-select placement-dropdown" id="selectPlacement" required
                                         value={leave_type}
                                         onChange={(e) => setLeaveType(e.target.value)}>
                                     <option value="" disabled>Select Type</option>
@@ -124,6 +126,7 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                                     name="leaveReason"
                                     value={reason}
                                     onChange={(e) => setReason(e.target.value)}
+                                    required
                                 />
                             </div>
                             {

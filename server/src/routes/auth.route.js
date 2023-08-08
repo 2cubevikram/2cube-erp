@@ -6,6 +6,7 @@ import AdminController from '../controllers/admin.contoller.js';
 import EmployeeController from '../controllers/employee.controller.js';
 import UploadMediaController from '../controllers/upload_media.controller.js';
 import LeaveAppController from "../controllers/leave_app_controller.js";
+import NotificationController from "../controllers/notification.controller.js";
 
 
 const router = express.Router();
@@ -32,6 +33,7 @@ router.post('/leave-applied', auth(), awaitHandlerFactory(LeaveAppController.cre
 router.get('/leave-by-id', auth(), awaitHandlerFactory(LeaveAppController.getLeavesById));
 router.get('/all-leaves', auth(), awaitHandlerFactory(LeaveAppController.getAllLeaves));
 router.patch('/leave-update', auth(), awaitHandlerFactory(LeaveAppController.update));
+router.get('/get-notification', auth(), awaitHandlerFactory(NotificationController.getAllNotification));
 
 
 router.post('/timestamp', auth(), awaitHandlerFactory(EmployeeController.timestamp));
