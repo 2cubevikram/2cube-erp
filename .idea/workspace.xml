@@ -5,18 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/client/public/assets/css/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/css/demo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/leave-form.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/leave-form.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/leave-manag/LeaveManag.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/leave-manag/LeaveManag.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/navbar/navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/navbar/navbar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Leave.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Leave.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/ul-component.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ul-component.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/notification.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/notification.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/models/common.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/common.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/models/notification.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/notification.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/routes/auth.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/auth.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Daystatus.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Daystatus.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Leaves.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Leaves.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +161,8 @@
       <workItem from="1691124916984" duration="21596000" />
       <workItem from="1691153307540" duration="5806000" />
       <workItem from="1691382519077" duration="22527000" />
-      <workItem from="1691469560376" duration="29131000" />
+      <workItem from="1691469560376" duration="29472000" />
+      <workItem from="1691555030207" duration="2594000" />
     </task>
     <servers />
   </component>

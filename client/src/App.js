@@ -17,13 +17,6 @@ function App({state}) {
         <>
             <Router>
                 <Routes>
-                    {/*<Route exact path="/" element={user ? <Home/> : <Navigate to="/Login"/>}></Route>*/}
-                    {/*<Route exact path="/home" element={user ? <Home/> : <Navigate to="/Login"/>}></Route>*/}
-                    {/*<Route exact path="/employees" element={user ? <Employee/> : <Navigate to="/Login"/>}/>*/}
-                    {/*<Route exact path="/profile" element={user ? <Profile/> : <Navigate to="/Login"/>}/>*/}
-                    {/*<Route exact path="/login" element={!user ? <Login/> : <Navigate to="/"/>}/>*/}
-                    {/*<Route exact path="/register" element={!user ? <Register/> : <Navigate to="/"/>}/>*/}
-
                     <Route exact path="/login" element={!state.login.isLoggedIn ? <LoginForm/> : <Navigate to="/"/>}/>
                     <Route exact path="/" element={state.login.isLoggedIn ? <Home/> : <Navigate to="/Login"/>}></Route>
                     <Route exact path="/to-day" element={state.login.isLoggedIn ? <DayStatus/> : <Navigate to="/Login"/>}></Route>
