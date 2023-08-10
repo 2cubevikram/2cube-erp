@@ -10,6 +10,7 @@ import Leaves from "./pages/Leaves"
 import {connect} from "react-redux";
 import LoginForm from "./components/login/login";
 import Register from "./components/login/register";
+import Holiday from "./pages/Holiday";
 
 
 function App({state}) {
@@ -21,6 +22,7 @@ function App({state}) {
                     <Route exact path="/" element={state.login.isLoggedIn ? <Home/> : <Navigate to="/Login"/>}></Route>
                     <Route exact path="/to-day" element={state.login.isLoggedIn ? <DayStatus/> : <Navigate to="/Login"/>}></Route>
                     <Route exact path="/leave-app" element={state.login.isLoggedIn ? <Leaves/> : <Navigate to="/Login"/>}></Route>
+                    <Route exact path="/holiday" element={state.login.isLoggedIn ? <Holiday/> : <Navigate to="/Login"/>}></Route>
                     <Route exact path="/employees" element={state.login.isLoggedIn ? <Employee/> : <Navigate to="/Login"/>}></Route>
                     <Route exact path="/profile" element={state.login.isLoggedIn ? <Profile/> : <Navigate to="/Login"/>}></Route>
                     {/*<Route exact path="/profile/:id" element={state.login.isLoggedIn ? <Profile/> : <Navigate to="/Login"/>}></Route>*/}

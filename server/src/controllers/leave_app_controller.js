@@ -1,6 +1,6 @@
 import LeaveAppModel from "../models/leave_app_model.js";
 import AuthModel from "../models/auth.model.js";
-import { io } from '../server.js';
+import {io} from '../server.js';
 import notificationController from "./notification.controller.js";
 
 
@@ -11,23 +11,13 @@ import notificationController from "./notification.controller.js";
 class LeaveAppController {
     create = async (req, res, next) => {
         req.body.employee_id = req.currentUser.id;
-        const id = req.body.employee_id;
 
-        const user = await AuthModel.findOne({id});
-        // console.log(user)
         const result = await LeaveAppModel.create(req.body);
-        if (result === 1) {
-            await this.getLeavesById(req, res)
 
-            const result = await LeaveAppModel.findById({employee_id: req.currentUser.id}, {})
-            req.body = {
-                id: result[result.length - 1],
-                employee_id: req.body.employee_id,
-                type: 'leave',
-                message: 'Leave Application from ' + user.first_name + ' ' + user.last_name,
-            }
+        if (result.id > 0) {
+            req.body.id = result.id;
             await notificationController.createNotification(req, res);
-        }else {
+        } else {
             return res.status(500).send({message: 'Something went wrong while applied leave'});
         }
     };
@@ -64,9 +54,9 @@ class LeaveAppController {
             updated_by: user.role
         }
         let result = await LeaveAppModel.update(params, row_id);
-        if(result.affectedRows > 0 ){
+        if (result.affectedRows > 0) {
             await this.getAllLeaves(req, res);
-        }else{
+        } else {
             return res.status(500).send({message: 'Something went wrong while getting updated application'});
         }
 

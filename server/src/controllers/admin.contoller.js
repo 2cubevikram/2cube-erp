@@ -199,6 +199,25 @@ class AdminController {
         res.status(200).send(result);
     }
 
+    addHoliday = async (req, res, next) => {
+        const id = req.currentUser.id;
+
+        const result = await AuthModel.findOne({id});
+        req.body.post_by = result.role;
+
+        const holiday = await AuthModel.crateHoliday(req.body);
+        if(holiday === 1){
+            await this.getHoliday(req, res);
+        }else{
+            res.status(401).send({message: 'Something went wrong while adding Holiday.'});
+        }
+    }
+
+    getHoliday = async (req, res, next) => {
+        const result = await AuthModel.findHolidays();
+        res.status(200).send(result);
+    }
+
     // hash password if it exists
     hashPassword = async (req) => {
         if (req.body.password) {

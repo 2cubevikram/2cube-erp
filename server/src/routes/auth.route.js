@@ -21,6 +21,8 @@ router.patch('/check-time-edit', auth(), awaitHandlerFactory(AdminController.che
 router.patch('/break-time-edit', auth(), awaitHandlerFactory(AdminController.breakTimeUpdate));
 router.get('/to-day', auth(), awaitHandlerFactory(AdminController.to_day))
 router.get('/get-birthday', auth(), awaitHandlerFactory(AdminController.getBirthday));
+router.post('/add-holiday', auth(), awaitHandlerFactory(AdminController.addHoliday));
+router.get('/get-holiday', auth(), awaitHandlerFactory(AdminController.getHoliday));
 
 
 //Employee use

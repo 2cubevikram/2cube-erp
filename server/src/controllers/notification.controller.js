@@ -1,5 +1,7 @@
 import notificationModel from "../models/notification.model.js";
 import { io } from '../server.js';
+import LeaveController from "./leave_app_controller.js";
+import AuthModel from "../models/auth.model.js";
 
 
 /******************************************************************************
@@ -8,17 +10,24 @@ import { io } from '../server.js';
 class NotificationController {
 
     createNotification = async (req, res, next) => {
+        const id = req.body.employee_id;
+
+        const user = await AuthModel.findOne({id});
+
         const params = {
-            application_id: req.body.id.id,
+            application_id: req.body.id,
             employee_id: req.body.employee_id,
             type: 'leave',
-            message: req.body.message,
+            message: 'Leave Application from ' + user.first_name + ' ' + user.last_name,
         }
         const result = await notificationModel.createNotification(params);
-        const data = await notificationModel.findById({application_id: req.body.id.id}, {status: 'null'});
+        const data = await notificationModel.findById({application_id: req.body.id, status: 'null'}, {});
+        await LeaveController.getLeavesById(req, res);
+
         if (result === 1) {
+            // console.log(result,data)
             io.emit('new_leave_application', {
-                id: data.id,
+                id: data.application_id,
                 message: data.message,
                 link: '/leave-app'
             });

@@ -8,6 +8,7 @@ import profileReducer from "./profileReducer";
 import dayReducer from "./dayReducer";
 import leaveReducer from "./leaveReducer";
 import birthdayReducer from "./birthDayReducer";
+import holidayReducer from "./holidayReducer";
 
 const rootReducer = combineReducers({
     counter: counterReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     today:dayReducer,
     leave:leaveReducer,
     birthday:birthdayReducer,
+    holiday:holidayReducer,
 });
 
 export default rootReducer;

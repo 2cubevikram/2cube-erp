@@ -9,6 +9,7 @@ import {getDayStatus} from "../../redux/actions/breakAction";
 import {getAttendance} from "../../redux/actions/profileAction";
 import {getBirthday} from "../../redux/actions/dayActions";
 import {getDayOfWeekInCurrentYear, isBirthdayToday} from "../../function/excerpt";
+import {getHoliday} from "../../redux/actions/holidayActions";
 
 
 const Dashboard = () => {
@@ -18,7 +19,7 @@ const Dashboard = () => {
     const break_status = useSelector(state => state.break);
     const check_status = useSelector(state => state.check);
     const birthday = useSelector(state => state.birthday);
-
+    const holidays = useSelector(state => state.holiday);
 
     const savedNotification = localStorage.getItem('notification');
     const [notification, setNotification] = useState(savedNotification ? JSON.parse(savedNotification) : null);
@@ -28,6 +29,7 @@ const Dashboard = () => {
         dispatch(getDayStatus({user}));
         dispatch(getAttendance({user}));
         dispatch(getBirthday({user}));
+        dispatch(getHoliday({user}));
 
         newSocket.on('new_leave_application', (notificationMessage) => {
             setNotification(notificationMessage);
@@ -54,7 +56,7 @@ const Dashboard = () => {
             <div className="content-wrapper">
                 <div className="container-xxl flex-grow-1 container-p-y">
                     <div className="row">
-                        <div className="col-lg-8 mb-4 order-0">
+                        <div className="col-lg-8 mb-4">
                             <div className="card">
                                 <div className="d-flex align-items-end row">
 
@@ -113,10 +115,10 @@ const Dashboard = () => {
                             </div>
                         </div>
 
-                        <div className="col-md-6 col-lg-4 order-2 mb-4">
+                        <div className="col-md-6 col-lg-4  mb-4">
                             <div className="card h-100">
                                 <div className="card-header d-flex align-items-center justify-content-between">
-                                    <h5 className="card-title m-0 me-2">Birth Day</h5>
+                                    <h5 className="card-title m-0 me-2">UPCOMING BIRTHDAY'S</h5>
                                 </div>
                                 <div className="card-body">
                                     {
@@ -137,7 +139,7 @@ const Dashboard = () => {
                                                                 <h6 className="mb-0">{item.last_name}</h6>
                                                             </div>
                                                             <div className="user-progress d-flex align-items-center gap-1">
-                                                                <h6 className="mb-0">{isBirthdayToday(item.birth_date) ? 'Today' : getDayOfWeekInCurrentYear(item.birth_date)} : </h6>
+                                                                <h6 className="mb-0">{isBirthdayToday(item.birth_date) ? 'Today' : getDayOfWeekInCurrentYear(item.birth_date)} - </h6>
                                                                 <span
                                                                     className="text-muted">{moment(item.birth_date).format('DD-MM')}</span>
                                                             </div>
@@ -151,7 +153,7 @@ const Dashboard = () => {
                             </div>
                         </div>
 
-                        <div className="col-12  order-2 order-md-3 mb-4">
+                        <div className="col-8  mb-4">
                             <div className="card">
                                 <div className="row row-bordered g-0">
                                     <div className="col-md-12">
@@ -216,6 +218,54 @@ const Dashboard = () => {
                                 </div>
                             </div>
                         </div>
+
+                        <div className="col-md-4">
+                            <div className="card ">
+                                <h5 className="card-header">UPCOMING HOLIDAY'S</h5>
+                                <div className="table-responsive text-nowrap">
+                                    <table className="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Label</th>
+                                            <th>Post By</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody className="table-border-bottom-0">
+                                        {
+                                            holidays.holiday && holidays.holiday.length > 0 && (
+                                                holidays.holiday.map((item, index) => (
+                                                        <tr key={item.id}>
+                                                            <td><i className="fab fa-angular fa-lg text-danger mb-0"></i>
+                                                                {getDayOfWeekInCurrentYear(item.date)} - {moment(item.date).format('DD-MM-YYYY')}
+                                                            </td>
+                                                            <td>{item.label}</td>
+                                                            <td>{item.post_by}</td>
+                                                            {/*<td>*/}
+                                                            {/*    <div className="dropdown">*/}
+                                                            {/*        <button type="button" className="btn p-0 dropdown-toggle hide-arrow"*/}
+                                                            {/*                data-bs-toggle="dropdown">*/}
+                                                            {/*            <i className="bx bx-dots-vertical-rounded"></i>*/}
+                                                            {/*        </button>*/}
+                                                            {/*        <div className="dropdown-menu">*/}
+                                                            {/*            <a className="dropdown-item" href=""><i*/}
+                                                            {/*                className="bx bx-edit-alt me-1"></i> Edit</a>*/}
+                                                            {/*            <a className="dropdown-item" href=""><i*/}
+                                                            {/*                className="bx bx-trash me-1"></i> Delete</a>*/}
+                                                            {/*        </div>*/}
+                                                            {/*    </div>*/}
+                                                            {/*</td>*/}
+                                                        </tr>
+                                                    )
+                                                )
+                                            )
+                                        }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
 
                     </div>
                 </div>

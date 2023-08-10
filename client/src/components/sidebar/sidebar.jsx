@@ -70,6 +70,17 @@ const Sidebar = () => {
                         ) : ""
                     }
 
+                    {
+                        user && (user.role === "Admin" || user.role === "HR") ? (
+                            <li className="menu-item">
+                                <Link to={"/holiday"}
+                                    // state={{id: user.id}}
+                                      className="menu-link"><i
+                                    className="menu-icon tf-icons bx bxs-caret-right-circle"></i>Holiday's</Link>
+                            </li>
+                        ) : ""
+                    }
+
                     <li className="menu-item">
                         {/*<a href="" className="menu-link menu-toggle">*/}
                         {/*    <i className="menu-icon tf-icons bx bx-lock-open-alt"></i>*/}
