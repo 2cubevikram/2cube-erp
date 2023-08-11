@@ -14,6 +14,8 @@ const Attendance = () => {
     const user = useSelector((state) => state.login.user);
     const attendance = useSelector((state) => state.user.attendance);
 
+    console.log("attendance",attendance)
+
     const footer_data = {
         break: 0,
         break_time: 0,
@@ -274,7 +276,7 @@ const EditableRow = ({_data, inTime, outTime, onChildClick}) => {
         } catch (error) {
             // console.log(error)
             alert(error);
-            navigate('/');
+            navigate('/to-day');
         }
     };
 

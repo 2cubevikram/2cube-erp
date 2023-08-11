@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/profileAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/profileAction.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/sidebar/sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/sidebar/sidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/profileReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/profileReducer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +167,7 @@
       <workItem from="1691641871813" duration="2793000" />
       <workItem from="1691657069535" duration="21813000" />
       <workItem from="1691728928053" duration="2832000" />
-      <workItem from="1691731812476" duration="593000" />
+      <workItem from="1691731812476" duration="4232000" />
     </task>
     <servers />
   </component>

@@ -1,30 +1,36 @@
 import {useSelector} from "react-redux";
-import {Link} from "react-router-dom";
+import {Link,useLocation } from "react-router-dom";
 import React from "react";
 
 
-const Sidebar = () => {
+const Sidebar = ({to}) => {
     const user = useSelector((state) => state.login.user);
+    const location = useLocation();
+    const currentPath = location.pathname;
+
+    console.log(currentPath)
+
+    const liClassName = "menu-item"
+
     return (
         <>
             <aside id="layout-menu" className="layout-menu menu-vertical menu bg-menu-theme">
                 <div className="app-brand demo">
-                    <Link to={`/`} className="app-brand-link">
+                    <Link to={`/`}  className="app-brand-link">
                         <p>2CUBE STUDIO</p>
                     </Link>
                 </div>
                 <div className="menu-inner-shadow"></div>
                 <ul className="menu-inner py-1">
-                    <li className="menu-item active">
+                    <li className={` menu-item ${currentPath === '/' && "active"} `}>
                         <Link to={'/'} className="menu-link">
                             <i className="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Analytics">Dashboard</div>
                         </Link>
-
                     </li>
                     {
                         user && (user.role === "Admin" || user.role === "HR") ? (
-                            <li className="menu-item">
+                            <li className={` menu-item ${currentPath === '/profile' && "active"} `}>
                                 <Link to={"/profile"}
                                       state={{id: user.id}}
                                       className="menu-link"><i
@@ -34,7 +40,7 @@ const Sidebar = () => {
                     }
                     {
                         user && (user.role === "Admin" || user.role === "HR") ? (
-                            <li className="menu-item">
+                            <li className={` menu-item ${currentPath === '/employees' && "active"} `}>
                                 <Link className="menu-link" to={"/employees"}>
                                     <i className="menu-icon tf-icons bx bxs-group"></i>
                                     <div data-i18n="Tables">Employees</div>
@@ -42,7 +48,7 @@ const Sidebar = () => {
 
                             </li>
                         ) : (
-                            <li className="menu-item">
+                            <li className={` menu-item ${currentPath === '/profile' && "active"} `}>
                                 <Link to={"/profile"}
                                       state={{id: user.id}}
                                       className="menu-link"><i
@@ -51,7 +57,7 @@ const Sidebar = () => {
                     }
                     {
                         user && (user.role === "Admin" || user.role === "HR") ? (
-                            <li className="menu-item">
+                            <li className={` menu-item ${currentPath === '/to-day' && "active"} `}>
                                 <Link to={"/to-day"}
                                       // state={{id: user.id}}
                                       className="menu-link"><i
@@ -61,7 +67,7 @@ const Sidebar = () => {
                     }
                     {
                         user && (user.role === "Admin" || user.role === "HR") ? (
-                            <li className="menu-item">
+                            <li className={` menu-item ${currentPath === '/leave-app' && "active"} `}>
                                 <Link to={"/leave-app"}
                                     // state={{id: user.id}}
                                       className="menu-link"><i
@@ -72,7 +78,7 @@ const Sidebar = () => {
 
                     {
                         user && (user.role === "Admin" || user.role === "HR") ? (
-                            <li className="menu-item">
+                            <li className={` menu-item ${currentPath === '/holiday' && "active"} `}>
                                 <Link to={"/holiday"}
                                     // state={{id: user.id}}
                                       className="menu-link"><i
@@ -87,7 +93,7 @@ const Sidebar = () => {
                         {/*    <div data-i18n="Authentications">Authentications</div>*/}
                         {/*</a>*/}
                         <ul className="menu-sub">
-                            <li className="menu-item">
+                            <li className={liClassName}>
                                 <a href="auth-login-basic.html" className="menu-link" target="_blank">
                                     <div data-i18n="Basic">Login</div>
                                 </a>
