@@ -58,7 +58,7 @@ const Sidebar = ({to}) => {
                                 <Link to={"/to-day"}
                                       // state={{id: user.id}}
                                       className="menu-link"><i
-                                    className="menu-icon tf-icons bx bx-table"></i>To Day</Link>
+                                    className="menu-icon tf-icons bx bx-time"></i>To Day</Link>
                             </li>
                         ) : ""
                     }
