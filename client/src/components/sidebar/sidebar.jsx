@@ -7,9 +7,6 @@ const Sidebar = ({to}) => {
     const user = useSelector((state) => state.login.user);
     const location = useLocation();
     const currentPath = location.pathname;
-
-    console.log(currentPath)
-
     const liClassName = "menu-item"
 
     return (
