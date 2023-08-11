@@ -86,7 +86,7 @@ class CommonModel {
         const endDate = `${date} 23:59:59`;
 
         // let sql = `SELECT id,_in, _out, status FROM ${tableName} WHERE employee_id = ? AND in BETWEEN ? AND ?`;
-        let sql = `SELECT id,_in, _out, status FROM ${tableName} WHERE employee_id = ? AND \`_in\` BETWEEN ? AND ?`;
+        let sql = `SELECT id,employee_id,_in, _out, status FROM ${tableName} WHERE employee_id = ? AND \`_in\` BETWEEN ? AND ?`;
 
         return await query(sql, [employeeId, startDate, endDate]);
     }

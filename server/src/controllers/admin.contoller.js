@@ -84,28 +84,27 @@ class AdminController {
     }
 
     checkTimeUpdate = async (req, res, next) => {
-        const id = req.currentUser.id;
-        const row_id = req.body.id;
-        let inTime = null;
-        let outTime = null;
-        if (req.body._in !== null) {
-            inTime = moment(`${req.body.date}T${req.body._in}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss');
-        }
-        if (req.body._out !== null) {
-            outTime = moment(`${req.body.date}T${req.body._out}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss');
-        }
+        const userId = req.currentUser.id;
+        const rowId = req.body.id;
+        const inTime = req.body._in ? moment(`${req.body.date}T${req.body._in}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss') : null;
+        const outTime = req.body._out ? moment(`${req.body.date}T${req.body._out}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss') : null;
 
-        const user = await AuthModel.findOne({id});
+        const user = await AuthModel.findOne({id:userId});
 
         if (user.role !== 'Admin' && user.role !== 'HR') {
             res.status(401).send({message: 'Employees are not allowed to edit their recorded time.'});
             return;
         }
 
-        // if(user.role === 'HR' ){
-        //     res.status(400).send({message: 'Record editing not permitted. Kindly reach out to Admin for assistance. Thank you'});
-        //     return;
-        // }
+        if(user.role === 'HR' ){
+            const hrUser = await AuthModel.findOne({ id: req.body.employee_id });
+            if (hrUser && userId === hrUser.id) {
+                res.status(400).send({
+                    message: 'HR can not edit their own record. Kindly reach out to Admin for assistance. Thank you'
+                });
+                return;
+            }
+        }
 
         if (outTime === "Invalid date") {
             req.body.status = "CHECK_IN";
@@ -119,29 +118,32 @@ class AdminController {
             status: req.body.status,
             updated_by: user.role
         }
-        // console.log(params)
-        let result = await EmployeeModel.checkTimeUpdate(params, row_id);
+        let result = await EmployeeModel.checkTimeUpdate(params, rowId);
 
         res.status(200).send(result);
     }
 
     breakTimeUpdate = async (req, res, next) => {
-        const id = req.currentUser.id;
-        const row_id = req.body.id;
-        let inTime = null;
-        let outTime = null;
-        if (req.body._in !== null) {
-            inTime = moment(`${req.body.date}T${req.body._in}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss');
-        }
-        if (req.body._out !== null) {
-            outTime = moment(`${req.body.date}T${req.body._out}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss');
-        }
+        const userId = req.currentUser.id;
+        const rowId = req.body.id;
+        const inTime = req.body._in ? moment(`${req.body.date}T${req.body._in}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss') : null;
+        const outTime = req.body._out ? moment(`${req.body.date}T${req.body._out}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss') : null;
 
-        const user = await AuthModel.findOne({id});
+        const user = await AuthModel.findOne({id:userId});
 
         if (user.role !== 'Admin' && user.role !== 'HR') {
             res.status(401).send({message: 'Employees are not allowed to edit their recorded time.'});
             return;
+        }
+
+        if(user.role === 'HR' ){
+            const hrUser = await AuthModel.findOne({ id: req.body.employee_id });
+            if (hrUser && userId === hrUser.id) {
+                res.status(400).send({
+                    message: 'HR can not edit their own record. Kindly reach out to Admin for assistance. Thank you'
+                });
+                return;
+            }
         }
 
         if (outTime === "Invalid date") {
@@ -156,8 +158,7 @@ class AdminController {
             status: req.body.status,
             updated_by: user.role
         }
-        let result = await BreakModel.breakTimeUpdate(params, row_id);
-
+        let result = await BreakModel.breakTimeUpdate(params, rowId);
 
         res.status(200).send(result);
     }

@@ -9,6 +9,7 @@ export const getProfile = ({user, id}) => async (dispatch) => {
             },
         });
         dispatch(get_profile(response.data));
+        // dispatch({type: 'GET_USER_PROFILE', payload: response.data});
     } catch (error) {
         console.log(error);
     }
@@ -26,6 +27,7 @@ export const getAttendance = ({user, id, filterDate}) => async (dispatch) => {
             }
         });
         dispatch(get_user_attendance(response.data));
+        // dispatch({type: 'GET_USER_ATTENDANCE', payload: response.data});
     } catch (error) {
         console.log(error);
     }
@@ -33,10 +35,12 @@ export const getAttendance = ({user, id, filterDate}) => async (dispatch) => {
 
 export const breakTimeEdit = ({user, obj}) => async (dispatch) => {
     if (obj.status === "CHECK_IN" || obj.status === "CHECK_OUT") {
+        console.log('checkTimeEdit', obj)
         try {
             const response = await axios.patch(`${API_BASE_URL}/auth/check-time-edit`,
                 {
                     id: obj.id,
+                    employee_id: obj.employee_id,
                     date: obj.date,
                     _in: obj._in,
                     _out: obj._out,
@@ -49,26 +53,36 @@ export const breakTimeEdit = ({user, obj}) => async (dispatch) => {
                 }
             );
             dispatch(check_time_edit(response.data));
+            // dispatch({type: 'CHECK_TIME_EDIT', payload: response.data});
         } catch (error) {
             dispatch({type: 'CHECK_TIME_EDIT_FAILED', payload: error.response.data.message });
             throw error.response.data.message;
         }
     } else {
-        const response = await axios.patch(`${API_BASE_URL}/auth/break-time-edit`,
-            {
-                id: obj.id,
-                date: obj.date,
-                _in: obj._in,
-                _out: obj._out,
-                status: obj.status,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
+        console.log('breakTimeEdit', obj)
+        try {
+            const response = await axios.patch(`${API_BASE_URL}/auth/break-time-edit`,
+                {
+                    id: obj.id,
+                    employee_id: obj.employee_id,
+                    date: obj.date,
+                    _in: obj._in,
+                    _out: obj._out,
+                    status: obj.status,
                 },
-            }
-        );
-        dispatch(break_time_edit(response.data));
+                {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                }
+            );
+            dispatch(break_time_edit(response.data));
+            // dispatch({type: 'BREAK_TIME_EDIT', payload: response.data});
+        } catch (error) {
+            dispatch({type: 'BREAK_TIME_EDIT_FAILED', payload: error.response.data.message });
+            throw error.response.data.message;
+        }
+
     }
 
 };
@@ -90,6 +104,7 @@ export const addUserProfile = ({user, obj}) => async (dispatch) => {
         },
     });
     dispatch(add_user_profile(response.data));
+    // dispatch({type: 'ADD_USER_PROFILE', payload: response.data});
 };
 
 

@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import counterReducer from './counterReducer';
 import authReducer from "./authReducer";
 import checkReducer from "./checkReducer";
 import breakReducer from "./breakReducer";
@@ -11,7 +10,6 @@ import birthdayReducer from "./birthDayReducer";
 import holidayReducer from "./holidayReducer";
 
 const rootReducer = combineReducers({
-    counter: counterReducer,
     login:authReducer,
     check:checkReducer,
     break:breakReducer,

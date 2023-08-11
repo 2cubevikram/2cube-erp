@@ -72,8 +72,6 @@ const LoginForm = () => {
                                                 className="bx bx-hide"></i></span>
                                         </div>
                                     </div>
-                                    {/*{error && <div style={{ color: 'red' }}>Please enter a valid Email or Password!</div>}*/}
-                                    {/*{showError && <ErrorPopup error={error} onClose={() => setShowError(false)} />}*/}
                                     {error && showError && <ErrorPopup error={logError} onClose={() => setShowError(false)} />}
                                     <br/>
                                     <div className="mb-3">

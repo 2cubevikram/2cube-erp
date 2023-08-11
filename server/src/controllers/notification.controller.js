@@ -21,16 +21,15 @@ class NotificationController {
             message: 'Leave Application from ' + user.first_name + ' ' + user.last_name,
         }
         const result = await notificationModel.createNotification(params);
-        const data = await notificationModel.findById({application_id: req.body.id, status: 'null'}, {});
-        await LeaveController.getLeavesById(req, res);
+        await notificationModel.findById({application_id: req.body.id, status: 'null'}, {});
 
         if (result === 1) {
-            // console.log(result,data)
             io.emit('new_leave_application', {
-                id: data.application_id,
-                message: data.message,
+                id: params.application_id,
+                message: params.message,
                 link: '/leave-app'
             });
+            await LeaveController.getLeavesById(req, res);
         }else {
             return res.status(500).send({message: 'Something went wrong while applied leave'});
         }

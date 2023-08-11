@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import moment from "moment";
 import {getAttendance, breakTimeEdit} from "../../redux/actions/profileAction";
@@ -232,6 +232,7 @@ const EditableRow = ({_data, inTime, outTime, onChildClick}) => {
     const [_inTime, setInTime] = useState(inTime);
     const [_outTime, setOutTime] = useState(outTime);
     const [_status, setStatus] = useState(status);
+    const navigate = useNavigate();
 
     const _date = formatDateTime.getDate(_data._in)
 
@@ -261,19 +262,22 @@ const EditableRow = ({_data, inTime, outTime, onChildClick}) => {
     const handleSave = async () => {
         const obj = {
             'id': _data.id,
+            'employee_id': _data.employee_id,
             'date': formattedDate,
             '_in': _newInTime,
             '_out': _newOutTime,
             'status': _status
-        }
+        };
         try {
             await dispatch(breakTimeEdit({user, obj}));
             onChildClick();
         } catch (error) {
-            console.log(error)
-            // navigate('/employees');
+            // console.log(error)
+            alert(error);
+            navigate('/');
         }
     };
+
     return (
         <tr className="full-width" key={"id"}>
             <td colSpan="5">

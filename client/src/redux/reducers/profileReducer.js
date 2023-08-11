@@ -25,6 +25,7 @@ const profileReducer = (state = initialState, action) => {
                     ...state.attendance,
                     check: {
                         id: action.payload.id,
+                        employee_id: action.payload.employee_id,
                         _in: action.payload._in,
                         _out: action.payload._out,
                         status: action.payload.status
@@ -44,6 +45,7 @@ const profileReducer = (state = initialState, action) => {
                         if (item.id === action.payload.id) {
                             return {
                                 "id": action.payload.id,
+                                "employee_id": action.payload.employee_id,
                                 "_in": action.payload._in,
                                 "_out": action.payload._out,
                                 "status": action.payload.status,
