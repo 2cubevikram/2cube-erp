@@ -6,21 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/login/login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/authActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/counterActions.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/redux/actions/profileAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/profileAction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/counterReducer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/profileReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/profileReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/rootReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/rootReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/notification.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/notification.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/models/common.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/common.model.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +164,8 @@
       <workItem from="1691579479209" duration="8728000" />
       <workItem from="1691641871813" duration="2793000" />
       <workItem from="1691657069535" duration="21813000" />
-      <workItem from="1691728928053" duration="2672000" />
+      <workItem from="1691728928053" duration="2832000" />
+      <workItem from="1691731812476" duration="593000" />
     </task>
     <servers />
   </component>

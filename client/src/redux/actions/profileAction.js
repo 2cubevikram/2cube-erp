@@ -8,8 +8,8 @@ export const getProfile = ({user, id}) => async (dispatch) => {
                 Authorization: `Bearer ${user.token}`,
             },
         });
-        dispatch(get_profile(response.data));
-        // dispatch({type: 'GET_USER_PROFILE', payload: response.data});
+        // dispatch(get_profile(response.data));
+        dispatch({type: 'GET_USER_PROFILE', payload: response.data});
     } catch (error) {
         console.log(error);
     }
@@ -26,8 +26,8 @@ export const getAttendance = ({user, id, filterDate}) => async (dispatch) => {
                 date: filterDate,
             }
         });
-        dispatch(get_user_attendance(response.data));
-        // dispatch({type: 'GET_USER_ATTENDANCE', payload: response.data});
+        // dispatch(get_user_attendance(response.data));
+        dispatch({type: 'GET_USER_ATTENDANCE', payload: response.data});
     } catch (error) {
         console.log(error);
     }
@@ -52,8 +52,8 @@ export const breakTimeEdit = ({user, obj}) => async (dispatch) => {
                     },
                 }
             );
-            dispatch(check_time_edit(response.data));
-            // dispatch({type: 'CHECK_TIME_EDIT', payload: response.data});
+            // dispatch(check_time_edit(response.data));
+            dispatch({type: 'CHECK_TIME_EDIT', payload: response.data});
         } catch (error) {
             dispatch({type: 'CHECK_TIME_EDIT_FAILED', payload: error.response.data.message });
             throw error.response.data.message;
@@ -76,8 +76,8 @@ export const breakTimeEdit = ({user, obj}) => async (dispatch) => {
                     },
                 }
             );
-            dispatch(break_time_edit(response.data));
-            // dispatch({type: 'BREAK_TIME_EDIT', payload: response.data});
+            // dispatch(break_time_edit(response.data));
+            dispatch({type: 'BREAK_TIME_EDIT', payload: response.data});
         } catch (error) {
             dispatch({type: 'BREAK_TIME_EDIT_FAILED', payload: error.response.data.message });
             throw error.response.data.message;
@@ -103,33 +103,33 @@ export const addUserProfile = ({user, obj}) => async (dispatch) => {
             "Content-Type": "multipart/form-data", // Set the content type to handle file uploads
         },
     });
-    dispatch(add_user_profile(response.data));
-    // dispatch({type: 'ADD_USER_PROFILE', payload: response.data});
+    // dispatch(add_user_profile(response.data));
+    dispatch({type: 'ADD_USER_PROFILE', payload: response.data});
 };
 
 
-export const get_profile = (payload) => ({
-    type: "GET_USER_PROFILE",
-    payload: payload,
-});
-
-export const get_user_attendance = (payload) => ({
-    type: "GET_USER_ATTENDANCE",
-    payload: payload,
-});
-
-export const break_time_edit = (payload) => ({
-    type: "BREAK_TIME_EDIT",
-    payload: payload,
-});
-
-export const check_time_edit = (payload) => ({
-    type: "CHECK_TIME_EDIT",
-    payload: payload,
-});
-
-export const add_user_profile = (payload) => ({
-    type: "ADD_USER_PROFILE",
-    payload: payload,
-});
+// export const get_profile = (payload) => ({
+//     type: "GET_USER_PROFILE",
+//     payload: payload,
+// });
+//
+// export const get_user_attendance = (payload) => ({
+//     type: "GET_USER_ATTENDANCE",
+//     payload: payload,
+// });
+//
+// export const break_time_edit = (payload) => ({
+//     type: "BREAK_TIME_EDIT",
+//     payload: payload,
+// });
+//
+// export const check_time_edit = (payload) => ({
+//     type: "CHECK_TIME_EDIT",
+//     payload: payload,
+// });
+//
+// export const add_user_profile = (payload) => ({
+//     type: "ADD_USER_PROFILE",
+//     payload: payload,
+// });
 
