@@ -8,7 +8,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {getDayStatus} from "../../redux/actions/breakAction";
 import {getAttendance} from "../../redux/actions/profileAction";
 import {getBirthday} from "../../redux/actions/dayActions";
-import {getDayOfWeekInCurrentYear, isBirthdayToday} from "../../function/excerpt";
+import {
+    getDayOfWeekInCurrentYear,
+    isBirthdayToday,
+    isBirthdayToday1,
+    isBirthdayTomorrow, isDateAfterToday, isDateBeforeToday,
+    isThisWeek
+} from "../../function/excerpt";
 import {getHoliday} from "../../redux/actions/holidayActions";
 
 
@@ -50,6 +56,8 @@ const Dashboard = () => {
 
     const _break = useSelector(state => state.break.status);
     const _check = useSelector(state => state.check.status);
+
+
 
 
     return (
@@ -122,12 +130,20 @@ const Dashboard = () => {
                                     <h5 className="card-title m-0 me-2">UPCOMING BIRTHDAY'S</h5>
                                 </div>
                                 <div className="card-body">
+                                    <ul className="p-0 m-0 birthday-list" >
                                     {
                                         birthday && birthday.length > 0 && (
-                                            birthday.map((item, index) => (
-                                                <ul className="p-0 m-0" key={index}>
-                                                    {/*<li className="d-flex mb-4 pb-1">*/}
-                                                    <li className={`d-flex mb-4 pb-1 ${isBirthdayToday(item.birth_date) ? 'birthday-highlight' : ''}`}>
+                                            [...birthday].sort((a, b) => {
+                                                const today = new Date();
+                                                const aDate = new Date(today.getFullYear(), new Date(a.birth_date).getMonth(), new Date(a.birth_date).getDate());
+                                                const bDate = new Date(today.getFullYear(), new Date(b.birth_date).getMonth(), new Date(b.birth_date).getDate());
+
+                                                if (aDate < today && bDate >= today) return -1;
+                                                if (bDate < today && aDate >= today) return 1;
+                                                return aDate - bDate;
+                                            }).map((item, index) => (
+
+                                                    <li key={index} className={`d-flex ${isBirthdayToday(item.birth_date) ? 'active-highlight' : ''}`}>
                                                         <div className="avatar flex-shrink-0 me-3">
                                                             <img src={PF + item.profile} alt="User"
                                                                  className="rounded"/>
@@ -135,21 +151,26 @@ const Dashboard = () => {
                                                         <div
                                                             className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                             <div className="me-2">
-                                                                <small
-                                                                    className="text-muted d-block mb-1">{item.first_name}</small>
-                                                                <h6 className="mb-0">{item.last_name}</h6>
+                                                                <strong>{item.first_name} {item.last_name}</strong>
                                                             </div>
-                                                            <div className="user-progress d-flex align-items-center gap-1">
-                                                                <h6 className="mb-0">{isBirthdayToday(item.birth_date) ? 'Today' : getDayOfWeekInCurrentYear(item.birth_date)} - </h6>
+                                                            <div className="user-progress">
                                                                 <span
-                                                                    className="text-muted">{moment(item.birth_date).format('DD-MM')}</span>
+                                                                    className="text-muted m-date">{moment(item.birth_date).format('DD/MM')}{moment().format('/YY')}</span>
+                                                                <span className={`date badge  ${isBirthdayToday(item.birth_date) ? 'bg-black' : 'bg-primary'}`}>
+                                                                    {
+                                                                        isBirthdayToday(item.birth_date) ? 'Today' :
+                                                                            isBirthdayTomorrow(item.birth_date) ? 'Tomorrow' :
+                                                                                getDayOfWeekInCurrentYear(item.birth_date)
+                                                                    }
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </li>
-                                                </ul>
+
                                             ))
                                         )
                                     }
+                                </ul>
                                 </div>
                             </div>
                         </div>
@@ -223,46 +244,37 @@ const Dashboard = () => {
                         <div className="col-md-4">
                             <div className="card ">
                                 <h5 className="card-header">UPCOMING HOLIDAY'S</h5>
-                                <div className="table-responsive text-nowrap">
-                                    <table className="table">
-                                        <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Label</th>
-                                            <th>Post By</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody className="table-border-bottom-0">
+                                <div className={`card-body`}>
+
+
+                                    <ul className={`p-0 m-0 birthday-list`}>
                                         {
-                                            holidays.holiday && holidays.holiday.length > 0 && (
-                                                holidays.holiday.map((item, index) => (
-                                                        <tr key={item.id}>
-                                                            <td><i className="fab fa-angular fa-lg text-danger mb-0"></i>
-                                                                {getDayOfWeekInCurrentYear(item.date)} - {moment(item.date).format('DD-MM-YYYY')}
-                                                            </td>
-                                                            <td>{item.label}</td>
-                                                            <td>{item.post_by}</td>
-                                                            {/*<td>*/}
-                                                            {/*    <div className="dropdown">*/}
-                                                            {/*        <button type="button" className="btn p-0 dropdown-toggle hide-arrow"*/}
-                                                            {/*                data-bs-toggle="dropdown">*/}
-                                                            {/*            <i className="bx bx-dots-vertical-rounded"></i>*/}
-                                                            {/*        </button>*/}
-                                                            {/*        <div className="dropdown-menu">*/}
-                                                            {/*            <a className="dropdown-item" href=""><i*/}
-                                                            {/*                className="bx bx-edit-alt me-1"></i> Edit</a>*/}
-                                                            {/*            <a className="dropdown-item" href=""><i*/}
-                                                            {/*                className="bx bx-trash me-1"></i> Delete</a>*/}
-                                                            {/*        </div>*/}
-                                                            {/*    </div>*/}
-                                                            {/*</td>*/}
-                                                        </tr>
-                                                    )
-                                                )
-                                            )
+                                            [...holidays.holiday]
+                                                .filter(item => isBirthdayToday(item.date) || isThisWeek(item.date) || isDateAfterToday(item.date))
+                                                .sort((a, b) => new Date(a.date) - new Date(b.date))
+                                                .map((item, index) => (
+                                                    <li className={`d-flex ${isThisWeek(item.date) ? 'active-highlight' : ''} ${isDateBeforeToday(item.date) ? 'completed-highlight' : ''}`}>
+
+                                                    {/*<li className={`d-flex ${isThisWeek(item.date) ? 'active-highlight' : ''}`}>*/}
+                                                        <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                                            <div className="me-2"><strong>{item.label}</strong></div>
+                                                            <div className="user-progress">
+                                                                <span className="text-muted m-date">{moment(item.date).format('DD/MM/YY')}</span>
+                                                                <span className={`date badge  ${isBirthdayToday(item.date) ? 'bg-black' : 'bg-primary'}`}>
+                                                                    {
+                                                                        isBirthdayToday(item.date) ? 'Today' :
+                                                                            isBirthdayTomorrow(item.date) ? 'Tomorrow' :
+                                                                                getDayOfWeekInCurrentYear(item.date)
+                                                                    }
+                                                                    {/*{getDayOfWeekInCurrentYear(item.date)}*/}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                ))
                                         }
-                                        </tbody>
-                                    </table>
+                                    </ul>
+
                                 </div>
                             </div>
                         </div>

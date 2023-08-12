@@ -12,7 +12,7 @@ export const EmployeeList = ({employees}) => {
                 <th>Email</th>
                 <th>User</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <th className={`text-center`}>Actions</th>
             </tr>
             </thead>
             <tbody className="table-border-bottom-0">
@@ -24,7 +24,7 @@ export const EmployeeList = ({employees}) => {
                     <td>
                         <ul className="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                             <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-                                data-bs-placement="top" className="avatar avatar-xs pull-up"
+                                data-bs-placement="top" className="avatar  pull-up"
                                 title="Lilian Fuller">
                                 <img
                                     src={item.profile ? PF + item.profile : PF + "avatar.png"}

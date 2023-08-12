@@ -26,3 +26,16 @@ export const getHoliday = ({user}) => async (dispatch) => {
         dispatch({type: 'HOLIDAY_ACTION_FAILED', payload: error.message});
     }
 };
+
+export const deleteHoliday = ({user, id}) => async (dispatch) => {
+    try {
+        const response = await axios.delete(`${API_BASE_URL}/auth/delete-holiday`, {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            }
+        });
+        dispatch({type: 'DELETE_HOLIDAY_SUCCESSFULLY', payload: response.data});
+    } catch (error) {
+        dispatch({type: 'HOLIDAY_ACTION_FAILED', payload: error.message});
+    }
+}

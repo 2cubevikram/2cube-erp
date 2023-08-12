@@ -18,7 +18,7 @@ const Leave = () => {
     console.log(leaves)
     return (
         <>
-            <div className="container-xxl flex-grow-1 container-p-y">
+            <div className=" flex-grow-1 container-p-y">
                 <div className="card">
                     <h5 className="card-header">List Of Leaves</h5>
                     {loading ? (

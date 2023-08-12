@@ -2,7 +2,7 @@ import moment from "moment/moment";
 import {Link} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getHoliday} from "../../redux/actions/holidayActions";
+import {deleteHoliday, getHoliday} from "../../redux/actions/holidayActions";
 import HolidayForm from "./holiday-form";
 
 
@@ -17,7 +17,12 @@ const Holidays = () => {
         dispatch(getHoliday({user}))
         // eslint-disable-next-line
     }, [user])
-    console.log(holidays.holiday)
+
+    function deleteHolidayById(id) {
+        console.log(id)
+        dispatch(deleteHoliday({user,id}))
+    }
+
 
     return (
         <>
@@ -66,7 +71,7 @@ const Holidays = () => {
                                                             </button>
                                                             <div className="dropdown-menu">
                                                                 <Link
-                                                                    // onClick={e => LeaveFormOpen(index)}
+                                                                    onClick={e => deleteHolidayById(item.id)}
                                                                     className="dropdown-item"><i
                                                                     className="bx bx-trash"></i></Link>
 

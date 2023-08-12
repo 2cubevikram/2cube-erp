@@ -32,7 +32,7 @@ const Today = () => {
                                     <th>Profile</th>
                                     <th>Check</th>
                                     <th>Break</th>
-                                    <th>Actions</th>
+                                    <th className={`text-center`}>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody className="table-border-bottom-0">
@@ -48,7 +48,7 @@ const Today = () => {
                                                     data-bs-toggle="tooltip"
                                                     data-popup="tooltip-custom"
                                                     data-bs-placement="top"
-                                                    className="avatar avatar-xs pull-up"
+                                                    className="avatar  pull-up"
                                                     title="Lilian Fuller"
                                                 >
                                                     <img

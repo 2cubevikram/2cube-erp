@@ -83,7 +83,7 @@ const Attendance = () => {
 
     return (
         <>
-            <div className="container-xxl flex-grow-1 container-p-y">
+            <div className=" flex-grow-1 container-p-y">
                 <div className="card">
                     <h5 className="card-header">Employee List</h5>
                     <div className="table-responsive text-nowrap">

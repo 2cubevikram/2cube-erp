@@ -229,10 +229,41 @@ tr.full-width td {
 .notification > a {
   padding: 0 7px;
 }
-.birthday-highlight {
-  background-color: #59f738;
-  border-radius: 5px;
-}
+
 .highlighted-row {
   background-color: #c1f9d4;
+}
+
+.birthday-list {}
+
+
+.birthday-list li {
+  margin: 8px 0;
+  padding: 8px 15px;
+  border: 1px solid rgb(172 172 197 / 45%);
+  border-radius: 5px;
+  background: rgb(172 172 197 / 12%);
+}
+li.active-highlight {
+  border: 1px solid #696cff45;
+  border-radius: 5px;
+  background: rgb(101 104 255 / 19%);
+}
+
+.user-progress span {
+  display: block;
+  font-size: 11px;
+  text-align: right;
+}
+
+.user-progress .m-date {
+  margin-bottom: 1px;
+  color: #000 !important;
+}
+span.date.badge.bg-black {
+  text-align: center;
+}
+
+li.completed-highlight {
+  opacity: 0.3;
 }

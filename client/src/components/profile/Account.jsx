@@ -37,7 +37,7 @@ const Account = ({profile}) => {
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
-                <div className="container-xxl flex-grow-1 container-p-y">
+                <div className=" flex-grow-1 container-p-y">
                     <div className="card">
                         <h5 className="card-header">Profile Details</h5>
                         <div className="card-body">
@@ -62,6 +62,7 @@ const Account = ({profile}) => {
                                                 hidden
                                                 accept="image/png, image/jpeg"
                                                 onChange={(e) => setFile(e.target.files)}
+                                                required
                                             />
                                         </label>
                                         <p className="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
@@ -107,7 +108,7 @@ const Account = ({profile}) => {
                                             value={profile.email}
                                             readOnly
                                             placeholder="john.doe@example.com"
-
+                                            required
                                         />
                                     </div>
                                     <div className="mb-3 col-md-6">
@@ -121,6 +122,7 @@ const Account = ({profile}) => {
                                             value={moment(birthDate).format('YYYY-MM-DD')}
                                             onChange={(e) => setBirthDate(e.target.value)}
                                             readOnly={user.id !== profile.id}
+                                            required
                                         />
                                     </div>
                                     {/*<div className="mb-3 col-md-6">*/}

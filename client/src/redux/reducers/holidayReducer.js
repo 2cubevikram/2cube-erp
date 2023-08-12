@@ -27,6 +27,13 @@ const holidayReducer = (state = initailState, action) => {
                 loading: false,
                 error: action.payload,
             };
+        case 'DELETE_HOLIDAY_SUCCESSFULLY':
+            return {
+                ...state,
+                holiday: action.payload,
+                loading: false,
+                error: null,
+            };
         default:
             return state;
     }

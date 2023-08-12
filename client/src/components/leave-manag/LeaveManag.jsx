@@ -70,6 +70,7 @@ const LeaveManag = () => {
                                         <th>Leave Type</th>
                                         <th>Leave Reason</th>
                                         <th>Status</th>
+                                        <th className={`text-center`}>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody className="table-border-bottom-0">

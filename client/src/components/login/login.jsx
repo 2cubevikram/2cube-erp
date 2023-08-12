@@ -9,6 +9,7 @@ const LoginForm = () => {
     const error = useSelector(state => state.login.error);
 
     const [showError, setShowError] = useState(false);
+    const [pass, setPass] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [logError, setLogError] = useState('');
@@ -60,7 +61,7 @@ const LoginForm = () => {
                                         </div>
                                         <div className="input-group input-group-merge">
                                             <input
-                                                type="password"
+                                                type={pass ? "text" : "password"}
                                                 id="password"
                                                 className="form-control"
                                                 name="password"
@@ -68,8 +69,10 @@ const LoginForm = () => {
                                                 aria-describedby="password"
                                                 onChange={e => setPassword(e.target.value)}
                                             />
-                                            <span className="input-group-text cursor-pointer"><i
-                                                className="bx bx-hide"></i></span>
+                                            <span
+                                                onClick={() => setPass(!pass)}
+                                                className="input-group-text cursor-pointer"><i
+                                                className={pass ? "bx bx-show" : "bx bx-hide"}></i></span>
                                         </div>
                                     </div>
                                     {error && showError && <ErrorPopup error={logError} onClose={() => setShowError(false)} />}
