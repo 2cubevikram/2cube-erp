@@ -1,38 +1,33 @@
-import moment from "moment/moment";
+import moment from "moment";
 import {Link} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getHoliday} from "../../redux/actions/holidayActions";
-import HolidayForm from "./holiday-form";
+import {getSalary} from "../../redux/actions/salaryActions";
 
-
-const Holidays = () => {
+const Salary = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.login.user);
-    const holidays = useSelector(state => state.holiday);
-    const loading = useSelector((state) => state.holiday.loading);
-
+    const salaries = useSelector(state => state.salary);
+    const loading = useSelector((state) => state.salary.loading);
 
     useEffect(() => {
-        dispatch(getHoliday({user}))
-        // eslint-disable-next-line
+        dispatch(getSalary({user}))
     }, [user])
-    console.log(holidays.holiday)
 
     return (
         <>
             <div className="container-xxl flex-grow-1 container-p-y">
-                <div className="card">
-                    <h5 className="card-header">List of Holiday's</h5>
+                <div className="card text-center">
+                    <h5 className="card-header">Status of Employee Salary</h5>
                     {loading ? (
                         <div>Loading...</div>
                     ) : (
                         <div className="table-responsive text-nowrap">
-                            {holidays.holiday.length === 0 ? (
+                            {salaries.salary.length === 0 ? (
                                 <table className="table">
                                     <tbody className="table-border-bottom-0">
                                     <tr>
-                                        <td colSpan="7">No Holiday's</td>
+                                        <td colSpan="7">Data Not Found</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -40,21 +35,24 @@ const Holidays = () => {
                                 <table className="table">
                                     <thead>
                                     <tr>
-                                        <th>Create Date</th>
-                                        <th>date of holiday</th>
-                                        <th>Label</th>
-                                        <th>Leave Reason</th>
+                                        <th>Emp. Name</th>
+                                        <th>Join Date</th>
+                                        <th>Next inc. date</th>
+                                        <th>Net Pay</th>
+                                        <th>Credit Date</th>
                                         <th>Status</th>
                                     </tr>
                                     </thead>
                                     <tbody className="table-border-bottom-0">
                                     {
-                                        holidays.holiday.map((item, index) => (
-                                            <tr key={item.key || index}>
-                                                <td>{moment(item.created_at).format("DD-MM-YYYY")}</td>
-                                                <td>{moment(item.date).format("DD-MM-YYYY")}</td>
-                                                <td>{item.label}</td>
-                                                <td>{item.post_by}</td>
+                                        salaries.salary.map((item, index) => (
+                                            <tr key={item.id || index}>
+                                                <td>{`${item.first_name} ${item.last_name}`}</td>
+                                                <td>{moment(item.join_date).format('DD-MM-YYYY')}</td>
+                                                <td>{moment(item.join_date).format('DD-MM-YYYY')}</td>
+                                                <td>{item.amount}</td>
+                                                <td>{moment(item.salary_date).format('DD-MM-YYYY')}</td>
+                                                <td>{item.status}</td>
                                                 <td>
                                                     {
 
@@ -68,7 +66,7 @@ const Holidays = () => {
                                                                 <Link
                                                                     // onClick={e => LeaveFormOpen(index)}
                                                                     className="dropdown-item"><i
-                                                                    className="bx bx-trash"></i></Link>
+                                                                    className="bx bx-edit-alt me-1"></i>Edit</Link>
 
                                                                 {/*<a className="dropdown-item" href="/"><i*/}
                                                                 {/*    className="bx bx-trash me-1"></i> Delete</a>*/}
@@ -86,10 +84,8 @@ const Holidays = () => {
                     )}
                 </div>
             </div>
-
-            <HolidayForm/>
         </>
     );
 }
 
-export default Holidays;
+export default Salary;

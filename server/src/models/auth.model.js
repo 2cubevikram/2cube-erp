@@ -10,9 +10,7 @@ class AuthModel {
         (id, first_name, last_name, email, password, role)VALUES(?,?,?,?,?,?)`
 
         const result = await query(sql, [id, first_name, last_name, email, password, role]);
-        const affectedRows = result ? result.affectedRows : 0;
-
-        return affectedRows;
+        return result ? result.affectedRows : 0;
     }
 
     crateHoliday = async ({date, label, post_by}) => {
@@ -20,9 +18,11 @@ class AuthModel {
         (date, label, post_by)VALUES(?,?,?)`
 
         const result = await query(sql, [date, label, post_by]);
-        const affectedRows = result ? result.affectedRows : 0;
+        return result ? result.affectedRows : 0;
+    }
 
-        return affectedRows;
+    delete = async (id) => {
+        return await commonModel.delete(this.holidayTable, id);
     }
 
     find = async (params = {}, order_by = {}) => {

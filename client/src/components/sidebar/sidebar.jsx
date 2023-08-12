@@ -84,6 +84,17 @@ const Sidebar = ({to}) => {
                         ) : ""
                     }
 
+                    {
+                        user && (user.role === "Admin" || user.role === "HR") ? (
+                            <li className={` menu-item ${currentPath === '/salary' && "active"} `}>
+                                <Link to={"/salary"}
+                                    // state={{id: user.id}}
+                                      className="menu-link"><i
+                                    className="menu-icon tf-icons bx bxs-credit-card"></i>Salary</Link>
+                            </li>
+                        ) : ""
+                    }
+
                     <li className="menu-item">
                         {/*<a href="" className="menu-link menu-toggle">*/}
                         {/*    <i className="menu-icon tf-icons bx bx-lock-open-alt"></i>*/}

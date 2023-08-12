@@ -7,6 +7,7 @@ import EmployeeController from '../controllers/employee.controller.js';
 import UploadMediaController from '../controllers/upload_media.controller.js';
 import LeaveAppController from "../controllers/leave_app_controller.js";
 import NotificationController from "../controllers/notification.controller.js";
+import SalaryController from "../controllers/salary.controller.js";
 
 
 const router = express.Router();
@@ -23,6 +24,11 @@ router.get('/to-day', auth(), awaitHandlerFactory(AdminController.to_day))
 router.get('/get-birthday', auth(), awaitHandlerFactory(AdminController.getBirthday));
 router.post('/add-holiday', auth(), awaitHandlerFactory(AdminController.addHoliday));
 router.get('/get-holiday', auth(), awaitHandlerFactory(AdminController.getHoliday));
+router.delete('/delete-holiday', auth(), awaitHandlerFactory(AdminController.deleteHoliday));
+
+// Salary Controller
+router.post('/salary-credit', auth(), awaitHandlerFactory(SalaryController.salaryCredit));
+router.get('/salary', auth(), awaitHandlerFactory(SalaryController.getSalaryStatus));
 
 
 //Employee use

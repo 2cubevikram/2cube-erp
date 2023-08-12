@@ -11,6 +11,7 @@ import {connect} from "react-redux";
 import Login from "./components/login/login";
 import Register from "./components/login/register";
 import Holiday from "./pages/Holiday";
+import Salary from "./pages/Salary";
 
 
 function App({state}) {
@@ -38,7 +39,8 @@ function App({state}) {
                     }>
                     </Route>
                     <Route exact path="/holiday" element={
-                        state.login.isLoggedIn ? <Holiday/> : <Navigate to="/login"/>}></Route>
+                        state.login.isLoggedIn ? <Holiday/> : <Navigate to="/login"/>}>
+                    </Route>
                     <Route exact path="/employees" element={
                         (state.login.user !== null && state.login.user.role === "Admin") ||
                         (state.login.user !== null && state.login.user.role === "HR") ?
@@ -56,6 +58,14 @@ function App({state}) {
                             <Profile/> :
                             <Navigate to="/login"/>
                         // state.login.isLoggedIn ? <Profile/> : <Navigate to="/login"/>
+                    }>
+                    </Route>
+                    <Route exact path="/salary" element={
+                        (state.login.user !== null && state.login.user.role === "Admin") ||
+                        (state.login.user !== null && state.login.user.role === "HR") ?
+                            <Salary/> :
+                            <Navigate to="/login"/>
+                        // state.login.isLoggedIn ? <Leaves/> : <Navigate to="/login"/>
                     }>
                     </Route>
                     <Route exact path="/register" element={!state.login.isLoggedIn ? <Register/> : <Navigate to="/"/>}/>

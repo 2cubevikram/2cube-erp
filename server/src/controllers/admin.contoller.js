@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import moment from 'moment';
 import EmployeeModel from "../models/employee.model.js";
 import BreakModel from "../models/break.model.js";
+import HttpException from '../utils/HttpException.utils.js';
 
 /******************************************************************************
  *                              Auth Controller
@@ -217,6 +218,15 @@ class AdminController {
     getHoliday = async (req, res, next) => {
         const result = await AuthModel.findHolidays();
         res.status(200).send(result);
+    }
+
+    deleteHoliday = async (req, res, next) => {
+        const id = req.body.id;
+        const result = await AuthModel.delete(id);
+        if (!result) {
+            throw new HttpException(404, 'Data not found');
+        }
+        res.send('Holiday has been deleted');
     }
 
     // hash password if it exists

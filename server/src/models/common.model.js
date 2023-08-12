@@ -115,8 +115,8 @@ class CommonModel {
 
         return result;
     }
-    getBirthday = async (tableName) => {
-        const sql = `SELECT id, first_name, last_name, profile, CONVERT_TZ(birth_date, '+00:00', @@session.time_zone) AS birth_date FROM users WHERE
+    getBirthday = async (userTable) => {
+        const sql = `SELECT id, first_name, last_name, profile, CONVERT_TZ(birth_date, '+00:00', @@session.time_zone) AS birth_date FROM ${userTable} WHERE
                             (
                               DAY(birth_date) >= DAY(CURRENT_DATE())
                               AND MONTH(birth_date) = MONTH(CURRENT_DATE())
@@ -131,6 +131,15 @@ class CommonModel {
                         `;
         return await query(sql);
 
+    }
+
+    delete = async (tableName, id) => {
+        console.log(id,tableName)
+        const sql = `DELETE FROM ${tableName} WHERE id = ?`;
+        const result = await query(sql, [id]);
+        const affectedRows = result ? result.affectedRows : 0;
+
+        return affectedRows;
     }
 
 
