@@ -109,6 +109,7 @@ const Account = ({profile}) => {
                                             onChange={(e) => setFirstName(e.target.value)}
                                             readOnly={user.id !== profile.id}
                                             autoFocus
+                                            required
                                         />
                                     </div>
                                     <div className="mb-3 col-md-6">
@@ -120,6 +121,7 @@ const Account = ({profile}) => {
                                             value={lastName}
                                             onChange={(e) => setLastName(e.target.value)}
                                             readOnly={user.id !== profile.id}
+                                            required
                                         />
                                     </div>
                                     <div className="mb-3 col-md-6">

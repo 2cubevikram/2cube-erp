@@ -44,7 +44,6 @@ const Today = () => {
         // eslint-disable-next-line
     }, [user]);
 
-
     let inTime;
     let outTime;
     let attendanceStatus;
@@ -54,8 +53,6 @@ const Today = () => {
         attendanceStatus = attendance.check.status;
 
     }
-
-    console.log(attendance)
 
     return (
         <>
