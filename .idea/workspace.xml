@@ -6,20 +6,41 @@
   <component name="ChangeListManager">
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/assets/css/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/css/demo.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.env" beforeDir="false" afterPath="$PROJECT_DIR$/client/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/apiConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/apiConfig.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/day-status/Today.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/day-status/Today.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/employee/employee.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/employee/employee.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/holidays/holiday-form.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/holidays/holiday-form.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/holidays/holidays.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/holidays/holidays.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/leave-form.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/leave-form.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/leave-manag/LeaveManag.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/leave-manag/LeaveManag.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/login/login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/login.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/profile/Account.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Account.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Leave.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Leave.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/ul-component.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ul-component.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/function/excerpt.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/function/excerpt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/redux/actions/holidayActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/holidayActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/holidayReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/holidayReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/profileAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/profileAction.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/authReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/authReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/profileReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/profileReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/public/uploads/1690786119143-DSC00373.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/public/uploads/1690793945673-about-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/public/uploads/1690794018050-2cube-studio.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/public/uploads/1690794088273-team-4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/public/uploads/1690794120784-2cube-studio.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/public/uploads/1691834696769-hot-americano.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/public/uploads/1691839040383-hot-americano.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/public/uploads/1691839040575-hot-americano.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/public/uploads/1691839040813-hot-americano.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/public/uploads/1691841795149-team-4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/common.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/common.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/employee.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/employee.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/routes/auth.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/auth.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +73,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/NODE_JS/2cube-erp/client/public&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -181,7 +203,12 @@
       <workItem from="1691731812476" duration="4309000" />
       <workItem from="1691736649905" duration="2012000" />
       <workItem from="1691738703812" duration="14342000" />
-      <workItem from="1691815995366" duration="14056000" />
+      <workItem from="1691815995366" duration="15079000" />
+      <workItem from="1691987240850" duration="13465000" />
+      <workItem from="1692005180373" duration="16651000" />
+      <workItem from="1692160677109" duration="7798000" />
+      <workItem from="1692169223561" duration="4065000" />
+      <workItem from="1692176329997" duration="526000" />
     </task>
     <servers />
   </component>

@@ -36,9 +36,6 @@ io.on('connection', (socket) => {
     // console.log('a user connected', socket.id);
 });
 
-
-
-
 app.use(`/api/auth`, AuthRouter);
 
 

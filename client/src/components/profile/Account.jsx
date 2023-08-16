@@ -1,20 +1,33 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {addUserProfile} from "../../redux/actions/profileAction";
+import {addUserProfile, updateUserProfile} from "../../redux/actions/profileAction";
 import moment from "moment";
 
 const Account = ({profile}) => {
+    console.log(profile);
     const dispatch = useDispatch();
     const [file, setFile] = useState(null);
+
+    console.log("from porps",profile.first_name)
+
     const [firstName, setFirstName] = useState(profile.first_name || "");
     const [lastName, setLastName] = useState(profile.last_name || "");
     const [birthDate, setBirthDate] = useState(profile.birth_date || "");
     const [isLoading, setIsLoading] = useState(true);
 
+    console.log(firstName)
+
     const user = useSelector((state) => state.login.user);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
+    const updateState = () => {
+        setFirstName(profile.first_name);
+        setLastName(profile.last_name);
+        setBirthDate(moment(profile.birth_date).format('YYYY-MM-DD'));
+    }
+
     useEffect(() => {
+        updateState();
         if (profile.first_name !== undefined) {
             setIsLoading(false);
         }
@@ -29,7 +42,18 @@ const Account = ({profile}) => {
             birth_date: birthDate,
             file: file,
         };
-        dispatch(addUserProfile({obj, user}));
+        if(file !== null) {
+            dispatch(addUserProfile({obj, user}));
+            alert("Profile Added Successfully")
+        } else {
+            const params = {
+                first_name: obj.first_name,
+                last_name: obj.last_name,
+                birth_date: obj.birth_date,
+            }
+            dispatch(updateUserProfile({params, user}));
+            alert("Profile Updated Successfully")
+        }
     };
 
     return (

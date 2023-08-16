@@ -35,7 +35,6 @@ export const getAttendance = ({user, id, filterDate}) => async (dispatch) => {
 
 export const breakTimeEdit = ({user, obj}) => async (dispatch) => {
     if (obj.status === "CHECK_IN" || obj.status === "CHECK_OUT") {
-        console.log('checkTimeEdit', obj)
         try {
             const response = await axios.patch(`${API_BASE_URL}/auth/check-time-edit`,
                 {
@@ -59,7 +58,6 @@ export const breakTimeEdit = ({user, obj}) => async (dispatch) => {
             throw error.response.data.message;
         }
     } else {
-        console.log('breakTimeEdit', obj)
         try {
             const response = await axios.patch(`${API_BASE_URL}/auth/break-time-edit`,
                 {
@@ -105,6 +103,17 @@ export const addUserProfile = ({user, obj}) => async (dispatch) => {
     });
     // dispatch(add_user_profile(response.data));
     dispatch({type: 'ADD_USER_PROFILE', payload: response.data});
+};
+
+export const updateUserProfile = ({user, params}) => async (dispatch) => {
+    console.log('updateUserProfile', params)
+    const response = await axios.patch(`${API_BASE_URL}/auth/update-user`, params, {
+        headers: {
+            Authorization: `Bearer ${user.token}`,
+        },
+    });
+    // dispatch(add_user_profile(response.data));
+    dispatch({type: 'UPDATE_USER_PROFILE', payload: response.data});
 };
 
 

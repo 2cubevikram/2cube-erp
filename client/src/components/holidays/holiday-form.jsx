@@ -20,8 +20,6 @@ const HolidayForm = ({data = null, type = "APPLIED", formClose = null}) => {
 
     }
 
-
-
     return (
         <>
             <div className="container-xxl flex-grow-1 container-p-y">

@@ -4,6 +4,8 @@ import React, {useEffect, useState} from "react";
 import moment from "moment";
 import {getAttendance, breakTimeEdit} from "../../redux/actions/profileAction";
 import {formatDateTime} from "../../function/time";
+import {TimeBadge} from "../general-component";
+
 
 const Attendance = () => {
     const location = useLocation();
@@ -13,8 +15,6 @@ const Attendance = () => {
     const id = location.state.id;
     const user = useSelector((state) => state.login.user);
     const attendance = useSelector((state) => state.user.attendance);
-
-    console.log("attendance",attendance)
 
     const footer_data = {
         break: 0,
@@ -80,7 +80,6 @@ const Attendance = () => {
             </>
         )
     }
-
     return (
         <>
             <div className=" flex-grow-1 container-p-y">
@@ -136,7 +135,6 @@ const Tfooter = (props) => {
 }
 
 const TR = ({data}) => {
-
     const user = useSelector((state) => state.login.user);
     const inTime = formatDateTime.getTime(data._in);
 
@@ -146,17 +144,6 @@ const TR = ({data}) => {
     } else {
         outTime = 'Out time not available';
     }
-
-    const CheckinTime = new Date(data._in);
-    let CheckoutTime = '';
-
-    if (data._out) {
-        CheckoutTime = new Date(data._out);
-    } else {
-        CheckoutTime = null;
-    }
-
-    const differenceTime = formatDateTime.TimeDifference(CheckinTime, CheckoutTime);
 
     const [childValue, setChildValue] = useState(false);
     // const [childValueMsg, setChildValueMsg] = useState(false);
@@ -179,21 +166,14 @@ const TR = ({data}) => {
         <>
 
             <tr className="table-default" key={data.id}>
-                <td>
-                    {inTime}
-                </td>
+                <td>{inTime}</td>
                 <td>{outTime}</td>
                 <td>{data.status}</td>
                 <td>
-                    {
-                        CheckoutTime ? (
-                            <span className="badge bg-label-primary me-1">{differenceTime}</span>
-                        ) : (<span>Out time not available</span>)
-                    }
+                    <TimeBadge _in={data._in} _out={data._out} />
                 </td>
                 {user.role === 'Admin' || user.role === 'HR' ? (
                     <td>
-
                         <div className="dropdown">
                             <button type="button" className="btn p-0 dropdown-toggle hide-arrow"
                                     data-bs-toggle="dropdown">

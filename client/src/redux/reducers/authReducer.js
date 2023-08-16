@@ -1,3 +1,6 @@
+import jwt_decode from 'jwt-decode';
+import {useNavigate} from "react-router-dom";
+import {checkLogin} from "../../function/check_login";
 let initialState = {
     isLoggedIn: false,
     user: null,
@@ -9,10 +12,13 @@ if (localStorage.getItem("user")) {
     initialState.user = JSON.parse(localStorage.getItem("user"));
 }
 
+
+
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'LOGIN_SUCCESS': {
-            localStorage.setItem("user", JSON.stringify(action.payload))
+            localStorage.setItem("user", JSON.stringify(action.payload));
+            checkLogin();
             return {
                 isLoggedIn: true,
                 user: action.payload,

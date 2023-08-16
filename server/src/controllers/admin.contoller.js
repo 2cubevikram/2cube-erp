@@ -44,7 +44,7 @@ class AdminController {
         // user matched
         const secretKey = process.env.SECRET_JWT || "";
         const token = jwt.sign({user_id: user.id.toString()}, secretKey, {
-            expiresIn: '1d'
+            expiresIn: '10h'
         });
 
         const {password, created_at, updated_at, ...userWithoutPassword} = user;
@@ -197,7 +197,7 @@ class AdminController {
     }
 
     getBirthday = async (req, res, next) => {
-        const result = await EmployeeModel.getBirtday();
+        const result = await EmployeeModel.getBirthday();
         res.status(200).send(result);
     }
 
@@ -221,11 +221,12 @@ class AdminController {
     }
 
     deleteHoliday = async (req, res, next) => {
-        const id = req.body.id;
+        const id = req.query.id;
         const result = await AuthModel.delete(id);
         if (!result) {
             throw new HttpException(404, 'Data not found');
         }
+        await this.getHoliday(req, res);
         res.send('Holiday has been deleted');
     }
 

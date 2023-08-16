@@ -44,6 +44,17 @@ export const isDateAfterToday = (date) => {
 
 export const isDateBeforeToday = (date) => {
     const isBefore = moment(date).isBefore(moment(), 'day');
-    console.log(`Checking if ${date} is before today: ${isBefore}`);
+    // console.log(`Checking if ${date} is before today: ${isBefore}`);
     return isBefore;
+}
+
+export const isDateMonthBeforeToday = (date) => {
+    const inputDate = moment(date);
+    const today = moment();
+
+    // Compare only date and month
+    const inputDateMonth = inputDate.format('MMDD');
+    const todayMonth = today.format('MMDD');
+
+    return inputDateMonth < todayMonth;
 }
