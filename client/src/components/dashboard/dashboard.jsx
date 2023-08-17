@@ -123,7 +123,7 @@ const Dashboard = () => {
                             </div>
                         </div>
 
-                        <div className="col-md-6 col-lg-4  mb-4">
+                        <div className="scroll__bar col-md-6 col-lg-4  mb-4">
                             <div className="card h-100">
                                 <div className="card-header d-flex align-items-center justify-content-between">
                                     <h5 className="card-title m-0 me-2">UPCOMING BIRTHDAY'S</h5>
@@ -178,7 +178,7 @@ const Dashboard = () => {
                         </div>
 
                         <div className="col-8  mb-4">
-                            <div className="card">
+                            <div className="card box__top">
                                 <div className="row row-bordered g-0">
                                     <div className="col-md-12">
                                         <div className="cs-card-body ">
@@ -246,7 +246,7 @@ const Dashboard = () => {
                         <div className="col-md-4">
                             <div className="card ">
                                 <h5 className="card-header">UPCOMING HOLIDAY'S</h5>
-                                <div className={`card-body`}>
+                                <div className={`card-body scroll__bar`}>
                                     <ul className={`p-0 m-0 birthday-list`}>
                                         {
                                             [...holidays.holiday]

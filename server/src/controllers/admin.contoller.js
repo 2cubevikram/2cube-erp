@@ -87,18 +87,22 @@ class AdminController {
     checkTimeUpdate = async (req, res, next) => {
         const userId = req.currentUser.id;
         const rowId = req.body.id;
+        let outTime;
         const inTime = req.body._in ? moment(`${req.body.date}T${req.body._in}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss') : null;
-        const outTime = req.body._out ? moment(`${req.body.date}T${req.body._out}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss') : null;
-
-        const user = await AuthModel.findOne({id:userId});
+        if (req.body._out !== "Invalid date") {
+            outTime = req.body._out ? moment(`${req.body.date}T${req.body._out}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss') : null;
+        } else {
+            outTime = null;
+        }
+        const user = await AuthModel.findOne({id: userId});
 
         if (user.role !== 'Admin' && user.role !== 'HR') {
             res.status(401).send({message: 'Employees are not allowed to edit their recorded time.'});
             return;
         }
 
-        if(user.role === 'HR' ){
-            const hrUser = await AuthModel.findOne({ id: req.body.employee_id });
+        if (user.role === 'HR') {
+            const hrUser = await AuthModel.findOne({id: req.body.employee_id});
             if (hrUser && userId === hrUser.id) {
                 res.status(400).send({
                     message: 'HR can not edit their own record. Kindly reach out to Admin for assistance. Thank you'
@@ -107,7 +111,7 @@ class AdminController {
             }
         }
 
-        if (outTime === "Invalid date") {
+        if (req.body._out === "Invalid date") {
             req.body.status = "CHECK_IN";
         } else {
             req.body.status = "CHECK_OUT";
@@ -127,18 +131,23 @@ class AdminController {
     breakTimeUpdate = async (req, res, next) => {
         const userId = req.currentUser.id;
         const rowId = req.body.id;
+        let outTime;
         const inTime = req.body._in ? moment(`${req.body.date}T${req.body._in}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss') : null;
-        const outTime = req.body._out ? moment(`${req.body.date}T${req.body._out}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss') : null;
+        if (req.body._out !== "Invalid date") {
+            outTime = req.body._out ? moment(`${req.body.date}T${req.body._out}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss') : null;
+        } else {
+            outTime = null;
+        }
 
-        const user = await AuthModel.findOne({id:userId});
+        const user = await AuthModel.findOne({id: userId});
 
         if (user.role !== 'Admin' && user.role !== 'HR') {
             res.status(401).send({message: 'Employees are not allowed to edit their recorded time.'});
             return;
         }
 
-        if(user.role === 'HR' ){
-            const hrUser = await AuthModel.findOne({ id: req.body.employee_id });
+        if (user.role === 'HR') {
+            const hrUser = await AuthModel.findOne({id: req.body.employee_id});
             if (hrUser && userId === hrUser.id) {
                 res.status(400).send({
                     message: 'HR can not edit their own record. Kindly reach out to Admin for assistance. Thank you'
@@ -147,7 +156,7 @@ class AdminController {
             }
         }
 
-        if (outTime === "Invalid date") {
+        if (req.body._out === "Invalid date") {
             req.body.status = "BREAK_IN";
         } else {
             req.body.status = "BREAK_OUT";
@@ -208,9 +217,9 @@ class AdminController {
         req.body.post_by = result.role;
 
         const holiday = await AuthModel.crateHoliday(req.body);
-        if(holiday === 1){
+        if (holiday === 1) {
             await this.getHoliday(req, res);
-        }else{
+        } else {
             res.status(401).send({message: 'Something went wrong while adding Holiday.'});
         }
     }
