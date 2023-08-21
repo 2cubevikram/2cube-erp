@@ -14,6 +14,7 @@ const Attendance = () => {
     const id = location.state.id;
     const user = useSelector((state) => state.login.user);
     const attendance = useSelector((state) => state.user.attendance);
+    console.log(attendance)
 
     const footer_data = {
         break: 0,
@@ -26,7 +27,7 @@ const Attendance = () => {
         footer_data.break = attendance.breakin.length;
         footer_data.break_time = formatDateTime.calculateTotal(attendance.breakin);
         if (attendance.check._out == null) {
-            checkin_to_current_time = formatDateTime.getCheckTimeToCurrentTime(attendance.check._in);
+            checkin_to_current_time = formatDateTime.getCheckTimeToCurrentTime(attendance.check._in,attendance.serverTime);
         } else {
             checkin_to_current_time = formatDateTime.getCheckTimeToComplateTime(attendance.check._in, attendance.check._out);
         }
@@ -123,9 +124,9 @@ const Tfooter = (props) => {
     return (
         <tfoot className="table-border-bottom-0">
         <tr>
-            <th>toltalBreak : {data.break}</th>
+            <th>total Break : {data.break}</th>
             <th>-</th>
-            <th>working_hours {data.working_hours}</th>
+            <th>working hours {data.working_hours}</th>
             <th>{data.break_time} Hours</th>
             <th>remaining hour: {data.remaining_hours}</th>
         </tr>

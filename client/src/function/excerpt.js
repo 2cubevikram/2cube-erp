@@ -43,6 +43,7 @@ export const isDateBeforeToday = (date) => {
 }
 
 export const isDateMonthBeforeToday = (date) => {
+    // console.log(date)
     const inputDate = moment(date);
     const today = moment();
 

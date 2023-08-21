@@ -26,7 +26,7 @@ const Dashboard = () => {
     const check_status = useSelector(state => state.check);
     const birthday = useSelector(state => state.birthday);
     const holidays = useSelector(state => state.holiday);
-
+    // console.log(birthday)
     const savedNotification = localStorage.getItem('notification');
     const [notification, setNotification] = useState(savedNotification ? JSON.parse(savedNotification) : null);
 
@@ -194,7 +194,7 @@ const Dashboard = () => {
                                         {
                                             birthday && birthday.length > 0 && (
                                                 [...birthday].sort((a, b) => {
-                                                    const today = new Date();
+                                                    const today = new Date(a.serverCurrentTime);
                                                     const aDate = new Date(today.getFullYear(), new Date(a.birth_date).getMonth(), new Date(a.birth_date).getDate());
                                                     const bDate = new Date(today.getFullYear(), new Date(b.birth_date).getMonth(), new Date(b.birth_date).getDate());
 

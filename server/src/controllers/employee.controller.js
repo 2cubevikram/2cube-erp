@@ -146,7 +146,9 @@ class EmployeeController {
             let result = await EmployeeModel.check_work_hours(employeeId, date);
 
             if (result.check !== undefined && result.check.length !== 0) {
-                res.send(result);
+                const mergedResult = { ...result, serverTime:dateString };
+                res.send(mergedResult);
+                // res.send(result);
             } else {
                 res.send({
                     "check": {

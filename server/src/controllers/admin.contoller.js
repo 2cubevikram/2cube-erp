@@ -14,11 +14,6 @@ import app from "../server.js";
 
 class AdminController {
 
-    serverTime = (req, res) => {
-        const serverTime = new Date("2023-08-14T15:30:00");
-        res.send(serverTime);
-    }
-
     register = async (req, res, next) => {
         const password = req.body.password;
         await this.hashPassword(req);

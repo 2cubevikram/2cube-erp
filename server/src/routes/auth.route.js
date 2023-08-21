@@ -12,7 +12,6 @@ import SalaryController from "../controllers/salary.controller.js";
 
 const router = express.Router();
 // Admin Use
-router.get('/server-time', awaitHandlerFactory(AdminController.serverTime));
 router.post('/register', awaitHandlerFactory(AdminController.register));
 router.post('/login', awaitHandlerFactory(AdminController.login));
 router.patch('/edit', auth(), awaitHandlerFactory(AdminController.edit));

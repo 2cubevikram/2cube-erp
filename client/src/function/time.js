@@ -52,8 +52,8 @@ export const formatDateTime = {
         return `${hours}:${minutes.toString().padStart(2, '0')}`;
     },
 
-    getCheckTimeToCurrentTime: function (inTime) {
-        const currentTime = new Date();
+    getCheckTimeToCurrentTime: function (inTime,serverTime) {
+        const currentTime = new Date(serverTime);
         const currentHours = currentTime.getHours();
         const currentMinutes = currentTime.getMinutes();
 

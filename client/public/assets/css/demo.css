@@ -279,9 +279,9 @@ li.completed-highlight {
 
 .birthday-list-v2 {}
 
-/*.birthday-list-v2 .completed-highlight {*/
-/*  display: none !important;*/
-/*}*/
+.birthday-list-v2 .completed-highlight {
+  display: none !important;
+}
 
 .scroll__bar .birthday-list {
   height: auto;
