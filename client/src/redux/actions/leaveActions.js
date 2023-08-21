@@ -57,5 +57,6 @@ export const updateLeave = ({user, obj}) => async (dispatch) => {
         dispatch({type: 'UPDATE_LEAVES_SUCCESS', payload: response.data});
     } catch (error) {
         dispatch({type: 'UPDATE_LEAVES_FAILED', payload: error.message});
+        throw error.response.data.message;
     }
 };

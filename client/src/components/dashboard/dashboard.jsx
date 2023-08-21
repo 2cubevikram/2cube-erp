@@ -32,7 +32,6 @@ const Dashboard = () => {
 
     useEffect(() => {
         checkLogin();
-
         const newSocket = io('http://localhost:3030');
         dispatch(getDayStatus({user}));
         dispatch(getAttendance({user}));
@@ -59,15 +58,15 @@ const Dashboard = () => {
     const _break = useSelector(state => state.break.status);
     const _check = useSelector(state => state.check.status);
 
+
     return (
         <>
             <div className="content-wrapper">
                 <div className="container-xxl flex-grow-1 container-p-y">
                     <div className="row">
                         <div className="col-lg-8 mb-4">
-                            <div className="card">
+                            <div className="card dashboard-banner">
                                 <div className="d-flex align-items-end row">
-
                                     <div className="col-sm-7">
                                         <div className="card-body">
                                             <h5 className="card-title text-primary">Welcome, {user.first_name} {user.last_name} !
@@ -105,7 +104,6 @@ const Dashboard = () => {
                                                 </button>
                                             </div>
                                         </div>
-
                                     }
 
                                     <div className="col-sm-5 text-center text-sm-left">
@@ -121,64 +119,7 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div className="scroll__bar col-md-6 col-lg-4  mb-4">
-                            <div className="card h-100">
-                                <div className="card-header d-flex align-items-center justify-content-between">
-                                    <h5 className="card-title m-0 me-2">UPCOMING BIRTHDAY'S</h5>
-                                </div>
-                                <div className="card-body">
-                                    <ul className="p-0 m-0 birthday-list">
-                                        {
-                                            birthday && birthday.length > 0 && (
-                                                [...birthday].sort((a, b) => {
-                                                    const today = new Date();
-                                                    const aDate = new Date(today.getFullYear(), new Date(a.birth_date).getMonth(), new Date(a.birth_date).getDate());
-                                                    const bDate = new Date(today.getFullYear(), new Date(b.birth_date).getMonth(), new Date(b.birth_date).getDate());
-
-                                                    if (aDate < today && bDate >= today) return -1;
-                                                    if (bDate < today && aDate >= today) return 1;
-                                                    return aDate - bDate;
-                                                }).map((item, index) => (
-
-                                                    <li key={index}
-                                                        className={`d-flex ${isBirthdayToday(item.birth_date) ? 'active-highlight' : ''} ${isDateMonthBeforeToday(item.birth_date) ? 'completed-highlight' : ''}`}>
-                                                        <div className="avatar flex-shrink-0 me-3">
-                                                            <img src={PF + item.profile} alt="User"
-                                                                 className="rounded"/>
-                                                        </div>
-                                                        <div
-                                                            className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                                            <div className="me-2">
-                                                                <strong>{item.first_name} {item.last_name}</strong>
-                                                            </div>
-                                                            <div className="user-progress">
-                                                                <span
-                                                                    className="text-muted m-date">{moment(item.birth_date).format('DD/MM')}
-                                                                    {moment().format('/YY')}
-                                                                </span>
-                                                                <span
-                                                                    className={`date badge  ${isBirthdayToday(item.birth_date) ? 'bg-black' : 'bg-primary'}`}>
-                                                                    {
-                                                                        isBirthdayToday(item.birth_date) ? 'Today' :
-                                                                            isBirthdayTomorrow(item.birth_date) ? 'Tomorrow' :
-                                                                                getDayOfWeekInCurrentYear(item.birth_date)
-                                                                    }
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                ))
-                                            )
-                                        }
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-8  mb-4">
-                            <div className="card box__top">
+                            <div className="mt-4 card box__top">
                                 <div className="row row-bordered g-0">
                                     <div className="col-md-12">
                                         <div className="cs-card-body ">
@@ -243,55 +184,101 @@ const Dashboard = () => {
                             </div>
                         </div>
 
-                        <div className="col-md-4">
-                            <div className="card ">
-                                <h5 className="card-header">UPCOMING HOLIDAY'S</h5>
-                                <div className={`card-body scroll__bar`}>
-                                    <ul className={`p-0 m-0 birthday-list`}>
+                        <div className="scroll__bar col-md-6 col-lg-4  mb-4">
+                            <div className="card">
+                                <div className="card-header d-flex align-items-center justify-content-between">
+                                    <h5 className="card-title m-0 me-2">UPCOMING BIRTHDAY'S</h5>
+                                </div>
+                                <div className="card-body">
+                                    <ul className="p-0 m-0 birthday-list birthday-list-v2">
                                         {
-                                            [...holidays.holiday]
-                                                .filter(item => isBirthdayToday(item.date) || isThisWeek(item.date) || isDateAfterToday(item.date))
-                                                .sort((a, b) => new Date(a.date) - new Date(b.date))
-                                                .map((item, index) => (
-                                                    <li key={index}
-                                                        className={`d-flex ${isThisWeek(item.date) ? 'active-highlight' : ''} ${isDateBeforeToday(item.date) ? 'completed-highlight' : ''}`}>
+                                            birthday && birthday.length > 0 && (
+                                                [...birthday].sort((a, b) => {
+                                                    const today = new Date();
+                                                    const aDate = new Date(today.getFullYear(), new Date(a.birth_date).getMonth(), new Date(a.birth_date).getDate());
+                                                    const bDate = new Date(today.getFullYear(), new Date(b.birth_date).getMonth(), new Date(b.birth_date).getDate());
 
-                                                        {/*<li className={`d-flex ${isThisWeek(item.date) ? 'active-highlight' : ''}`}>*/}
+                                                    if (aDate < today && bDate >= today) return -1;
+                                                    if (bDate < today && aDate >= today) return 1;
+                                                    return aDate - bDate;
+                                                }).map((item, index) => (
+
+                                                    <li key={index}
+                                                        className={`d-flex ${isBirthdayToday(item.birth_date, item.serverCurrentTime) ? 'active-highlight' : ''} ${isDateMonthBeforeToday(item.birth_date) ? 'completed-highlight' : ''}`}>
+                                                        <div className="avatar flex-shrink-0 me-3">
+                                                            <img src={PF + item.profile} alt="User" className="rounded"/>
+                                                        </div>
                                                         <div
                                                             className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                                            <div className="me-2"><strong>{item.label}</strong></div>
+                                                            <div className="me-2">
+                                                                <strong>{item.first_name} {item.last_name}</strong>
+                                                            </div>
                                                             <div className="user-progress">
                                                                 <span
-                                                                    className="text-muted m-date">{moment(item.date).format('DD/MM/YY')}</span>
+                                                                    className="text-muted m-date">{moment(item.birth_date).format('DD/MM')}
+                                                                    {moment().format('/YY')}
+                                                                </span>
                                                                 <span
-                                                                    className={`date badge  ${isBirthdayToday(item.date) ? 'bg-black' : 'bg-primary'}`}>
+                                                                    className={`date badge  ${isBirthdayToday(item.birth_date, item.serverCurrentTime) ? 'bg-black' : 'bg-primary'}`}>
                                                                     {
-                                                                        isBirthdayToday(item.date) ? 'Today' :
-                                                                            isBirthdayTomorrow(item.date) ? 'Tomorrow' :
-                                                                                getDayOfWeekInCurrentYear(item.date)
+                                                                        isBirthdayToday(item.birth_date, item.serverCurrentTime) ? 'Today' :
+                                                                            isBirthdayTomorrow(item.birth_date, item.serverCurrentTime) ? 'Tomorrow' :
+                                                                                getDayOfWeekInCurrentYear(item.birth_date)
                                                                     }
-                                                                    {/*{getDayOfWeekInCurrentYear(item.date)}*/}
                                                                 </span>
                                                             </div>
                                                         </div>
                                                     </li>
                                                 ))
+                                            )
                                         }
                                     </ul>
+                                </div>
+                            </div>
+                            <div className="card mt-4 ">
+                                <h5 className="card-header">UPCOMING HOLIDAY'S</h5>
+                                <div className={`card-body scroll__bar`}>
+                                    <ul className={`p-0 m-0 birthday-list`}>
+                                        {
+                                            [...holidays.holiday]
+                                                .filter(item => isBirthdayToday(item.date, item.serverCurrentTime) || isThisWeek(item.date) || isDateAfterToday(item.date))
+                                                .sort((a, b) => new Date(a.date) - new Date(b.date))
+                                                .map((item, index) => (
+                                                        <li key={index}
+                                                            className={`d-flex ${isThisWeek(item.date) ? 'active-highlight' : ''} ${isDateBeforeToday(item.date) ? 'completed-highlight' : ''}`}>
 
+                                                            {/*<li className={`d-flex ${isThisWeek(item.date) ? 'active-highlight' : ''}`}>*/}
+                                                            <div
+                                                                className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                                                <div className="me-2"><strong>{item.label}</strong></div>
+                                                                <div className="user-progress">
+                                                            <span
+                                                                className="text-muted m-date">{moment(item.date).format('DD/MM/YY')}</span>
+                                                                    <span
+                                                                        className={`date badge  ${isBirthdayToday(item.date, item.serverCurrentTime) ? 'bg-black' : 'bg-primary'}`}>
+                                                                {
+                                                                    isBirthdayToday(item.date, item.serverCurrentTime) ? 'Today' :
+                                                                        isBirthdayTomorrow(item.date, item.serverCurrentTime) ? 'Tomorrow' :
+                                                                            getDayOfWeekInCurrentYear(item.date)
+                                                                }
+                                                                        {/*{getDayOfWeekInCurrentYear(item.date)}*/}
+                                                            </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    )
+                                                )
+                                        }
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
-
                 <div className="content-backdrop fade"></div>
             </div>
         </>
     )
 }
 
-export default Dashboard
-// export default connect(null, {getAttendance})(Dashboard);
+export default Dashboard;

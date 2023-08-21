@@ -6,7 +6,6 @@ import {getAttendance, breakTimeEdit} from "../../redux/actions/profileAction";
 import {formatDateTime} from "../../function/time";
 import {TimeBadge} from "../general-component";
 
-
 const Attendance = () => {
     const location = useLocation();
     const dispatch = useDispatch();
@@ -70,7 +69,7 @@ const Attendance = () => {
         DATA = (
             <>
                 {
-                    <TR  data={attendance.check}/>
+                    <TR data={attendance.check}/>
                 }
                 {
                     attendance.breakin.map((item, index) => {
@@ -146,15 +145,9 @@ const TR = ({data}) => {
     }
 
     const [childValue, setChildValue] = useState(false);
-    // const [childValueMsg, setChildValueMsg] = useState(false);
     const handleChange = (event) => {
-        // if (user.role !== "HR"){
         const newValue = !childValue;
         setChildValue(newValue);
-
-        // }else {
-        //     setChildValueMsg("MSG");
-        // }
     };
 
     const handleChildEditableRow = () => {
@@ -170,7 +163,7 @@ const TR = ({data}) => {
                 <td>{outTime}</td>
                 <td>{data.status}</td>
                 <td>
-                    <TimeBadge _in={data._in} _out={data._out} />
+                    <TimeBadge _in={data._in} _out={data._out}/>
                 </td>
                 {user.role === 'Admin' || user.role === 'HR' ? (
                     <td>
@@ -181,10 +174,8 @@ const TR = ({data}) => {
                             </button>
                             <div className="dropdown-menu">
                                 <>
-                                    <a
-                                        onClick={handleChange}
-                                        className="dropdown-item"><i
-                                        className="bx bx-edit me-1"></i> Edit</a>
+                                    <a onClick={handleChange} className="dropdown-item"><i
+                                        className="bx bx-edit me-1"></i>Edit</a>
                                 </>
                             </div>
                         </div>
@@ -193,7 +184,7 @@ const TR = ({data}) => {
             </tr>
             {
                 childValue ? (
-                    <EditableRow  _data={data} inTime={inTime} outTime={outTime}
+                    <EditableRow _data={data} inTime={inTime} outTime={outTime}
                                  onChildClick={handleChildEditableRow}
                     />
                 ) : ""
@@ -271,13 +262,17 @@ const EditableRow = ({_data, inTime, outTime, onChildClick}) => {
                                     <label htmlFor="firstName" className="form-label">
                                         Start Date
                                     </label>
-                                    <input className={"form-control"} type="time" name="inTime" value={moment(_inTime, "h:mm A").format("HH:mm:ss")} onChange={handleInTimeChange}/>
+                                    <input className={"form-control"} type="time" name="inTime"
+                                           value={moment(_inTime, "h:mm A").format("HH:mm:ss")}
+                                           onChange={handleInTimeChange}/>
                                 </div>
                                 <div className="col-md-3">
                                     <label htmlFor="firstName" className="form-label">
                                         Start Date
                                     </label>
-                                    <input className={"form-control"} type="time" name="outTime" value={moment(_outTime, "h:mm A").format("HH:mm:ss")} onChange={handleOutTimeChange}/>
+                                    <input className={"form-control"} type="time" name="outTime"
+                                           value={moment(_outTime, "h:mm A").format("HH:mm:ss")}
+                                           onChange={handleOutTimeChange}/>
                                 </div>
                                 <div className=" col-md-3">
                                     <label htmlFor="firstName" className="form-label">

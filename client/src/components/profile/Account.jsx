@@ -4,18 +4,13 @@ import {addUserProfile, updateUserProfile} from "../../redux/actions/profileActi
 import moment from "moment";
 
 const Account = ({profile}) => {
-    console.log(profile);
     const dispatch = useDispatch();
     const [file, setFile] = useState(null);
-
-    console.log("from porps",profile.first_name)
 
     const [firstName, setFirstName] = useState(profile.first_name || "");
     const [lastName, setLastName] = useState(profile.last_name || "");
     const [birthDate, setBirthDate] = useState(profile.birth_date || "");
     const [isLoading, setIsLoading] = useState(true);
-
-    console.log(firstName)
 
     const user = useSelector((state) => state.login.user);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;

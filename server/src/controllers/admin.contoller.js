@@ -6,12 +6,19 @@ import moment from 'moment';
 import EmployeeModel from "../models/employee.model.js";
 import BreakModel from "../models/break.model.js";
 import HttpException from '../utils/HttpException.utils.js';
+import app from "../server.js";
 
 /******************************************************************************
  *                              Auth Controller
  ******************************************************************************/
 
 class AdminController {
+
+    serverTime = (req, res) => {
+        const serverTime = new Date("2023-08-14T15:30:00");
+        res.send(serverTime);
+    }
+
     register = async (req, res, next) => {
         const password = req.body.password;
         await this.hashPassword(req);
@@ -206,8 +213,18 @@ class AdminController {
     }
 
     getBirthday = async (req, res, next) => {
+        // const serverCurrentTime = new Date("2023-08-14T15:30:00");
+        // const result = await EmployeeModel.getBirthday();
+        // res.status(200).send(result);
+        const serverCurrentTime = new Date();
         const result = await EmployeeModel.getBirthday();
-        res.status(200).send(result);
+
+        const modifiedResult = result.map(employee => ({
+            ...employee,
+            birth_date: new Date(employee.birth_date).toISOString(), // Convert birth_date to ISO string
+            serverCurrentTime: serverCurrentTime.toISOString() // Add serverCurrentTime
+        }));
+        res.status(200).send(modifiedResult);
     }
 
     addHoliday = async (req, res, next) => {
@@ -225,8 +242,14 @@ class AdminController {
     }
 
     getHoliday = async (req, res, next) => {
+        const serverCurrentTime = new Date();
         const result = await AuthModel.findHolidays();
-        res.status(200).send(result);
+        const modifiedResult = result.map(holiday => ({
+            ...holiday,
+            date: new Date(holiday.date).toISOString(), // Convert birth_date to ISO string
+            serverCurrentTime: serverCurrentTime.toISOString() // Add serverCurrentTime
+        }));
+        res.status(200).send(modifiedResult);
     }
 
     deleteHoliday = async (req, res, next) => {

@@ -39,14 +39,14 @@ class EmployeeController {
         }
 
         req.body.id = id;
-        this.getUserById(req, res, next);
+        await this.getUserById(req, res, next);
     }
 
     timestamp = async (req, res, next) => {
         const tableAction = req.body.action;
         const id = req.body.id;
         const currentDate = new Date();
-        req.body._time = moment().format('YYYY-MM-DD HH:mm:ss');
+        req.body._time = moment(currentDate).format('YYYY-MM-DD HH:mm:ss');
 
         const employee_id = req.currentUser.id
         let result;

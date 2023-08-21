@@ -275,3 +275,15 @@ li.completed-highlight {
 .card.box__top {
   margin-top: -140px;
 }
+
+
+.birthday-list-v2 {}
+
+/*.birthday-list-v2 .completed-highlight {*/
+/*  display: none !important;*/
+/*}*/
+
+.scroll__bar .birthday-list {
+  height: auto;
+  max-height: 320px;
+}

@@ -35,14 +35,24 @@ class LeaveAppController {
         res.status(200).send(result);
     };
     update = async (req, res, next) => {
-        const id = req.currentUser.id;
+        const userId = req.currentUser.id;
         const row_id = req.body.id;
 
-        const user = await AuthModel.findOne({id});
+        const user = await AuthModel.findOne({id: userId});
 
         if (user.role !== 'Admin' && user.role !== 'HR') {
             res.status(401).send({message: 'Only Admin or HR can review you application.'});
             return;
+        }
+
+        if (user.role === 'HR') {
+            const hrUser = await AuthModel.findOne({id: req.body.employee_id});
+            if (hrUser && userId === hrUser.id) {
+                res.status(400).send({
+                    message: 'HR can not edit their own record. Kindly reach out to Admin for assistance. Thank you'
+                });
+                return;
+            }
         }
 
         const params = {

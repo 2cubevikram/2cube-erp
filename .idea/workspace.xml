@@ -8,7 +8,21 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/public/assets/css/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/css/demo.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/general-component.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/general-component.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/leave-form.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/leave-form.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Account.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Account.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/function/excerpt.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/function/excerpt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/leaveActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/leaveActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/profileAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/profileAction.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/leaveReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/leaveReducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/middlewares/upload_media_middleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/middlewares/upload_media_middleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/routes/auth.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/auth.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +194,10 @@
       <workItem from="1692253565925" duration="167000" />
       <workItem from="1692253801562" duration="48000" />
       <workItem from="1692253859805" duration="4645000" />
-      <workItem from="1692265065026" duration="528000" />
+      <workItem from="1692265065026" duration="3472000" />
+      <workItem from="1692268596861" duration="11744000" />
+      <workItem from="1692333602268" duration="10019000" />
+      <workItem from="1692591744655" duration="16517000" />
     </task>
     <servers />
   </component>

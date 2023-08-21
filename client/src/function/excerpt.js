@@ -13,18 +13,15 @@ export const getDayOfWeekInCurrentYear = (dateString) => {
     return daysOfWeek[birthDateThisYear.getDay()];
 }
 
-export const isBirthdayToday = (birthDateString) => {
+export const isBirthdayToday = (birthDateString,serverCurrentTime) => {
     const birthDate = new Date(birthDateString);
-    const currentDate = new Date();
+    const currentDate = new Date(serverCurrentTime);
     return birthDate.getDate() === currentDate.getDate() && birthDate.getMonth() === currentDate.getMonth();
 }
 
-
-
-
-export const isBirthdayTomorrow = (birthDateString) => {
+export const isBirthdayTomorrow = (birthDateString,serverCurrentTime) => {
     const birthDate = new Date(birthDateString);
-    const tomorrow = new Date();
+    const tomorrow = new Date(serverCurrentTime);
     tomorrow.setDate(tomorrow.getDate() + 1);
     return birthDate.getDate() === tomorrow.getDate() && birthDate.getMonth() === tomorrow.getMonth();
 }
@@ -40,12 +37,9 @@ export const isDateAfterToday = (date) => {
     return moment(date).isAfter(moment(), 'day');
 }
 
-
-
 export const isDateBeforeToday = (date) => {
-    const isBefore = moment(date).isBefore(moment(), 'day');
     // console.log(`Checking if ${date} is before today: ${isBefore}`);
-    return isBefore;
+    return moment(date).isBefore(moment(), 'day');
 }
 
 export const isDateMonthBeforeToday = (date) => {

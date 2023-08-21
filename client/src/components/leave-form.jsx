@@ -15,7 +15,6 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
     const [leave_type, setLeaveType] = useState("");
     const [reason, setReason] = useState("");
     const [status, setStatus] = useState("");
-
     const submitHandler = async (e) => {
         e.preventDefault();
 
@@ -26,7 +25,7 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                 leave_type: leave_type,
                 reason: reason
             }
-            dispatch(leaveApplied({user, obj}))
+            await dispatch(leaveApplied({user, obj}))
             setStartDate("");
             setEndDate("");
             setLeaveType("");
@@ -34,14 +33,23 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
         } else if (type === "UPDATE") {
             const obj = {
                 id: data.id,
+                employee_id: data.employee_id,
                 start_date: start_date,
                 end_date: end_date,
                 leave_type: leave_type,
                 reason: reason,
                 status: status
             }
-            dispatch(updateLeave({user, obj}))
-            formClose({id: null, state: false})
+            try {
+                await dispatch(updateLeave({user, obj}))
+                formClose({id: null, state: false})
+            } catch (error) {
+                console.log(error)
+                alert(error);
+                // navigate('/to-day');
+            }
+
+
         }
 
     };

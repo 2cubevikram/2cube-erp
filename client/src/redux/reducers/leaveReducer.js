@@ -62,11 +62,14 @@ const leaveReducer = (state = initialState, action) => {
                 error: null,
             };
         case 'UPDATE_LEAVES_FAILED':
+            // return {
+            //     ...state,
+            //     leave: [],
+            //     loading: false,
+            //     error: action.payload,
+            // };
             return {
-                ...state,
-                leave: [],
-                loading: false,
-                error: action.payload,
+                ...state
             };
         default:
             return state;

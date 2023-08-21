@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import path from 'path';
 import http from "http";
+import { fileURLToPath } from 'url';
 import { Server } from 'socket.io';
 
 import HttpException from './utils/HttpException.utils.js';
@@ -10,7 +11,14 @@ import errorMiddleware from './middlewares/error.middleware.js';
 import AuthRouter from './routes/auth.route.js';
 
 const app = express();
-dotenv.config();
+
+app.use(cors());
+app.options("*", cors());
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
 
 const server = http.createServer(app);
 const io = new Server(server,{
@@ -24,11 +32,11 @@ export { io };
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
-app.use('/public', express.static('public'));
-app.use(express.static(path.resolve()));
+const publicFolderPath = process.env.PUBLIC_FOLDER_PATH || path.join(__dirname, '../public');
+// console.log('PUBLIC_FOLDER_PATH env variable:', process.env.PUBLIC_FOLDER_PATH);
+// console.log('Computed publicFolderPath:', publicFolderPath);
 
-app.use(cors());
-app.options("*", cors());
+app.use("/public", express.static(publicFolderPath));
 
 const PORT = process.env.PORT || process.env.APP_PORT
 
@@ -37,7 +45,6 @@ io.on('connection', (socket) => {
 });
 
 app.use(`/api/auth`, AuthRouter);
-
 
 // 404 error
 app.all('*', (req, res, next) => {

@@ -2,8 +2,6 @@ import {formatDateTime} from "../function/time";
 
 
 export const TimeBadge = ({_in=null,_out=null}) => {
-    console.log(_in,_out)
-
     if (!_out){
         return false;
     }
@@ -17,8 +15,6 @@ export const TimeBadge = ({_in=null,_out=null}) => {
     }
 
     const differenceTime = formatDateTime.TimeDifference(CheckinTime, CheckoutTime);
-
-    console.log(_in,_out)
     return (
         <>
             <span className="badge bg-label-primary me-1">{differenceTime}</span>
