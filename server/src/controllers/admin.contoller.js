@@ -1,5 +1,5 @@
 import AuthModel from '../models/auth.model.js';
-import {v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import moment from 'moment';
@@ -19,7 +19,7 @@ class AdminController {
 
         const result = await AuthModel.create(req.body);
         if (!result) {
-            return res.status(500).json({message: 'Something went wrong'});
+            return res.status(500).json({ message: 'Something went wrong' });
         }
         // req.body.password = password;
         // next();
@@ -27,54 +27,54 @@ class AdminController {
     };
 
     login = async (req, res, next) => {
-        const {email, password: pass} = req.body;
+        const { email, password: pass } = req.body;
 
-        const user = await AuthModel.findOne({email});
+        const user = await AuthModel.findOne({ email });
         if (!user) {
-            res.status(400).send({message: 'Incorrect email or password.'});
+            res.status(400).send({ message: 'Incorrect email or password.' });
             return;
         }
 
         const isMatch = await bcrypt.compare(pass, user.password)
         if (!isMatch) {
-            res.status(400).send({message: 'Incorrect insert password.'});
+            res.status(400).send({ message: 'Incorrect insert password.' });
             return;
         }
 
         // user matched
         const secretKey = process.env.SECRET_JWT || "";
-        const token = jwt.sign({user_id: user.id.toString()}, secretKey, {
-            expiresIn: '1d'
+        const token = jwt.sign({ user_id: user.id.toString() }, secretKey, {
+            expiresIn: '10h'
         });
 
-        const {password, created_at, updated_at, ...userWithoutPassword} = user;
-        res.status(200).send({...userWithoutPassword, token});
+        const { password, created_at, updated_at, ...userWithoutPassword } = user;
+        res.status(200).send({ ...userWithoutPassword, token });
     };
 
     getAllEmployee = async (req, res, next) => {
-        const result = await AuthModel.find({'status': 'Active'}, {'created_at': 'ASC'});
+        const result = await AuthModel.find({ 'status': 'Active' }, { 'created_at': 'ASC' });
         // console.log({ result });
-        const {password, status, created_at, updated_at, ...userWithoutPassword} = result;
+        const { password, status, created_at, updated_at, ...userWithoutPassword } = result;
         res.send(userWithoutPassword)
     };
 
     getEmployeeById = async (req, res, next) => {
-        const result = await AuthModel.findOne({id: req.params.id});
+        const result = await AuthModel.findOne({ id: req.params.id });
         if (!result) {
-            return res.status(404).send({message: 'Employee not found'});
+            return res.status(404).send({ message: 'Employee not found' });
         }
 
-        const {password, status, created_at, updated_at, ...userWithoutPassword} = result;
+        const { password, status, created_at, updated_at, ...userWithoutPassword } = result;
         res.send(userWithoutPassword)
     };
 
     edit = async (req, res, next) => {
         const id = req.currentUser.id;
 
-        const user = await AuthModel.findOne({id});
+        const user = await AuthModel.findOne({ id });
 
         if (user.role != 'Admin') {
-            res.status(401).send({message: 'only Admin can edit'});
+            res.status(401).send({ message: 'only Admin can edit' });
             return;
         }
 
@@ -87,17 +87,22 @@ class AdminController {
     checkTimeUpdate = async (req, res, next) => {
         const userId = req.currentUser.id;
         const rowId = req.body.id;
+        let outTime;
         const inTime = req.body._in ? moment(`${req.body.date}T${req.body._in}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss') : null;
-        const outTime = req.body._out ? moment(`${req.body.date}T${req.body._out}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss') : null;
-
-        const user = await AuthModel.findOne({id:userId});
+        if (req.body._out !== 'Invalid date') {
+            outTime = req.body._out ? moment(`${req.body.date}T${req.body._out}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss') : null;
+        }
+        else {
+            outTime = null;
+        }
+        const user = await AuthModel.findOne({ id: userId });
 
         if (user.role !== 'Admin' && user.role !== 'HR') {
-            res.status(401).send({message: 'Employees are not allowed to edit their recorded time.'});
+            res.status(401).send({ message: 'Employees are not allowed to edit their recorded time.' });
             return;
         }
 
-        if(user.role === 'HR' ){
+        if (user.role === 'HR') {
             const hrUser = await AuthModel.findOne({ id: req.body.employee_id });
             if (hrUser && userId === hrUser.id) {
                 res.status(400).send({
@@ -106,13 +111,12 @@ class AdminController {
                 return;
             }
         }
-
-        if (outTime === "Invalid date") {
+       
+        if (req.body._out === "Invalid date") {
             req.body.status = "CHECK_IN";
         } else {
             req.body.status = "CHECK_OUT";
         }
-
         const params = {
             _in: inTime,
             _out: outTime,
@@ -127,17 +131,23 @@ class AdminController {
     breakTimeUpdate = async (req, res, next) => {
         const userId = req.currentUser.id;
         const rowId = req.body.id;
+        let outTime;
         const inTime = req.body._in ? moment(`${req.body.date}T${req.body._in}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss') : null;
-        const outTime = req.body._out ? moment(`${req.body.date}T${req.body._out}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss') : null;
+        if (req.body._out !== 'Invalid date') {
+            outTime = req.body._out ? moment(`${req.body.date}T${req.body._out}`, moment.ISO_8601).format('YYYY-MM-DD HH:mm:ss') : null;
+        }
+        else {
+            outTime = null;
+        }
 
-        const user = await AuthModel.findOne({id:userId});
+        const user = await AuthModel.findOne({ id: userId });
 
         if (user.role !== 'Admin' && user.role !== 'HR') {
-            res.status(401).send({message: 'Employees are not allowed to edit their recorded time.'});
+            res.status(401).send({ message: 'Employees are not allowed to edit their recorded time.' });
             return;
         }
 
-        if(user.role === 'HR' ){
+        if (user.role === 'HR') {
             const hrUser = await AuthModel.findOne({ id: req.body.employee_id });
             if (hrUser && userId === hrUser.id) {
                 res.status(400).send({
@@ -147,7 +157,7 @@ class AdminController {
             }
         }
 
-        if (outTime === "Invalid date") {
+        if (req.body._out === "Invalid date") {
             req.body.status = "BREAK_IN";
         } else {
             req.body.status = "BREAK_OUT";
@@ -166,7 +176,7 @@ class AdminController {
 
     to_day = async (req, res, next) => {
         const allIds = [];
-        const result = await AuthModel.find({'status': 'Active'}, {'created_at': 'ASC'});
+        const result = await AuthModel.find({ 'status': 'Active' }, { 'created_at': 'ASC' });
 
         result.forEach(item => {
             allIds.push(item.id);
@@ -197,21 +207,21 @@ class AdminController {
     }
 
     getBirthday = async (req, res, next) => {
-        const result = await EmployeeModel.getBirtday();
+        const result = await EmployeeModel.getBirthday();
         res.status(200).send(result);
     }
 
     addHoliday = async (req, res, next) => {
         const id = req.currentUser.id;
 
-        const result = await AuthModel.findOne({id});
+        const result = await AuthModel.findOne({ id });
         req.body.post_by = result.role;
 
         const holiday = await AuthModel.crateHoliday(req.body);
-        if(holiday === 1){
+        if (holiday === 1) {
             await this.getHoliday(req, res);
-        }else{
-            res.status(401).send({message: 'Something went wrong while adding Holiday.'});
+        } else {
+            res.status(401).send({ message: 'Something went wrong while adding Holiday.' });
         }
     }
 
@@ -221,11 +231,12 @@ class AdminController {
     }
 
     deleteHoliday = async (req, res, next) => {
-        const id = req.body.id;
+        const id = req.query.id;
         const result = await AuthModel.delete(id);
         if (!result) {
             throw new HttpException(404, 'Data not found');
         }
+        await this.getHoliday(req, res);
         res.send('Holiday has been deleted');
     }
 

@@ -34,7 +34,7 @@ const profileReducer = (state = initialState, action) => {
             };
         case 'CHECK_TIME_EDIT_FAILED':
             return {
-               ...state
+                ...state
             };
         case 'BREAK_TIME_EDIT':
             return {
@@ -56,7 +56,12 @@ const profileReducer = (state = initialState, action) => {
                 }
             };
         case 'ADD_USER_PROFILE':
-            console.log('ADD_USER_PROFILE', action.payload)
+            // localStorage.setItem("user", JSON.stringify(action.payload))
+            return {
+                ...state,
+                profile: action.payload
+            }
+        case 'UPDATE_USER_PROFILE':
             // localStorage.setItem("user", JSON.stringify(action.payload))
             return {
                 ...state,

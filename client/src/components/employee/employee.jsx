@@ -20,7 +20,7 @@ const Employee = () => {
                 <div className="card">
                     <h5 className="card-header">Employee List</h5>
                     <div className="table-responsive text-nowrap">
-                        <EmployeeList employees={employee}/>
+                        <EmployeeList active_tab={1} employees={employee}/>
                     </div>
                 </div>
             </div>

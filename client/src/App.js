@@ -1,6 +1,4 @@
-import React from "react";
-
-
+import React, {useEffect} from "react";
 import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
 import Home from "./pages/Home";
 import Employee from "./pages/Employee";
@@ -15,7 +13,7 @@ import Salary from "./pages/Salary";
 
 
 function App({state}) {
-    // console.log(state.login.user)
+
     return (
         <>
             <Router>

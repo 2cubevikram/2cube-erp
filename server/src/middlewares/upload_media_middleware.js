@@ -5,7 +5,7 @@ import util from 'util';
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
         // console.log(path.resolve() + '/public/uploads/');
-        cb(null, path.resolve() + `/public/uploads/`);
+        cb(null, process.env.PUBLIC_FOLDER_PATH + `/uploads/`);
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + "-" + file.originalname);
@@ -18,4 +18,4 @@ let uploadFileMiddleware = multer({
 
 let uploadMediaFile = util.promisify(uploadFileMiddleware);
 
-export default uploadMediaFile;
+export default uploadMediaFile; 

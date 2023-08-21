@@ -30,6 +30,9 @@ export const getHoliday = ({user}) => async (dispatch) => {
 export const deleteHoliday = ({user, id}) => async (dispatch) => {
     try {
         const response = await axios.delete(`${API_BASE_URL}/auth/delete-holiday`, {
+            params: {
+                id: id,
+            },
             headers: {
                 Authorization: `Bearer ${user.token}`,
             }

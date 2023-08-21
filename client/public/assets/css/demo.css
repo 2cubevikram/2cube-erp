@@ -267,3 +267,10 @@ span.date.badge.bg-black {
 li.completed-highlight {
   opacity: 0.3;
 }
+.scroll__bar .birthday-list {
+  height: 320px;
+  overflow: auto;
+}
+.card.box__top {
+  margin-top: -140px;
+}

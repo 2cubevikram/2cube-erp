@@ -116,21 +116,21 @@ class CommonModel {
         return result;
     }
     getBirthday = async (userTable) => {
-        const sql = `SELECT id, first_name, last_name, profile, CONVERT_TZ(birth_date, '+00:00', @@session.time_zone) AS birth_date FROM ${userTable} WHERE
-                            (
-                              DAY(birth_date) >= DAY(CURRENT_DATE())
-                              AND MONTH(birth_date) = MONTH(CURRENT_DATE())
-                              AND status = 'Active'
-                            ) -- Upcoming birthdays in the current month
-                            OR
-                            (
-                              DAY(birth_date) <= DAY(CURRENT_DATE())
-                              AND MONTH(birth_date) = MONTH(DATE_ADD(CURRENT_DATE(), INTERVAL 1 MONTH))
-                              AND status = 'Active'
-                            ) ORDER BY birth_date DESC  -- Upcoming birthdays in the next month (if today is the last day of the current month)
-                        `;
+        // const sql = `SELECT id, first_name, last_name, profile, CONVERT_TZ(birth_date, '+00:00', @@session.time_zone) AS birth_date FROM ${userTable} WHERE
+        //                     (
+        //                       DAY(birth_date) >= DAY(CURRENT_DATE())
+        //                       AND MONTH(birth_date) = MONTH(CURRENT_DATE())
+        //                       AND status = 'Active'
+        //                     ) -- Upcoming birthdays in the current month
+        //                     OR
+        //                     (
+        //                       DAY(birth_date) <= DAY(CURRENT_DATE())
+        //                       AND MONTH(birth_date) = MONTH(DATE_ADD(CURRENT_DATE(), INTERVAL 1 MONTH))
+        //                       AND status = 'Active'
+        //                     ) ORDER BY birth_date DESC  -- Upcoming birthdays in the next month (if today is the last day of the current month)
+        //                 `;
+        const sql = `SELECT id, first_name, last_name, profile,birth_date FROM ${userTable} WHERE status = 'Active'`;
         return await query(sql);
-
     }
 
     delete = async (tableName, id) => {

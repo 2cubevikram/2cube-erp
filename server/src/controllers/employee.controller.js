@@ -23,12 +23,14 @@ class EmployeeController {
 
     add_data = async (req, res, next) => {
         const id = req.currentUser.id;
-        req.file ? req.body.profile = req.file.filename : req.body.profile = 'avatar.png';
+        if (req.body.profile !== undefined || req.file !== undefined) {
+            req.file ? req.body.profile = req.file.filename : req.body.profile = 'avatar.png';
+        }
         req.body.updated_at = new Date();
 
         const params = {
             ...req.body,
-        }
+        };
 
         const result = await EmployeeModel.profile_update(params, id);
 
@@ -37,7 +39,6 @@ class EmployeeController {
         }
 
         req.body.id = id;
-
         this.getUserById(req, res, next);
     }
 
@@ -163,7 +164,7 @@ class EmployeeController {
     };
 
     break_calculation = async (req, res, next) => {
-        console.log('break_calculation',req.body.date)
+        console.log('break_calculation', req.body.date)
         let datePart;
         const date = new Date();
         const dateString = date.toISOString();
