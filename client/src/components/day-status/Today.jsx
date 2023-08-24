@@ -6,6 +6,7 @@ import {getAttendance} from "../../redux/actions/profileAction";
 import {formatDateTime} from "../../function/time";
 import {TimeBadge} from "../general-component";
 import {formatText} from "../../function/format-text";
+import {getLastStatus} from "../../function/check-status";
 
 
 const Today = () => {
@@ -70,7 +71,7 @@ const Today = () => {
                                     <tr>
                                         <th>Name</th>
                                         <th>Check</th>
-                                        <th>Break</th>
+                                        {/*<th>Break</th>*/}
                                         <th className={`text-center`}>Actions</th>
                                     </tr>
                                     </thead>
@@ -78,6 +79,8 @@ const Today = () => {
                                     {
                                         toDayStatus.today.map((item, index) => {
                                             const attendanceID = item.id;
+                                            const result = (item.check === 'CHECK_IN' && (item.break === 'BREAK_IN' || item.break === 'BREAK_OUT')) ? item.check : item.break;
+                                            console.log(result)
                                             return (
                                                 <React.Fragment key={index}>
                                                     <tr>
@@ -93,11 +96,15 @@ const Today = () => {
                                                             </div>
                                                         </td>
 
-                                                        <td><span
-                                                            className="badge bg-label-warning me-1">{item.check ? formatText(item.check) : ''}</span>
-                                                        </td>
-                                                        <td><span
-                                                            className="badge bg-label-warning me-1">{item.break ? formatText(item.break) : ''}</span>
+                                                        {/*<td>*/}
+                                                        {/*    <span className="badge bg-label-warning me-1">*/}
+                                                        {/*    {item.check ? formatText(item.check) : ''}*/}
+                                                        {/*    </span>*/}
+                                                        {/*</td>*/}
+                                                        <td>
+                                                            {/*<span className="badge bg-label-warning me-1">{item.break ? formatText(item.break) : ''}</span>*/}
+                                                            <span
+                                                                className="badge bg-label-warning me-1">{getLastStatus([item.check, item.break])}</span>
                                                         </td>
                                                         <td>
                                                             <div className="dropdown">
