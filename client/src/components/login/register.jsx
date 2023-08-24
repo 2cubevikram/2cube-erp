@@ -15,14 +15,20 @@ const Register = () => {
     const handleClick = async (e) => {
         e.preventDefault();
         const userData = {
-            first_name: first_name.current.value,
-            last_name: last_name.current.value,
-            email: email.current.value,
-            role: role.current.value,
-            password: password.current.value,
+            first_name: first_name.current.value.trim(),
+            last_name: last_name.current.value.trim(),
+            email: email.current.value.trim(),
+            role: role.current.value.trim(),
+            password: password.current.value.trim(),
         };
-        dispatch(register({userData}));
-        navigate('/login');
+        try {
+            await dispatch(register({userData}));
+            alert("Sign up successful! Please proceed to login")
+            navigate('/login');
+        } catch (e) {
+            alert(e)
+        }
+
     };
 
     return (

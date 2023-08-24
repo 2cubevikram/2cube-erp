@@ -7,9 +7,11 @@ import DayStatus from "./pages/Daystatus";
 import Leaves from "./pages/Leaves"
 import {connect} from "react-redux";
 import Login from "./components/login/login";
+import ForgotPassword from "./components/login/forgot-password";
 import Register from "./components/login/register";
 import Holiday from "./pages/Holiday";
 import Salary from "./pages/Salary";
+import ChangePassword from "./components/login/change-password";
 
 
 function App({state}) {
@@ -67,6 +69,8 @@ function App({state}) {
                     }>
                     </Route>
                     <Route exact path="/register" element={!state.login.isLoggedIn ? <Register/> : <Navigate to="/"/>}/>
+                    <Route exact path="/forgot-password" element={!state.login.isLoggedIn ? <ForgotPassword/> : <Navigate to="/"/>}/>
+                    <Route exact path="/update-password/:email" element={!state.login.isLoggedIn ? <ChangePassword/> : <Navigate to="/"/>}/>
                 </Routes>
             </Router>
         </>

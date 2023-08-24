@@ -37,6 +37,7 @@ class CommonModel {
     }
 
     update = async (tableName, params, id) => {
+        console.log(tableName, params, id)
         const {columnSet, values} = utils.multipleColumnSet(params)
 
         const sql = `UPDATE ${tableName} SET ${columnSet} WHERE id = ?`;
@@ -52,6 +53,18 @@ class CommonModel {
             return result[result.length - 1];
         }
         return null;
+    }
+
+    updateWhere = async (tableName, params, conditionalParams) => {
+        var { columnSet, values } = utils.multipleColumnSet(params);
+        const conditions = utils.multipleSearchColumnSet(conditionalParams);
+
+        const sql = `UPDATE ${tableName} SET ${columnSet} WHERE ${conditions.columnSet}`;
+
+        var allValues = conditions.values;
+        const result = await query(sql, [...values, ...allValues]);
+
+        return result;
     }
 
     timestamp = async (tableName, row_id, employee_id, _time, method, status) => {

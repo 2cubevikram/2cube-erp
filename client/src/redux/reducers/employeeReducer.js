@@ -8,6 +8,13 @@ const employeeReducer = (state = initialState, action) => {
             return action.payload;
         case 'BREAK_TIME_EDIT':
             return action.payload;
+        case 'USER_DELETE_SUCCESS':
+            return action.payload;
+        case 'USER_DELETE_FAILURE':
+            console.log(action.payload)
+            return {
+                error: action.payload,
+            }
         default:
             return state;
     }

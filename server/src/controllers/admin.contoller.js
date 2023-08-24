@@ -6,7 +6,8 @@ import moment from 'moment';
 import EmployeeModel from "../models/employee.model.js";
 import BreakModel from "../models/break.model.js";
 import HttpException from '../utils/HttpException.utils.js';
-import app from "../server.js";
+import sendMail from "../utils/mailer.utils.js";
+import authModel from "../models/auth.model.js";
 
 /******************************************************************************
  *                              Auth Controller
@@ -19,12 +20,17 @@ class AdminController {
         await this.hashPassword(req);
         req.body.id = uuid();
 
+        const user = await AuthModel.findOne({email: req.body.email});
+        if (user) {
+            return res.status(409).send({message: 'Duplicate Entry, Email already exists.'});
+        }
+
         const result = await AuthModel.create(req.body);
         if (!result) {
             return res.status(500).json({message: 'Something went wrong'});
         }
-        // req.body.password = password;
-        // next();
+        req.body.password = password;
+        next();
         res.status(201).send('User was created!');
     };
 
@@ -255,6 +261,77 @@ class AdminController {
         }
         await this.getHoliday(req, res);
         res.send('Holiday has been deleted');
+    }
+
+    sendForgotPasswordEmail = async (req, res, next) => {
+        const user = await AuthModel.findOne({email: req.query.email});
+        if (!user) {
+            return res.status(409).send({message: 'Record not found, With this email. Kindly reach out to Authorized Person for Assistance.'});
+        }
+
+        if (user.status !== 'Active') {
+            return res.status(208).send({message: 'Your account is not active this time, Kindly reach out to Authorized Person for Assistance.'});
+        }
+
+        sendMail(user.email, '2Cube-Studio – Password Forgot', user.id);
+        res.status(200).send({message: 'Email has been sent on your register email address.'});
+        // next();
+    }
+
+    forgotPassword = async (req, res, next) => {
+        const user = await AuthModel.findOne({email: req.body.email});
+
+        if (!user) {
+            return res.status(409).send({message: 'Record not found, With this email.'});
+        }
+
+        await this.hashPassword(req);
+
+        const params = {
+            password: req.body.password,
+            updated_at: new Date(),
+        }
+
+        const result = await AuthModel.update(params, user.id);
+        if (!result) {
+            return res.status(409).send({message: 'Something went wrong while updating password.'});
+        }
+        res.status(200).send({message: 'Password has been has been reset successfully.'});
+
+    }
+
+    userDelete = async (req, res, next) => {
+        const userId = req.currentUser.id;
+        const id = req.body.employee_id;
+
+        const user = await AuthModel.findOne({id: userId});
+
+        if (user.role !== 'Admin' && user.role !== 'HR') {
+            return res.status(401).send({message: 'Employees are not allowed to edit their recorded time.'});
+
+        }
+
+        if (user.role === 'HR') {
+            const hrUser = await AuthModel.findOne({id: req.body.employee_id});
+            if (hrUser && userId === hrUser.id) {
+                res.status(400).send({
+                    message: 'HR can not delete their own Account. Kindly reach out to Admin for assistance. Thank you'
+                });
+                return;
+            }
+        }
+
+        const params = {
+            status: req.body.status,
+            updated_at: new Date(),
+        }
+        let result = await authModel.update(params, id);
+
+        if (!result) {
+            console.log(result)
+            return res.status(409).send({message: 'Something went wrong while delete user.'});
+        }
+        res.status(200).send({message: 'User has been delete successfully.'});
     }
 
     // hash password if it exists

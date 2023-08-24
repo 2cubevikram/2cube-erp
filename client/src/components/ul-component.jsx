@@ -47,12 +47,8 @@ export const EmployeeList = ({employees,active_tab = 1}) => {
                                           state={{id: item.id}}
                                           onClick={() => localStorage.setItem("account_tab", active_tab)}
                                           className="dropdown-item">
-
                                         <i className="bx bx-edit-alt me-1"></i>Profile
                                     </Link>
-
-                                    <a className="dropdown-item" href="/"><i
-                                        className="bx bx-trash me-1"></i> Delete</a>
                                 </div>
                             </div>
                         </td>

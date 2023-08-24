@@ -2,15 +2,19 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {addUserProfile, updateUserProfile} from "../../redux/actions/profileAction";
 import moment from "moment";
+import {userDelete} from "../../redux/actions/authActions";
+import {useNavigate} from "react-router-dom";
 
 const Account = ({profile}) => {
     const dispatch = useDispatch();
     const [file, setFile] = useState(null);
+    const navigate = useNavigate();
 
     const [firstName, setFirstName] = useState(profile.first_name || "");
     const [lastName, setLastName] = useState(profile.last_name || "");
     const [birthDate, setBirthDate] = useState(profile.birth_date || "");
     const [isLoading, setIsLoading] = useState(true);
+    const [isRemember, isSetRemember] = useState(false);
 
     const user = useSelector((state) => state.login.user);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -26,6 +30,7 @@ const Account = ({profile}) => {
         if (profile.first_name !== undefined) {
             setIsLoading(false);
         }
+        // eslint-disable-next-line
     }, [profile]);
 
     const submitHandler = async (e) => {
@@ -37,8 +42,8 @@ const Account = ({profile}) => {
             birth_date: birthDate,
             file: file,
         };
-        if(file !== null) {
-            dispatch(addUserProfile({obj, user}));
+        if (file !== null) {
+            await dispatch(addUserProfile({obj, user}));
             alert("Profile Added Successfully")
         } else {
             const params = {
@@ -46,10 +51,34 @@ const Account = ({profile}) => {
                 last_name: obj.last_name,
                 birth_date: obj.birth_date,
             }
-            dispatch(updateUserProfile({params, user}));
+            await dispatch(updateUserProfile({params, user}));
             alert("Profile Updated Successfully")
         }
     };
+
+    const deactivateAccount = async (e) => {
+        e.preventDefault();
+
+        if (!isRemember) {
+            alert("Please Check I confirm the account deactivation");
+            return;
+        } else {
+            const params = {
+                status: 'deactivate',
+                employee_id: profile.id,
+            }
+            try {
+                await dispatch(userDelete({params, user}));
+                alert('are you sure you want to deactivate your account ?');
+                navigate('/employees');
+            } catch (e) {
+                alert(e.message);
+            }
+        }
+
+    }
+
+    // console.log(user.last_name, profile.first_name)
 
     return (
         <>
@@ -192,34 +221,40 @@ const Account = ({profile}) => {
                     </div>
                 </div>
             )}
-            {/*<div className="card">*/}
-            {/*    <h5 className="card-header">Delete Account</h5>*/}
-            {/*    <div className="card-body">*/}
-            {/*        <div className="mb-3 col-12 mb-0">*/}
-            {/*            <div className="alert alert-warning">*/}
-            {/*                <h6 className="alert-heading fw-bold mb-1">Are you sure you want to delete your*/}
-            {/*                    account?</h6>*/}
-            {/*                <p className="mb-0">Once you delete your account, there is no going back. Please be*/}
-            {/*                    certain.</p>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*        <form id="formAccountDeactivation">*/}
-            {/*            <div className="form-check mb-3">*/}
-            {/*                <input*/}
-            {/*                    className="form-check-input"*/}
-            {/*                    type="checkbox"*/}
-            {/*                    name="accountActivation"*/}
-            {/*                    id="accountActivation"*/}
-            {/*                />*/}
-            {/*                <label className="form-check-label" htmlFor="accountActivation"*/}
-            {/*                >I confirm my account deactivation</label*/}
-            {/*                >*/}
-            {/*            </div>*/}
-            {/*            <button type="submit" className="btn btn-danger deactivate-account">Deactivate Account</button>*/}
-            {/*        </form>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
 
+            {
+                user && (user.role === "Admin" || profile.role === "HR") ? (
+                    <div className="card">
+                        <h5 className="card-header">Delete Account</h5>
+                        <div className="card-body">
+                            <div className="mb-3 col-12 mb-0">
+                                <div className="alert alert-warning">
+                                    <h6 className="alert-heading fw-bold mb-1">Are you sure you want to delete your
+                                        account?</h6>
+                                    <p className="mb-0">Once you delete your account, there is no going back. Please be
+                                        certain.</p>
+                                </div>
+                            </div>
+                            <form id="formAccountDeactivation" onSubmit={deactivateAccount}>
+                                <div className="form-check mb-3">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        name="accountActivation"
+                                        id="accountActivation"
+                                        onChange={e => isSetRemember(e.target.checked)}
+                                    />
+                                    <label className="form-check-label" htmlFor="accountActivation"
+                                    >I confirm my account deactivation</label
+                                    >
+                                </div>
+                                <button type="submit" className="btn btn-danger deactivate-account">Deactivate Account
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                ) : ""
+            }
         </>
     )
 }

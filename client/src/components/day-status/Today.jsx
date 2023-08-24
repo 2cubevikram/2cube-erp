@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import {getAttendance} from "../../redux/actions/profileAction";
 import {formatDateTime} from "../../function/time";
 import {TimeBadge} from "../general-component";
+import {formatText} from "../../function/format-text";
 
 
 const Today = () => {
@@ -93,10 +94,10 @@ const Today = () => {
                                                         </td>
 
                                                         <td><span
-                                                            className="badge bg-label-warning me-1">{item.check}</span>
+                                                            className="badge bg-label-warning me-1">{item.check ? formatText(item.check) : ''}</span>
                                                         </td>
                                                         <td><span
-                                                            className="badge bg-label-warning me-1">{item.break}</span>
+                                                            className="badge bg-label-warning me-1">{item.break ? formatText(item.break) : ''}</span>
                                                         </td>
                                                         <td>
                                                             <div className="dropdown">
@@ -144,7 +145,8 @@ const Today = () => {
                                                                                                         <tr className="">
                                                                                                             <td className={`p-2`}>{inTime}</td>
                                                                                                             <td className={`p-1`}>{outTime}</td>
-                                                                                                            <td className={`p-1`}>{attendanceStatus}</td>
+                                                                                                            {/*<td className={`p-1`}>{attendanceStatus}</td>*/}
+                                                                                                            <td className={`p-1`}>{attendanceStatus ? formatText(attendanceStatus) : 'Status not available'}</td>
                                                                                                             <td>
                                                                                                                 <TimeBadge
                                                                                                                     _in={attendance.check._in}
@@ -164,7 +166,8 @@ const Today = () => {
                                                                                                                         <tr className="">
                                                                                                                             <td className={`p-2`}>{breakInTime}</td>
                                                                                                                             <td className={`p-1`}>{breakOutTime}</td>
-                                                                                                                            <td className={`p-1`}>{item.status}</td>
+                                                                                                                            {/*<td className={`p-1`}>{item.status}</td>*/}
+                                                                                                                            <td className={`p-1`}>{item.status ? formatText(item.status) : 'Status not available'}</td>
                                                                                                                             <td>
                                                                                                                                 <TimeBadge
                                                                                                                                     _in={item._in}

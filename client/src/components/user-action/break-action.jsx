@@ -25,11 +25,11 @@ const BreakAction = ({BreakIn, BreakOut, check_status, break_status}) => {
                 <>
                     {
                         break_status === "BREAK_OUT" ? (
-                            <button className="btn btn-primary"
-                                    onClick={e => breakinHandler(e)}>Break In </button>
+                            <span className="btn btn-primary"
+                                    onClick={e => breakinHandler(e)}>Break In </span>
                         ) : (
-                            <button className="btn-danger btn"
-                                    onClick={e => breakoutHandler(e)}> Break Out </button>
+                            <span className="btn-danger btn"
+                                    onClick={e => breakoutHandler(e)}> Break Out </span>
                         )
                     }
                 </>

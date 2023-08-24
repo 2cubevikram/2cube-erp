@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {leaveApplied, updateLeave} from "../redux/actions/leaveActions";
 import moment from "moment";
+// import io from "socket.io-client";
 
 
 // Type --> APPLIED,UPDATE
@@ -25,6 +26,7 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                 leave_type: leave_type,
                 reason: reason
             }
+            // const newSocket = io('http://localhost:9000');
             await dispatch(leaveApplied({user, obj}))
             setStartDate("");
             setEndDate("");

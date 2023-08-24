@@ -36,7 +36,7 @@ const Navbar = () => {
                             <Link to={`/`} className="nav-link dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                 <div className="avatar avatar-online">
                                     <img
-                                        src={PF + user.profile}
+                                        src={user.profile ? PF + user.profile : PF + "avatar.png"}
                                         alt="true"
                                         className="w-px-40 h-auto rounded-circle"
                                     />
@@ -49,7 +49,8 @@ const Navbar = () => {
                                             <div className="flex-shrink-0 me-3">
                                                 <div className="avatar avatar-online">
                                                     <img
-                                                        src={PF + user.profile} alt="true"
+                                                        src={user.profile ? PF + user.profile : PF + "avatar.png"}
+                                                        alt="true"
                                                         className="w-px-40 h-auto rounded-circle"
                                                     />
                                                 </div>

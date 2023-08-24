@@ -62,7 +62,7 @@ class LeaveAppController {
             leave_type: req.body.leave_type,
             reason: req.body.reason,
             updated_by: user.role
-        }
+        };
         let result = await LeaveAppModel.update(params, row_id);
         if (result.affectedRows > 0) {
             await this.getAllLeaves(req, res);

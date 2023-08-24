@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import React, {useEffect, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {getAllLeave} from "../../redux/actions/leaveActions";
 import moment from "moment/moment";
 import {excerpt} from "../../function/excerpt";
@@ -15,7 +15,6 @@ const LeaveManag = () => {
     const [highlightedId, setHighlightedId] = useState(null);
     const location = useLocation();
     const notification_id = location.state ? location.state.id : 0 || 0;
-    console.log(notification_id)
     const [leaveForm, setLeaveForm] = useState({
         id: null,
         state: false
@@ -75,10 +74,8 @@ const LeaveManag = () => {
                                     </thead>
                                     <tbody className="table-border-bottom-0">
                                     {leaves.leave.map((item, index) => (
-                                        <>
-                                            <tr
-                                                key={item.id || index}
-                                                className={highlightedId === item.id ? "highlighted-row" : ""}>
+                                        <Fragment key={item.id || index}>
+                                            <tr className={highlightedId === item.id ? "highlighted-row" : ""}>
                                                 <td>
                                                     {item.first_name} {item.last_name}
                                                 </td>
@@ -97,12 +94,12 @@ const LeaveManag = () => {
                                                 </td>
                                                 <td>
                                                     {/*<span className="badge bg-label-warning me-1">*/}
-                                                        {item.leave_type}
+                                                    {item.leave_type}
                                                     {/*</span>*/}
                                                 </td>
                                                 <td>
                                                     {/*<span className="badge bg-label-warning me-1">*/}
-                                                        {excerpt(item.reason)}
+                                                    {excerpt(item.reason)}
                                                     {/*</span>*/}
                                                 </td>
 
@@ -142,7 +139,7 @@ const LeaveManag = () => {
                                                     </tr>
                                                 ) : ""
                                             }
-                                        </>
+                                        </Fragment>
                                     ))}
                                     </tbody>
                                 </table>

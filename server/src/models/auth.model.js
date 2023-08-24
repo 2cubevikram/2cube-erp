@@ -38,7 +38,11 @@ class AuthModel {
     }
 
     update = async (params, id) => {
-        return await commonModel.update(this.tableName, params, id);
+        return await commonModel.profile_update(this.tableName, params, id);
+    }
+
+    updateWhere = async (params, conditionalParams) => {
+        return await commonModel.updateWhere(this.tableName, params, conditionalParams);
     }
 }
 

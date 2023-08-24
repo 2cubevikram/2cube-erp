@@ -25,6 +25,9 @@ router.get('/get-birthday', auth(), awaitHandlerFactory(AdminController.getBirth
 router.post('/add-holiday', auth(), awaitHandlerFactory(AdminController.addHoliday));
 router.get('/get-holiday', auth(), awaitHandlerFactory(AdminController.getHoliday));
 router.delete('/delete-holiday', auth(), awaitHandlerFactory(AdminController.deleteHoliday));
+router.get('/send-email', awaitHandlerFactory(AdminController.sendForgotPasswordEmail));
+router.patch('/reset-password', awaitHandlerFactory(AdminController.forgotPassword));
+router.patch('/delete-user', auth(), awaitHandlerFactory(AdminController.userDelete));
 
 // Salary Controller
 router.post('/salary-credit', auth(), awaitHandlerFactory(SalaryController.salaryCredit));

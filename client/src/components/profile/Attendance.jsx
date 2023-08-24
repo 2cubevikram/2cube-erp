@@ -5,6 +5,7 @@ import moment from "moment";
 import {getAttendance, breakTimeEdit} from "../../redux/actions/profileAction";
 import {formatDateTime} from "../../function/time";
 import {TimeBadge} from "../general-component";
+import {formatText} from "../../function/format-text";
 
 const Attendance = () => {
     const location = useLocation();
@@ -27,7 +28,7 @@ const Attendance = () => {
         footer_data.break = attendance.breakin.length;
         footer_data.break_time = formatDateTime.calculateTotal(attendance.breakin);
         if (attendance.check._out == null) {
-            checkin_to_current_time = formatDateTime.getCheckTimeToCurrentTime(attendance.check._in,attendance.serverTime);
+            checkin_to_current_time = formatDateTime.getCheckTimeToCurrentTime(attendance.check._in, attendance.serverTime);
         } else {
             checkin_to_current_time = formatDateTime.getCheckTimeToComplateTime(attendance.check._in, attendance.check._out);
         }
@@ -158,31 +159,49 @@ const TR = ({data}) => {
 
     return (
         <>
-
-            <tr className="table-default" key={data.id}>
-                <td>{inTime}</td>
-                <td>{outTime}</td>
-                <td>{data.status}</td>
-                <td>
-                    <TimeBadge _in={data._in} _out={data._out}/>
-                </td>
-                {user.role === 'Admin' || user.role === 'HR' ? (
-                    <td>
-                        <div className="dropdown">
-                            <button type="button" className="btn p-0 dropdown-toggle hide-arrow"
-                                    data-bs-toggle="dropdown">
-                                <i className="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div className="dropdown-menu">
-                                <>
-                                    <a onClick={handleChange} className="dropdown-item"><i
-                                        className="bx bx-edit me-1"></i>Edit</a>
-                                </>
-                            </div>
-                        </div>
-                    </td>
-                ) : null}
-            </tr>
+            {
+                data._in !== undefined ?
+                    <tr className="table-default" key={data.id}>
+                        <td>{inTime}</td>
+                        <td>{outTime}</td>
+                        <td className={``}>{data.status ? formatText(data.status) : 'Status not available'}</td>
+                        <td>
+                            <TimeBadge _in={data._in} _out={data._out}/>
+                        </td>
+                        {
+                            user.role === 'Admin' || user.role === 'HR' ? (
+                                <td>
+                                    <div className="dropdown">
+                                        <button type="button" className="btn p-0 dropdown-toggle hide-arrow"
+                                                data-bs-toggle="dropdown">
+                                            <i className="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div className="dropdown-menu">
+                                            <>
+                                                <a onClick={handleChange} className="dropdown-item"><i
+                                                    className="bx bx-edit me-1"></i>Edit</a>
+                                            </>
+                                        </div>
+                                    </div>
+                                </td>
+                            ) : null
+                        }
+                    </tr> : (
+                        <tr className="full-width">
+                            <td colSpan="5">
+                                <div className="container-xxl flex-grow-1 container-p-y">
+                                    <div className="card">
+                                        <div className="card-body">
+                                            <div className="row g-0"><h2 className="m-0 text-center">Data is not
+                                                available</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    )
+            }
             {
                 childValue ? (
                     <EditableRow _data={data} inTime={inTime} outTime={outTime}

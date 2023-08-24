@@ -1,23 +1,47 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {login} from "../../redux/actions/authActions";
 import ErrorPopup from "../toast-message/ErrorPopup";
 import {Link} from "react-router-dom";
+import md5 from "md5";
 
 const LoginForm = () => {
     const dispatch = useDispatch();
     const error = useSelector(state => state.login.error);
-
+    const [firstName, setFirstName] = useState('2Cube');
+    const [lastName, setLastName] = useState('Studio');
     const [showError, setShowError] = useState(false);
     const [pass, setPass] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [logError, setLogError] = useState('');
+    const [isRemember, isSetRemember] = useState(false);
+
+
+    useEffect(() => {
+        // Function to read the cookie and extract first_name
+        const getFirstNameFromCookie = () => {
+            const cookies = document.cookie.split('; ');
+            for (const cookie of cookies) {
+                const [name, value] = cookie.split('=');
+                if (name === 'user') {
+                    const userObject = JSON.parse(decodeURIComponent(value));
+                    setFirstName(userObject.first_name || '');
+                    setLastName(userObject.last_name || '');
+                    setUsername(userObject.email || '');
+                    setPassword(userObject.password || '');
+                    break;
+                }
+            }
+        };
+
+        getFirstNameFromCookie();
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await dispatch(login(username, password));
+            await dispatch(login(username.trim(), password.trim(), isRemember));
         } catch (error) {
             setShowError(true);
             setLogError(error);
@@ -36,7 +60,8 @@ const LoginForm = () => {
                                         <span className="app-brand-text demo text-body fw-bolder">Well Come</span>
                                     </a>
                                 </div>
-                                <h4 className="mb-2">Welcome to 2cube studio ! 👋</h4>
+                                <h4 className="mb-2">Welcome <strong
+                                    style={{color: '#FF5733'}}> {firstName} {lastName} </strong> ! 👋</h4>
                                 <p className="mb-4">Please sign-in to your account and start the session</p>
 
                                 <form id="formAuthentication" className="mb-3" onSubmit={handleSubmit}>
@@ -49,15 +74,16 @@ const LoginForm = () => {
                                             name="email-username"
                                             placeholder="Enter your email or username"
                                             autoFocus
+                                            value={username}
                                             onChange={e => setUsername(e.target.value)}
                                         />
                                     </div>
                                     <div className="mb-3 form-password-toggle">
                                         <div className="d-flex justify-content-between">
                                             <label className="form-label" htmlFor="password">Password</label>
-                                            <a href="auth-forgot-password-basic.html">
+                                            <Link to={"/forgot-password"}>
                                                 <small>Forgot Password?</small>
-                                            </a>
+                                            </Link>
                                         </div>
                                         <div className="input-group input-group-merge">
                                             <input
@@ -67,6 +93,7 @@ const LoginForm = () => {
                                                 name="password"
                                                 placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                                 aria-describedby="password"
+                                                // value={md5(password)}
                                                 onChange={e => setPassword(e.target.value)}
                                             />
                                             <span
@@ -75,17 +102,20 @@ const LoginForm = () => {
                                                 className={pass ? "bx bx-show" : "bx bx-hide"}></i></span>
                                         </div>
                                     </div>
-                                    {error && showError && <ErrorPopup error={logError} onClose={() => setShowError(false)} />}
+                                    {error && showError &&
+                                        <ErrorPopup error={logError} onClose={() => setShowError(false)}/>}
                                     <br/>
                                     <div className="mb-3">
                                         <div className="form-check">
-                                            <input className="form-check-input" type="checkbox" id="remember-me"/>
+                                            <input className="form-check-input" type="checkbox" id="remember-me"
+                                                   onChange={e => isSetRemember(e.target.checked)}
+                                            />
                                             <label className="form-check-label" htmlFor="remember-me"> Remember
                                                 Me </label>
                                         </div>
                                     </div>
                                     <div className="mb-3">
-                                        <button className={"btn btn-primary d-grid w-100"} type="submit">Submit</button>
+                                        <button className={"btn btn-primary d-grid w-100"} type="submit">Sign In</button>
                                     </div>
                                 </form>
 

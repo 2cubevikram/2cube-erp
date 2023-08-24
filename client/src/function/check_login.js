@@ -16,3 +16,23 @@ export const checkLogin = () => {
         }, 1000);
     }
 }
+
+export const setCookie = (name, value, options = {}) => {
+    const { expires, path = '/' } = options;
+
+    let cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
+    console.log(expires)
+    if (expires) {
+        if (expires instanceof Date) {
+            cookie += `; expires=${expires.toUTCString()}`;
+        } else if (typeof expires === 'number') {
+            const expirationDate = new Date();
+            expirationDate.setTime(expirationDate.getTime() + expires * 1000);
+            cookie += `; expires=${expirationDate.toUTCString()}`;
+        }
+    }
+
+    cookie += `; path=${path}`;
+
+    document.cookie = cookie;
+};
