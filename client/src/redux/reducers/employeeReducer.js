@@ -11,10 +11,7 @@ const employeeReducer = (state = initialState, action) => {
         case 'USER_DELETE_SUCCESS':
             return action.payload;
         case 'USER_DELETE_FAILURE':
-            console.log(action.payload)
-            return {
-                error: action.payload,
-            }
+            return action.payload;
         default:
             return state;
     }

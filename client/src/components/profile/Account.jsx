@@ -71,8 +71,8 @@ const Account = ({profile}) => {
                 await dispatch(userDelete({params, user}));
                 alert('are you sure you want to deactivate your account ?');
                 navigate('/employees');
-            } catch (e) {
-                alert(e.message);
+            } catch (error) {
+                alert(error);
             }
         }
 
@@ -223,16 +223,14 @@ const Account = ({profile}) => {
             )}
 
             {
-                user && (user.role === "Admin" || profile.role === "HR") ? (
+                (user.role === "Admin" || user.role === "HR" || profile.role === "Admin" || profile.role === "HR") ? (
                     <div className="card">
                         <h5 className="card-header">Delete Account</h5>
                         <div className="card-body">
                             <div className="mb-3 col-12 mb-0">
                                 <div className="alert alert-warning">
-                                    <h6 className="alert-heading fw-bold mb-1">Are you sure you want to delete your
-                                        account?</h6>
-                                    <p className="mb-0">Once you delete your account, there is no going back. Please be
-                                        certain.</p>
+                                    <h6 className="alert-heading fw-bold mb-1">Are you sure you want to delete your account?</h6>
+                                    <p className="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
                                 </div>
                             </div>
                             <form id="formAccountDeactivation" onSubmit={deactivateAccount}>
@@ -244,17 +242,19 @@ const Account = ({profile}) => {
                                         id="accountActivation"
                                         onChange={e => isSetRemember(e.target.checked)}
                                     />
-                                    <label className="form-check-label" htmlFor="accountActivation"
-                                    >I confirm my account deactivation</label
-                                    >
+                                    <label className="form-check-label" htmlFor="accountActivation">
+                                        I confirm my account deactivation
+                                    </label>
                                 </div>
-                                <button type="submit" className="btn btn-danger deactivate-account">Deactivate Account
+                                <button type="submit" className="btn btn-danger deactivate-account">
+                                    Deactivate Account
                                 </button>
                             </form>
                         </div>
                     </div>
                 ) : ""
             }
+
         </>
     )
 }

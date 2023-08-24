@@ -55,7 +55,6 @@ export const userDelete = ({params, user}) => async dispatch => {
         });
         dispatch({type: 'USER_DELETE_SUCCESS', payload: response.data});
     } catch (error) {
-        console.log(error.response.data.message)
         dispatch({type: 'USER_DELETE_FAILURE', payload: error.response.data.message});
         throw error.response.data.message;
     }
