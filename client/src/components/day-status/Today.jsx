@@ -8,7 +8,6 @@ import {TimeBadge} from "../general-component";
 import {formatText} from "../../function/format-text";
 import {getLastStatus} from "../../function/check-status";
 
-
 const Today = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.login.user);
@@ -22,7 +21,6 @@ const Today = () => {
         index: null
     });
 
-    // openList toggle function
     const openListHandler = (index) => {
         const id = index;
         dispatch(getAttendance({user, id}));
@@ -79,8 +77,6 @@ const Today = () => {
                                     {
                                         toDayStatus.today.map((item, index) => {
                                             const attendanceID = item.id;
-                                            const result = (item.check === 'CHECK_IN' && (item.break === 'BREAK_IN' || item.break === 'BREAK_OUT')) ? item.check : item.break;
-                                            console.log(result)
                                             return (
                                                 <React.Fragment key={index}>
                                                     <tr>
@@ -104,7 +100,11 @@ const Today = () => {
                                                         <td>
                                                             {/*<span className="badge bg-label-warning me-1">{item.break ? formatText(item.break) : ''}</span>*/}
                                                             <span
-                                                                className="badge bg-label-warning me-1">{getLastStatus([item.check, item.break])}</span>
+                                                                className="badge bg-label-warning me-1">
+                                                                {
+                                                                    getLastStatus([item.check, item.break])
+                                                                }
+                                                            </span>
                                                         </td>
                                                         <td>
                                                             <div className="dropdown">

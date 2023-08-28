@@ -56,7 +56,7 @@ class CommonModel {
     }
 
     updateWhere = async (tableName, params, conditionalParams) => {
-        var { columnSet, values } = utils.multipleColumnSet(params);
+        var {columnSet, values} = utils.multipleColumnSet(params);
         const conditions = utils.multipleSearchColumnSet(conditionalParams);
 
         const sql = `UPDATE ${tableName} SET ${columnSet} WHERE ${conditions.columnSet}`;
@@ -104,11 +104,6 @@ class CommonModel {
         return await query(sql, [employeeId, startDate, endDate]);
     }
     find_day_status = async (tableName, employee_id, date) => {
-        // const placeholders = employee_id.map(() => '?').join(', ');
-        // let sql = `SELECT employee_id,status FROM ${tableName} WHERE employee_id IN (${placeholders}) AND DATE(_in) = ?`;
-        //
-        // return await query(sql, [...employee_id, date]);
-
         const placeholders = employee_id.map(() => '?').join(', ');
         let sql = `SELECT employee_id, status FROM ${tableName} WHERE employee_id IN (${placeholders}) AND DATE(_in) = ? ORDER BY employee_id, _in DESC`;
 
@@ -147,7 +142,6 @@ class CommonModel {
     }
 
     delete = async (tableName, id) => {
-        console.log(id,tableName)
         const sql = `DELETE FROM ${tableName} WHERE id = ?`;
         const result = await query(sql, [id]);
         const affectedRows = result ? result.affectedRows : 0;

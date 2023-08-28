@@ -19,7 +19,6 @@ const Holidays = () => {
     }, [user])
 
     function deleteHolidayById(id) {
-        console.log(id)
         dispatch(deleteHoliday({user,id}))
     }
 

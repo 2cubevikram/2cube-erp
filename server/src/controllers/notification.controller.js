@@ -1,5 +1,5 @@
 import notificationModel from "../models/notification.model.js";
-import { io } from '../server.js';
+import {io} from '../server.js';
 import LeaveController from "./leave_app_controller.js";
 import AuthModel from "../models/auth.model.js";
 
@@ -18,7 +18,7 @@ class NotificationController {
             application_id: req.body.id,
             employee_id: req.body.employee_id,
             type: 'leave',
-            message: 'Leave Application from ' + user.first_name + ' ' + user.last_name,
+            message: 'from ' + user.first_name + ' ' + user.last_name,
         }
         const result = await notificationModel.createNotification(params);
         await notificationModel.findById({application_id: req.body.id, status: 'null'}, {});
@@ -30,7 +30,7 @@ class NotificationController {
                 link: '/leave-app'
             });
             await LeaveController.getLeavesById(req, res);
-        }else {
+        } else {
             return res.status(500).send({message: 'Something went wrong while applied leave'});
         }
     }
@@ -42,15 +42,20 @@ class NotificationController {
 
     updateNotification = async (req, res, next) => {
         const id = req.body.id;
+        const userId = req.currentUser.id;
         const params = {
             status: 'read',
         }
+        const user = await AuthModel.findOne({id: userId});
         const result = await notificationModel.updateNotification(params, id);
-        // if (result.affectedRows !== 0) {
-        //     await this.getAllNotification(req, res);
-        // }else {
-        //     return res.status(500).send({message: 'Something went wrong while update notification'});
-        // }
+
+        if (result.affectedRows !== 0) {
+            io.emit('new_leave_application', {
+                id: req.body.id,
+                message: req.body.status + ' from ' + user.first_name + ' ' + user.last_name,
+                link: '/leave-app'
+            });
+        }
     }
 
 

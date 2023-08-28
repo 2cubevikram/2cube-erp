@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useLocation, useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import moment from "moment";
-import {getAttendance, breakTimeEdit} from "../../redux/actions/profileAction";
+import {getAttendance, breakTimeEdit, breakTimeDelete} from "../../redux/actions/profileAction";
 import {formatDateTime} from "../../function/time";
 import {TimeBadge} from "../general-component";
 import {formatText} from "../../function/format-text";
@@ -15,7 +15,6 @@ const Attendance = () => {
     const id = location.state.id;
     const user = useSelector((state) => state.login.user);
     const attendance = useSelector((state) => state.user.attendance);
-    console.log(attendance)
 
     const footer_data = {
         break: 0,
@@ -136,8 +135,10 @@ const Tfooter = (props) => {
 }
 
 const TR = ({data}) => {
+    const dispatch = useDispatch();
     const user = useSelector((state) => state.login.user);
     const inTime = formatDateTime.getTime(data._in);
+    const [deleteId, setDeleteId] = useState();
 
     let outTime = '';
     if (data._out) {
@@ -155,6 +156,16 @@ const TR = ({data}) => {
     const handleChildEditableRow = () => {
         const newValue = !childValue;
         setChildValue(newValue);
+    };
+
+    const deleteBreak = (id) => {
+        let obj = {
+            'id': id,
+            'employee_id': data.employee_id,
+            'date': data.date,
+        }
+
+        dispatch(breakTimeDelete({user, obj}));
     };
 
     return (
@@ -180,6 +191,10 @@ const TR = ({data}) => {
                                             <>
                                                 <a onClick={handleChange} className="dropdown-item"><i
                                                     className="bx bx-edit me-1"></i>Edit</a>
+                                                <a
+                                                    onClick={event => deleteBreak(data.id)}
+                                                    className="dropdown-item">
+                                                    <i className="bx bx-trash me-1"></i> Delete</a>
                                             </>
                                         </div>
                                     </div>
@@ -209,11 +224,6 @@ const TR = ({data}) => {
                     />
                 ) : ""
             }
-            {/*{*/}
-            {/*    childValueMsg === "MSG" ? (*/}
-            {/*        <div className="error__msg">"Sorry, HR can't edit their own records."</div>*/}
-            {/*    ) : ""*/}
-            {/*}*/}
         </>
     )
 }
@@ -313,4 +323,3 @@ const EditableRow = ({_data, inTime, outTime, onChildClick}) => {
 }
 
 export default Attendance;
-// export default connect(null, {getAttendance})(Attendance);

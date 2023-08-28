@@ -41,6 +41,9 @@ router.get('/checkAttendance', auth(), awaitHandlerFactory(EmployeeController.ch
 router.get('/check-in-status', auth(), awaitHandlerFactory(EmployeeController.checkInStatus));
 router.get('/break-count', auth(), awaitHandlerFactory(EmployeeController.break_calculation));
 router.get('/break-status', auth(), awaitHandlerFactory(EmployeeController.break_status));
+router.get('/get-last-status', auth(), awaitHandlerFactory(EmployeeController.checkLastStatus));
+router.delete('/delete-break', auth(), awaitHandlerFactory(EmployeeController.deleteBreak));
+
 router.post('/leave-applied', auth(), awaitHandlerFactory(LeaveAppController.create));
 router.get('/leave-by-id', auth(), awaitHandlerFactory(LeaveAppController.getLeavesById));
 router.get('/all-leaves', auth(), awaitHandlerFactory(LeaveAppController.getAllLeaves));

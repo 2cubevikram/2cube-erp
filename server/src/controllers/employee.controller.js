@@ -96,16 +96,7 @@ class EmployeeController {
                 workingHours += parseFloat(hours);
             }
             const breakResult = await this.break_calculation(req, res)
-            // console.log(breakResult)
 
-            // const currentTime = new Date();
-            // const latestCheckIn = result.length > 0 ? new Date(result[result.length - 1].in) : null;
-
-            // if (latestCheckIn && latestCheckIn.toDateString() === currentTime.toDateString()) {
-            //     // User has a check-in entry for the current day
-            //     const duration = (currentTime - latestCheckIn) / 1000 / 60 / 60; // Duration in hours
-            //     workingHours += duration;
-            // }
             let breakHours = breakResult.brakeTimeHours;
             let workedgHours = workingHours - breakHours
             let remainWorkingHours = minimumWorkingHours - workedgHours;
@@ -123,6 +114,7 @@ class EmployeeController {
             console.log('Error in getting attending details', err.message);
         }
     };
+
     checkInStatus = async (req, res, next) => {
         let datePart;
         const date = new Date();
@@ -146,8 +138,9 @@ class EmployeeController {
             let result = await EmployeeModel.check_work_hours(employeeId, date);
 
             if (result.check !== undefined && result.check.length !== 0) {
-                const mergedResult = { ...result, serverTime:dateString };
+                const mergedResult = {...result, serverTime: dateString};
                 res.send(mergedResult);
+                // console.log(mergedResult)
                 // res.send(result);
             } else {
                 res.send({
@@ -232,6 +225,38 @@ class EmployeeController {
             res.status(400).json({error: 'Failed to fetch check-in status'});
         }
     };
+
+    checkLastStatus = async (req, res, next) => {
+        const result = await EmployeeModel.find({ employee_id: req.currentUser.id });
+        const currentTime = new Date();
+        const lastStatus = result[result.length - 1]._in; // Assuming this is a datetime
+
+        // Extract only the date parts from the datetime values
+        const currentDate = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate());
+        const lastStatusDate = new Date(lastStatus.getFullYear(), lastStatus.getMonth(), lastStatus.getDate());
+
+        // Compare the extracted date parts
+        const isSameDate = currentDate.getTime() === lastStatusDate.getTime();
+
+        const response = {
+            lastStatus: result[result.length - 1],
+            serverTime: currentTime,
+            isSameDate: isSameDate
+        };
+
+        res.send(response);
+    }
+
+    deleteBreak = async (req, res, next) => {
+        const id = req.query.row_id;
+        const result = await EmployeeModel.delete(id);
+
+        if (!result) {
+            return res.status(400).json({ message: 'Something went wrong' });
+        }
+        await this.checkInStatus(req, res); 
+    }
+
 
 }
 

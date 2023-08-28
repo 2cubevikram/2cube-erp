@@ -63,6 +63,14 @@ class EmployeeModel {
         return await commonModel.getBirthday(this.userTable);
     }
 
+    find = async (params = {}) => {
+        return await commonModel.find(this.tableName, params);
+    }
+
+    delete = async (params) => {
+        return await commonModel.delete(this.breakTable, params);
+    }
+
 
 }
 

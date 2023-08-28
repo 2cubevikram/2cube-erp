@@ -109,3 +109,20 @@ export const updateUserProfile = ({user, params}) => async (dispatch) => {
     dispatch({type: 'UPDATE_USER_PROFILE', payload: response.data});
 };
 
+export const breakTimeDelete = ({user, obj}) => async (dispatch) => {
+    try {
+        const response = await axios.delete(`${API_BASE_URL}/auth/delete-break`, {
+            params: {
+                row_id: obj.id,
+                id: obj.employee_id,
+                date: obj.date,
+            },
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            }
+        });
+        dispatch({type: 'GET_USER_ATTENDANCE', payload: response.data});
+    } catch (error) {
+        dispatch({type: 'BREAK_TIME_DELETE_FAILED', payload: error.message});
+    }
+}

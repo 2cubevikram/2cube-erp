@@ -5,9 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/client/src/redux/reducers/lastCheckReducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/css/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/css/demo.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/day-status/Today.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/day-status/Today.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/holidays/holidays.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/holidays/holidays.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/leave-form.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/leave-form.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/navbar/navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/navbar/navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/function/check-status.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/function/check-status.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/authActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/dayActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/dayActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/profileAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/profileAction.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/attendanceReducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/birthDayReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/birthDayReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/rootReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/rootReducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/.env" beforeDir="false" afterPath="$PROJECT_DIR$/server/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/notification.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/notification.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/common.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/common.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/employee.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/employee.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/routes/auth.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/auth.route.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +209,12 @@
       <workItem from="1692771878686" duration="23798000" />
       <workItem from="1692851048730" duration="14855000" />
       <workItem from="1692870408744" duration="1763000" />
-      <workItem from="1692873384430" duration="2867000" />
+      <workItem from="1692873384430" duration="4368000" />
+      <workItem from="1692939665255" duration="23458000" />
+      <workItem from="1692968156879" duration="4476000" />
+      <workItem from="1693025575519" duration="22690000" />
+      <workItem from="1693055737132" duration="1214000" />
+      <workItem from="1693197181054" duration="1703000" />
     </task>
     <servers />
   </component>

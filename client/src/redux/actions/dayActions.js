@@ -27,3 +27,17 @@ export const getBirthday = ({user}) => async (dispatch) => {
         dispatch({type: 'GET_BIRTHDAY_FAILED', payload: error.message});
     }
 };
+
+// get last day check status
+export const getLastStatus = ({user}) => async (dispatch) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/auth/get-last-status`, {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
+        dispatch({type: 'CHECK_LAST_STATUS', payload: response.data});
+    } catch (error) {
+        dispatch({type: 'CHECK_LAST_STATUS_FAILED', payload: error.message});
+    }
+}

@@ -26,7 +26,6 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                 leave_type: leave_type,
                 reason: reason
             }
-            // const newSocket = io('http://localhost:9000');
             await dispatch(leaveApplied({user, obj}))
             setStartDate("");
             setEndDate("");
@@ -50,7 +49,6 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                 alert(error);
                 // navigate('/to-day');
             }
-
 
         }
 

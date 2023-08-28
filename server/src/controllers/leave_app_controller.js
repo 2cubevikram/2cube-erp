@@ -65,6 +65,7 @@ class LeaveAppController {
         };
         let result = await LeaveAppModel.update(params, row_id);
         if (result.affectedRows > 0) {
+            await notificationController.updateNotification(req, res);
             await this.getAllLeaves(req, res);
         } else {
             return res.status(500).send({message: 'Something went wrong while getting updated application'});

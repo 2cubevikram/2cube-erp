@@ -60,6 +60,21 @@ export const userDelete = ({params, user}) => async dispatch => {
     }
 };
 
+// get all notification
+export const getNotification = ({user}) => async dispatch => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/auth/get-notification`, {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
+        dispatch({type: 'GET_NOTIFICATION_SUCCESS', payload: response.data});
+    } catch (error) {
+        dispatch({type: 'GET_NOTIFICATION_FAILURE', payload: error.response.data.message});
+        throw error.response.data.message;
+    }
+}
+
 export const logoutUser = data => ({
     type: 'LOG_OUT',
     payload: data
