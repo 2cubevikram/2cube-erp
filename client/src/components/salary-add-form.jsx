@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import moment from "moment";
-import {addSalary, updateSalary} from "../redux/actions/salaryActions";
+import {updateSalary} from "../redux/actions/salaryActions";
 
 const AddSalaryForm = ({data = null, date = null, type = null, formClose = null}) => {
     console.log(data)
@@ -69,7 +68,7 @@ const AddSalaryForm = ({data = null, date = null, type = null, formClose = null}
                                     type="number"
                                     id="amount"
                                     name="amount"
-                                    value={amount}
+                                    value={parseFloat(amount).toFixed(2)}
                                     onChange={(e) => setAmount(e.target.value)}
                                 />
                             </div>

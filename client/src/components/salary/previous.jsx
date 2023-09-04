@@ -1,9 +1,7 @@
 import moment from "moment";
-import {Link} from "react-router-dom";
 import React, {Fragment, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getSalary, getSalaryStatus} from "../../redux/actions/salaryActions";
-import AddSalaryForm from "../salary-add-form";
+import {getSalaryStatus} from "../../redux/actions/salaryActions";
 
 const Previous = () => {
     const dispatch = useDispatch();
@@ -11,15 +9,6 @@ const Previous = () => {
     const salaries = useSelector(state => state.salary);
     const loading = useSelector((state) => state.salary.loading);
     const [filterDate, setFilterDate] = useState();
-    const [addSalaryForm, setAddSalaryForm] = useState({
-        id: null,
-        state: false
-    })
-
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-    const currentYear = currentDate.getFullYear();
-    const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
     const handleClick = () => {
         dispatch(getSalaryStatus({user, filterDate}));
@@ -31,9 +20,9 @@ const Previous = () => {
     const handleClear = () => {
         setFilterDate('');
         dispatch(getSalaryStatus({user}));
+        // eslint-disable-next-line
     }
 
-    // this is set one month before the current month
     const lastMonth = moment().subtract(1, 'months').format('YYYY-MM-DD');
     // const lastMonth = moment().format('YYYY-MM-DD');
     // console.log(lastMonth);

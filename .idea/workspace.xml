@@ -6,25 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/assets/css/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/css/demo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/leave-form.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/leave-form.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Account.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Account.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/salary/salary.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/salary.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/profileAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/profileAction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/salaryActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/salaryActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/authReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/authReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/salaryReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/salaryReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/notification.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/notification.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/models/common.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/common.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/models/employee.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/employee.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/models/leave_app_model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/leave_app_model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/models/salary.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/salary.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/routes/auth.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/auth.route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/utils/common.utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/common.utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/salary-add-form.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary-add-form.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/salary/current.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/current.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/salary/previous.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/previous.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -237,7 +221,7 @@
       <workItem from="1693807555787" duration="1559000" />
       <workItem from="1693809153571" duration="8771000" />
       <workItem from="1693822174068" duration="1739000" />
-      <workItem from="1693823943533" duration="5037000" />
+      <workItem from="1693823943533" duration="6559000" />
     </task>
     <servers />
   </component>

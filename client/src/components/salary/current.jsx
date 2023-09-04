@@ -86,9 +86,8 @@ const Current = () => {
 
             return item;
         });
-
-
         setCalculatedData(calculatedSalaries);
+        // eslint-disable-next-line
     }, [salaries, lastDayOfMonth]);
 
     const serverDate = salaries.salary.length > 0 ? moment(salaries.salary[0].salary_date).format('YYYY-MM-DD') : null;
@@ -134,7 +133,7 @@ const Current = () => {
                                         <th>Leave</th>
                                         <th>Present Days</th>
                                         <th>Salary</th>
-                                        <th>Extra Allowance</th>
+                                        <th>Allowance</th>
                                         <th>Pay</th>
                                         <th>Credit Date</th>
                                         <th>Status</th>
