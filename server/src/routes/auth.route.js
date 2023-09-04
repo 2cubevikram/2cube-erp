@@ -30,8 +30,11 @@ router.patch('/reset-password', awaitHandlerFactory(AdminController.forgotPasswo
 router.patch('/delete-user', auth(), awaitHandlerFactory(AdminController.userDelete));
 
 // Salary Controller
-router.post('/salary-credit', auth(), awaitHandlerFactory(SalaryController.salaryCredit));
-router.get('/salary', auth(), awaitHandlerFactory(SalaryController.getSalaryStatus));
+router.get('/salary-data-generate', auth(), awaitHandlerFactory(SalaryController.SalaryDataGenerate));
+router.patch('/update-salary', auth(), awaitHandlerFactory(SalaryController.updateSalaryById));
+router.post('/salary-generate', awaitHandlerFactory(SalaryController.salaryGenerate));
+router.get('/get-salary-satus', auth(), awaitHandlerFactory(SalaryController.getAllSalaryStatus));
+router.patch('/salary-re-generate', auth(), awaitHandlerFactory(SalaryController.reGenerateSalary));
 
 
 //Employee use
@@ -43,6 +46,7 @@ router.get('/break-count', auth(), awaitHandlerFactory(EmployeeController.break_
 router.get('/break-status', auth(), awaitHandlerFactory(EmployeeController.break_status));
 router.get('/get-last-status', auth(), awaitHandlerFactory(EmployeeController.checkLastStatus));
 router.delete('/delete-break', auth(), awaitHandlerFactory(EmployeeController.deleteBreak));
+router.post('/add-increment', auth(), awaitHandlerFactory(EmployeeController.addIncrement));
 
 router.post('/leave-applied', auth(), awaitHandlerFactory(LeaveAppController.create));
 router.get('/leave-by-id', auth(), awaitHandlerFactory(LeaveAppController.getLeavesById));

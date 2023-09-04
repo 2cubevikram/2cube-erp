@@ -14,7 +14,6 @@ if (localStorage.getItem("user")) {
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'LOGIN_SUCCESS': {
-            console.log(action.payload)
             // localStorage.setItem("user", JSON.stringify(action.payload));
             const userJson = JSON.stringify(action.payload.data);
             localStorage.setItem("user", userJson);

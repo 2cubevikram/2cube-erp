@@ -2,6 +2,7 @@ import LeaveAppModel from "../models/leave_app_model.js";
 import AuthModel from "../models/auth.model.js";
 import {io} from '../server.js';
 import notificationController from "./notification.controller.js";
+import moment from "moment";
 
 
 /******************************************************************************
@@ -12,6 +13,13 @@ class LeaveAppController {
     create = async (req, res, next) => {
         req.body.employee_id = req.currentUser.id;
 
+        // count day between start_date and end_date
+        const start_date = moment(req.body.start_date);
+        const end_date = moment(req.body.end_date);
+        const duration = moment.duration(end_date.diff(start_date));
+        const days = duration.asDays();
+
+        req.body.days = days + 1;
         const result = await LeaveAppModel.create(req.body);
 
         if (result.id > 0) {
@@ -23,17 +31,36 @@ class LeaveAppController {
     };
 
     getAllLeaves = async (req, res, next) => {
-        const result = await LeaveAppModel.findAll();
+        const result = await LeaveAppModel.findAllLeaves();
         res.status(200).send(result);
     };
 
+    // getLeavesById = async (req, res, next) => {
+    //     const result = await LeaveAppModel.findById({employee_id: req.currentUser.id}, {'id': 'DESC'})
+    //     if (!result) {
+    //         return res.status(500).send({message: 'Something went wrong'});
+    //     }
+    //     res.status(200).send(result);
+    // };
+
     getLeavesById = async (req, res, next) => {
-        const result = await LeaveAppModel.findById({employee_id: req.currentUser.id}, {'id': 'DESC'})
+        let date = req.body.date !== undefined ? moment(req.body.date).format('YYYY-MM') : moment(new Date()).format('YYYY-MM');
+        let user_id = req.body.user_id !== undefined ? req.body.user_id : req.currentUser.id;
+        let status = req.body.status !== undefined ? req.body.status : 'Applied';
+
+        const params = {
+            employee_id: user_id,
+            start_date: date,
+            status: status
+        }
+        const result = await LeaveAppModel.findWhere(params)
         if (!result) {
             return res.status(500).send({message: 'Something went wrong'});
         }
         res.status(200).send(result);
-    };
+    }
+
+
     update = async (req, res, next) => {
         const userId = req.currentUser.id;
         const row_id = req.body.id;

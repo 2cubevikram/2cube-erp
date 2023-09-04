@@ -17,7 +17,10 @@ class EmployeeController {
             return res.status(404).send({message: 'User not found'});
         }
 
+        // const increment = 'every 4 months';
+
         const {password, created_at, updated_at, ...userWithoutPassword} = user;
+        // const userWithIncrement = { ...userWithoutPassword, increment };
         res.send(userWithoutPassword);
     };
 
@@ -255,6 +258,30 @@ class EmployeeController {
             return res.status(400).json({ message: 'Something went wrong' });
         }
         await this.checkInStatus(req, res); 
+    }
+
+    addIncrement = async (req, res, next) => {
+        const id = req.currentUser.id;
+
+        const user = await AuthModel.findOne({id: id});
+        const params = {
+            employee_id: req.body.employee_id,
+            increment: req.body.increment,
+            updated_by: user.role,
+        }
+
+        const result = await EmployeeModel.addIncrement(params);
+
+        if (!result) {
+            return res.status(400).json({ message: 'Something went wrong' });
+        }
+        await this.getIncrementById(req, res, next);
+    }
+
+    getIncrementById = async (req, res, next) => {
+        const id = req.body.employee_id;
+        const result = await EmployeeModel.getIncrementById({employee_id: id});
+        res.send(result);
     }
 
 

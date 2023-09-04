@@ -1,9 +1,11 @@
 import commonModel from "./common.model.js";
+import query from '../config/db-connection.js';
 
 class EmployeeModel {
     tableName = `attendance`;
     breakTable = `break_in_out`;
     userTable = `users`;
+    IncrementTable = `increment`;
 
     timestamp = async (row_id, employee_id, _time, method, status, updated_by) => {
         return await commonModel.timestamp(this.tableName, row_id, employee_id, _time, method, status, updated_by);
@@ -70,6 +72,17 @@ class EmployeeModel {
     delete = async (params) => {
         return await commonModel.delete(this.breakTable, params);
     }
+
+    addIncrement = async ({employee_id, increment, updated_by}) => {
+        const sql = `INSERT INTO ${this.IncrementTable} (employee_id, increment, updated_by) VALUES (?, ?, ?)`;
+        const result =  await query(sql, [employee_id, increment, updated_by]);
+        return result ? result.affectedRows : 0;
+
+    }
+
+    getIncrementById = async (params = {}) => {
+        return await commonModel.findWhere(this.IncrementTable, params);
+    };
 
 
 }

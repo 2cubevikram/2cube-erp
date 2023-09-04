@@ -258,7 +258,6 @@ tr.full-width td {
 .birthday-list {
 }
 
-
 .birthday-list li {
     margin: 8px 0;
     padding: 8px 15px;
@@ -301,7 +300,6 @@ li.completed-highlight {
     margin-top: -140px;
 }
 
-
 .birthday-list-v2 {
 }
 
@@ -330,4 +328,8 @@ li.completed-highlight {
 
 .notification-button i.bx {
     position: relative;
+}
+
+.salary-btn {
+    width: 12%;
 }

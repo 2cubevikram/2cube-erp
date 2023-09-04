@@ -5,30 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/redux/reducers/lastCheckReducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/public/assets/css/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/css/demo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/day-status/Today.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/day-status/Today.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/holidays/holidays.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/holidays/holidays.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/leave-form.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/leave-form.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/navbar/navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/navbar/navbar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/function/check-status.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/function/check-status.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/authActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/dayActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/dayActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Account.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Account.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/salary/salary.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/salary.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/redux/actions/profileAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/profileAction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/attendanceReducer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/birthDayReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/birthDayReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/rootReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/rootReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.env" beforeDir="false" afterPath="$PROJECT_DIR$/server/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/salaryActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/salaryActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/authReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/authReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/salaryReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/salaryReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/controllers/notification.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/notification.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/models/common.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/common.model.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/models/employee.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/employee.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/leave_app_model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/leave_app_model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/salary.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/salary.model.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/routes/auth.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/auth.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/utils/common.utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/common.utils.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +58,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/NODE_JS/2cube-erp/client/public&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/NODE_JS/2cube-erp/client/src/components/salary&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -74,11 +70,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\NODE_JS\2cube-erp\client\src\components\salary" />
       <recent name="D:\NODE_JS\2cube-erp\client\public" />
       <recent name="D:\NODE_JS\2cube-erp\client\public\assets" />
       <recent name="D:\NODE_JS\2cube-erp\client\src\redux\actions" />
       <recent name="D:\NODE_JS\2cube-erp\client\src\redux\reducers" />
-      <recent name="D:\NODE_JS\2cube-erp\client\src\components\user-action" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\NODE_JS\2cube-erp\client\src\redux" />
@@ -214,7 +210,34 @@
       <workItem from="1692968156879" duration="4476000" />
       <workItem from="1693025575519" duration="22690000" />
       <workItem from="1693055737132" duration="1214000" />
-      <workItem from="1693197181054" duration="1703000" />
+      <workItem from="1693197181054" duration="1807000" />
+      <workItem from="1693199029949" duration="7422000" />
+      <workItem from="1693207258219" duration="4354000" />
+      <workItem from="1693216613278" duration="6568000" />
+      <workItem from="1693223292488" duration="11758000" />
+      <workItem from="1693283085813" duration="23896000" />
+      <workItem from="1693311751086" duration="4421000" />
+      <workItem from="1693456193604" duration="4310000" />
+      <workItem from="1693460565343" duration="683000" />
+      <workItem from="1693461264731" duration="1748000" />
+      <workItem from="1693463043105" duration="8388000" />
+      <workItem from="1693475031948" duration="6764000" />
+      <workItem from="1693487124603" duration="1517000" />
+      <workItem from="1693488668482" duration="3763000" />
+      <workItem from="1693542813107" duration="6128000" />
+      <workItem from="1693549028015" duration="850000" />
+      <workItem from="1693549903808" duration="12066000" />
+      <workItem from="1693566639476" duration="7306000" />
+      <workItem from="1693629472182" duration="1096000" />
+      <workItem from="1693630771971" duration="5112000" />
+      <workItem from="1693636871002" duration="2517000" />
+      <workItem from="1693639431947" duration="607000" />
+      <workItem from="1693640054608" duration="17006000" />
+      <workItem from="1693801901755" duration="5569000" />
+      <workItem from="1693807555787" duration="1559000" />
+      <workItem from="1693809153571" duration="8771000" />
+      <workItem from="1693822174068" duration="1739000" />
+      <workItem from="1693823943533" duration="5037000" />
     </task>
     <servers />
   </component>

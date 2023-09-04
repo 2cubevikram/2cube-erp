@@ -72,7 +72,11 @@ class AdminController {
             return res.status(404).send({message: 'Employee not found'});
         }
 
+        const increment = await EmployeeModel.getIncrementById({employee_id: req.params.id});
+        result.increment = increment.length > 0 ? increment[increment.length - 1].increment : 0;
+
         const {password, status, created_at, updated_at, ...userWithoutPassword} = result;
+
         res.send(userWithoutPassword)
     };
 
@@ -328,7 +332,6 @@ class AdminController {
         let result = await authModel.update(params, id);
 
         if (!result) {
-            console.log(result)
             return res.status(409).send({message: 'Something went wrong while delete user.'});
         }
         res.status(200).send({message: 'User has been delete successfully.'});

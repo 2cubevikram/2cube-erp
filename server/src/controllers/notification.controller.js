@@ -2,6 +2,7 @@ import notificationModel from "../models/notification.model.js";
 import {io} from '../server.js';
 import LeaveController from "./leave_app_controller.js";
 import AuthModel from "../models/auth.model.js";
+import moment from "moment";
 
 
 /******************************************************************************
@@ -36,7 +37,11 @@ class NotificationController {
     }
 
     getAllNotification = async (req, res, next) => {
-        const result = await notificationModel.findAllNotification({'status': 'null'}, {'id': 'DESC'});
+        const params = {
+            // status: 'null',
+            date: moment().format('YYYY-MM-DD')
+        }
+        const result = await notificationModel.findAllNotification(params, {'id': 'DESC'});
         res.status(200).send(result);
     }
 

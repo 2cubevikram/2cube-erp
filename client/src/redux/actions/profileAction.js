@@ -126,3 +126,16 @@ export const breakTimeDelete = ({user, obj}) => async (dispatch) => {
         dispatch({type: 'BREAK_TIME_DELETE_FAILED', payload: error.message});
     }
 }
+
+export const addIncrement = ({user, params}) => async (dispatch) => {
+    try {
+        const response = await axios.post(`${API_BASE_URL}/auth/add-increment`, params, {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            }
+        });
+        dispatch({type: 'ADD_INCREMENT', payload: response.data});
+    } catch (error) {
+        dispatch({type: 'ADD_INCREMENT_FAILED', payload: error.message});
+    }
+}

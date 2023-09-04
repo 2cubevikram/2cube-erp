@@ -1,21 +1,54 @@
 import query from '../config/db-connection.js';
 import CommonModel from "./common.model.js";
+import commonModel from "./common.model.js";
 
 
 class SalaryModel {
-    userTable = 'users';
     salaryTable = 'salary';
-    creditSalary = async ({employee_id, amount, status}) => {
-        const sql = `INSERT INTO ${this.salaryTable}(employee_id,amount,status)VALUES(?,?,?)`;
 
-        const result = await query(sql, [employee_id, amount, status]);
-        return result ? result.affectedRows : 0;
+    // salary_status = async ({employee_ids, currentMonth, currentYear}) => {
+    //     const placeholders = employee_ids.map(() => '?').join(', ');
+    //     let sql = `SELECT id,employee_id,amount,extra_allowance, salary_date, status FROM ${this.salaryTable} WHERE employee_id IN (${placeholders}) AND MONTH(salary_date) = ? AND YEAR(salary_date) = ?`;
+    //     const values = [...employee_ids, currentMonth + 1, currentYear];
+    //
+    //     try {
+    //         return await query(sql, values);
+    //     } catch (error) {
+    //         throw error;
+    //     }
+    // }
+
+    update = async (params, id) => {
+        return await CommonModel.profile_update(this.salaryTable, params, id)
+    }
+
+    creditForAll = async ({employee_name, employee_id, total_leave, present_day, amount, salary_date, status}) => {
+
+        const sql = `INSERT INTO ${this.salaryTable} (employee_name, employee_id, total_leave, present_day,amount,salary_date,status) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        try {
+            const result = await query(sql, [employee_name, employee_id, total_leave, present_day, amount, salary_date, status]);
+            return result ? result.affectedRows : 0;
+        } catch (error) {
+            console.error(error);
+            return 0;
+        }
     };
 
-    salary_status = async ({currentMonth, currentYear}) => {
-        const sql = `SELECT u.first_name, u.last_name, u.join_date, s.* FROM ${this.salaryTable} s INNER JOIN ${this.userTable} u ON s.employee_id = u.id WHERE u.status = 'Active' AND MONTH(s.salary_date) = ? AND YEAR(s.salary_date) = ?`;
-        return await query(sql, [currentMonth, currentYear]);
+    findAll = async ({currentMonth, currentYear}) => {
+        let sql = `SELECT * FROM ${this.salaryTable} WHERE MONTH(salary_date) = ? AND YEAR(salary_date) = ?`;
+        const values = [currentMonth + 1, currentYear];
+
+        try {
+            return await query(sql, values);
+        } catch (error) {
+            throw error;
+        }
     }
+
+    updateWhere = async (params, conditionalParams) => {
+        return await commonModel.updateWhere(this.salaryTable, params, conditionalParams);
+    }
+
 }
 
 export default new SalaryModel;

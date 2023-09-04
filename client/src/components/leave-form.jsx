@@ -148,8 +148,8 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                                                 onChange={(e) => setStatus(e.target.value)}>
                                             <option value="" disabled>Select Type</option>
                                             <option value="In Review">In Review</option>
-                                            <option value="Leave Approved">Leave Approved</option>
-                                            <option value="Leave Denied">Leave Denied</option>
+                                            <option value="Approved">Approved</option>
+                                            <option value="Denied">Denied</option>
                                             <option value="Approved for Less Days">Approved for Less Days</option>
                                         </select>
                                     </div>
