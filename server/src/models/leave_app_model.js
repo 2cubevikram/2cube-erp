@@ -48,7 +48,9 @@ class LeaveAppModel {
         }
     };
 
-
+    delete = async (id) => {
+        return await commonModel.delete(this.tableName, id);
+    }
 }
 
 export default new LeaveAppModel;

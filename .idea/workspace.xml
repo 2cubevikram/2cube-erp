@@ -6,9 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/leave-manag/LeaveManag.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/leave-manag/LeaveManag.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/navbar/navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/navbar/navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Leave.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Leave.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/salary-add-form.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary-add-form.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/salary/current.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/current.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/salary/previous.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/previous.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/leaveActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/leaveActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/leaveReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/leaveReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/common.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/common.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/leave_app_model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/leave_app_model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/routes/auth.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/auth.route.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,7 +231,8 @@
       <workItem from="1693807555787" duration="1559000" />
       <workItem from="1693809153571" duration="8771000" />
       <workItem from="1693822174068" duration="1739000" />
-      <workItem from="1693823943533" duration="6559000" />
+      <workItem from="1693823943533" duration="12893000" />
+      <workItem from="1693888160472" duration="3953000" />
     </task>
     <servers />
   </component>

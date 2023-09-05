@@ -52,6 +52,7 @@ router.post('/leave-applied', auth(), awaitHandlerFactory(LeaveAppController.cre
 router.get('/leave-by-id', auth(), awaitHandlerFactory(LeaveAppController.getLeavesById));
 router.get('/all-leaves', auth(), awaitHandlerFactory(LeaveAppController.getAllLeaves));
 router.patch('/leave-update', auth(), awaitHandlerFactory(LeaveAppController.update));
+router.delete('/leave-delete', auth(), awaitHandlerFactory(LeaveAppController.delete));
 router.get('/get-notification', auth(), awaitHandlerFactory(NotificationController.getAllNotification));
 router.patch('/update-notification', auth(), awaitHandlerFactory(NotificationController.updateNotification));
 router.post('/add-notification', auth(), awaitHandlerFactory(NotificationController.createNotification));

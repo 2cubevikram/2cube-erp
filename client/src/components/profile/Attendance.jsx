@@ -138,7 +138,7 @@ const TR = ({data}) => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.login.user);
     const inTime = formatDateTime.getTime(data._in);
-    const [deleteId, setDeleteId] = useState();
+    // const [deleteId, setDeleteId] = useState();
 
     let outTime = '';
     if (data._out) {

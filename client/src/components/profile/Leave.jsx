@@ -1,21 +1,26 @@
-import React, {useEffect, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
-import {getLeaveById, leaveApplied} from "../../redux/actions/leaveActions";
+import {getLeaveById} from "../../redux/actions/leaveActions";
 import LeaveForm from "../leave-form";
 import {excerpt} from "../../function/excerpt";
+import {useLocation} from "react-router-dom";
 
 const Leave = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.login.user);
     const leaves = useSelector((state) => state.leave);
     const loading = useSelector((state) => state.leave.loading);
+    const [highlightedId, setHighlightedId] = useState(null);
+    const location = useLocation();
+    const notification_id = location.state ? location.state.id : 0 || 0;
 
     useEffect(() => {
+        setHighlightedId(notification_id);
         dispatch(getLeaveById({user}));
         // eslint-disable-next-line
     }, [user]);
-    console.log(leaves)
+
     return (
         <>
             <div className=" flex-grow-1 container-p-y">
@@ -48,32 +53,35 @@ const Leave = () => {
                                     <tbody className="table-border-bottom-0">
                                     {
                                         leaves.leave.map((item, index) => (
-                                            <tr key={item.key || index}>
-                                                <td>
-                                                    {moment(item.app_date).format("DD-MM-YYYY")}
-                                                </td>
-                                                <td>
+                                            <Fragment key={item.key || index}>
+                                                <tr className={highlightedId === item.id ? "highlighted-row" : ""}>
+                                                    <td>
+                                                        {moment(item.app_date).format("DD-MM-YYYY")}
+                                                    </td>
+                                                    <td>
                                                 <span className="badge bg-label-warning me-1">
                                                     {moment(item.start_date).format("DD-MM-YYYY")}
                                                 </span>
-                                                </td>
-                                                <td>
+                                                    </td>
+                                                    <td>
                                                 <span className="badge bg-label-warning me-1">
                                                     {moment(item.end_date).format("DD-MM-YYYY")}
                                                 </span>
-                                                </td>
-                                                <td>
+                                                    </td>
+                                                    <td>
                                                     <span
                                                         className="badge bg-label-warning me-1">{item.leave_type}</span>
-                                                </td>
-                                                <td><span
-                                                    className="badge bg-label-warning me-1">{excerpt(item.reason)}</span>
-                                                </td>
+                                                    </td>
+                                                    <td><span
+                                                        className="badge bg-label-warning me-1">{excerpt(item.reason)}</span>
+                                                    </td>
 
-                                                <td>
-                                                    <span className="badge bg-label-warning me-1">{item.status}</span>
-                                                </td>
-                                            </tr>
+                                                    <td>
+                                                        <span
+                                                            className="badge bg-label-warning me-1">{item.status}</span>
+                                                    </td>
+                                                </tr>
+                                            </Fragment>
                                         ))
                                     }
                                     </tbody>

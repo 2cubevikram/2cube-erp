@@ -110,7 +110,6 @@ const Navbar = () => {
                                                             >
                                                                 <div className="d-flex align-items-start">
                                                                     <div className="font-weight-bold me-1">{item.type} {item.message}</div>
-                                                                    <div className="text-muted small ms-auto">2h</div>
                                                                 </div>
                                                             </Link>
                                                             ) : (
@@ -123,7 +122,6 @@ const Navbar = () => {
                                                                 >
                                                                     <div className="d-flex align-items-start">
                                                                         <div className="font-weight-bold me-1">{item.type} {item.message}</div>
-                                                                        <div className="text-muted small ms-auto">2h</div>
                                                                     </div>
                                                                 </Link>
                                                             )

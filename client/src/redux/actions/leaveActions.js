@@ -60,3 +60,19 @@ export const updateLeave = ({user, obj}) => async (dispatch) => {
         throw error.response.data.message;
     }
 };
+
+export const deleteLeave = ({user, id}) => async (dispatch) => {
+    try {
+        const response = await axios.delete(`${API_BASE_URL}/auth/leave-delete`, {
+            params: {
+                id: id,
+            },
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            }
+        });
+        dispatch({type: 'DELETE_LEAVE_SUCCESS', payload: response.data});
+    } catch (error) {
+        dispatch({type: 'DELETE_LEAVE_FAILED', payload: error.message});
+    }
+}

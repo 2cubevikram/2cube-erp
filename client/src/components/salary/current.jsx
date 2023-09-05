@@ -23,7 +23,7 @@ const Current = () => {
     const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     // const lastMonth = moment().subtract(1).format('YYYY-MM-DD');
     const lastMonth = moment().subtract(1, 'months').format('YYYY-MM-DD');
-
+    console.log(lastMonth)
     function AddFormOpen(id, type) {
         setAddSalaryForm({
             id: id,
@@ -90,8 +90,8 @@ const Current = () => {
         // eslint-disable-next-line
     }, [salaries, lastDayOfMonth]);
 
-    const serverDate = salaries.salary.length > 0 ? moment(salaries.salary[0].salary_date).format('YYYY-MM-DD') : null;
-    const currentDate1 = moment().format('YYYY-MM-DD');
+    const serverDate = salaries.salary.length > 0 ? moment(salaries.salary[0].salary_date).format('YYYY-MM') : null;
+    const currentDate1 = moment().format('YYYY-MM');
 
     return (
         <>
@@ -143,7 +143,7 @@ const Current = () => {
                                     {
                                         salaries.salary.map((item, index) => {
                                             const finalSalary = (parseFloat(item.amount) + item.extra_allowance).toFixed(2)
-                                            const extraAllowance = item.extra_allowance && item.extra_allowance !== null ? item.extra_allowance : '00';
+                                            const extraAllowance = item.extra_allowance && item.extra_allowance !== null ? item.extra_allowance : '00.00';
 
                                             return (
                                                 <Fragment key={item.id || index}>

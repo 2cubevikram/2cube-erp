@@ -71,6 +71,21 @@ const leaveReducer = (state = initialState, action) => {
             return {
                 ...state
             };
+        case 'DELETE_LEAVE_SUCCESS':
+            console.log('action.payload', action.payload)
+            return {
+                ...state,
+                leave: action.payload,
+                loading: false,
+                error: null,
+            }
+        case 'DELETE_LEAVE_FAILED':
+            return {
+                ...state,
+                leave: [],
+                loading: false,
+                error: action.payload,
+            }
         default:
             return state;
     }

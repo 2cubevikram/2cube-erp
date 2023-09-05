@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import React, {Fragment, useEffect, useState} from "react";
-import {getAllLeave} from "../../redux/actions/leaveActions";
+import {deleteLeave, getAllLeave} from "../../redux/actions/leaveActions";
 import moment from "moment/moment";
 import {excerpt} from "../../function/excerpt";
 import LeaveForm from "../leave-form";
@@ -38,6 +38,10 @@ const LeaveManag = () => {
             id: null,
             state: false
         })
+    }
+
+    const handleLeaveDelete = async (id) => {
+        await dispatch(deleteLeave({id, user}));
     }
 
 
@@ -102,7 +106,6 @@ const LeaveManag = () => {
                                                     {excerpt(item.reason)}
                                                     {/*</span>*/}
                                                 </td>
-
                                                 <td>
                                                     <span className="badge bg-label-warning me-1">{item.status}</span>
                                                 </td>
@@ -121,8 +124,10 @@ const LeaveManag = () => {
                                                                         className="dropdown-item"><i
                                                                         className="bx bx-edit-alt me-1"></i>Edit</Link>
 
-                                                                    {/*<a className="dropdown-item" href="/"><i*/}
-                                                                    {/*    className="bx bx-trash me-1"></i> Delete</a>*/}
+                                                                    <Link
+                                                                        onClick={e => handleLeaveDelete(item.id)}
+                                                                        className="dropdown-item"><i
+                                                                        className="bx bx-trash me-1"></i> Delete</Link>
                                                                 </div>
                                                             </div>
                                                         ) : ""

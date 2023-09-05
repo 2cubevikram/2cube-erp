@@ -81,19 +81,6 @@ class CommonModel {
         return null;
     }
 
-    // updateWhere = async (tableName, params, conditionalParams) => {
-    //     console.log(params, conditionalParams)
-    //     var {columnSet, values} = utils.multipleColumnSet(params);
-    //     const conditions = utils.multipleSearchColumnSet(conditionalParams);
-    //
-    //     const sql = `UPDATE ${tableName} SET ${columnSet} WHERE ${conditions.columnSet}`;
-    //
-    //     var allValues = conditions.values;
-    //     const result = await query(sql, [...values, ...allValues]);
-    //
-    //     return result;
-    // }
-
     updateWhere = async (tableName, params, conditionalParams) => {
         var { columnSet, values } = utils.multipleColumnSet(params);
         const conditions = utils.multipleSearchColumnSet(conditionalParams);
@@ -105,7 +92,6 @@ class CommonModel {
 
         return result;
     }
-
 
     timestamp = async (tableName, row_id, employee_id, _time, method, status) => {
         if (method === "ADD") {
@@ -158,6 +144,23 @@ class CommonModel {
 
         return await query(sql);
     }
+
+    // findAllLeaves = async (tableName, params, order_by) => {
+    //     let sql = `SELECT leave_application.*, users.first_name, users.last_name FROM leave_application JOIN users ON leave_application.employee_id = users.id`;
+    //
+    //     if (params.start_date === '') {
+    //         sql += ` WHERE start_date = ''`;
+    //     }
+    //
+    //     if (order_by) {
+    //         sql += ` ORDER BY ${order_by}`;
+    //     } else {
+    //         sql += ` ORDER BY leave_application.id DESC`;
+    //     }
+    //
+    //     return await query(sql);
+    // }
+
 
     leave_update = async (tableName, params, id) => {
         const {columnSet, values} = utils.multipleColumnSet(params)

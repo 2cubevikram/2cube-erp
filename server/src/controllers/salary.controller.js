@@ -63,8 +63,9 @@ class SalaryController {
                     id: user.salaryIds,
                     employee_id: user.id,
                 }
+
                 await SalaryModel.updateWhere(params, conditionalParams);
-                console.log(`Updated iD ${user.salaryIds} user id ${user.id}`);
+                // console.log(`Updated iD ${user.salaryIds} user id ${user.id}`);
             }
 
             await this.getAllSalaryStatus(req, res, next);
@@ -76,7 +77,7 @@ class SalaryController {
     SalaryDataGenerate = async (req, res, next) => {
         try {
             let date = moment(req.query.date, 'YYYY-MM').isValid() ? moment(req.query.date).format('YYYY-MM') : moment().format('YYYY-MM');
-            let status = req.query.status !== undefined ? req.query.status : 'Applied';
+            let status = req.query.status !== undefined ? req.query.status : 'Approved';
 
             const users = await AuthModel.find({'status': 'Active'}, {'created_at': 'ASC'});
 

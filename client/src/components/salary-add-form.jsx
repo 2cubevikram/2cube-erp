@@ -68,7 +68,7 @@ const AddSalaryForm = ({data = null, date = null, type = null, formClose = null}
                                     type="number"
                                     id="amount"
                                     name="amount"
-                                    value={parseFloat(amount).toFixed(2)}
+                                    value={parseFloat(amount).toFixed(0)}
                                     onChange={(e) => setAmount(e.target.value)}
                                 />
                             </div>

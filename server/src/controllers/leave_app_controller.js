@@ -3,6 +3,7 @@ import AuthModel from "../models/auth.model.js";
 import {io} from '../server.js';
 import notificationController from "./notification.controller.js";
 import moment from "moment";
+import HttpException from "../utils/HttpException.utils.js";
 
 
 /******************************************************************************
@@ -35,14 +36,6 @@ class LeaveAppController {
         res.status(200).send(result);
     };
 
-    // getLeavesById = async (req, res, next) => {
-    //     const result = await LeaveAppModel.findById({employee_id: req.currentUser.id}, {'id': 'DESC'})
-    //     if (!result) {
-    //         return res.status(500).send({message: 'Something went wrong'});
-    //     }
-    //     res.status(200).send(result);
-    // };
-
     getLeavesById = async (req, res, next) => {
         let date = req.body.date !== undefined ? moment(req.body.date).format('YYYY-MM') : moment(new Date()).format('YYYY-MM');
         let user_id = req.body.user_id !== undefined ? req.body.user_id : req.currentUser.id;
@@ -58,8 +51,7 @@ class LeaveAppController {
             return res.status(500).send({message: 'Something went wrong'});
         }
         res.status(200).send(result);
-    }
-
+    };
 
     update = async (req, res, next) => {
         const userId = req.currentUser.id;
@@ -82,10 +74,18 @@ class LeaveAppController {
             }
         }
 
+        const start_date = moment(req.body.start_date);
+        const end_date = moment(req.body.end_date);
+        const duration = moment.duration(end_date.diff(start_date));
+        const days = duration.asDays();
+
+        req.body.days = days + 1;
+
         const params = {
             status: req.body.status,
             start_date: req.body.start_date,
             end_date: req.body.end_date,
+            days: req.body.days,
             leave_type: req.body.leave_type,
             reason: req.body.reason,
             updated_by: user.role
@@ -99,6 +99,16 @@ class LeaveAppController {
         }
 
     };
+
+    delete = async (req, res, next) => {
+        const id = req.query.id;
+        const result = await LeaveAppModel.delete(id);
+        if (!result) {
+            throw new HttpException(404, 'Data not found');
+        }
+        await this.getAllLeaves(req, res);
+        // res.send('Leave has been deleted');
+    }
 
 }
 
