@@ -33,8 +33,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
 const publicFolderPath = process.env.PUBLIC_FOLDER_PATH || path.join(__dirname, '../public');
-// console.log('PUBLIC_FOLDER_PATH env variable:', process.env.PUBLIC_FOLDER_PATH);
-// console.log('Computed publicFolderPath:', publicFolderPath);
 
 app.use("/public", express.static(publicFolderPath));
 

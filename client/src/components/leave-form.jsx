@@ -70,7 +70,7 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
 
 
     return (
-        <div className=" flex-grow-1 container-p-y">
+        <div className="container-xxl flex-grow-1 container-p-y">
             <div className="card">
                 {
                     type === "APPLIED" ? (

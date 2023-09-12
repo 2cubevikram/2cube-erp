@@ -23,6 +23,8 @@ const Navbar = () => {
 
     useEffect(() => {
         const newSocket = io('http://localhost:3030');
+        // const newSocket = io('http://192.168.1.20:3030');
+
 
         dispatch(getNotification({user}));
 
@@ -35,34 +37,8 @@ const Navbar = () => {
         };
     }, [dispatch, user]);
 
-    // useEffect(() => {
-    //     if (notification) {
-    //         localStorage.setItem('notification', JSON.stringify(notification));
-    //     } else {
-    //         localStorage.removeItem('notification');
-    //     }
-    // }, [notification]);
-
-    // console.log(notifications)
     return (
         <>
-            {/*{notification &&*/}
-            {/*    <div className="notification__cover">*/}
-            {/*        <div className="notification">*/}
-            {/*            <Link to={notification.link}*/}
-            {/*                  state={{id: notification.id}}>*/}
-            {/*                {notification.message}*/}
-            {/*            </Link>*/}
-            {/*            <button onClick={() => setNotification(null)}>*/}
-            {/*                <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px"*/}
-            {/*                     viewBox="0 0 24 24">*/}
-            {/*                    <path fill="none" stroke="#000000" strokeWidth="2"*/}
-            {/*                          d="M7,7 L17,17 M7,17 L17,7"/>*/}
-            {/*                </svg>*/}
-            {/*            </button>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*}*/}
             <nav
                 className="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                 id="layout-navbar">

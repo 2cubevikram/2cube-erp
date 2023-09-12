@@ -18,6 +18,7 @@ import {checkLogin} from "../../function/check_login";
 
 const Dashboard = () => {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    console.log('test',PF)
     const dispatch = useDispatch();
     const user = useSelector(state => state.login.user);
     const break_status = useSelector(state => state.break);
@@ -49,25 +50,6 @@ const Dashboard = () => {
                             <div className="card dashboard-banner">
                                 <div className="d-flex align-items-end row">
                                     <div className="col-sm-7">
-                                        {/*<div className="card-body">*/}
-                                        {/*    <h5 className="card-title text-primary">Welcome, {user.first_name} {user.last_name} !*/}
-                                        {/*        🎉</h5>*/}
-                                        {/*    <p className="mb-4">*/}
-                                        {/*        🌞 It's time for our daily check-in to get the day started on the right*/}
-                                        {/*        foot. Looking forward to a productive and successful day ahead! 💪*/}
-                                        {/*    </p>*/}
-                                        {/*    /!*{check_status.status === "CHECK_OUT" ? (*!/*/}
-                                        {/*    /!*    <div className="alert alert-primary" role="alert">Your Day Was*!/*/}
-                                        {/*    /!*        Completed! Have a great day! If you need any assistance, please*!/*/}
-                                        {/*    /!*        contact the authorized person. 🌞</div>*!/*/}
-                                        {/*    /!*) : (*!/*/}
-                                        {/*    /!*    <div className="btn_wrp1">*!/*/}
-                                        {/*    /!*        <CheckAction break_status={_break} check_status={_check}/>*!/*/}
-                                        {/*    /!*        <BreakAction break_status={_break} check_status={_check}/>*!/*/}
-                                        {/*    /!*    </div>)*!/*/}
-                                        {/*    /!*}*!/*/}
-                                        {/*</div>*/}
-
                                         <div className="card-body">
                                             <h5 className="card-title text-primary">Welcome, {user.first_name} {user.last_name} ! 🎉</h5>
                                             <p className="mb-4">

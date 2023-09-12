@@ -129,13 +129,13 @@ const LeaveManag = () => {
                                                 <td>
                                                     <span className="badge bg-label-warning me-1">{item.status}</span>
                                                 </td>
-                                                {/*<td></td>*/}
+
                                                 <td>
                                                     {
                                                         !leaveForm.state ? (
                                                             <div className="dropdown">
                                                                 <button type="button"
-                                                                        className="btn p-0 dropdown-toggle hide-arrow"
+                                                                        className="btn p-0 dropdown-toggle hide-arrow table-btn-right"
                                                                         data-bs-toggle="dropdown">
                                                                     <i className="bx bx-dots-vertical-rounded"></i>
                                                                 </button>
@@ -154,11 +154,14 @@ const LeaveManag = () => {
                                                         ) : ""
                                                     }
                                                 </td>
+                                                <td></td>
+                                                {/*<td></td>*/}
+                                                {/*<td></td>*/}
                                             </tr>
                                             {
                                                 leaveForm.state && leaveForm.id === index ? (
                                                     <tr className={"full-width"}>
-                                                        <td colSpan="8">
+                                                        <td colSpan="10">
                                                             <LeaveForm data={item} type={"UPDATE"}
                                                                        formClose={handleFormClose}/>
                                                         </td>

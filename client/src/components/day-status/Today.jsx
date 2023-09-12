@@ -104,7 +104,7 @@ const Today = () => {
                                                         <td>
                                                             <div className="dropdown">
                                                                 <button type="button"
-                                                                        className="btn p-0 dropdown-toggle hide-arrow"
+                                                                        className="btn p-0 dropdown-toggle hide-arrow table-center-dot"
                                                                         data-bs-toggle="dropdown">
                                                                     <i className="bx bx-dots-vertical-rounded"></i>
                                                                 </button>
