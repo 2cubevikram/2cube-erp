@@ -82,7 +82,7 @@ class CommonModel {
     }
 
     updateWhere = async (tableName, params, conditionalParams) => {
-        var { columnSet, values } = utils.multipleColumnSet(params);
+        var {columnSet, values} = utils.multipleColumnSet(params);
         const conditions = utils.multipleSearchColumnSet(conditionalParams);
 
         const sql = `UPDATE ${tableName} SET ${columnSet} WHERE ${conditions.columnSet}`;
@@ -139,10 +139,21 @@ class CommonModel {
         return await query(sql, sqlParams);
     }
 
-    findAllLeaves = async (tableName, params, order_by) => {
-        let sql = `SELECT leave_application.*, users.first_name, users.last_name FROM leave_application JOIN users ON leave_application.employee_id = users.id ORDER BY leave_application.id DESC`;
+    findAllLeaves = async (params, order_by) => {
+        const specificDateString = params.date;
+
+        let sql = `
+        SELECT leave_application.*, users.first_name, users.last_name
+        FROM leave_application
+        JOIN users ON leave_application.employee_id = users.id
+        WHERE DATE_FORMAT(leave_application.start_date, '%Y-%m') LIKE '%${specificDateString}%'
+        ORDER BY leave_application.id DESC
+    `;
 
         return await query(sql);
+        // let sql = `SELECT leave_application.*, users.first_name, users.last_name FROM leave_application JOIN users ON leave_application.employee_id = users.id ORDER BY leave_application.id DESC`;
+        //
+        // return await query(sql);
     }
 
     // findAllLeaves = async (tableName, params, order_by) => {

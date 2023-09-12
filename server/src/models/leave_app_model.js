@@ -25,21 +25,44 @@ class LeaveAppModel {
         return await commonModel.find(this.tableName, params, order_by);
     }
 
-    findAllLeaves = async () => {
-        return await commonModel.findAllLeaves();
+    findAllLeaves = async (params, order_by) => {
+        return await commonModel.findAllLeaves(params, order_by);
     }
 
     update = async (params, id) => {
         return await commonModel.leave_update(this.tableName, params, id);
     }
 
+    // findWhere = async ({ employee_id, start_date, status }) => {
+    //     const employee_ids = Array.isArray(employee_id) ? employee_id : [employee_id];
+    //     const placeholders = employee_ids.map(() => '?').join(', '); // Create placeholders based on the number of IDs
+    //     const sql = `SELECT * FROM ${this.tableName} WHERE employee_id IN (${placeholders}) AND start_date LIKE ? AND status = ?`;
+    //
+    //     // Construct the values array, first the IDs, then the other values
+    //     const values = [...employee_ids, `${start_date}%`, status];
+    //
+    //     try {
+    //         return await query(sql, values);
+    //     } catch (error) {
+    //         throw error;
+    //     }
+    // };
+
     findWhere = async ({ employee_id, start_date, status }) => {
         const employee_ids = Array.isArray(employee_id) ? employee_id : [employee_id];
         const placeholders = employee_ids.map(() => '?').join(', '); // Create placeholders based on the number of IDs
-        const sql = `SELECT * FROM ${this.tableName} WHERE employee_id IN (${placeholders}) AND start_date LIKE ? AND status = ?`;
 
-        // Construct the values array, first the IDs, then the other values
-        const values = [...employee_ids, `${start_date}%`, status];
+        // Construct the SQL query and values array based on whether status is set
+        let sql;
+        let values;
+
+        if (status !== undefined && status !== null) {
+            sql = `SELECT * FROM ${this.tableName} WHERE employee_id IN (${placeholders}) AND start_date LIKE ? AND status = ?`;
+            values = [...employee_ids, `${start_date}%`, status];
+        } else {
+            sql = `SELECT * FROM ${this.tableName} WHERE employee_id IN (${placeholders}) AND start_date LIKE ?`;
+            values = [...employee_ids, `${start_date}%`];
+        }
 
         try {
             return await query(sql, values);

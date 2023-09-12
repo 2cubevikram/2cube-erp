@@ -23,7 +23,7 @@ const Current = () => {
     const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     // const lastMonth = moment().subtract(1).format('YYYY-MM-DD');
     const lastMonth = moment().subtract(1, 'months').format('YYYY-MM-DD');
-    console.log(lastMonth)
+
     function AddFormOpen(id, type) {
         setAddSalaryForm({
             id: id,
@@ -54,21 +54,8 @@ const Current = () => {
     }, [user]);
 
     useEffect(() => {
-
-        // const calculatedSalaries = dataGenerate.map((item, index) => {
-        //     const salaryIds = salaries.salary.map((item) => item.id);
-        //     const leaveAndDays = item.leave_type.map((type, index) => `${item.days[index]}/${type}`).join(', ');
-        //     const totalDays = item.days.reduce((sum, days) => sum + days, 0);
-        //     const presentDays = lastDayOfMonth - totalDays;
-        //     const salary = (item.basic_salary / lastDayOfMonth) * presentDays;
-        //     item.finalSalary = salary;
-        //     item.presentDays = presentDays;
-        //     item.leaveAndDays = leaveAndDays;
-        //
-        //     return item;
-        // });
-
         const calculatedSalaries = dataGenerate.map((item, index) => {
+            console.log(item.increment)
             const employeeId = item.id;
             const matchingSalary = salaries.salary.find(salaryItem => salaryItem.employee_id === employeeId);
             if (matchingSalary) {
@@ -80,7 +67,7 @@ const Current = () => {
             const totalDays = item.days.reduce((sum, days) => sum + days, 0);
             const presentDays = lastDayOfMonth - totalDays;
             const salary = (item.basic_salary / lastDayOfMonth) * presentDays;
-            item.finalSalary = salary;
+            item.finalSalary = salary + item.increment;
             item.presentDays = presentDays;
             item.leaveAndDays = leaveAndDays;
 
@@ -101,15 +88,12 @@ const Current = () => {
                             onClick={() => handleAddSalary(calculatedData)}
                     > Generate Salary</button> : ""
             }
-
             {
                 serverDate === currentDate1 ?
                     <button type="button" className="btn btn-primary me-2 salary-btn"
                             onClick={() => handleReGenerateSalary(calculatedData)}
                     > Re-Generate Salary</button> : ""
             }
-
-
             <div className="flex-grow-1 container-p-y">
                 <div className="card text-center">
                     <h5 className="card-header">Current Salary Status</h5>
@@ -170,8 +154,7 @@ const Current = () => {
                                                                     <Link
                                                                         onClick={e => AddFormOpen(item.id, "UPDATE")}
                                                                         className="dropdown-item"
-                                                                    >
-                                                                        <i className="bx bx-edit-alt me-1"></i>Edit
+                                                                    ><i className="bx bx-edit-alt me-1"></i>Edit
                                                                     </Link>
                                                                 </div>
                                                             </div>

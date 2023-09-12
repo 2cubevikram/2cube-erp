@@ -136,7 +136,7 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                                     name="leaveReason"
                                     value={reason}
                                     onChange={(e) => setReason(e.target.value)}
-                                    // required
+                                    required
                                 />
                             </div>
                             {

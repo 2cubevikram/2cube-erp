@@ -101,7 +101,17 @@ export const addUserProfile = ({user, obj}) => async (dispatch) => {
 };
 
 export const updateUserProfile = ({user, params}) => async (dispatch) => {
+    console.log(params)
     const response = await axios.patch(`${API_BASE_URL}/auth/update-user`, params, {
+        headers: {
+            Authorization: `Bearer ${user.token}`,
+        },
+    });
+    dispatch({type: 'UPDATE_USER_PROFILE', payload: response.data});
+};
+
+export const updateUserByAdmin = ({user, params}) => async (dispatch) => {
+    const response = await axios.patch(`${API_BASE_URL}/auth/update-by-admin`, params, {
         headers: {
             Authorization: `Bearer ${user.token}`,
         },

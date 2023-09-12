@@ -40,6 +40,7 @@ router.patch('/salary-re-generate', auth(), awaitHandlerFactory(SalaryController
 //Employee use
 router.patch('/add', auth(), (UploadMediaController.uplodMedia), awaitHandlerFactory(EmployeeController.add_data));
 router.patch('/update-user', auth(), awaitHandlerFactory(EmployeeController.add_data));
+router.patch('/update-by-admin', auth(), awaitHandlerFactory(EmployeeController.userProfileUpdateByAdmin));
 router.get('/checkAttendance', auth(), awaitHandlerFactory(EmployeeController.checkAttendance));
 router.get('/check-in-status', auth(), awaitHandlerFactory(EmployeeController.checkInStatus));
 router.get('/break-count', auth(), awaitHandlerFactory(EmployeeController.break_calculation));

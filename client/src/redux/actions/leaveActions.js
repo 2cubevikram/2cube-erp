@@ -15,7 +15,7 @@ export const leaveApplied = ({user, obj}) => async (dispatch) => {
     }
 };
 
-export const getLeaveById = ({user}) => async (dispatch) => {
+export const getLeaveById = ({user, filterDate}) => async (dispatch) => {
     try {
         const response = await axios.get(`${API_BASE_URL}/auth/leave-by-id`, {
             headers: {
@@ -23,6 +23,7 @@ export const getLeaveById = ({user}) => async (dispatch) => {
             },
             params: {
                 id: `${user.id}`,
+                date: filterDate,
             }
         });
         dispatch({type: 'GET_LEAVE_SUCCESS', payload: response.data});
@@ -31,7 +32,7 @@ export const getLeaveById = ({user}) => async (dispatch) => {
     }
 };
 
-export const getAllLeave = ({user}) => async (dispatch) => {
+export const getAllLeave = ({user, filterDate}) => async (dispatch) => {
     try {
         const response = await axios.get(`${API_BASE_URL}/auth/all-leaves`, {
             headers: {
@@ -39,6 +40,7 @@ export const getAllLeave = ({user}) => async (dispatch) => {
             },
             params: {
                 id: `${user.id}`,
+                date: filterDate,
             }
         });
         dispatch({type: 'GET_ALL_LEAVES_SUCCESS', payload: response.data});

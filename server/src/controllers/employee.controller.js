@@ -16,9 +16,6 @@ class EmployeeController {
         if (!user) {
             return res.status(404).send({message: 'User not found'});
         }
-
-        // const increment = 'every 4 months';
-
         const {password, created_at, updated_at, ...userWithoutPassword} = user;
         // const userWithIncrement = { ...userWithoutPassword, increment };
         res.send(userWithoutPassword);
@@ -34,7 +31,27 @@ class EmployeeController {
         const params = {
             ...req.body,
         };
+        console.log(params)
+        const result = await EmployeeModel.profile_update(params, id);
 
+        if (!result) {
+            return res.status(400).send({message: 'Unable to edit user'});
+        }
+
+        req.body.id = id;
+        await this.getUserById(req, res, next);
+    }
+
+    userProfileUpdateByAdmin = async (req, res, next) => {
+        const id = req.body.employee_id;
+        req.body.updated_at = new Date();
+
+        const params = {
+            account_number: req.body.account_number,
+            join_date: req.body.join_date,
+            extra_details: req.body.extra_details,
+            basic: req.body.basic,
+        }
         const result = await EmployeeModel.profile_update(params, id);
 
         if (!result) {
@@ -230,7 +247,7 @@ class EmployeeController {
     };
 
     checkLastStatus = async (req, res, next) => {
-        const result = await EmployeeModel.find({ employee_id: req.currentUser.id });
+        const result = await EmployeeModel.find({employee_id: req.currentUser.id});
         const currentTime = new Date();
         const lastStatus = result[result.length - 1]._in; // Assuming this is a datetime
 
@@ -255,9 +272,9 @@ class EmployeeController {
         const result = await EmployeeModel.delete(id);
 
         if (!result) {
-            return res.status(400).json({ message: 'Something went wrong' });
+            return res.status(400).json({message: 'Something went wrong'});
         }
-        await this.checkInStatus(req, res); 
+        await this.checkInStatus(req, res);
     }
 
     addIncrement = async (req, res, next) => {
@@ -266,14 +283,14 @@ class EmployeeController {
         const user = await AuthModel.findOne({id: id});
         const params = {
             employee_id: req.body.employee_id,
-            increment: req.body.increment,
+            increment_date: req.body.increment_date,
+            amount: req.body.amount,
             updated_by: user.role,
         }
-
         const result = await EmployeeModel.addIncrement(params);
 
         if (!result) {
-            return res.status(400).json({ message: 'Something went wrong' });
+            return res.status(400).json({message: 'Something went wrong'});
         }
         await this.getIncrementById(req, res, next);
     }

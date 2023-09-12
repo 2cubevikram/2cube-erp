@@ -15,10 +15,25 @@ const LeaveManag = () => {
     const [highlightedId, setHighlightedId] = useState(null);
     const location = useLocation();
     const notification_id = location.state ? location.state.id : 0 || 0;
+    const [filterDate, setFilterDate] = useState();
     const [leaveForm, setLeaveForm] = useState({
         id: null,
         state: false
     })
+
+    const handleChange = (event) => {
+        setFilterDate(event.target.value);
+    }
+
+    const handleClick = () => {
+        dispatch(getAllLeave({user, filterDate}));
+    }
+
+    const handleClear = () => {
+        setFilterDate('');
+        dispatch(getAllLeave({user}));
+        // eslint-disable-next-line
+    }
 
     useEffect(() => {
         setHighlightedId(notification_id);
@@ -54,28 +69,33 @@ const LeaveManag = () => {
                         <div>Loading...</div>
                     ) : (
                         <div className="table-responsive text-nowrap">
-                            {leaves.leave.length === 0 ? (
-                                <table className="table">
-                                    <tbody className="table-border-bottom-0">
-                                    <tr>
-                                        <td colSpan="7">No Leave Applied</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            ) : (
-                                <table className="table">
-                                    <thead>
-                                    <tr>
-                                        <th>Emp. Name</th>
-                                        <th>Applied Date</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Leave Type</th>
-                                        <th>Leave Reason</th>
-                                        <th>Status</th>
-                                        <th className={`text-center`}>Action</th>
-                                    </tr>
-                                    </thead>
+
+                            <table className="table">
+                                <thead>
+                                <tr>
+                                    <th>Emp. Name</th>
+                                    <th>Applied Date</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Leave Type</th>
+                                    <th>Leave Reason</th>
+                                    <th>Status</th>
+                                    <th className={`text-center`}>Action</th>
+                                    <input type="date" name="filterDate" value={filterDate}
+                                           onChange={handleChange}/>
+                                    <button onClick={handleClick}>filter</button>
+                                    <button onClick={handleClear}>clear</button>
+                                </tr>
+                                </thead>
+                                {leaves.leave.length === 0 ? (
+                                    <table className="table">
+                                        <tbody className="table-border-bottom-0">
+                                        <tr>
+                                            <td colSpan="7">No Leave Applied</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                ) : (
                                     <tbody className="table-border-bottom-0">
                                     {leaves.leave.map((item, index) => (
                                         <Fragment key={item.id || index}>
@@ -109,6 +129,7 @@ const LeaveManag = () => {
                                                 <td>
                                                     <span className="badge bg-label-warning me-1">{item.status}</span>
                                                 </td>
+                                                {/*<td></td>*/}
                                                 <td>
                                                     {
                                                         !leaveForm.state ? (
@@ -147,8 +168,8 @@ const LeaveManag = () => {
                                         </Fragment>
                                     ))}
                                     </tbody>
-                                </table>
-                            )}
+                                )}
+                            </table>
                         </div>
                     )}
                 </div>

@@ -5,6 +5,7 @@ import {getLeaveById} from "../../redux/actions/leaveActions";
 import LeaveForm from "../leave-form";
 import {excerpt} from "../../function/excerpt";
 import {useLocation} from "react-router-dom";
+import {getSalaryStatus} from "../../redux/actions/salaryActions";
 
 const Leave = () => {
     const dispatch = useDispatch();
@@ -14,6 +15,21 @@ const Leave = () => {
     const [highlightedId, setHighlightedId] = useState(null);
     const location = useLocation();
     const notification_id = location.state ? location.state.id : 0 || 0;
+    const [filterDate, setFilterDate] = useState();
+
+    const handleChange = (event) => {
+        setFilterDate(event.target.value);
+    };
+
+    const handleClick = () => {
+        dispatch(getLeaveById({user, filterDate}));
+    }
+
+    const handleClear = () => {
+        setFilterDate('');
+        dispatch(getLeaveById({user}));
+        // eslint-disable-next-line
+    }
 
     useEffect(() => {
         setHighlightedId(notification_id);
@@ -30,26 +46,30 @@ const Leave = () => {
                         <div>Loading...</div>
                     ) : (
                         <div className="table-responsive text-nowrap">
-                            {leaves.leave.length === 0 ? (
-                                <table className="table">
-                                    <tbody className="table-border-bottom-0">
-                                    <tr>
-                                        <td colSpan="7">No Leave Applied</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            ) : (
-                                <table className="table">
-                                    <thead>
-                                    <tr>
-                                        <th>Applied Date</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Leave Type</th>
-                                        <th>Leave Reason</th>
-                                        <th>Status</th>
-                                    </tr>
-                                    </thead>
+                            <table className="table">
+                                <thead>
+                                <tr>
+                                    <th>Applied Date</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Leave Type</th>
+                                    <th>Leave Reason</th>
+                                    <th>Status</th>
+                                    <input type="date" name="filterDate" value={filterDate}
+                                           onChange={handleChange}/>
+                                    <button onClick={handleClick}>filter</button>
+                                    <button onClick={handleClear}>clear</button>
+                                </tr>
+                                </thead>
+                                {leaves.leave.length === 0 ? (
+                                    <table className="table">
+                                        <tbody className="table-border-bottom-0">
+                                        <tr>
+                                            <td colSpan="7">No Leave Applied</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                ) : (
                                     <tbody className="table-border-bottom-0">
                                     {
                                         leaves.leave.map((item, index) => (
@@ -85,8 +105,9 @@ const Leave = () => {
                                         ))
                                     }
                                     </tbody>
-                                </table>
-                            )}
+                                )}
+                            </table>
+
                         </div>
                     )}
                 </div>

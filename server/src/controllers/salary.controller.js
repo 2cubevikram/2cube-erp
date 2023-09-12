@@ -35,14 +35,13 @@ class SalaryController {
             if (allUsersInserted) {
                 await this.getAllSalaryStatus(req, res, next);
             } else {
-                res.status(500).json({ message: 'Some users failed to insert' });
+                res.status(500).json({message: 'Some users failed to insert'});
             }
         } catch (error) {
             console.error(error);
-            res.status(500).json({ message: 'Something went wrong' });
+            res.status(500).json({message: 'Something went wrong'});
         }
     }
-
 
     reGenerateSalary = async (req, res, next) => {
         // console.log(req.body)
@@ -87,11 +86,12 @@ class SalaryController {
                 employee_id: user_ids,
                 start_date: date,
                 status: status
-            }
+            };
+
             const leave = await LeaveAppModel.findWhere(liveParams);
             const increment = await EmployeeModel.getIncrementById({employee_id: user_ids});
-            const leaveTypesByUser = {};
 
+            const leaveTypesByUser = {};
             for (const leaveRecord of leave) {
                 if (!leaveTypesByUser[leaveRecord.employee_id]) {
                     leaveTypesByUser[leaveRecord.employee_id] = {};
@@ -109,18 +109,16 @@ class SalaryController {
             }
 
             const userIncrementsMap = {};
-
             for (const incrementRecord of increment) {
                 const userId = incrementRecord.employee_id;
 
                 if (!userIncrementsMap[userId]) {
                     userIncrementsMap[userId] = [];
                 }
-                userIncrementsMap[userId].push(incrementRecord.increment);
+                userIncrementsMap[userId] = incrementRecord.amount;
             }
 
             const mergedResults = [];
-
             for (const user_id of user_ids) {
                 const user = users.find(u => u.id === user_id);
                 const userLeaveTypes = leaveTypesByUser[user_id] || {};
@@ -136,9 +134,9 @@ class SalaryController {
                     email: user.email,
                     basic_salary: user.basic,
                     join_date: user.join_date,
-                    increment: userIncrements || 0,
-                    leave_type: leave_type || [],
-                    days: leave_days || [],
+                    increment: userIncrements, // Use userIncrements array
+                    leave_type: leave_type,
+                    days: leave_days,
                 };
                 mergedResults.push(mergedResult);
             }

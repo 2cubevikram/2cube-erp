@@ -1,6 +1,12 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {addIncrement, addUserProfile, updateUserProfile} from "../../redux/actions/profileAction";
+import {
+    addIncrement,
+    addUserProfile,
+    updateUserByAdmin,
+    updateUserByadmin,
+    updateUserProfile
+} from "../../redux/actions/profileAction";
 import moment from "moment";
 import {userDelete} from "../../redux/actions/authActions";
 import {useNavigate} from "react-router-dom";
@@ -11,13 +17,14 @@ const Account = ({profile}) => {
     const navigate = useNavigate();
     const [firstName, setFirstName] = useState(profile.first_name || "");
     const [lastName, setLastName] = useState(profile.last_name || "");
+    const [email, setEmail] = useState(profile.email)
     const [birthDate, setBirthDate] = useState(profile.birth_date || "");
-    const [joinDate, setJoinDate] = useState(profile.join_date || "");
     const [accountNo, setAccountNumber] = useState(profile.account_number || "");
     const [extraDetails, setExtraDetails] = useState(profile.extra_details || "");
-    const [incrementMonth, setIncrementMonth] = useState(profile.increment || "");
+    const [joinDate, setJoinDate] = useState(profile.join_date || "");
+    const [incrementMonth, setIncrementMonth] = useState(profile.increment_date || "");
     const [basicSalary, setBasicSalary] = useState(profile.basic || "");
-    const [salaryIncrement, setSalaryIncrement] = useState(profile.increments || "");
+    const [salaryIncrement, setSalaryIncrement] = useState(profile.amount || "");
     const [isLoading, setIsLoading] = useState(true);
     const [isRemember, isSetRemember] = useState(false);
 
@@ -27,13 +34,14 @@ const Account = ({profile}) => {
     const updateState = () => {
         setFirstName(profile.first_name);
         setLastName(profile.last_name);
+        setEmail(profile.email)
         setBirthDate(moment(profile.birth_date).format('YYYY-MM-DD'));
-        setJoinDate(moment(profile.join_date).format('YYYY-MM-DD'));
         setAccountNumber(profile.account_number);
         setExtraDetails(profile.extra_details);
-        setIncrementMonth(profile.increments);
+        setJoinDate(moment(profile.join_date).format('YYYY-MM-DD'));
+        setIncrementMonth(profile.increment_date);
         setBasicSalary(profile.basic);
-        setSalaryIncrement(profile.increment);
+        setSalaryIncrement(profile.amount);
     }
 
     useEffect(() => {
@@ -52,34 +60,46 @@ const Account = ({profile}) => {
             last_name: lastName,
             birth_date: birthDate,
             file: file,
-            join_date: joinDate,
-            account_number: accountNo,
-            extra_details: extraDetails,
         };
         if (file !== null) {
             await dispatch(addUserProfile({obj, user}));
             alert("Profile Added Successfully")
-        } else if (incrementMonth === profile.increment) {
+        } else {
             const params = {
                 first_name: obj.first_name,
                 last_name: obj.last_name,
                 birth_date: obj.birth_date,
-                join_date: joinDate,
-                account_number: accountNo,
-                extra_details: extraDetails,
             }
             await dispatch(updateUserProfile({params, user}));
             alert("Profile Updated Successfully")
         }
-        if (incrementMonth !== "" && incrementMonth !== profile.increment) {
+    };
+
+    const submitHandler1 = async (e) => {
+        e.preventDefault();
+
+        if ((joinDate !== moment(profile.join_date).format('YYYY-MM-DD')) || profile.account_number !== accountNo || profile.extra_details !== extraDetails || profile.basic !== basicSalary) {
             const params = {
-                increment: incrementMonth,
                 employee_id: profile.id,
+                account_number: accountNo,
+                join_date: joinDate,
+                extra_details: extraDetails,
+                basic: basicSalary,
+            }
+            await dispatch(updateUserByAdmin({params, user}));
+            alert("Employee Details Updated Successfully")
+        } else if (incrementMonth !== moment(profile.increment_date).format('YYYY-MM-DD') && salaryIncrement !== profile.amount) {
+            const params = {
+                employee_id: profile.id,
+                increment_date: incrementMonth,
+                amount: salaryIncrement,
             }
             await dispatch(addIncrement({params, user}));
             alert("Increment Updated Successfully")
+        } else {
+            alert("No Changes Found")
         }
-    };
+    }
 
     const deactivateAccount = async (e) => {
         e.preventDefault();
@@ -111,213 +131,228 @@ const Account = ({profile}) => {
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
-                <div className="flex-grow-1 container-p-y">
-                    <div className="card">
-                        <h5 className="card-header">Profile Details</h5>
-                        <div className="card-body">
-                            <div className="d-flex align-items-start align-items-sm-center gap-4">
-                                <img
-                                    src={profile.profile ? PF + profile.profile : PF + "avatar.png"}
-                                    alt="user-avatar"
-                                    className="d-block rounded"
-                                    height="100"
-                                    width="100"
-                                    id="uploadedAvatar"
-                                />
-                                {profile.id === user.id ?
-                                    <div className="button-wrapper">
-                                        <label htmlFor="upload" className="btn btn-primary me-2 mb-4" tabIndex="0">
-                                            <span className="d-none d-sm-block">Upload photo</span>
-                                            <i className="bx bx-upload d-block d-sm-none"></i>
+                <>
+                    <div className="flex-grow-1 container-p-y">
+                        <div className="card">
+                            <h5 className="card-header">Profile Details</h5>
+                            <div className="card-body">
+                                <div className="d-flex align-items-start align-items-sm-center gap-4">
+                                    <img
+                                        src={profile.profile ? PF + profile.profile : PF + "avatar.png"}
+                                        alt="user-avatar"
+                                        className="d-block rounded"
+                                        height="100"
+                                        width="100"
+                                        id="uploadedAvatar"
+                                    />
+                                    {profile.id === user.id ?
+                                        <div className="button-wrapper">
+                                            <label htmlFor="upload" className="btn btn-primary me-2 mb-4" tabIndex="0">
+                                                <span className="d-none d-sm-block">Upload photo</span>
+                                                <i className="bx bx-upload d-block d-sm-none"></i>
+                                                <input
+                                                    type="file"
+                                                    id="upload"
+                                                    className="account-file-input"
+                                                    hidden
+                                                    accept="image/png, image/jpeg"
+                                                    onChange={(e) => setFile(e.target.files)}
+                                                    required
+                                                />
+                                            </label>
+                                            <p className="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                                        </div>
+                                        : ""
+                                    }
+                                </div>
+                            </div>
+                            <hr className="my-0"/>
+                            <div className="card-body">
+                                {/*<form id="formAccountSettings" {profile.role !=='Admin' ? onSubmit={submitHandler} : '' }>*/}
+                                {/*<form id="formAccountSettings"*/}
+                                {/*      onSubmit={(isUserAdminOrHR || isProfileAdminOrHR || profile.role === 'Admin' || profile.role === 'HR') ? submitHandler2 : submitHandler}>*/}
+                                <form id="formAccountSettings"
+                                      onSubmit={(user.id === profile.id) ? submitHandler : submitHandler1}>
+                                    <div className="row">
+                                        <div className="mb-3 col-md-6">
+                                            <label htmlFor="firstName" className="form-label">First Name</label>
                                             <input
-                                                type="file"
-                                                id="upload"
-                                                className="account-file-input"
-                                                hidden
-                                                accept="image/png, image/jpeg"
-                                                onChange={(e) => setFile(e.target.files)}
+                                                className="form-control"
+                                                type="text"
+                                                name="firstName"
+                                                value={firstName}
+                                                onChange={(e) => setFirstName(e.target.value)}
+                                                readOnly={user.id !== profile.id}
+                                                autoFocus
                                                 required
                                             />
-                                        </label>
-                                        <p className="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-                                    </div>
-                                    : ""
-                                }
-                            </div>
-                        </div>
-                        <hr className="my-0"/>
-                        <div className="card-body">
-                            <form id="formAccountSettings" onSubmit={submitHandler}>
-                                <div className="row">
-                                    <div className="mb-3 col-md-6">
-                                        <label htmlFor="firstName" className="form-label">First Name</label>
-                                        <input
-                                            className="form-control"
-                                            type="text"
-                                            name="firstName"
-                                            value={firstName}
-                                            onChange={(e) => setFirstName(e.target.value)}
-                                            readOnly={user.id !== profile.id}
-                                            autoFocus
-                                            required
-                                        />
-                                    </div>
-                                    <div className="mb-3 col-md-6">
-                                        <label htmlFor="lastName" className="form-label">Last Name</label>
-                                        <input
-                                            className="form-control"
-                                            type="text"
-                                            name="lastName"
-                                            value={lastName}
-                                            onChange={(e) => setLastName(e.target.value)}
-                                            readOnly={user.id !== profile.id}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="mb-3 col-md-6">
-                                        <label htmlFor="email" className="form-label">E-mail</label>
-                                        <input
-                                            className="form-control"
-                                            type="text"
-                                            id="email"
-                                            name="email"
-                                            value={profile.email}
-                                            readOnly
-                                            placeholder="john.doe@example.com"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="mb-3 col-md-6">
-                                        <label htmlFor="organization" className="form-label">Birth date</label>
-                                        <input
-                                            className="form-control"
-                                            // type="text"
-                                            type="date"
-                                            id="birth_date"
-                                            name="birthDate"
-                                            value={moment(birthDate).format('YYYY-MM-DD')}
-                                            onChange={(e) => setBirthDate(e.target.value)}
-                                            readOnly={user.id !== profile.id}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="mb-3 col-md-6">
-                                        <label className="form-label" htmlFor="phoneNumber">Join Date</label>
-                                        <div className="input-group input-group-merge">
+                                        </div>
+                                        <div className="mb-3 col-md-6">
+                                            <label htmlFor="lastName" className="form-label">Last Name</label>
                                             <input
-                                                type="date"
-                                                id="phoneNumber"
-                                                name="phoneNumber"
-                                                value={moment(joinDate).format('YYYY-MM-DD')}
-                                                onChange={(e) => setJoinDate(e.target.value)}
-                                                disabled={(user.role !== 'Admin' && user.role !== 'HR') || (user.role === 'HR' && profile.role === 'HR')}
                                                 className="form-control"
+                                                type="text"
+                                                name="lastName"
+                                                value={lastName}
+                                                onChange={(e) => setLastName(e.target.value)}
+                                                readOnly={user.id !== profile.id}
+                                                required
                                             />
                                         </div>
-                                    </div>
-                                    <div className="mb-3 col-md-6">
-                                        <label htmlFor="address" className="form-label">Next Increment</label>
-                                        <select
-                                            id="increment"
-                                            className="select2 form-select"
-                                            name="increment"
-                                            value={incrementMonth}
-                                            disabled={(user.role !== 'Admin' && user.role !== 'HR') || (user.role === 'HR' && profile.role === 'HR')}
-                                            onChange={(e) => setIncrementMonth(e.target.value)}
-                                        >
-                                            <option value={1}>January</option>
-                                            <option value={2}>February</option>
-                                            <option value={3}>March</option>
-                                            <option value={4}>April</option>
-                                            <option value={5}>May</option>
-                                            <option value={6}>June</option>
-                                            <option value={7}>July</option>
-                                            <option value={8}>August</option>
-                                            <option value={9}>September</option>
-                                            <option value={10}>October</option>
-                                            <option value={11}>November</option>
-                                            <option value={12}>December</option>
-                                        </select>
-                                    </div>
-                                    <div className="mb-3 col-md-6">
-                                        <label htmlFor="firstName" className="form-label">Basic Salary</label>
-                                        <input
-                                            className="form-control"
-                                            type="text"
-                                            name="basicSalary"
-                                            value={basicSalary}
-                                            onChange={(e) => setBasicSalary(e.target.value)}
-                                            disabled={(user.role !== 'Admin' && user.role !== 'HR') || (user.role === 'HR' && profile.role === 'HR')}
-                                            autoFocus
-                                            required
-                                        />
-                                    </div>
-                                    <div className="mb-3 col-md-6">
-                                        <label htmlFor="lastName" className="form-label">Salary Increment</label>
-                                        <input
-                                            className="form-control"
-                                            type="text"
-                                            name="salaryIncrement"
-                                            value={salaryIncrement}
-                                            onChange={(e) => setSalaryIncrement(e.target.value)}
-                                            disabled={(user.role !== 'Admin' && user.role !== 'HR') || (user.role === 'HR' && profile.role === 'HR')}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="mb-3 col-md-6">
-                                        <label htmlFor="state" className="form-label">Account Number</label>
-                                        <input
-                                            className="form-control"
-                                            type="text"
-                                            id="state"
-                                            name="state"
-                                            value={accountNo}
-                                            onChange={(e) => setAccountNumber(e.target.value)}
-                                            readOnly={user.id !== profile.id}
-                                            placeholder="Account Number"/>
-                                    </div>
-                                    <div className="mb-3 col-md-6">
-                                        <label htmlFor="Details" className="form-label">Extra Details</label>
-                                        <textarea
-                                            id="Details"
-                                            name="Details"
-                                            value={extraDetails}
-                                            onChange={(e) => setExtraDetails(e.target.value)}
-                                            readOnly={user.id !== profile.id}
-                                            className="form-control"
-                                            rows={3}
-                                            cols={1}
-                                        />
-                                    </div>
-                                </div>
+                                        <div className="mb-3 col-md-6">
+                                            <label htmlFor="email" className="form-label">E-mail</label>
+                                            <input
+                                                className="form-control"
+                                                type="text"
+                                                id="email"
+                                                name="email"
+                                                value={email}
+                                                readOnly={!(user.role === 'Admin' || (user.role === 'HR' && profile.role !== 'HR'))}
+                                                placeholder="john.doe@example.com"
+                                                required
+                                            />
+                                        </div>
+                                        <div className="mb-3 col-md-6">
+                                            <label htmlFor="organization" className="form-label">Birth date</label>
+                                            <input
+                                                className="form-control"
+                                                // type="text"
+                                                type="date"
+                                                id="birth_date"
+                                                name="birthDate"
+                                                value={moment(birthDate).format('YYYY-MM-DD')}
+                                                onChange={(e) => setBirthDate(e.target.value)}
+                                                readOnly={user.id !== profile.id}
+                                                required
+                                            />
+                                        </div>
+                                        <div className="mb-3 col-md-6">
+                                            <label htmlFor="state" className="form-label">Account Number</label>
+                                            <input
+                                                className="form-control"
+                                                type="text"
+                                                id="state"
+                                                name="state"
+                                                value={accountNo}
+                                                onChange={(e) => setAccountNumber(e.target.value)}
+                                                // readOnly={user.id !== profile.id}
+                                                readOnly={!(user.role === 'Admin' || (user.role === 'HR' && profile.role !== 'HR'))}
+                                                placeholder="Account Number"/>
+                                        </div>
+                                        <div className="mb-3 col-md-6">
+                                            <label htmlFor="Details" className="form-label">Extra Details</label>
+                                            <textarea
+                                                id="Details"
+                                                name="Details"
+                                                value={extraDetails}
+                                                onChange={(e) => setExtraDetails(e.target.value)}
+                                                readOnly={!(user.role === 'Admin' || (user.role === 'HR' && profile.role !== 'HR'))}
+                                                className="form-control"
+                                                rows={3}
+                                                cols={1}
+                                            />
+                                        </div>
+                                        {
+                                            (user.role === 'Admin' || (user.role === 'HR' && profile.role !== 'HR')) ? (
+                                                <div className="mb-3 col-md-6">
+                                                    <label className="form-label" htmlFor="phoneNumber">Join
+                                                        Date</label>
+                                                    <div className="input-group input-group-merge">
+                                                        <input
+                                                            type="date"
+                                                            id="join_date"
+                                                            name="join_date"
+                                                            value={moment(joinDate).format('YYYY-MM-DD')}
+                                                            onChange={(e) => setJoinDate(e.target.value)}
+                                                            readOnly={!(user.role === 'Admin' || (user.role === 'HR' && profile.role !== 'HR'))}
+                                                            className="form-control"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            ) : ""
+                                        }
+                                        {
+                                            (user.role === 'Admin' || (user.role === 'HR' && profile.role !== 'HR')) ? (
+                                                <div className="mb-3 col-md-6">
+                                                    <label htmlFor="address" className="form-label">Next
+                                                        Increment</label>
+                                                    <input
+                                                        type="date"
+                                                        id="increment_date"
+                                                        name="increment_date"
+                                                        value={moment(incrementMonth).format('YYYY-MM-DD')}
+                                                        onChange={(e) => setIncrementMonth(e.target.value)}
+                                                        readOnly={!(user.role === 'Admin' || (user.role === 'HR' && profile.role !== 'HR'))}
+                                                        className="form-control"
+                                                    />
+                                                </div>
+                                            ) : ""
+                                        }
+                                        {
+                                            (user.role === 'Admin' || (user.role === 'HR' && profile.role !== 'HR')) ? (
+                                                <div className="mb-3 col-md-6">
+                                                    <label htmlFor="firstName" className="form-label">Basic
+                                                        Salary</label>
+                                                    <input
+                                                        className="form-control"
+                                                        type="text"
+                                                        name="basicSalary"
+                                                        value={basicSalary}
+                                                        onChange={(e) => setBasicSalary(e.target.value)}
+                                                        readOnly={!(user.role === 'Admin' || (user.role === 'HR' && profile.role !== 'HR'))}
+                                                        autoFocus
+                                                        required
+                                                    />
+                                                </div>
+                                            ) : ""
+                                        }
 
-                                <div className="mt-2">
-                                    {user.id === profile.id ? (
-                                        <>
-                                            <button type="submit" className="btn btn-primary me-2">
-                                                Save changes
-                                            </button>
-                                            <button type="reset" className="btn btn-outline-secondary">
-                                                Cancel
-                                            </button>
-                                        </>
-                                    ) : (
-                                        isUserAdminOrHR || isProfileAdminOrHR ? (
+                                        {
+                                            (user.role === 'Admin' || (user.role === 'HR' && profile.role !== 'HR')) ? (
+                                                <div className="mb-3 col-md-6">
+                                                    <label htmlFor="lastName" className="form-label">Salary
+                                                        Increment</label>
+                                                    <input
+                                                        className="form-control"
+                                                        type="text"
+                                                        name="salaryIncrement"
+                                                        value={salaryIncrement}
+                                                        onChange={(e) => setSalaryIncrement(e.target.value)}
+                                                        readOnly={!(user.role === 'Admin' || (user.role === 'HR' && profile.role !== 'HR'))}
+                                                    />
+                                                </div>
+                                            ) : ""
+                                        }
+                                    </div>
+
+                                    <div className="mt-2">
+                                        {user.id === profile.id ? (
                                             <>
                                                 <button type="submit" className="btn btn-primary me-2">
-                                                    Update
+                                                    Save changes
                                                 </button>
                                                 <button type="reset" className="btn btn-outline-secondary">
                                                     Cancel
                                                 </button>
                                             </>
-                                        ) : null
-                                    )}
-                                </div>
-                            </form>
+                                        ) : (
+                                            isUserAdminOrHR || isProfileAdminOrHR ? (
+                                                <>
+                                                    <button type="submit" className="btn btn-primary me-2">
+                                                        Update
+                                                    </button>
+                                                    <button type="reset" className="btn btn-outline-secondary">
+                                                        Cancel
+                                                    </button>
+                                                </>
+                                            ) : null
+                                        )}
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </>
             )}
 
             {

@@ -32,19 +32,20 @@ class LeaveAppController {
     };
 
     getAllLeaves = async (req, res, next) => {
-        const result = await LeaveAppModel.findAllLeaves();
+        let date = req.query.date !== undefined ? moment(req.query.date).format('YYYY-MM') : moment(new Date()).format('YYYY-MM');
+        const result = await LeaveAppModel.findAllLeaves({date}, {id: 'DESC'});
         res.status(200).send(result);
     };
 
     getLeavesById = async (req, res, next) => {
-        let date = req.body.date !== undefined ? moment(req.body.date).format('YYYY-MM') : moment(new Date()).format('YYYY-MM');
+        let date = req.query.date !== undefined ? moment(req.query.date).format('YYYY-MM') : moment(new Date()).format('YYYY-MM');
         let user_id = req.body.user_id !== undefined ? req.body.user_id : req.currentUser.id;
         let status = req.body.status !== undefined ? req.body.status : 'Applied';
 
         const params = {
             employee_id: user_id,
             start_date: date,
-            status: status
+            // status: status
         }
         const result = await LeaveAppModel.findWhere(params)
         if (!result) {

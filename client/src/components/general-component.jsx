@@ -21,3 +21,20 @@ export const TimeBadge = ({_in=null,_out=null}) => {
         </>
     )
 }
+
+
+export const UserProfile = ({profile, name , isActive = true , isBold = true}) => {
+    return (
+        <>
+            <div className="avatar d-flex align-items-center gap-3">
+                <img src={profile} alt="Avatar"
+                className="rounded-circle" />
+                {
+                    isBold ?
+                        <strong className={`${!isActive && 'badge bg-label-danger me-1'}`}>{name}</strong> :
+                        <span className={`${!isActive && 'badge bg-label-danger me-1'}`}>{name}</span>
+                }
+                </div>
+        </>
+    )
+}

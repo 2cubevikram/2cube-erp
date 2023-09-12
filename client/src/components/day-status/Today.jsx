@@ -4,7 +4,7 @@ import {getToDayStatus} from "../../redux/actions/dayActions";
 import {Link} from "react-router-dom";
 import {getAttendance} from "../../redux/actions/profileAction";
 import {formatDateTime} from "../../function/time";
-import {TimeBadge} from "../general-component";
+import {TimeBadge, UserProfile} from "../general-component";
 import {formatText} from "../../function/format-text";
 import {getLastStatus} from "../../function/check-status";
 
@@ -81,14 +81,9 @@ const Today = () => {
                                                 <React.Fragment key={index}>
                                                     <tr>
                                                         <td className={` `}>
-                                                            <div className={`avatar d-flex align-items-center gap-3`}
-                                                                 onClick={event =>
-                                                                     openListHandler(attendanceID)}>
-                                                                <img
-                                                                    src={item.profile ? PF + item.profile : PF + "avatar.png"}
-                                                                    alt="Avatar"
-                                                                    className="rounded-circle"/>
-                                                                <strong>{item.first_name} {item.last_name}</strong>
+                                                            <div onClick={event =>
+                                                                openListHandler(attendanceID)}>
+                                                            <UserProfile profile={item.profile ? PF + item.profile : PF + "avatar.png"} name={`${item.first_name} ${item.last_name}`}  />
                                                             </div>
                                                         </td>
 

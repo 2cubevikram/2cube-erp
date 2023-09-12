@@ -73,9 +73,9 @@ class EmployeeModel {
         return await commonModel.delete(this.breakTable, params);
     }
 
-    addIncrement = async ({employee_id, increment, updated_by}) => {
-        const sql = `INSERT INTO ${this.IncrementTable} (employee_id, increment, updated_by) VALUES (?, ?, ?)`;
-        const result =  await query(sql, [employee_id, increment, updated_by]);
+    addIncrement = async ({employee_id, increment_date, amount, updated_by}) => {
+        const sql = `INSERT INTO ${this.IncrementTable} (employee_id, increment_date,amount, updated_by) VALUES (?,?, ?, ?)`;
+        const result = await query(sql, [employee_id, increment_date, amount, updated_by]);
         return result ? result.affectedRows : 0;
 
     }
