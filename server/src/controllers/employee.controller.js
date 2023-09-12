@@ -31,7 +31,6 @@ class EmployeeController {
         const params = {
             ...req.body,
         };
-        console.log(params)
         const result = await EmployeeModel.profile_update(params, id);
 
         if (!result) {
@@ -287,6 +286,7 @@ class EmployeeController {
             amount: req.body.amount,
             updated_by: user.role,
         }
+        console.log(params)
         const result = await EmployeeModel.addIncrement(params);
 
         if (!result) {

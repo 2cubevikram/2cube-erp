@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {login} from "../../redux/actions/authActions";
 import ErrorPopup from "../toast-message/ErrorPopup";
 import {Link} from "react-router-dom";
-import md5 from "md5";
 
 const LoginForm = () => {
     const dispatch = useDispatch();

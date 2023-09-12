@@ -1,6 +1,6 @@
 import moment from "moment/moment";
 import {Link} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteHoliday, getHoliday} from "../../redux/actions/holidayActions";
 import HolidayForm from "./holiday-form";

@@ -6,17 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/.env" beforeDir="false" afterPath="$PROJECT_DIR$/client/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/assets/css/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/css/demo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/apiConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/apiConfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/day-status/Today.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/day-status/Today.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/holidays/holidays.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/holidays/holidays.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/leave-form.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/leave-form.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/leave-manag/LeaveManag.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/leave-manag/LeaveManag.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/navbar/navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/navbar/navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/login/login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Account.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Account.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Leave.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Leave.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/.env" beforeDir="false" afterPath="$PROJECT_DIR$/server/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/config/db-connection.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/config/db-connection.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/notification.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/notification.controller.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -242,7 +240,8 @@
       <workItem from="1693974539922" duration="10478000" />
       <workItem from="1694407128645" duration="10615000" />
       <workItem from="1694492953540" duration="6118000" />
-      <workItem from="1694499156866" duration="6695000" />
+      <workItem from="1694499156866" duration="6780000" />
+      <workItem from="1694510440825" duration="12897000" />
     </task>
     <servers />
   </component>

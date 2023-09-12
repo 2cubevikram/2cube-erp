@@ -95,7 +95,7 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                                     name="StartDate"
                                     value={start_date}
                                     onChange={(e) => setStartDate(e.target.value)}
-                                    // required
+                                    required
                                 />
                             </div>
                             <div className="mb-3 col-md-6">
@@ -109,7 +109,7 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                                     name="EndDate"
                                     value={end_date}
                                     onChange={(e) => setEndDate(e.target.value)}
-                                    // required
+                                    required
                                 />
                             </div>
                             <div className="mb-3 col-md-6">
@@ -118,7 +118,9 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                                 </label>
                                 <select className="form-select placement-dropdown" id="selectPlacement"
                                         value={leave_type}
-                                        onChange={(e) => setLeaveType(e.target.value)}>
+                                        onChange={(e) => setLeaveType(e.target.value)}
+                                        required
+                                >
                                     <option value="" disabled>Select Type</option>
                                     <option value="CL">Casual Leave</option>
                                     <option value="PL">Paid Leave</option>

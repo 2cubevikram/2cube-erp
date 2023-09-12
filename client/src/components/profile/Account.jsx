@@ -4,7 +4,6 @@ import {
     addIncrement,
     addUserProfile,
     updateUserByAdmin,
-    updateUserByadmin,
     updateUserProfile
 } from "../../redux/actions/profileAction";
 import moment from "moment";
@@ -65,13 +64,26 @@ const Account = ({profile}) => {
             await dispatch(addUserProfile({obj, user}));
             alert("Profile Added Successfully")
         } else {
-            const params = {
-                first_name: obj.first_name,
-                last_name: obj.last_name,
-                birth_date: obj.birth_date,
+            if ((user.role === 'Admin' && profile.role === 'Admin') && basicSalary !== profile.basic) {
+                const params = {
+                    first_name: obj.first_name,
+                    last_name: obj.last_name,
+                    birth_date: obj.birth_date,
+                    basic: basicSalary,
+                }
+                await dispatch(updateUserProfile({params, user}));
+                alert("Your Profile Updated Successfully")
+
+            } else {
+                const params = {
+                    first_name: obj.first_name,
+                    last_name: obj.last_name,
+                    birth_date: obj.birth_date,
+                }
+                await dispatch(updateUserProfile({params, user}));
+                alert("Profile Updated Successfully")
             }
-            await dispatch(updateUserProfile({params, user}));
-            alert("Profile Updated Successfully")
+
         }
     };
 
@@ -172,7 +184,7 @@ const Account = ({profile}) => {
                                 {/*<form id="formAccountSettings"*/}
                                 {/*      onSubmit={(isUserAdminOrHR || isProfileAdminOrHR || profile.role === 'Admin' || profile.role === 'HR') ? submitHandler2 : submitHandler}>*/}
                                 <form id="formAccountSettings"
-                                      onSubmit={(user.id === profile.id) ? submitHandler : submitHandler1}>
+                                      onSubmit={(user.id === profile.id && user.role !=='Admin') ? submitHandler : submitHandler1}>
                                     <div className="row">
                                         <div className="mb-3 col-md-6">
                                             <label htmlFor="firstName" className="form-label">First Name</label>
@@ -301,7 +313,7 @@ const Account = ({profile}) => {
                                                         onChange={(e) => setBasicSalary(e.target.value)}
                                                         readOnly={!(user.role === 'Admin' || (user.role === 'HR' && profile.role !== 'HR'))}
                                                         autoFocus
-                                                        required
+                                                        // required
                                                     />
                                                 </div>
                                             ) : ""

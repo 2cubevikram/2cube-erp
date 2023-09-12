@@ -5,7 +5,6 @@ import {getLeaveById} from "../../redux/actions/leaveActions";
 import LeaveForm from "../leave-form";
 import {excerpt} from "../../function/excerpt";
 import {useLocation} from "react-router-dom";
-import {getSalaryStatus} from "../../redux/actions/salaryActions";
 
 const Leave = () => {
     const dispatch = useDispatch();
