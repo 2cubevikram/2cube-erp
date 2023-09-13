@@ -48,7 +48,7 @@ class LeaveAppModel {
     //     }
     // };
 
-    findWhere = async ({ employee_id, start_date, status }) => {
+    findWhere = async ({employee_id, start_date, status, leave_type}) => {
         const employee_ids = Array.isArray(employee_id) ? employee_id : [employee_id];
         const placeholders = employee_ids.map(() => '?').join(', '); // Create placeholders based on the number of IDs
 
@@ -57,8 +57,8 @@ class LeaveAppModel {
         let values;
 
         if (status !== undefined && status !== null) {
-            sql = `SELECT * FROM ${this.tableName} WHERE employee_id IN (${placeholders}) AND start_date LIKE ? AND status = ?`;
-            values = [...employee_ids, `${start_date}%`, status];
+            sql = `SELECT * FROM ${this.tableName} WHERE employee_id IN (${placeholders}) AND start_date LIKE ? AND leave_type = ? AND status = ?`;
+            values = [...employee_ids, `${start_date}%`, leave_type, status];
         } else {
             sql = `SELECT * FROM ${this.tableName} WHERE employee_id IN (${placeholders}) AND start_date LIKE ?`;
             values = [...employee_ids, `${start_date}%`];

@@ -85,6 +85,7 @@ class SalaryController {
             const liveParams = {
                 employee_id: user_ids,
                 start_date: date,
+                leave_type: 'PL',
                 status: status
             };
 

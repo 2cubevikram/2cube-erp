@@ -20,6 +20,7 @@ class NotificationController {
             employee_id: req.body.employee_id,
             type: 'leave',
             message: 'from ' + user.first_name + ' ' + user.last_name,
+            date: moment().format('YYYY-MM-DD'),
         }
         const result = await notificationModel.createNotification(params);
         await notificationModel.findById({application_id: req.body.id, status: 'null'}, {});

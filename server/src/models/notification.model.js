@@ -4,9 +4,9 @@ import commonModel from "./common.model.js";
 class notification {
     tableName = 'notifications';
 
-    createNotification = async ({application_id, employee_id, type, message}) => {
-        const sql = `INSERT INTO ${this.tableName} (application_id,employee_id,type,message,status) VALUES (?,?,?,?,?)`;
-        const result = await query(sql, [application_id, employee_id, type, message, 'null']);
+    createNotification = async ({application_id, employee_id, type, message, date}) => {
+        const sql = `INSERT INTO ${this.tableName} (application_id,employee_id,type,message,date,status) VALUES (?,?,?,?,?,?)`;
+        const result = await query(sql, [application_id, employee_id, type, message, date, 'null']);
         const affectedRows = result ? result.affectedRows : 0;
         return affectedRows;
     }

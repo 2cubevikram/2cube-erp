@@ -61,13 +61,18 @@ const Leave = () => {
                                 </tr>
                                 </thead>
                                 {leaves.leave.length === 0 ? (
-                                    <table className="table">
-                                        <tbody className="table-border-bottom-0">
-                                        <tr>
-                                            <td colSpan="7">No Leave Applied</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                    <tr className="full-width">
+                                        <td colSpan="8">
+                                            <div className="container-xxl flex-grow-1 container-p-y">
+                                                <div className="card">
+                                                    <div className="card-body">
+                                                        <div className="row g-0"><h2 className="m-0 text-center">No Leave Available</h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 ) : (
                                     <tbody className="table-border-bottom-0">
                                     {
