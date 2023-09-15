@@ -8,6 +8,7 @@ import UploadMediaController from '../controllers/upload_media.controller.js';
 import LeaveAppController from "../controllers/leave_app_controller.js";
 import NotificationController from "../controllers/notification.controller.js";
 import SalaryController from "../controllers/salary.controller.js";
+import ReportGenerateController from "../controllers/reportGenerate.controller.js";
 
 
 const router = express.Router();
@@ -15,7 +16,8 @@ const router = express.Router();
 router.post('/register', awaitHandlerFactory(AdminController.register));
 router.post('/login', awaitHandlerFactory(AdminController.login));
 router.patch('/edit', auth(), awaitHandlerFactory(AdminController.edit));
-router.get('/employees', auth(), awaitHandlerFactory(AdminController.getAllEmployee));
+router.get('/employees', auth(), awaitHandlerFactory(AdminController.getActiveEmployee));
+router.get('/all-employees', auth(), awaitHandlerFactory(AdminController.getAllEmployee));
 router.get('/id/:id', auth(), awaitHandlerFactory(AdminController.getEmployeeById));
 router.get('/employees/profile/:id', auth(), awaitHandlerFactory(AdminController.getEmployeeById));
 router.patch('/check-time-edit', auth(), awaitHandlerFactory(AdminController.checkTimeUpdate));
@@ -35,6 +37,7 @@ router.patch('/update-salary', auth(), awaitHandlerFactory(SalaryController.upda
 router.post('/salary-generate', awaitHandlerFactory(SalaryController.salaryGenerate));
 router.get('/get-salary-satus', auth(), awaitHandlerFactory(SalaryController.getAllSalaryStatus));
 router.patch('/salary-re-generate', auth(), awaitHandlerFactory(SalaryController.reGenerateSalary));
+router.post('/manual-salary-add', awaitHandlerFactory(SalaryController.manualSalaryAdd));
 
 
 //Employee use
@@ -58,6 +61,7 @@ router.get('/get-notification', auth(), awaitHandlerFactory(NotificationControll
 router.patch('/update-notification', auth(), awaitHandlerFactory(NotificationController.updateNotification));
 router.post('/add-notification', auth(), awaitHandlerFactory(NotificationController.createNotification));
 
+router.get('/get-report', auth(), awaitHandlerFactory(ReportGenerateController.getReport));
 
 router.post('/timestamp', auth(), awaitHandlerFactory(EmployeeController.timestamp));
 router.patch('/timestamp', auth(), awaitHandlerFactory(EmployeeController.timestamp));

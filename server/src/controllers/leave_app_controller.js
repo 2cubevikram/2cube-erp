@@ -38,7 +38,8 @@ class LeaveAppController {
     };
 
     getLeavesById = async (req, res, next) => {
-        let date = req.query.date !== undefined ? moment(req.query.date).format('YYYY-MM') : moment(new Date()).format('YYYY-MM');
+        // let date = req.query.date !== undefined ? moment(req.query.date).format('YYYY-MM') : moment(new Date()).format('YYYY-MM');
+        let date = req.query.date !== undefined ? moment(req.query.date, 'YYYY-MM-DD').format('YYYY-MM') : moment(new Date(), moment.ISO_8601).format('YYYY-MM');
         let user_id = req.body.user_id !== undefined ? req.body.user_id : req.currentUser.id;
         let status = req.body.status !== undefined ? req.body.status : 'Applied';
 
@@ -46,7 +47,7 @@ class LeaveAppController {
             employee_id: user_id,
             start_date: date,
             // status: status
-        }
+        };
         const result = await LeaveAppModel.findWhere(params)
         if (!result) {
             return res.status(500).send({message: 'Something went wrong'});

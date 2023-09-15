@@ -3,8 +3,11 @@ import {checkLogin, setCookie} from "../../function/check_login";
 let initialState = {
     isLoggedIn: false,
     user: null,
+    allUsers: [],
+    loading: true,
     error: null,
 };
+
 
 if (localStorage.getItem("user")) {
     initialState.isLoggedIn = true;
@@ -82,6 +85,13 @@ const authReducer = (state = initialState, action) => {
                 isLoggedIn: false,
                 user: null,
                 error: action.payload,
+            }
+        case 'GET_ALL_EMPLOYEE_SUCCESS':
+            return {
+                ...state,
+                allUsers: action.payload,
+                loading: false,
+                error: null,
             }
         default:
             return state;

@@ -20,10 +20,9 @@ const Current = () => {
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
-    const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const lastDayOfMonth = new Date(currentYear, currentMonth, 0).getDate();
     // const lastMonth = moment().subtract(1).format('YYYY-MM-DD');
     const lastMonth = moment().subtract(1, 'months').format('YYYY-MM-DD');
-
     function AddFormOpen(id, type) {
         setAddSalaryForm({
             id: id,
@@ -55,7 +54,6 @@ const Current = () => {
 
     useEffect(() => {
         const calculatedSalaries = dataGenerate.map((item, index) => {
-            console.log(item.increment)
             const employeeId = item.id;
             const matchingSalary = salaries.salary.find(salaryItem => salaryItem.employee_id === employeeId);
             if (matchingSalary) {
@@ -102,18 +100,23 @@ const Current = () => {
                     ) : (
                         <div className="table-responsive text-nowrap">
                             {salaries.salary.length === 0 ? (
-                                <table className="table">
-                                    <tbody className="table-border-bottom-0">
-                                    <tr>
-                                        <td colSpan="7">Data Not Found</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <tr className="full-width">
+                                    <td colSpan="8">
+                                        <div className="container-xxl flex-grow-1 container-p-y">
+                                            <div className="card">
+                                                <div className="card-body">
+                                                    <div className="row g-0"><h2 className="m-0 text-center">No Data Available</h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
                             ) : (
                                 <table className="table">
                                     <thead>
                                     <tr>
-                                        <th>Emp. Name</th>
+                                        <th className={`left-align`}>Emp. Name</th>
                                         <th>Leave</th>
                                         <th>Present Days</th>
                                         <th>Salary</th>
@@ -132,7 +135,7 @@ const Current = () => {
                                             return (
                                                 <Fragment key={item.id || index}>
                                                     <tr key={item.id || index}>
-                                                        <td>{item.employee_name}</td>
+                                                        <td className={`left-align`}>{item.employee_name}</td>
                                                         <td>{item.total_leave}</td>
                                                         <td>{item.present_day}</td>
                                                         <td>{parseFloat(item.amount).toFixed(2)}</td>

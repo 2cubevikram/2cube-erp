@@ -59,7 +59,7 @@ class AdminController {
         res.status(200).send({...userWithoutPassword, token});
     };
 
-    getAllEmployee = async (req, res, next) => {
+    getActiveEmployee = async (req, res, next) => {
         try {
             const results = await AuthModel.find({'status': 'Active'}, {'created_at': 'ASC'});
 
@@ -74,7 +74,14 @@ class AdminController {
                 }
             }
 
-            const sanitizedResults = results.map(({ password, status, created_at, updated_at, lastIncrement, ...userWithoutPassword }) => ({
+            const sanitizedResults = results.map(({
+                                                      password,
+                                                      status,
+                                                      created_at,
+                                                      updated_at,
+                                                      lastIncrement,
+                                                      ...userWithoutPassword
+                                                  }) => ({
                 ...userWithoutPassword,
                 employee_id: userWithoutPassword.employee_id,
                 increment_date: userWithoutPassword.increment_date,
@@ -86,6 +93,22 @@ class AdminController {
             next(error);
         }
     };
+
+    getAllEmployee = async (req, res, next) => {
+        const users = await AuthModel.find({}, {'created_at': 'ASC'});
+
+        if (!users || users.length === 0) {
+            return res.status(404).send({message: 'No users found'});
+        }
+
+        const usersWithoutPassword = users.map(user => {
+            const {password, created_at, updated_at, ...userWithoutPassword} = user; // Convert the user to a plain JavaScript object
+            return userWithoutPassword;
+        });
+
+        res.send(usersWithoutPassword);
+    };
+
 
     getEmployeeById = async (req, res, next) => {
         let result = await AuthModel.findOne({id: req.params.id});

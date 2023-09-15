@@ -15,7 +15,6 @@ const BreakAction = ({BreakIn, BreakOut, check_status, break_status}) => {
     function breakoutHandler(e) {
         e.preventDefault();
         const lastBreakData = breakState.break[breakState.break.length - 1];
-        console.log(lastBreakData)
         BreakOut({user, lastBreakData});
     }
 

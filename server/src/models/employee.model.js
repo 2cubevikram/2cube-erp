@@ -61,7 +61,7 @@ class EmployeeModel {
         return await commonModel.find_day_status(this.breakTable, employee_ids, date);
     }
 
-    getBirthday = async (date) => {
+    getBirthday = async () => {
         return await commonModel.getBirthday(this.userTable);
     }
 

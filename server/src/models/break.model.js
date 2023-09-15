@@ -1,4 +1,3 @@
-import query from '../config/db-connection.js';
 import commonModel from "./common.model.js";
 
 class BreakModel {

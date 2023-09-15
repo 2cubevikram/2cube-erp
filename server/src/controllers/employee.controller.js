@@ -1,6 +1,4 @@
-import bcrypt from 'bcrypt';
 import moment from "moment";
-import jwt from 'jsonwebtoken';
 import AuthModel from '../models/auth.model.js';
 import EmployeeModel from '../models/employee.model.js';
 import BreakModel from "../models/break.model.js";
@@ -117,8 +115,8 @@ class EmployeeController {
             const breakResult = await this.break_calculation(req, res)
 
             let breakHours = breakResult.brakeTimeHours;
-            let workedgHours = workingHours - breakHours
-            let remainWorkingHours = minimumWorkingHours - workedgHours;
+            let workedHours = workingHours - breakHours
+            let remainWorkingHours = minimumWorkingHours - workedHours;
 
             res.json({
                 employeeId,
@@ -126,7 +124,7 @@ class EmployeeController {
                 minimumWorkingHours,
                 workingHours,
                 breakHours,
-                workedgHours,
+                workedHours,
                 remainWorkingHours
             });
         } catch (err) {
@@ -178,7 +176,6 @@ class EmployeeController {
     };
 
     break_calculation = async (req, res, next) => {
-        console.log('break_calculation', req.body.date)
         let datePart;
         const date = new Date();
         const dateString = date.toISOString();
@@ -286,7 +283,6 @@ class EmployeeController {
             amount: req.body.amount,
             updated_by: user.role,
         }
-        console.log(params)
         const result = await EmployeeModel.addIncrement(params);
 
         if (!result) {
@@ -300,7 +296,6 @@ class EmployeeController {
         const result = await EmployeeModel.getIncrementById({employee_id: id});
         res.send(result);
     }
-
 
 }
 

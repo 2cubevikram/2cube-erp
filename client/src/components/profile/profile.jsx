@@ -20,8 +20,7 @@ const Profile = () => {
     const user = useSelector((state) => state.login.user);
     const profile = useSelector((state) => state.user.profile);
     const [activeTab, setActiveTab] = useState(1);
-    let currentTab;
-    currentTab = activeTab === 1 ? "Account" : activeTab === 2 ? "Attendance" : activeTab === 3 ? "Leave" : "";
+    let currentTab = activeTab === 1 ? "Account" : activeTab === 2 ? "Attendance" : activeTab === 3 ? "Leave" : "";
 
 
     const handleTabClick = (tabNumber) => {

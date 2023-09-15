@@ -23,6 +23,18 @@ const Previous = () => {
         // eslint-disable-next-line
     }
 
+    const footer_data = {
+        total_salary: 0,
+        total_allowance: 0,
+    }
+
+    // count total salary and allowance
+    salaries.salary.forEach((item) => {
+        footer_data.count = salaries.salary.length;
+        footer_data.total_salary += parseFloat(item.amount);
+        footer_data.total_allowance += parseFloat(item.extra_allowance);
+    });
+
     const lastMonth = moment().subtract(1, 'months').format('YYYY-MM-DD');
     // const lastMonth = moment().format('YYYY-MM-DD');
     // console.log(lastMonth);
@@ -32,6 +44,8 @@ const Previous = () => {
         // eslint-disable-next-line
     }, [user])
 
+
+    // console.log();
 
     return (
         <>
@@ -46,7 +60,7 @@ const Previous = () => {
                             <table className="table">
                                 <thead>
                                 <tr>
-                                    <th>Emp. Name</th>
+                                    <th className={`left-align`}>Emp. Name</th>
                                     <th>Leave</th>
                                     <th>Present Days</th>
                                     <th>Salary</th>
@@ -55,19 +69,25 @@ const Previous = () => {
                                     {/*<th>Next Increment</th>*/}
                                     <th>Credit Date</th>
                                     <th>Status</th>
-                                    <input type="date" name="filterDate" value={filterDate} onChange={handleChange} />
+                                    <input type="date" name="filterDate" value={filterDate} onChange={handleChange}/>
                                     <button onClick={handleClick}>filter</button>
                                     <button onClick={handleClear}>clear</button>
                                 </tr>
                                 </thead>
                                 {salaries.salary.length === 0 ? (
-                                    <table className="table">
-                                        <tbody className="table-border-bottom-0">
-                                        <tr>
-                                            <td colSpan="7">Data Not Found</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                    <tr className="full-width">
+                                        <td colSpan="8">
+                                            <div className="container-xxl flex-grow-1 container-p-y">
+                                                <div className="card">
+                                                    <div className="card-body">
+                                                        <div className="row g-0"><h2 className="m-0 text-center">No Data
+                                                            Available</h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 ) : (
                                     <tbody className="table-border-bottom-0">
                                     {
@@ -75,7 +95,7 @@ const Previous = () => {
                                             return (
                                                 <Fragment key={item.id || index}>
                                                     <tr key={item.id || index}>
-                                                        <td>{item.employee_name}</td>
+                                                        <td className={`left-align`}>{item.employee_name}</td>
                                                         <td>{item.total_leave}</td>
                                                         <td>{item.present_day}</td>
                                                         <td>{parseFloat(item.amount).toFixed(2)}</td>
@@ -83,7 +103,7 @@ const Previous = () => {
                                                         <td>{item.salary_date !== null ? moment(item.salary_date).format('DD-MM-YYYY') : "Pending"}</td>
                                                         <td>{item.status !== null ? item.status : "Pending"}</td>
                                                         <td></td>
-                                                        <td></td>
+
                                                     </tr>
                                                 </Fragment>
                                             );
@@ -91,14 +111,29 @@ const Previous = () => {
                                     }
                                     </tbody>
                                 )}
+                                {
+                                    footer_data.count > 0 ? (
+                                        <tfoot className={`bg-label-dark`}>
+                                            <tr className="text-nowrap">
+                                                <th className="left-align"> Total: {footer_data.count}</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th>{parseFloat(footer_data.total_salary).toFixed(2)}</th>
+                                                <th>{footer_data.total_allowance} </th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                    ):""
+                                }
                             </table>
-
                         </div>
                     )}
                 </div>
             </div>
         </>
     );
-}
+};
 
 export default Previous;

@@ -345,3 +345,6 @@ button.btn.p-0.dropdown-toggle.hide-arrow.table-center-dot {
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
 }
+.left-align {
+    text-align: left;
+}

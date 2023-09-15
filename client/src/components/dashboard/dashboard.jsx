@@ -18,7 +18,6 @@ import {checkLogin} from "../../function/check_login";
 
 const Dashboard = () => {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-    console.log('test',PF)
     const dispatch = useDispatch();
     const user = useSelector(state => state.login.user);
     const break_status = useSelector(state => state.break);

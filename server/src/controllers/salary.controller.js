@@ -54,7 +54,7 @@ class SalaryController {
                     total_leave: user.leaveAndDays,
                     present_day: user.presentDays,
                     amount: user.finalSalary,
-                    extra_allowance: null,
+                    extra_allowance: 0,
                     salary_date: moment(new Date()).format('YYYY-MM-DD'),
                     status: null,
                 };
@@ -173,6 +173,38 @@ class SalaryController {
             return res.status(500).send({message: "Salary not found"});
         }
         res.status(200).send(result);
+    }
+
+    manualSalaryAdd = async (req, res, next) => {
+        try {
+            const data = req.body;
+
+            const employeeData = data.filter(item => item !== null);
+            const results = await Promise.all(employeeData.map(user => {
+                const params = {
+                    employee_name: user.employee_name,
+                    employee_id: user.employee_id,
+                    total_leave: user.leave,
+                    present_day: user.presentDays,
+                    amount: user.salary,
+                    extra_allowance: user.allowance,
+                    salary_date: user.creditDate,
+                    status: user.status,
+                };
+                return SalaryModel.creditManuallyForAll(params);
+            }));
+
+            const allUsersInserted = results.every(result => result > 0);
+
+            if (allUsersInserted) {
+                await this.getAllSalaryStatus(req, res, next);
+            } else {
+                res.status(500).json({message: 'Some users failed to insert'});
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({message: 'Something went wrong'});
+        }
     }
 
 

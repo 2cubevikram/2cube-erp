@@ -5,13 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/server/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Leave.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Leave.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/notification.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/notification.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/css/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/css/demo.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/profile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/salary/current.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/current.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/salary/previous.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/previous.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/salary/salary.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/salary.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/user-action/break-action.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/user-action/break-action.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/employeeAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/employeeAction.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/salaryActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/salaryActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/authReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/authReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/models/leave_app_model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/leave_app_model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/models/notification.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/notification.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/break.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/break.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/employee.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/employee.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/salary.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/salary.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/routes/auth.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/auth.route.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +46,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2Ruh44G4d03Jhncjc8azAQk00Oe" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -42,23 +57,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/NODE_JS/2cube-erp/client/src/components/salary",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/NODE_JS/2cube-erp&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\NODE_JS\2cube-erp\client\src\components\salary" />
@@ -240,7 +256,15 @@
       <workItem from="1694492953540" duration="6118000" />
       <workItem from="1694499156866" duration="6780000" />
       <workItem from="1694510440825" duration="16721000" />
-      <workItem from="1694580836044" duration="3293000" />
+      <workItem from="1694580836044" duration="4152000" />
+      <workItem from="1694595883853" duration="109000" />
+      <workItem from="1694596572905" duration="13867000" />
+      <workItem from="1694665414413" duration="3367000" />
+      <workItem from="1694670590412" duration="26605000" />
+      <workItem from="1694752295166" duration="4713000" />
+      <workItem from="1694757773616" duration="9836000" />
+      <workItem from="1694772228655" duration="1741000" />
+      <workItem from="1694774000083" duration="10535000" />
     </task>
     <servers />
   </component>

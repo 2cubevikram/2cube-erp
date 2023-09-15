@@ -80,3 +80,16 @@ export const updateSalary = ({user, obj}) => async (dispatch) => {
         dispatch({type: 'UPDATE_SALARY_ACTION_FAILED', payload: error.message});
     }
 }
+
+export const manualSalaryAdd = ({user, obj}) => async (dispatch) => {
+    try {
+        const response = await axios.post(`${API_BASE_URL}/auth/manual-salary-add`, obj, {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            }
+        });
+        dispatch({type: 'ADD_MANUAL_SALARY_SUCCESSFULLY', payload: response.data});
+    } catch (error) {
+        dispatch({type: 'MANUAL_SALARY_ADD_ACTION_FAILED', payload: error.message});
+    }
+}
