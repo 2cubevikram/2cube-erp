@@ -16,7 +16,7 @@ import authModel from "../models/auth.model.js";
 class AdminController {
 
     register = async (req, res, next) => {
-        const password = req.body.password;
+        // const password = req.body.password;
         await this.hashPassword(req);
         req.body.id = uuid();
 
@@ -29,8 +29,8 @@ class AdminController {
         if (!result) {
             return res.status(500).json({message: 'Something went wrong'});
         }
-        req.body.password = password;
-        next();
+        // req.body.password = password;
+        // next();
         res.status(201).send('User was created!');
     };
 
