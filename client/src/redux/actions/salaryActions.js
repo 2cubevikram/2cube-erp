@@ -101,7 +101,6 @@ export const manualSalaryAdd = ({user, obj}) => async (dispatch) => {
 }
 
 export const deleteSalary = ({user, id, date}) => async (dispatch) => {
-    console.log(date)
     try {
         const response = await axios.delete(`${API_BASE_URL}/auth/delete-salary`, {
             params: {
