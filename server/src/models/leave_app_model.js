@@ -57,8 +57,8 @@ class LeaveAppModel {
         let values;
 
         if (status !== undefined && status !== null) {
-            sql = `SELECT * FROM ${this.tableName} WHERE employee_id IN (${placeholders}) AND start_date LIKE ? AND leave_type = ? AND status = ?`;
-            values = [...employee_ids, `${start_date}%`, leave_type, status];
+            sql = `SELECT * FROM ${this.tableName} WHERE employee_id IN (${placeholders}) AND start_date LIKE ? AND status = ?`;
+            values = [...employee_ids, `${start_date}%`, status];
         } else {
             sql = `SELECT * FROM ${this.tableName} WHERE employee_id IN (${placeholders}) AND start_date LIKE ?`;
             values = [...employee_ids, `${start_date}%`];

@@ -1,7 +1,8 @@
 import moment from "moment";
 import React, {Fragment, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getSalaryStatus} from "../../redux/actions/salaryActions";
+import {deleteSalary, getSalaryStatus} from "../../redux/actions/salaryActions";
+import {Link} from "react-router-dom";
 
 const Previous = () => {
     const dispatch = useDispatch();
@@ -9,6 +10,8 @@ const Previous = () => {
     const salaries = useSelector(state => state.salary);
     const loading = useSelector((state) => state.salary.loading);
     const [filterDate, setFilterDate] = useState();
+
+    const lastMonth = moment().subtract(1, 'months').format('YYYY-MM-DD');
 
     const handleClick = () => {
         dispatch(getSalaryStatus({user, filterDate}));
@@ -35,7 +38,16 @@ const Previous = () => {
         footer_data.total_allowance += parseFloat(item.extra_allowance);
     });
 
-    const lastMonth = moment().subtract(1, 'months').format('YYYY-MM-DD');
+    const deleteSalaryById = async (id) => {
+        try {
+            await dispatch(deleteSalary({user,id, date:filterDate}))
+            alert('Data Delete Successfully!')
+        } catch (error) {
+            alert(error)
+        }
+    }
+
+
     // const lastMonth = moment().format('YYYY-MM-DD');
     // console.log(lastMonth);
 
@@ -56,7 +68,6 @@ const Previous = () => {
                         <div>Loading...</div>
                     ) : (
                         <div className="table-responsive text-nowrap">
-
                             <table className="table">
                                 <thead>
                                 <tr>
@@ -103,6 +114,27 @@ const Previous = () => {
                                                         <td>{item.salary_date !== null ? moment(item.salary_date).format('DD-MM-YYYY') : "Pending"}</td>
                                                         <td>{item.status !== null ? item.status : "Pending"}</td>
                                                         <td></td>
+                                                        <td>
+                                                            {
+
+                                                                <div className="dropdown">
+                                                                    <button type="button"
+                                                                            className="btn p-0 dropdown-toggle hide-arrow"
+                                                                            data-bs-toggle="dropdown">
+                                                                        <i className="bx bx-dots-vertical-rounded"></i>
+                                                                    </button>
+                                                                    <div className="dropdown-menu">
+                                                                        <Link
+                                                                            onClick={e => deleteSalaryById(item.id)}
+                                                                            className="dropdown-item"><i
+                                                                            className="bx bx-trash"></i></Link>
+
+                                                                        {/*<a className="dropdown-item" href="/"><i*/}
+                                                                        {/*    className="bx bx-trash me-1"></i> Delete</a>*/}
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        </td>
 
                                                     </tr>
                                                 </Fragment>
@@ -120,6 +152,7 @@ const Previous = () => {
                                                 <th></th>
                                                 <th>{parseFloat(footer_data.total_salary).toFixed(2)}</th>
                                                 <th>{footer_data.total_allowance} </th>
+                                                <th></th>
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>

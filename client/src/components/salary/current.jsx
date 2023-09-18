@@ -23,6 +23,7 @@ const Current = () => {
     const lastDayOfMonth = new Date(currentYear, currentMonth, 0).getDate();
     // const lastMonth = moment().subtract(1).format('YYYY-MM-DD');
     const lastMonth = moment().subtract(1, 'months').format('YYYY-MM-DD');
+
     function AddFormOpen(id, type) {
         setAddSalaryForm({
             id: id,
@@ -64,7 +65,8 @@ const Current = () => {
             const leaveAndDays = item.leave_type.map((type, index) => `${item.days[index]}/${type}`).join(', ');
             const totalDays = item.days.reduce((sum, days) => sum + days, 0);
             const presentDays = lastDayOfMonth - totalDays;
-            const salary = (item.basic_salary / lastDayOfMonth) * presentDays;
+            const paidDays = lastDayOfMonth - item.plDays
+            const salary = (item.basic_salary / lastDayOfMonth) * paidDays;
             item.finalSalary = salary + item.increment;
             item.presentDays = presentDays;
             item.leaveAndDays = leaveAndDays;
@@ -99,33 +101,35 @@ const Current = () => {
                         <div>Loading...</div>
                     ) : (
                         <div className="table-responsive text-nowrap">
-                            {salaries.salary.length === 0 ? (
-                                <tr className="full-width">
-                                    <td colSpan="8">
-                                        <div className="container-xxl flex-grow-1 container-p-y">
-                                            <div className="card">
-                                                <div className="card-body">
-                                                    <div className="row g-0"><h2 className="m-0 text-center">No Data Available</h2>
+
+                            <table className="table">
+                                <thead>
+                                <tr>
+                                    <th className={`left-align`}>Emp. Name</th>
+                                    <th>Leave</th>
+                                    <th>Present Days</th>
+                                    <th>Salary</th>
+                                    <th>Allowance</th>
+                                    <th>Pay</th>
+                                    <th>Credit Date</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+                                {salaries.salary.length === 0 ? (
+                                    <tr className="full-width">
+                                        <td colSpan="8">
+                                            <div className="container-xxl flex-grow-1 container-p-y">
+                                                <div className="card">
+                                                    <div className="card-body">
+                                                        <div className="row g-0"><h2 className="m-0 text-center">No Data
+                                                            Available</h2>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ) : (
-                                <table className="table">
-                                    <thead>
-                                    <tr>
-                                        <th className={`left-align`}>Emp. Name</th>
-                                        <th>Leave</th>
-                                        <th>Present Days</th>
-                                        <th>Salary</th>
-                                        <th>Allowance</th>
-                                        <th>Pay</th>
-                                        <th>Credit Date</th>
-                                        <th>Status</th>
+                                        </td>
                                     </tr>
-                                    </thead>
+                                ) : (
                                     <tbody className="table-border-bottom-0">
                                     {
                                         salaries.salary.map((item, index) => {
@@ -178,8 +182,8 @@ const Current = () => {
                                         })
                                     }
                                     </tbody>
-                                </table>
-                            )}
+                                )}
+                            </table>
                         </div>
                     )}
                 </div>

@@ -26,7 +26,7 @@ export const TimeBadge = ({_in=null,_out=null}) => {
 export const UserProfile = ({profile, name , isActive = true , isBold = true}) => {
     return (
         <>
-            <div className="avatar d-flex align-items-center gap-3">
+            <div className="avatar avatar_two d-flex align-items-center gap-3">
                 <img src={profile} alt="Avatar"
                 className="rounded-circle" />
                 {

@@ -3,7 +3,7 @@ import API_BASE_URL from "../../apiConfig";
 
 export const getSalaryStatus = ({user, filterDate}) => async (dispatch) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/auth/get-salary-satus`, {
+        const response = await axios.get(`${API_BASE_URL}/auth/get-salary-status`, {
             headers: {
                 Authorization: `Bearer ${user.token}`,
             },
@@ -14,10 +14,11 @@ export const getSalaryStatus = ({user, filterDate}) => async (dispatch) => {
         dispatch({type: 'GET_SALARY_SUCCESSFULLY', payload: response.data});
     } catch (error) {
         dispatch({type: 'GET_SALARY_ACTION_FAILED', payload: error.message});
+        // throw error.response.data.message;
     }
 }
 
-export const generateSalaryData = ({user,filterDate}) => async (dispatch) => {
+export const generateSalaryData = ({user, filterDate}) => async (dispatch) => {
     try {
         const response = await axios.get(`${API_BASE_URL}/auth/salary-data-generate`, {
             headers: {
@@ -30,6 +31,7 @@ export const generateSalaryData = ({user,filterDate}) => async (dispatch) => {
         dispatch({type: 'GET_DATA_FOR_SALARY_GENERATE', payload: response.data});
     } catch (error) {
         dispatch({type: 'FAILED_SALARY_DATA_GENERATE', payload: error.message});
+        // throw error.response.data.message;
     }
 }
 
@@ -43,6 +45,7 @@ export const generateSalary = ({user, obj}) => async (dispatch) => {
         dispatch({type: 'GENERATE_SALARY_SUCCESSFULLY', payload: response.data});
     } catch (error) {
         dispatch({type: 'GENERATE_SALARY_ACTION_FAILED', payload: error.message});
+        throw error.response.data.message;
     }
 }
 
@@ -56,6 +59,7 @@ export const ReGenerateSalary = ({user, obj}) => async (dispatch) => {
         dispatch({type: 'REGENERATE_SALARY_SUCCESSFULLY', payload: response.data});
     } catch (error) {
         dispatch({type: 'REGENERATE_SALARY_ACTION_FAILED', payload: error.message});
+        throw error.response.data.message;
     }
 }
 
@@ -78,6 +82,7 @@ export const updateSalary = ({user, obj}) => async (dispatch) => {
         dispatch({type: 'GET_SALARY_SUCCESSFULLY', payload: response.data});
     } catch (error) {
         dispatch({type: 'UPDATE_SALARY_ACTION_FAILED', payload: error.message});
+        throw error.response.data.message;
     }
 }
 
@@ -91,5 +96,24 @@ export const manualSalaryAdd = ({user, obj}) => async (dispatch) => {
         dispatch({type: 'ADD_MANUAL_SALARY_SUCCESSFULLY', payload: response.data});
     } catch (error) {
         dispatch({type: 'MANUAL_SALARY_ADD_ACTION_FAILED', payload: error.message});
+        throw error.response.data.message;
+    }
+}
+
+export const deleteSalary = ({user, id, date}) => async (dispatch) => {
+    try {
+        const response = await axios.delete(`${API_BASE_URL}/auth/delete-salary`, {
+            params: {
+                id: id,
+                date: date,
+            },
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            }
+        });
+        dispatch({type: 'DELETE_SALARY_SUCCESSFULLY', payload: response.data});
+    } catch (error) {
+        dispatch({type: 'SALARY_DELETE_ACTION_FAILED', payload: error.response.data.message});
+        throw error.response.data.message;
     }
 }

@@ -3,6 +3,7 @@ import AuthModel from "../models/auth.model.js";
 import LeaveAppModel from "../models/leave_app_model.js";
 import moment from "moment/moment.js";
 import EmployeeModel from "../models/employee.model.js";
+import HttpException from "../utils/HttpException.utils.js";
 
 
 /******************************************************************************
@@ -85,7 +86,7 @@ class SalaryController {
             const liveParams = {
                 employee_id: user_ids,
                 start_date: date,
-                leave_type: 'PL',
+                // leave_type: 'PL',
                 status: status
             };
 
@@ -128,6 +129,8 @@ class SalaryController {
                 const leave_type = Object.keys(userLeaveTypes); // Convert to array of leave types
                 const leave_days = Object.values(userLeaveTypes); // Convert to array of accumulated leave days
 
+                const plDays = leave_type.includes('PL') ? leave_days[leave_type.indexOf('PL')] : 0;
+
                 const mergedResult = {
                     id: user.id,
                     first_name: user.first_name,
@@ -138,6 +141,7 @@ class SalaryController {
                     increment: userIncrements, // Use userIncrements array
                     leave_type: leave_type,
                     days: leave_days,
+                    plDays:plDays,
                 };
                 mergedResults.push(mergedResult);
             }
@@ -167,6 +171,7 @@ class SalaryController {
         let currentDate = req.query.date && !isNaN(new Date(req.query.date)) ? new Date(req.query.date) : new Date();
         const currentMonth = currentDate.getMonth(); // Months are 0-indexed
         const currentYear = currentDate.getFullYear();
+
         const result = await SalaryModel.findAll({currentMonth, currentYear});
 
         if (result.length < 1) {
@@ -178,6 +183,7 @@ class SalaryController {
     manualSalaryAdd = async (req, res, next) => {
         try {
             const data = req.body;
+            let filterDate = null;
 
             const employeeData = data.filter(item => item !== null);
             const results = await Promise.all(employeeData.map(user => {
@@ -191,20 +197,30 @@ class SalaryController {
                     salary_date: user.creditDate,
                     status: user.status,
                 };
+                filterDate = user.creditDate;
                 return SalaryModel.creditManuallyForAll(params);
             }));
-
             const allUsersInserted = results.every(result => result > 0);
 
             if (allUsersInserted) {
+                req.query.date = filterDate
                 await this.getAllSalaryStatus(req, res, next);
             } else {
-                res.status(500).json({message: 'Some users failed to insert'});
+                res.status(400).send({message: 'Some users salary failed to insert.'});
             }
         } catch (error) {
-            console.error(error);
-            res.status(500).json({message: 'Something went wrong'});
+            res.status(400).send({message: 'Something went wrong.'});
         }
+    }
+
+    deleteSalaryById = async (req, res, next) => {
+        const id = req.query.id
+        const result = await SalaryModel.delete(id)
+
+        if (!result) {
+            throw new HttpException(404, 'Something went wrong while salary delete!');
+        }
+        await this.getAllSalaryStatus(req, res, next)
     }
 
 

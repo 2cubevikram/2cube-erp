@@ -9,6 +9,7 @@ import LeaveAppController from "../controllers/leave_app_controller.js";
 import NotificationController from "../controllers/notification.controller.js";
 import SalaryController from "../controllers/salary.controller.js";
 import ReportGenerateController from "../controllers/reportGenerate.controller.js";
+import salaryController from "../controllers/salary.controller.js";
 
 
 const router = express.Router();
@@ -35,9 +36,10 @@ router.patch('/delete-user', auth(), awaitHandlerFactory(AdminController.userDel
 router.get('/salary-data-generate', auth(), awaitHandlerFactory(SalaryController.SalaryDataGenerate));
 router.patch('/update-salary', auth(), awaitHandlerFactory(SalaryController.updateSalaryById));
 router.post('/salary-generate', awaitHandlerFactory(SalaryController.salaryGenerate));
-router.get('/get-salary-satus', auth(), awaitHandlerFactory(SalaryController.getAllSalaryStatus));
+router.get('/get-salary-status', auth(), awaitHandlerFactory(SalaryController.getAllSalaryStatus));
 router.patch('/salary-re-generate', auth(), awaitHandlerFactory(SalaryController.reGenerateSalary));
 router.post('/manual-salary-add', awaitHandlerFactory(SalaryController.manualSalaryAdd));
+router.delete('/delete-salary', auth(), awaitHandlerFactory(salaryController.deleteSalaryById))
 
 
 //Employee use

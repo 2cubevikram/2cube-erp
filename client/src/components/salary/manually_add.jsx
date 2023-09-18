@@ -16,10 +16,15 @@ const ManuallyAdd = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        await dispatch(manualSalaryAdd({user, obj: employeeData}));
-        navigate('/salary');
-        localStorage.setItem("salary_tab", 2);
-        window.location.reload();
+        try {
+            await dispatch(manualSalaryAdd({user, obj: employeeData}));
+            alert('Salary added successfully!')
+            navigate('/salary');
+            localStorage.setItem("salary_tab", 2);
+            // window.location.reload();
+        } catch (error) {
+            alert(error)
+        }
     };
 
     useEffect(() => {

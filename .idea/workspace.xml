@@ -7,6 +7,16 @@
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/public/assets/css/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/css/demo.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/general-component.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/general-component.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/salary/current.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/current.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/salary/manually_add.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/manually_add.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/salary/previous.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/previous.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/salaryActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/salaryActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/salaryReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/salaryReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/leave_app_model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/leave_app_model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/salary.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/salary.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/routes/auth.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/auth.route.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -248,7 +258,8 @@
       <workItem from="1694757773616" duration="9836000" />
       <workItem from="1694772228655" duration="1741000" />
       <workItem from="1694774000083" duration="10748000" />
-      <workItem from="1695012977823" duration="2543000" />
+      <workItem from="1695012977823" duration="18462000" />
+      <workItem from="1695034870792" duration="1857000" />
     </task>
     <servers />
   </component>

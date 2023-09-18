@@ -20,7 +20,7 @@ const salaryReducer = (state = initialState, action) => {
                 ...state,
                 salary: [],
                 loading: false,
-                error: action.payload
+                error: null
             }
         case 'GET_DATA_FOR_SALARY_GENERATE':
             return {
@@ -34,7 +34,7 @@ const salaryReducer = (state = initialState, action) => {
                 ...state,
                 dataGenerate: [],
                 loading: false,
-                error: action.payload
+                error: null
             }
         case 'GENERATE_SALARY_SUCCESSFULLY':
             return {
@@ -64,6 +64,21 @@ const salaryReducer = (state = initialState, action) => {
                 loading: false,
                 error: action.payload
             }
+        case 'DELETE_SALARY_SUCCESSFULLY':
+            return {
+                ...state,
+                salary: action.payload,
+                loading: false,
+                error: null
+            }
+        case 'SALARY_DELETE_ACTION_FAILED':
+            return {
+                ...state,
+                salary: [],
+                loading: false,
+                error: action.payload
+            }
+
         default:
             return state;
 
