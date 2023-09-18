@@ -56,7 +56,7 @@ const LeaveManag = () => {
     }
 
     const handleLeaveDelete = async (id) => {
-        await dispatch(deleteLeave({id, user}));
+        await dispatch(deleteLeave({id, user, date:filterDate}));
     }
 
 

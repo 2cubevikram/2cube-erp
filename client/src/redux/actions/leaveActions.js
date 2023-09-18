@@ -63,11 +63,12 @@ export const updateLeave = ({user, obj}) => async (dispatch) => {
     }
 };
 
-export const deleteLeave = ({user, id}) => async (dispatch) => {
+export const deleteLeave = ({user, id, date}) => async (dispatch) => {
     try {
         const response = await axios.delete(`${API_BASE_URL}/auth/leave-delete`, {
             params: {
                 id: id,
+                date:date,
             },
             headers: {
                 Authorization: `Bearer ${user.token}`,
