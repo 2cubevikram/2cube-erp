@@ -214,7 +214,6 @@ class SalaryController {
     }
 
     deleteSalaryById = async (req, res, next) => {
-        console.log(req.query.date)
         const id = req.query.id
         const result = await SalaryModel.delete(id)
 
