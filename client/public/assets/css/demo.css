@@ -337,14 +337,26 @@ li.completed-highlight {
 .table thead tr button:last-child {
     margin-right: 5px;
 }
+
 button.btn.p-0.dropdown-toggle.hide-arrow.table-btn-right {
     right: 30px;
 }
+
 button.btn.p-0.dropdown-toggle.hide-arrow.table-center-dot {
     right: 50%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
 }
+
 .left-align {
     text-align: left;
+}
+
+.td-color {
+    color: #697a8d !important;
+}
+
+tr.table-default a.td-color :hover {
+    color: #697a8d !important;
+
 }

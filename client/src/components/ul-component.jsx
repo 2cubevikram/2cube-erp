@@ -33,7 +33,7 @@ export const EmployeeList = ({ employees, active_tab = 1 }) => {
                                 to={`/employees/profile`}
                                 state={{ id: item.id }}
                                 onClick={() => localStorage.setItem("account_tab", active_tab)}
-                                className=""
+                                className="td-color"
                             >
                                 <UserProfile
                                     profile={item.profile ? PF + item.profile : PF + "avatar.png"}

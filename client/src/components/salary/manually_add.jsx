@@ -77,28 +77,38 @@ const ManuallyAdd = () => {
                                                         {`${item.first_name} ${item.last_name}`}
                                                     </td>
                                                     <td>
-                                                        <input type="date" value={commonCreditDate}
-                                                               onChange={(e) => setCommonCreditDate(e.target.value)}
-                                                               required
-                                                        />
-                                                    </td>
-                                                    <td>
-                                                        <input type="text"
-                                                               onChange={(e) => handleInputChange(index, "leave", e.target.value)}
-                                                        />
-                                                    </td>
-                                                    <td>
-                                                        <input type="text"
-                                                               onChange={(e) => handleInputChange(index, "presentDays", e.target.value)}
-                                                        />
-                                                    </td>
-                                                    <td>
-                                                        <input type="text"
-                                                               onChange={(e) => handleInputChange(index, "salary", e.target.value)}
+                                                        <input
+                                                            className="form-control"
+                                                            type="date"
+                                                            value={commonCreditDate}
+                                                            onChange={(e) => setCommonCreditDate(e.target.value)}
+                                                            required
                                                         />
                                                     </td>
                                                     <td>
                                                         <input
+                                                            className="form-control"
+                                                            type="text"
+                                                            onChange={(e) => handleInputChange(index, "leave", e.target.value)}
+                                                        />
+                                                    </td>
+                                                    <td>
+                                                        <input
+                                                            className="form-control"
+                                                            type="text"
+                                                            onChange={(e) => handleInputChange(index, "presentDays", e.target.value)}
+                                                        />
+                                                    </td>
+                                                    <td>
+                                                        <input
+                                                            className="form-control"
+                                                            type="text"
+                                                            onChange={(e) => handleInputChange(index, "salary", e.target.value)}
+                                                        />
+                                                    </td>
+                                                    <td>
+                                                        <input
+                                                            className="form-control"
                                                             type="text"
                                                             onChange={(e) => handleInputChange(index, "allowance", e.target.value)}
                                                         />

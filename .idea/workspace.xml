@@ -7,23 +7,8 @@
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/public/assets/css/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/css/demo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/profile/profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/profile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/salary/current.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/current.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/salary/previous.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/previous.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/salary/salary.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/salary.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/user-action/break-action.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/user-action/break-action.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/employeeAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/employeeAction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/salaryActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/salaryActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/authReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/authReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/employee.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/models/break.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/break.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/models/employee.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/employee.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/models/salary.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/salary.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/routes/auth.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/auth.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/salary/manually_add.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/manually_add.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/ul-component.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ul-component.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -264,7 +249,8 @@
       <workItem from="1694752295166" duration="4713000" />
       <workItem from="1694757773616" duration="9836000" />
       <workItem from="1694772228655" duration="1741000" />
-      <workItem from="1694774000083" duration="10535000" />
+      <workItem from="1694774000083" duration="10748000" />
+      <workItem from="1695012977823" duration="1612000" />
     </task>
     <servers />
   </component>
