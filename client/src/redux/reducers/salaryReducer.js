@@ -78,6 +78,20 @@ const salaryReducer = (state = initialState, action) => {
                 loading: false,
                 error: action.payload
             }
+        case 'ADD_MANUAL_SALARY_SUCCESSFULLY':
+            return {
+                ...state,
+                salary: action.payload,
+                loading: false,
+                error: null
+            }
+        case 'MANUAL_SALARY_ADD_ACTION_FAILED':
+            return {
+                ...state,
+                salary: [],
+                loading: false,
+                error: action.payload
+            }
 
         default:
             return state;

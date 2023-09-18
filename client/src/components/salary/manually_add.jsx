@@ -21,7 +21,7 @@ const ManuallyAdd = () => {
             alert('Salary added successfully!')
             navigate('/salary');
             localStorage.setItem("salary_tab", 2);
-            // window.location.reload();
+            window.location.reload();
         } catch (error) {
             alert(error)
         }

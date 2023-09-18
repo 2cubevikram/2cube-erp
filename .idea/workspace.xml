@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/leave-manag/LeaveManag.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/leave-manag/LeaveManag.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/leaveActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/leaveActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/salary/manually_add.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/manually_add.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/salaryActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/salaryActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/salaryReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/salaryReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -251,7 +253,7 @@
       <workItem from="1694774000083" duration="10748000" />
       <workItem from="1695012977823" duration="18462000" />
       <workItem from="1695034870792" duration="2397000" />
-      <workItem from="1695037309267" duration="1129000" />
+      <workItem from="1695037309267" duration="2240000" />
     </task>
     <servers />
   </component>

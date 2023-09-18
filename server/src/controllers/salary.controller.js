@@ -214,11 +214,13 @@ class SalaryController {
     }
 
     deleteSalaryById = async (req, res, next) => {
+        console.log(req.query.date)
         const id = req.query.id
         const result = await SalaryModel.delete(id)
 
         if (!result) {
-            throw new HttpException(404, 'Something went wrong while salary delete!');
+            return res.status(500).send({message: "Something went wrong while salary delete!"});
+            // throw new HttpException(404, 'Something went wrong while salary delete!');
         }
         await this.getAllSalaryStatus(req, res, next)
     }
