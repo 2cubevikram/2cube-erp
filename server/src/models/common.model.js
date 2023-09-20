@@ -47,8 +47,7 @@ class CommonModel {
     findOne = async (tableName, params, selectColumns = undefined) => {
         const {columnSet, values} = utils.multipleSearchColumnSet(params)
 
-        const sql = `SELECT ${selectColumns == undefined ? '*' : selectColumns} FROM ${tableName}
-        WHERE ${columnSet}`;
+        const sql = `SELECT ${selectColumns == undefined ? '*' : selectColumns} FROM ${tableName} WHERE ${columnSet}`;
 
         const result = await query(sql, [...values]);
 
@@ -82,15 +81,13 @@ class CommonModel {
     }
 
     updateWhere = async (tableName, params, conditionalParams) => {
-        var {columnSet, values} = utils.multipleColumnSet(params);
+        let {columnSet, values} = utils.multipleColumnSet(params);
         const conditions = utils.multipleSearchColumnSet(conditionalParams);
 
         const sql = `UPDATE ${tableName} SET ${columnSet} WHERE ${conditions.columnSet}`;
 
-        var allValues = conditions.values;
-        const result = await query(sql, [...values, ...allValues]);
-
-        return result;
+        let allValues = conditions.values;
+        return await query(sql, [...values, ...allValues]);
     }
 
     timestamp = async (tableName, row_id, employee_id, _time, method, status) => {

@@ -5,11 +5,11 @@ class AuthModel {
     tableName = `users`;
     holidayTable = `holidays`;
 
-    create = async ({id, first_name, last_name, email, password, role}) => {
+    create = async ({id, first_name, last_name, email, password, role,status}) => {
         const sql = `INSERT INTO ${this.tableName}
-        (id, first_name, last_name, email, password, role)VALUES(?,?,?,?,?,?)`
+        (id, first_name, last_name, email, password, role,status)VALUES(?,?,?,?,?,?,?)`
 
-        const result = await query(sql, [id, first_name, last_name, email, password, role]);
+        const result = await query(sql, [id, first_name, last_name, email, password, role,status]);
         return result ? result.affectedRows : 0;
     }
 

@@ -3,19 +3,21 @@ import LeaveAppModel from "../models/leave_app_model.js";
 import moment from "moment/moment.js";
 import ReportGenerateModel from "../models/reportGenerate.model.js";
 import EmployeeModel from "../models/employee.model.js";
+import SalaryModel from "../models/salary.model.js";
 
 
 class ReportGenerateController {
     getReport = async (req, res) => {
         const id = req.body.id;
         const date = req.body.date;
+        let status = req.body.status !== undefined ? req.body.status : 'Approved';
 
         const user = await AuthModel.findOne({id: id});
 
         const params = {
             employee_id: req.body.id,
             start_date: moment(date, 'YYYY-MM-DD').format('YYYY-MM'),
-            // status: status
+            status: status
         };
         const leave = await LeaveAppModel.findWhere(params)
         const leaves = [];
@@ -30,6 +32,11 @@ class ReportGenerateController {
             })
         }
 
+        let currentDate = req.body.date && !isNaN(new Date(req.body.date)) ? new Date(req.body.date) : new Date();
+        const currentMonth = currentDate.getMonth(); // Months are 0-indexed
+        const currentYear = currentDate.getFullYear();
+
+        const salary = await SalaryModel.getSalaryById(id, currentMonth, currentYear);
 
         const date1 = moment(date, 'YYYY-MM-DD');
         const monthDays = date1.daysInMonth();
@@ -51,6 +58,8 @@ class ReportGenerateController {
             leaves: leaves,
             checkHours: attandance,
             breakHours: breakHours,
+            salary:salary.amount,
+            extraAllowance:salary.extra_allowance
         }
         mergedResults.push(mergedResult);
 

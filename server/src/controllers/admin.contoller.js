@@ -25,6 +25,7 @@ class AdminController {
             return res.status(409).send({message: 'Duplicate Entry, Email already exists.'});
         }
 
+        req.body.status = "Active"
         const result = await AuthModel.create(req.body);
         if (!result) {
             return res.status(500).json({message: 'Something went wrong'});
@@ -108,7 +109,6 @@ class AdminController {
 
         res.send(usersWithoutPassword);
     };
-
 
     getEmployeeById = async (req, res, next) => {
         let result = await AuthModel.findOne({id: req.params.id});

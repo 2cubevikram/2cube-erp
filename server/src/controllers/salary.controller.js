@@ -13,6 +13,19 @@ import HttpException from "../utils/HttpException.utils.js";
 
 class SalaryController {
 
+    getSalaryById = async (req, res, next) => {
+        const id = req.body.id;
+        let currentDate = req.body.date && !isNaN(new Date(req.body.date)) ? new Date(req.body.date) : new Date();
+        const currentMonth = currentDate.getMonth(); // Months are 0-indexed
+        const currentYear = currentDate.getFullYear();
+
+
+        const result = await SalaryModel.getSalaryById(id, currentMonth, currentYear);
+        res.send(result);
+
+
+    }
+
     salaryGenerate = async (req, res, next) => {
         try {
             const data = req.body;
@@ -23,6 +36,7 @@ class SalaryController {
                     total_leave: user.leaveAndDays,
                     present_day: user.presentDays,
                     amount: user.finalSalary,
+                    extra_allowance: 0,
                     salary_date: user.salary_date || moment(new Date()).format('YYYY-MM-DD'),
                     status: null,
                 };
@@ -141,7 +155,7 @@ class SalaryController {
                     increment: userIncrements, // Use userIncrements array
                     leave_type: leave_type,
                     days: leave_days,
-                    plDays:plDays,
+                    plDays: plDays,
                 };
                 mergedResults.push(mergedResult);
             }

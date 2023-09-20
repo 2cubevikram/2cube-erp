@@ -121,7 +121,7 @@ const Account = ({profile}) => {
             return;
         } else {
             const params = {
-                status: 'deactivate',
+                status: 'Deactivate',
                 employee_id: profile.id,
             }
             try {

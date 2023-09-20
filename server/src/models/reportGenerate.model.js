@@ -1,9 +1,11 @@
 import CommonReportGenerateModel from "./CommonReportGenerate.model.js";
+import commonModel from "./common.model.js";
 
 
 class ReportGenerateModel {
     tableName = `attendance`;
     breakTable = `break_in_out`;
+    salaryTable = `salary`;
 
     getUserById(id) {
 
