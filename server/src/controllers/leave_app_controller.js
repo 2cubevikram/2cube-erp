@@ -82,6 +82,7 @@ class LeaveAppController {
         const days = duration.asDays();
 
         req.body.days = days + 1;
+        req.query.date = moment(req.body.start_date);
 
         const params = {
             status: req.body.status,
