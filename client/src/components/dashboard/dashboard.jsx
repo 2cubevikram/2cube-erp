@@ -50,9 +50,11 @@ const Dashboard = () => {
                                 <div className="d-flex align-items-end row">
                                     <div className="col-sm-7">
                                         <div className="card-body">
-                                            <h5 className="card-title text-primary">Welcome, {user.first_name} {user.last_name} ! 🎉</h5>
+                                            <h5 className="card-title text-primary">Welcome, {user.first_name} {user.last_name} !
+                                                🎉</h5>
                                             <p className="mb-4">
-                                                🌞 It's time for our daily check-in to get the day started on the right foot. Looking forward to a productive and successful day ahead! 💪
+                                                🌞 It's time for our daily check-in to get the day started on the right
+                                                foot. Looking forward to a productive and successful day ahead! 💪
                                             </p>
 
                                             {/* Insert the code snippet here */}
@@ -61,12 +63,14 @@ const Dashboard = () => {
                                             ) : lastCheckStatus !== null ? (
                                                 lastCheckStatus.isSameDate === false && lastCheckStatus.lastStatus && lastCheckStatus.lastStatus.status === "CHECK_IN" ? (
                                                     <div className="alert alert-danger" role="alert">
-                                                        <strong>Your Last Day Was not Completed! If you need any assistance, please contact the authorized person. 🌞</strong>
+                                                        <strong>Your Last Day Was not Completed! If you need any
+                                                            assistance, please contact the authorized person. 🌞</strong>
                                                     </div>
                                                 ) : (
                                                     check_status.status === "CHECK_OUT" ? (
                                                         <div className="alert alert-primary" role="alert">
-                                                            Your Day Was Completed! Have a great day! If you need any assistance, please contact the authorized person. 🌞
+                                                            Your Day Was Completed! Have a great day! If you need any
+                                                            assistance, please contact the authorized person. 🌞
                                                         </div>
                                                     ) : (
                                                         <div className="btn_wrp1">
@@ -75,6 +79,10 @@ const Dashboard = () => {
                                                         </div>
                                                     )
                                                 )
+                                            ) : check_status.day.id === undefined && check_status.day._in === undefined && check_status.day._out === null ? (
+                                                <div className="btn_wrp1">
+                                                    <CheckAction break_status={_break} check_status={_check}/>
+                                                </div>
                                             ) : null}
                                         </div>
 

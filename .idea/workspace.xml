@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/dashboard.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,7 +253,9 @@
       <workItem from="1695037309267" duration="4563000" />
       <workItem from="1695121796497" duration="7212000" />
       <workItem from="1695184691547" duration="4197000" />
-      <workItem from="1695275225602" duration="1435000" />
+      <workItem from="1695275225602" duration="1773000" />
+      <workItem from="1695445061963" duration="344000" />
+      <workItem from="1695451632556" duration="6025000" />
     </task>
     <servers />
   </component>
