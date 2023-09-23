@@ -50,14 +50,11 @@ const Dashboard = () => {
                                 <div className="d-flex align-items-end row">
                                     <div className="col-sm-7">
                                         <div className="card-body">
-                                            <h5 className="card-title text-primary">Welcome, {user.first_name} {user.last_name} !
-                                                🎉</h5>
+                                            <h5 className="card-title text-primary">Welcome, {user.first_name} {user.last_name} 🎉</h5>
                                             <p className="mb-4">
                                                 🌞 It's time for our daily check-in to get the day started on the right
                                                 foot. Looking forward to a productive and successful day ahead! 💪
                                             </p>
-
-                                            {/* Insert the code snippet here */}
                                             {lastCheckStatus === undefined ? (
                                                 <p>Loading...</p>
                                             ) : lastCheckStatus !== null ? (
@@ -85,7 +82,6 @@ const Dashboard = () => {
                                                 </div>
                                             ) : null}
                                         </div>
-
                                     </div>
 
                                     <div className="col-sm-5 text-center text-sm-left">

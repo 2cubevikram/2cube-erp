@@ -131,8 +131,9 @@ const Current = () => {
                                     </tr>
                                 ) : (
                                     <tbody className="table-border-bottom-0">
-                                    {
-                                        salaries.salary.map((item, index) => {
+                                    {salaries.salary
+                                        .sort((a, b) => a.employee_name.localeCompare(b.employee_name)) // Sort the array alphabetically by employee_name
+                                        .map((item, index) => {
                                             const finalSalary = (parseFloat(item.amount) + item.extra_allowance).toFixed(2)
                                             const extraAllowance = item.extra_allowance && item.extra_allowance !== null ? item.extra_allowance : '00.00';
 

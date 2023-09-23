@@ -181,11 +181,8 @@ const Account = ({profile}) => {
                             </div>
                             <hr className="my-0"/>
                             <div className="card-body">
-                                {/*<form id="formAccountSettings" {profile.role !=='Admin' ? onSubmit={submitHandler} : '' }>*/}
-                                {/*<form id="formAccountSettings"*/}
-                                {/*      onSubmit={(isUserAdminOrHR || isProfileAdminOrHR || profile.role === 'Admin' || profile.role === 'HR') ? submitHandler2 : submitHandler}>*/}
                                 <form id="formAccountSettings"
-                                      onSubmit={(user.id === profile.id && user.role !=='Admin') ? submitHandler : submitHandler1}>
+                                      onSubmit={(user.id === profile.id && user.role !== 'Admin') ? submitHandler : submitHandler1}>
                                     <div className="row">
                                         <div className="mb-3 col-md-6">
                                             <label htmlFor="firstName" className="form-label">First Name</label>
