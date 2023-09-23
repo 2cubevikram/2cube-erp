@@ -44,6 +44,7 @@ class EmployeeController {
         req.body.updated_at = new Date();
 
         const params = {
+            birth_date: req.body.birth_date,
             account_number: req.body.account_number,
             join_date: req.body.join_date,
             extra_details: req.body.extra_details,

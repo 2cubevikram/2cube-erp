@@ -90,9 +90,10 @@ const Account = ({profile}) => {
     const submitHandler1 = async (e) => {
         e.preventDefault();
 
-        if ((joinDate !== moment(profile.join_date).format('YYYY-MM-DD')) || profile.account_number !== accountNo || profile.extra_details !== extraDetails || profile.basic !== basicSalary) {
+        if ((joinDate !== moment(profile.join_date).format('YYYY-MM-DD')) || (birthDate !== moment(profile.birth_date).format('YYYY-MM-DD')) || profile.account_number !== accountNo || profile.extra_details !== extraDetails || profile.basic !== basicSalary) {
             const params = {
                 employee_id: profile.id,
+                birth_date: birthDate,
                 account_number: accountNo,
                 join_date: joinDate,
                 extra_details: extraDetails,
@@ -286,16 +287,16 @@ const Account = ({profile}) => {
                                         {
                                             (user.role === 'Admin' || (user.role === 'HR' && profile.role !== 'HR')) ? (
                                                 <div className="mb-3 col-md-6">
-                                                    <label htmlFor="address" className="form-label">Next
+                                                    <label htmlFor="next-date" className="form-label">Next
                                                         Increment</label>
                                                     <input
+                                                        className="form-control"
                                                         type="date"
-                                                        id="increment_date"
-                                                        name="increment_date"
+                                                        id="nextIncrement"
+                                                        name="nextIncrement"
                                                         value={moment(incrementMonth).format('YYYY-MM-DD')}
                                                         onChange={(e) => setIncrementMonth(e.target.value)}
                                                         readOnly={!(user.role === 'Admin' || (user.role === 'HR' && profile.role !== 'HR'))}
-                                                        className="form-control"
                                                     />
                                                 </div>
                                             ) : ""
