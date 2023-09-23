@@ -47,17 +47,10 @@ const Previous = () => {
         }
     }
 
-
-    // const lastMonth = moment().format('YYYY-MM-DD');
-    // console.log(lastMonth);
-
     useEffect(() => {
         dispatch(getSalaryStatus({user, filterDate: lastMonth}))
         // eslint-disable-next-line
     }, [user])
-
-
-    // console.log();
 
     return (
         <>
@@ -102,7 +95,10 @@ const Previous = () => {
                                 ) : (
                                     <tbody className="table-border-bottom-0">
                                     {
-                                        salaries.salary.map((item, index) => {
+                                        salaries.salary
+                                            .slice()
+                                            .sort((a, b) => a.employee_name.localeCompare(b.employee_name))
+                                            .map((item, index) => {
                                             return (
                                                 <Fragment key={item.id || index}>
                                                     <tr key={item.id || index}>

@@ -75,7 +75,10 @@ const ManuallyAdd = () => {
                                         </tr>
                                         </thead>
                                         <tbody className="table-border-bottom-0">
-                                        {allUsers.map((item, index) => (
+                                        {allUsers
+                                            .slice()
+                                            .sort((a, b) => (a.first_name + ' ' + a.last_name).localeCompare(b.first_name + ' ' + b.last_name))
+                                            .map((item, index) => (
                                             <Fragment key={item.id || index}>
                                                 <tr>
                                                     <td className={`left-align`}>

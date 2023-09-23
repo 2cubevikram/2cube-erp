@@ -54,6 +54,14 @@ const Today = () => {
 
     }
 
+    const sortedTodayStatus = toDayStatus.today.sort((a, b) => {
+        const nameA = a.first_name.toLowerCase();
+        const nameB = b.first_name.toLowerCase();
+        if (nameA < nameB) return -1;
+        if (nameA > nameB) return 1;
+        return 0;
+    });
+
     return (
         <>
             <div className="container-xxl flex-grow-1 container-p-y">
@@ -75,7 +83,7 @@ const Today = () => {
                                     </thead>
                                     <tbody className="table-border-bottom-0">
                                     {
-                                        toDayStatus.today.map((item, index) => {
+                                        sortedTodayStatus.map((item, index) => {
                                             const attendanceID = item.id;
                                             return (
                                                 <React.Fragment key={index}>
@@ -86,14 +94,7 @@ const Today = () => {
                                                             <UserProfile profile={item.profile ? PF + item.profile : PF + "avatar.png"} name={`${item.first_name} ${item.last_name}`}  />
                                                             </div>
                                                         </td>
-
-                                                        {/*<td>*/}
-                                                        {/*    <span className="badge bg-label-warning me-1">*/}
-                                                        {/*    {item.check ? formatText(item.check) : ''}*/}
-                                                        {/*    </span>*/}
-                                                        {/*</td>*/}
                                                         <td>
-                                                            {/*<span className="badge bg-label-warning me-1">{item.break ? formatText(item.break) : ''}</span>*/}
                                                             <span
                                                                 className="badge bg-label-warning me-1">
                                                                 {
@@ -115,7 +116,6 @@ const Today = () => {
                                                                           className="dropdown-item">
                                                                         <i className="bx bx-edit-alt me-1"></i>Edit
                                                                     </Link>
-
                                                                     {/*<a className="dropdown-item" href="/">*/}
                                                                     {/*    <i className="bx bx-trash me-1"></i> Delete</a>*/}
                                                                 </div>

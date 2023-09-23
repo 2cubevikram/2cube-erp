@@ -56,7 +56,7 @@ export const EmployeeList = ({ employees, active_tab = 1 }) => {
                         {/*<tr key={item.id} >*/}
                         <tr
                             key={item.id}
-                            className={`${isIncrementDateCurrentDay ? 'alert-success' : ''} ${isIncrementDateCurrentMonth ? '' : ''}`}
+                            className={`${isIncrementDateCurrentDay ? 'bg-label-primary' : ''} ${isIncrementDateCurrentMonth ? '' : ''}`}
                         >
                             <td>
                                 <Link
