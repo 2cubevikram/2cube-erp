@@ -326,31 +326,47 @@ class AdminController {
             return res.status(208).send({message: 'Your account is not active this time, Kindly reach out to Authorized Person for Assistance.'});
         }
 
-        sendMail(user.email, '2Cube-Studio – Password Forgot', user.id);
+        await sendMail(user.email, '2Cube-Studio – Password Forgot', user.id);
         res.status(200).send({message: 'Email has been sent on your register email address.'});
         // next();
     }
 
     forgotPassword = async (req, res, next) => {
-        const user = await AuthModel.findOne({email: req.body.email});
 
-        if (!user) {
-            return res.status(409).send({message: 'Record not found, With this email.'});
+        const secretKey = process.env.SECRET_JWT || "";
+        try {
+            // Verify Token
+            const isValidToken = jwt.verify(req.body.token, secretKey);
+
+            const user = await AuthModel.findOne({ id: isValidToken.user_id });
+
+            if (!user) {
+                return res.status(409).send({ message: 'Record not found, With this email.' });
+            }
+
+            if (user.status !== 'Active' && user.status !== 'Unverified') {
+                res.status(401).send({ message: 'Editing is limited to the respective account holders only' });
+                return;
+            }
+
+            await this.hashPassword(req);
+
+            const params = {
+                password: req.body.password,
+                updated_at: new Date(),
+            }
+
+            const result = await AuthModel.update(params, user.id);
+
+            if (!result) {
+                return res.status(409).send({ message: 'Something went wrong while updating password.' });
+            }
+
+            return res.status(200).send({ message: 'Password has been reset successfully.' });
+        } catch (error) {
+            console.log('Invalid or expired token:', error.message);
+            return res.status(400).send({ message: 'Invalid or expired token.' });
         }
-
-        await this.hashPassword(req);
-
-        const params = {
-            password: req.body.password,
-            updated_at: new Date(),
-        }
-
-        const result = await AuthModel.update(params, user.id);
-        if (!result) {
-            return res.status(409).send({message: 'Something went wrong while updating password.'});
-        }
-        res.status(200).send({message: 'Password has been has been reset successfully.'});
-
     }
 
     userDelete = async (req, res, next) => {

@@ -70,7 +70,7 @@ function App({state}) {
                     </Route>
                     <Route exact path="/register" element={!state.login.isLoggedIn ? <Register/> : <Navigate to="/"/>}/>
                     <Route exact path="/forgot-password" element={!state.login.isLoggedIn ? <ForgotPassword/> : <Navigate to="/"/>}/>
-                    <Route exact path="/update-password/:email" element={!state.login.isLoggedIn ? <ChangePassword/> : <Navigate to="/"/>}/>
+                    <Route exact path="/update-password/:token" element={!state.login.isLoggedIn ? <ChangePassword/> : <Navigate to="/"/>}/>
                 </Routes>
             </Router>
         </>

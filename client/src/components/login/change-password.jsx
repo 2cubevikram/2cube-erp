@@ -12,7 +12,7 @@ const ChangePassword = () => {
     const [confpass, setConfpass] = useState(false);
     const [confpassword, setConfPassword] = useState('');
     const [error, setError] = useState('');
-    const {email} = useParams();
+    const {email, token} = useParams();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,7 +23,7 @@ const ChangePassword = () => {
         setError('');
 
         try {
-            await dispatch(changePassword(email.trim(), password.trim()));
+            await dispatch(changePassword(password.trim(), token));
             alert('Password changed successfully');
             navigate('/login');
         } catch (error) {

@@ -36,9 +36,9 @@ export const sendEmail = (email) => async dispatch => {
     }
 };
 
-export const changePassword = (email, password) => async dispatch => {
+export const changePassword = (password, token) => async dispatch => {
     try {
-        const response = await axios.patch(`${API_BASE_URL}/auth/reset-password`, {email, password});
+        const response = await axios.patch(`${API_BASE_URL}/auth/reset-password`, {password, token});
         dispatch({type: 'CHANGE_PASSWORD_SUCCESS', payload: response.data});
     } catch (error) {
         dispatch({type: 'CHANGE_PASSWORD_FAILURE', payload: error.response.data.message});

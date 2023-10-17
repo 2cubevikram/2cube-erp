@@ -144,6 +144,10 @@ class SalaryController {
                 const leave_days = Object.values(userLeaveTypes); // Convert to array of accumulated leave days
 
                 const plDays = leave_type.includes('PL') ? leave_days[leave_type.indexOf('PL')] : 0;
+                const hplCount = leave_type.includes('HPL') ? leave_days[leave_type.indexOf('HPL')] : 0;
+                const halfPaidDayCount = hplCount * 0.5; // Convert half-days to actual days
+                const hlCount = leave_type.includes('HL') ? leave_days[leave_type.indexOf('HL')] : 0;
+                const halfDayCount = hlCount * 0.5; // Convert half-days to actual days
 
                 const mergedResult = {
                     id: user.id,
@@ -156,6 +160,8 @@ class SalaryController {
                     leave_type: leave_type,
                     days: leave_days,
                     plDays: plDays,
+                    halfDayCount: halfPaidDayCount,
+                    halfDay: halfDayCount
                 };
                 mergedResults.push(mergedResult);
             }

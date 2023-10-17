@@ -6,7 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/navbar/navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/navbar/navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/leave-form.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/leave-form.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/login/change-password.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/change-password.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/salary/current.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/current.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/authActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/middlewares/auth.middleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/middlewares/auth.middleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/utils/mailer.utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/mailer.utils.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -257,7 +266,11 @@
       <workItem from="1695445061963" duration="344000" />
       <workItem from="1695451632556" duration="12174000" />
       <workItem from="1695468625037" duration="9399000" />
-      <workItem from="1695478948757" duration="16000" />
+      <workItem from="1695478948757" duration="266000" />
+      <workItem from="1696242011798" duration="449000" />
+      <workItem from="1696242501889" duration="1993000" />
+      <workItem from="1696257219496" duration="99000" />
+      <workItem from="1697521771346" duration="18192000" />
     </task>
     <servers />
   </component>

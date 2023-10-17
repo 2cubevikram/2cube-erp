@@ -125,6 +125,8 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                                     <option value="CL">Casual Leave</option>
                                     <option value="PL">Paid Leave</option>
                                     <option value="SL">Sick Leave</option>
+                                    <option value="HL">Half-Day</option>
+                                    <option value="HPL">Half-Day PL</option>
                                 </select>
                             </div>
                             <div className="mb-3 col-md-6">

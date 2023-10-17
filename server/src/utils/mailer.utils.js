@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 import fs from 'fs';
 import path from 'path';
+import jwt from "jsonwebtoken";
 
 
 const transporter = nodemailer.createTransport({
@@ -14,14 +15,17 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const sendMail = (to, subject, user) => {
+const sendMail = async (to, subject, user) => {
+    // Generate a token with expiration time of x minutes
+    const token = await generateToken(user, 1);
+
     fs.readFile(path.resolve() + `/public/templates/forgot-password.html`, 'utf8', (err, data) => {
         if (err) {
             console.error(err)
             return
         }
-        // data = data.replace(/###URL###/g, process.env.ACTIVATE_ACCOUNT_BASE_URL);
-        data = data.replace(/###URL###/g, `${process.env.ACTIVATE_ACCOUNT_BASE_URL}/${to}`);
+
+        data = data.replace(/###URL###/g, `${process.env.ACTIVATE_ACCOUNT_BASE_URL}/${token}`);
         data = data.replace(/###EMAIL###/g, to);
 
         const email = {
@@ -39,5 +43,14 @@ const sendMail = (to, subject, user) => {
         });
     });
 };
+
+const generateToken = (userId) => {
+    const secretKey = process.env.SECRET_JWT || "";
+    return jwt.sign({user_id: userId.toString()}, secretKey, {
+        expiresIn: '5m'
+    });
+};
+
+
 
 export default sendMail;

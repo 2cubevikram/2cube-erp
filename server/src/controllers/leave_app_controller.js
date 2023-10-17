@@ -20,7 +20,12 @@ class LeaveAppController {
         const duration = moment.duration(end_date.diff(start_date));
         const days = duration.asDays();
 
-        req.body.days = days + 1;
+        if(req.body.leave_type === 'HL' || req.body.leave_type === 'HPL'){
+            req.body.days = 0.5
+        }else {
+            req.body.days = days + 1;
+        }
+
         const result = await LeaveAppModel.create(req.body);
 
         if (result.id > 0) {
