@@ -11,6 +11,7 @@ import ForgotPassword from "./components/login/forgot-password";
 import Register from "./components/login/register";
 import Holiday from "./pages/Holiday";
 import Salary from "./pages/Salary";
+import Report from "./pages/Report";
 import ChangePassword from "./components/login/change-password";
 
 
@@ -64,6 +65,14 @@ function App({state}) {
                         (state.login.user !== null && state.login.user.role === "Admin") ||
                         (state.login.user !== null && state.login.user.role === "HR") ?
                             <Salary/> :
+                            <Navigate to="/login"/>
+                        // state.login.isLoggedIn ? <Leaves/> : <Navigate to="/login"/>
+                    }>
+                    </Route>
+                    <Route exact path="/report" element={
+                        (state.login.user !== null && state.login.user.role === "Admin") ||
+                        (state.login.user !== null && state.login.user.role === "HR") ?
+                            <Report/> :
                             <Navigate to="/login"/>
                         // state.login.isLoggedIn ? <Leaves/> : <Navigate to="/login"/>
                     }>

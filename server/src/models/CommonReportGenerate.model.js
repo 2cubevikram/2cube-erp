@@ -26,6 +26,19 @@ class CommonReportGenerateModel {
         return await query(sql, [employeeId, startDate, endDate]);
     }
 
+    checkTime = async (tableName, employeeId, startTime, endTime) => {
+        const [startYear, startMonth] = startTime.split('-');
+        const [endYear, endMonth] = endTime.split('-');
+    
+        let sql = `SELECT id, employee_id, _in, _out, status 
+                   FROM ${tableName} 
+                   WHERE employee_id = ? 
+                   AND YEAR(_in) >= ? AND MONTH(_in) >= ? 
+                   AND YEAR(_in) <= ? AND MONTH(_in) <= ?`;
+        
+        return await query(sql, [employeeId, startYear, startMonth, endYear, endMonth]);
+    }    
+
 }
 
 export default new CommonReportGenerateModel();

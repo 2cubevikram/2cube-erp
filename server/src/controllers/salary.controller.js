@@ -19,11 +19,8 @@ class SalaryController {
         const currentMonth = currentDate.getMonth(); // Months are 0-indexed
         const currentYear = currentDate.getFullYear();
 
-
         const result = await SalaryModel.getSalaryById(id, currentMonth, currentYear);
         res.send(result);
-
-
     }
 
     salaryGenerate = async (req, res, next) => {

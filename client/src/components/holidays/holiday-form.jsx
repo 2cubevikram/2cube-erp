@@ -66,7 +66,7 @@ const HolidayForm = ({data = null, type = "APPLIED", formClose = null}) => {
                                 </div>
                             </div>
                             <div className="mt-2">
-                                <button type="submit" className="btn btn-primary me-2">Submit</button>
+                                <button type="submit" className="btn btn-primary me-2">Add</button>
                             </div>
                         </form>
                     </div>

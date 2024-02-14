@@ -95,6 +95,16 @@ const Sidebar = ({to}) => {
                         ) : ""
                     }
 
+                    {
+                        user && (user.role === "Admin" || user.role === "HR") ? (
+                            <li className={` menu-item ${currentPath === '/report' && "active"} `}>
+                                <Link to={"/report"}
+                                      className="menu-link"><i
+                                    className="menu-icon tf-icons bx bx-time"></i>Time Report</Link>
+                            </li>
+                        ) : ""
+                    }
+
                     <li className="menu-item">
                         {/*<a href="" className="menu-link menu-toggle">*/}
                         {/*    <i className="menu-icon tf-icons bx bx-lock-open-alt"></i>*/}
