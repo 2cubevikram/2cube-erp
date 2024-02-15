@@ -379,3 +379,6 @@ tr.table-default a.td-color :hover {
     padding-right: 3px;
     padding-left: 15px;
 }
+.tabbottom {
+    font-weight: bold;
+}

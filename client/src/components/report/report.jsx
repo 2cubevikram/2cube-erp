@@ -39,6 +39,7 @@ const Report = () => {
     // Define an object to store the count of unique days
     const daysCount = {};
     let totalWorkedHours = 0;
+    let monthName;
 
     // Iterate over generatedReportData to count the unique days
     generatedReportData.forEach(item => {
@@ -50,6 +51,10 @@ const Report = () => {
         const actual_time = check_time_in_minutes - ((item.total_break_hours < 60 && item.total_break_hours !== 0) ? 60 : item.total_break_hours);
         const total_time_in_hours = formatDateTime.convertMinutesToHours(actual_time);
         totalWorkedHours += parseFloat(total_time_in_hours);
+
+        const date = new Date(item.date);
+        monthName = date.toLocaleString('en-us', { month: 'long' });
+
     });
 
     // Calculate the total number of unique days
@@ -173,14 +178,37 @@ const Report = () => {
                                                         })
                                                     )}
 
-                                                    <tfoot className="table-footer">
-                                                        <tr className="th_dat">
-                                                            <th>Days</th> <td colSpan="2">{totalUniqueDays}</td>
-                                                            <th>Month</th><td colSpan="2">Feb</td>
-                                                            <th>Worked Hour</th><td colSpan="2">{totalWorkedHours.toFixed(2)}</td>
-                                                            <th>Working Hour</th><td colSpan="2">{totalUniqueDays * 8}</td>
-                                                        </tr>
-                                                    </tfoot>
+
+
+                                                    <tr class="tabbottom">
+                                                        <td>
+                                                            Days : {totalUniqueDays}
+                                                        </td>
+
+                                                        <td>
+                                                            Month : {monthName}
+                                                        </td>
+                                                        <td>
+                                                            Worked Hour : {totalWorkedHours.toFixed(2)}
+                                                        </td>
+                                                        <td>
+                                                            Working Hour : {totalUniqueDays * 8}
+                                                        </td>
+
+
+                                                    </tr>
+
+                                                        {/*<tr className="th_dat">*/}
+                                                        {/*    <th>Days :</th>*/}
+                                                        {/*    <td>{totalUniqueDays}</td>&nbsp;&nbsp;&nbsp;*/}
+                                                        {/*    <th>Month :</th>*/}
+                                                        {/*    <td>Feb</td>&nbsp;&nbsp;&nbsp;&nbsp;*/}
+                                                        {/*    <th>Worked Hour :</th>*/}
+                                                        {/*    <td>{totalWorkedHours.toFixed(2)}</td>*/}
+                                                        {/*    <th>Working Hour</th>*/}
+                                                        {/*    <td>{totalUniqueDays * 8}</td>*/}
+                                                        {/*</tr>*/}
+
                                                 </tbody>
 
                                             </table>
