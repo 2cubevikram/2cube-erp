@@ -10,6 +10,7 @@ import birthdayReducer from "./birthDayReducer";
 import holidayReducer from "./holidayReducer";
 import salaryReducer from "./salaryReducer";
 import lastCheckReducer from "./lastCheckReducer";
+import reportGenerateReducer from "./reportGenerateReducer";
 
 const rootReducer = combineReducers({
     login:authReducer,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
     holiday:holidayReducer,
     salary:salaryReducer,
     lastCheck: lastCheckReducer,
+    getReportGenerate:reportGenerateReducer,
 });
 
 export default rootReducer;

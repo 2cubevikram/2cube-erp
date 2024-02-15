@@ -1,10 +1,10 @@
-const initailState = {
+const initialState = {
     holiday: [],
     loading: true,
     error: null
 };
 
-const holidayReducer = (state = initailState, action) => {
+const holidayReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ADD_HOLIDAY_SUCCESSFULLY':
             return {

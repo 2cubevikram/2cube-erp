@@ -122,10 +122,18 @@ export const formatDateTime = {
         return `${formattedHours}:${formattedMinutes}`;
     },
     convertMinutesToHours: function (minutes) {
-        var hours = Math.floor(minutes / 60);
-        var mins = minutes % 60;
+        // var hours = Math.floor(minutes / 60);
+        // var mins = minutes % 60;
+        //
+        // return hours + ":" + (mins < 10 ? "0" : "") + mins;
 
-        return hours + ":" + (mins < 10 ? "0" : "") + mins;
+        const hours = Math.floor(minutes / 60);
+        const remainingMinutes = Math.floor(minutes % 60);
+        return `${hours}:${remainingMinutes < 10 ? '0' : ''}${remainingMinutes}`;
+    },
+
+    formatTime:function (time)  {
+        return new Date(time).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
     }
 };
 

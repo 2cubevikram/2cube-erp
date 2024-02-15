@@ -104,20 +104,84 @@ class ReportGenerateController {
         return workingHours;
     }
 
-    getYearllyReport = async(req, res) => {
-        const { id, startTime, endTime } = req.body;
+    // getYearlyReport = async(req, res) => {
+    //
+    //     const { employeeId, startDate, endDate } = req.body;
+    //     console.log({ employeeId, startDate, endDate })
+    //     // Extract year and month from startTime and endTime
+    //     const startYearMonth = moment(startDate, 'YYYY-MM').format('YYYY-MM');
+    //     const endYearMonth = moment(endDate, 'YYYY-MM').format('YYYY-MM');
+    //
+    //     let attendance = await ReportGenerateModel.check_time(employeeId, startYearMonth, endYearMonth);
+    //     let breakTime  = await ReportGenerateModel.break_time(employeeId, startYearMonth, endYearMonth);
+    //
+    //     let checkAttendance = [];
+    //     let breakAttendance = [];
+    //     let totalAttendanceHours = 0;
+    //     let totalBreakMinutes = 0;
+    //
+    //     for (const row of attendance) {
+    //         const checkIn = new Date(row._in);
+    //         const checkOut = row._out ? new Date(row._out) : new Date();
+    //
+    //         const checkDuration = await EmployeeModel.calculateDuration(checkIn, checkOut);
+    //
+    //         // Extract hours from the duration string (format: HH:MM:SS)
+    //         const [hours] = checkDuration.split(':');
+    //         const chekHours = parseFloat(hours);
+    //         totalAttendanceHours += chekHours;
+    //
+    //         checkAttendance.push({
+    //             id: row.id,
+    //             employee_id: row.employee_id,
+    //             date:moment(row._in, 'YYYY-MM-DD').format('YYYY-MM-DD'),
+    //             _in: row._in,
+    //             _out: row._out,
+    //             chekHours: chekHours.toFixed(2), // toFixed to ensure precision
+    //             status: row.status
+    //         });
+    //     }
+    //
+    //     for (const row of breakTime) {
+    //         const checkIn = new Date(row._in);
+    //         const checkOut = row._out ? new Date(row._out) : new Date();
+    //
+    //         const breakDuration = await EmployeeModel.calculateInMinutsDuration(checkIn, checkOut);
+    //
+    //         // Extract hours from the duration string (format: HH:MM:SS)
+    //         const [hours] = breakDuration.split(':');
+    //         const breakHours = parseFloat(hours);
+    //         totalBreakMinutes += breakHours;
+    //
+    //         breakAttendance.push({
+    //             id: row.id,
+    //             employee_id: row.employee_id,
+    //             date:moment(row._in, 'YYYY-MM-DD').format('YYYY-MM-DD'),
+    //             _in: row._in,
+    //             _out: row._out,
+    //             chekHours: breakDuration, // toFixed to ensure precision
+    //             status: row.status
+    //         });
+    //     }
+    //
+    //     const totalBreakHours = totalBreakMinutes / 60;
+    //     const workingHours = totalAttendanceHours - totalBreakHours;
+    //     res.send({ attendance: checkAttendance, breakAttendance, workingHours });
+    // }
+
+
+    getYearlyReport = async (req, res) => {
+        const { employeeId, startDate, endDate } = req.query;
 
         // Extract year and month from startTime and endTime
-        const startYearMonth = moment(startTime, 'YYYY-MM').format('YYYY-MM');
-        const endYearMonth = moment(endTime, 'YYYY-MM').format('YYYY-MM');
+        const startYearMonth = moment(startDate, 'YYYY-MM').format('YYYY-MM');
+        const endYearMonth = moment(endDate, 'YYYY-MM').format('YYYY-MM');
 
-        let attendance = await ReportGenerateModel.check_time(id, startYearMonth, endYearMonth);
-        let breakTime  = await ReportGenerateModel.break_time(id, startYearMonth, endYearMonth);
+        let attendance = await ReportGenerateModel.check_time(employeeId, startYearMonth, endYearMonth);
+        let breakTime = await ReportGenerateModel.break_time(employeeId, startYearMonth, endYearMonth);
 
         let checkAttendance = [];
-        let breakAttendance = [];
-        let totalAttendanceHours = 0;
-        let totalBreakMinutes = 0;
+        let totalWorkingHours = 0;
 
         for (const row of attendance) {
             const checkIn = new Date(row._in);
@@ -127,47 +191,43 @@ class ReportGenerateController {
 
             // Extract hours from the duration string (format: HH:MM:SS)
             const [hours] = checkDuration.split(':');
-            const chekHours = parseFloat(hours);
-            totalAttendanceHours += chekHours;
+            const checkHours = parseFloat(hours);
+            totalWorkingHours += checkHours;
+
+            const breakRecords = breakTime.filter(breakItem => moment(breakItem._in).format('YYYY-MM-DD') === moment(row._in).format('YYYY-MM-DD'));
+
+            let totalBreakMinutes = 0;
+
+            for (const breakRecord of breakRecords) {
+                const breakIn = new Date(breakRecord._in);
+                const breakOut = breakRecord._out ? new Date(breakRecord._out) : new Date();
+
+                const breakDuration = await EmployeeModel.calculateInMinutsDuration(breakIn, breakOut);
+
+                const [breakHours] = breakDuration.split(':');
+                totalBreakMinutes += parseFloat(breakHours);
+            }
 
             checkAttendance.push({
                 id: row.id,
                 employee_id: row.employee_id,
-                date:moment(row._in, 'YYYY-MM-DD').format('YYYY-MM-DD'),
-                _in: row._in,
-                _out: row._out,
-                chekHours: chekHours.toFixed(2), // toFixed to ensure precision
-                status: row.status
+                date: moment(row._in).format('YYYY-MM-DD'),
+                check_in: row._in,
+                check_out: row._out,
+                check_hours: checkHours.toFixed(2), // toFixed to ensure precision
+                status: row.status,
+                total_break_hours: totalBreakMinutes, // Convert minutes to hours
+                break_records: breakRecords
             });
         }
 
-        for (const row of breakTime) {
-            const checkIn = new Date(row._in);
-            const checkOut = row._out ? new Date(row._out) : new Date();
-            
-            const breakDuration = await EmployeeModel.calculateInMiunutsDuration(checkIn, checkOut);
-            
-            // Extract hours from the duration string (format: HH:MM:SS)
-            const [hours] = breakDuration.split(':');
-            const breakHours = parseFloat(hours);
-            totalBreakMinutes += breakHours;    
-
-            breakAttendance.push({
-                id: row.id,
-                employee_id: row.employee_id,
-                date:moment(row._in, 'YYYY-MM-DD').format('YYYY-MM-DD'),
-                _in: row._in,
-                _out: row._out,
-                chekHours: breakDuration, // toFixed to ensure precision
-                status: row.status
-            });
-        }
-
-        const totalBreakHours = totalBreakMinutes / 60;
-        const workingHours = totalAttendanceHours - totalBreakHours;
-
-        res.send({ attendance: checkAttendance, breakAttendance, workingHours });
+        res.send({ attendance: checkAttendance, workingHours: totalWorkingHours.toFixed(2) });
     }
+
+
+
+
+
 }
 
 export default new ReportGenerateController();

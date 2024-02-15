@@ -6,16 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/css/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/css/demo.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/leave-form.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/leave-form.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/login/change-password.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/change-password.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/Attendance.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/report/report.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/report/report.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/salary/current.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/salary/current.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/authActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/admin.contoller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/salary.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/middlewares/auth.middleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/middlewares/auth.middleware.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/utils/mailer.utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/mailer.utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/sidebar/sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/sidebar/sidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/function/time.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/function/time.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/holidayReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/holidayReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/rootReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/rootReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controllers/reportGenerate.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/reportGenerate.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/employee.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/employee.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/routes/auth.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/auth.route.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -270,7 +274,20 @@
       <workItem from="1696242011798" duration="449000" />
       <workItem from="1696242501889" duration="1993000" />
       <workItem from="1696257219496" duration="99000" />
-      <workItem from="1697521771346" duration="18192000" />
+      <workItem from="1697521771346" duration="18461000" />
+      <workItem from="1697547990319" duration="266000" />
+      <workItem from="1699441828544" duration="4817000" />
+      <workItem from="1699446825015" duration="734000" />
+      <workItem from="1704093878636" duration="435000" />
+      <workItem from="1704119723514" duration="211000" />
+      <workItem from="1704457591750" duration="32000" />
+      <workItem from="1704689758039" duration="84000" />
+      <workItem from="1704689930283" duration="114000" />
+      <workItem from="1707540914790" duration="1096000" />
+      <workItem from="1707892592739" duration="1521000" />
+      <workItem from="1707895299931" duration="19685000" />
+      <workItem from="1707972341043" duration="2363000" />
+      <workItem from="1707975536992" duration="12727000" />
     </task>
     <servers />
   </component>

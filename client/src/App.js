@@ -70,8 +70,7 @@ function App({state}) {
                     }>
                     </Route>
                     <Route exact path="/report" element={
-                        (state.login.user !== null && state.login.user.role === "Admin") ||
-                        (state.login.user !== null && state.login.user.role === "HR") ?
+                        (state.login.user !== null && state.login.user.role === "Admin") ?
                             <Report/> :
                             <Navigate to="/login"/>
                         // state.login.isLoggedIn ? <Leaves/> : <Navigate to="/login"/>

@@ -96,7 +96,7 @@ const Sidebar = ({to}) => {
                     }
 
                     {
-                        user && (user.role === "Admin" || user.role === "HR") ? (
+                        user && (user.role === "Admin") ? (
                             <li className={` menu-item ${currentPath === '/report' && "active"} `}>
                                 <Link to={"/report"}
                                       className="menu-link"><i

@@ -64,7 +64,7 @@ router.patch('/update-notification', auth(), awaitHandlerFactory(NotificationCon
 router.post('/add-notification', auth(), awaitHandlerFactory(NotificationController.createNotification));
 
 router.get('/get-report', auth(), awaitHandlerFactory(ReportGenerateController.getReport));
-router.get('/get-yearlly-report', auth(), awaitHandlerFactory(ReportGenerateController.getYearllyReport));
+router.get('/get-yearly-report', auth(), awaitHandlerFactory(ReportGenerateController.getYearlyReport));
 
 router.post('/timestamp', auth(), awaitHandlerFactory(EmployeeController.timestamp));
 router.patch('/timestamp', auth(), awaitHandlerFactory(EmployeeController.timestamp));

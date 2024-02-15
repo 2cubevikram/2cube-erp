@@ -40,10 +40,11 @@ class EmployeeModel {
         return durationInHours.toString();
     }
 
-    calculateInMiunutsDuration = async (checkIn, checkOut) => {
+    calculateInMinutsDuration = async (checkIn, checkOut) => {
         const durationInMillis = checkOut.getTime() - checkIn.getTime();
         const durationInMinutes = durationInMillis / (1000 * 60); // Convert milliseconds to minutes
         return durationInMinutes.toFixed(2);
+        // return durationInMinutes.toString();
     }    
 
     findOne = async (params) => {

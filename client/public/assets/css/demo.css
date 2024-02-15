@@ -374,3 +374,8 @@ tr.table-default a.td-color :hover {
 
 .avatar_two{ gap:inherit !important;  }
 
+.btn-group, .btn-group-vertical { align-items: center; }
+.startDate {
+    padding-right: 3px;
+    padding-left: 15px;
+}

@@ -164,7 +164,6 @@ const TR = ({data}) => {
             'employee_id': data.employee_id,
             'date': data.date,
         }
-
         dispatch(breakTimeDelete({user, obj}));
     };
 

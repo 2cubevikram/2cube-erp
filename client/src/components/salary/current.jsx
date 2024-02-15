@@ -66,8 +66,7 @@ const Current = () => {
             const totalDays = item.days.reduce((sum, days) => sum + days, 0);
             const presentDays = lastDayOfMonth - totalDays + (parseFloat(item.halfDayCount) + parseFloat(item.halfDay));
             const paidDays = lastDayOfMonth - item.plDays - parseFloat(item.halfDayCount);
-            const salary = (item.basic_salary / lastDayOfMonth) * paidDays;
-            item.finalSalary = salary + item.increment;
+            item.finalSalary = ((item.basic_salary + item.increment) / lastDayOfMonth) * paidDays;
             item.presentDays = presentDays;
             item.leaveAndDays = leaveAndDays;
 
