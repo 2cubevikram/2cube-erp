@@ -3,7 +3,6 @@ import API_BASE_URL from "../../apiConfig";
 
 
 export const getReport = ({user, obj}) => async (dispatch) => {
-    console.log(obj)
     try {
         const response = await axios.get(`${API_BASE_URL}/auth/get-yearly-report`, {
             headers: {

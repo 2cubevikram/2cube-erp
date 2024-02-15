@@ -4,6 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {getReport} from "../../redux/actions/reportGenerateActions";
 import {formatDateTime} from "../../function/time";
 import $ from "jquery";
+import moment from "moment/moment";
+import {getDayOfWeek} from "../../function/excerpt";
 
 const Report = () => {
     const dispatch = useDispatch();
@@ -17,12 +19,13 @@ const Report = () => {
 
     useEffect(() => {
         dispatch(getEmployee({ user }));
+        console.log({user})
         // eslint-disable-next-line
     }, [getEmployee, user]);
 
     const handleEmployeeSelection = (id, firstName, lastName) => {
         setEmployeeId(id);
-        $(".dropdown-toggle").text(`${firstName} ${lastName}`);
+        $(".employee-name").text(`${firstName} ${lastName}`);
     };
 
     const handleClick = () => {
@@ -54,7 +57,7 @@ const Report = () => {
                                 <div className="col-xl-12">
                                     <div className="demo-inline-spacing">
                                         <div className="btn-group">
-                                            <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button type="button" className="btn btn-primary dropdown-toggle employee-name" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Select Employee
                                             </button>
                                             {Array.isArray(employee) && (
@@ -107,12 +110,12 @@ const Report = () => {
                                                             const total_check_time = formatDateTime.TimeDifference(item.check_in, item.check_out);
                                                             const [hoursStr, minutesStr] = total_check_time.split(':');
                                                             const check_time_in_minutes = parseInt(hoursStr) * 60 + parseInt(minutesStr);
-                                                            const actual_time = check_time_in_minutes - (item.total_break_hours < 60 ? 60 : item.total_break_hours);
+                                                            const actual_time = check_time_in_minutes - ((item.total_break_hours < 60 && item.total_break_hours !== 0) ? 60 : item.total_break_hours);
                                                             const total_time_in_hours = formatDateTime.convertMinutesToHours(actual_time)
 
                                                             return (
                                                                 <tr key={index}>
-                                                                    <td>{item.date}</td>
+                                                                    <td>{moment(item.date).format('DD-MM-YYYY')} / {getDayOfWeek(item.date)}</td>
                                                                     <td>{formatDateTime.formatTime(item.check_in)}</td>
                                                                     <td>{formatDateTime.formatTime(item.check_out)}</td>
                                                                     <td>{formatDateTime.TimeDifference(item.check_in, item.check_out)}</td>

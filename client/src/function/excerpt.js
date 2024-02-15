@@ -13,6 +13,12 @@ export const getDayOfWeekInCurrentYear = (dateString) => {
     return daysOfWeek[birthDateThisYear.getDay()];
 }
 
+export const getDayOfWeek = (dateString) => {
+    const date = new Date(dateString);
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    return daysOfWeek[date.getDay()];
+};
+
 export const isBirthdayToday = (birthDateString,serverCurrentTime) => {
     const birthDate = new Date(birthDateString);
     const currentDate = new Date(serverCurrentTime);
