@@ -36,6 +36,27 @@ const Report = () => {
 
     };
 
+    // Define an object to store the count of unique days
+    const daysCount = {};
+    let totalWorkedHours = 0;
+
+    // Iterate over generatedReportData to count the unique days
+    generatedReportData.forEach(item => {
+        const day = moment(item.date).format('DD-MM-YYYY');
+        daysCount[day] = (daysCount[day] || 0) + 1;
+        const total_check_time = formatDateTime.TimeDifference(item.check_in, item.check_out);
+        const [hoursStr, minutesStr] = total_check_time.split(':');
+        const check_time_in_minutes = parseInt(hoursStr) * 60 + parseInt(minutesStr);
+        const actual_time = check_time_in_minutes - ((item.total_break_hours < 60 && item.total_break_hours !== 0) ? 60 : item.total_break_hours);
+        const total_time_in_hours = formatDateTime.convertMinutesToHours(actual_time);
+        totalWorkedHours += parseFloat(total_time_in_hours);
+    });
+
+    // Calculate the total number of unique days
+    const totalUniqueDays = Object.keys(daysCount).length;
+
+
+
     useEffect(() => {
         // Check if generatedReport is not empty and contains payload data
         if (generatedReport && Array.isArray(generatedReport.attendance)) {
@@ -102,40 +123,64 @@ const Report = () => {
                                                 </thead>
                                                 <tbody className="table-border-bottom-0">
                                                     {generatedReportData.length === 0 ? (
-                                                        <tr>
-                                                            <td colSpan="7">No Data Available</td>
+                                                        <tr className="full-width">
+                                                            <td colSpan="8">
+                                                                <div className="container-xxl flex-grow-1 container-p-y">
+                                                                    <div className="card">
+                                                                        <div className="card-body">
+                                                                            <div className="row g-0"><h2 className="m-0 text-center">No Leave Available</h2>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     ) : (
                                                         generatedReportData.map((item, index) => {
+                                                            const currentDate = new Date();
+                                                            const reportDate = new Date(item.date);
+
+                                                            // Check if the report date is the same as the current date
+                                                            if (currentDate.getDate() === reportDate.getDate() &&
+                                                                currentDate.getMonth() === reportDate.getMonth() &&
+                                                                currentDate.getFullYear() === reportDate.getFullYear()) {
+                                                                return null; // Skip rendering the row for today's data
+                                                            }
+
                                                             const total_check_time = formatDateTime.TimeDifference(item.check_in, item.check_out);
                                                             const [hoursStr, minutesStr] = total_check_time.split(':');
                                                             const check_time_in_minutes = parseInt(hoursStr) * 60 + parseInt(minutesStr);
                                                             const actual_time = check_time_in_minutes - ((item.total_break_hours < 60 && item.total_break_hours !== 0) ? 60 : item.total_break_hours);
-                                                            const total_time_in_hours = formatDateTime.convertMinutesToHours(actual_time)
+                                                            const total_time_in_hours = formatDateTime.convertMinutesToHours(actual_time);
 
                                                             return (
-                                                                <tr key={index}>
-                                                                    <td>{moment(item.date).format('DD-MM-YYYY')} / {getDayOfWeek(item.date)}</td>
-                                                                    <td>{formatDateTime.formatTime(item.check_in)}</td>
-                                                                    <td>{formatDateTime.formatTime(item.check_out)}</td>
-                                                                    <td>{formatDateTime.TimeDifference(item.check_in, item.check_out)}</td>
-                                                                    <td>
-                                                                        {/*{item.total_break_hours < 60 ? (*/}
-                                                                        {/*    `${item.total_break_hours} min`*/}
-                                                                        {/*) : (*/}
-                                                                        {/*    `${Math.floor(item.total_break_hours / 60)} hr ${Math.floor(item.total_break_hours % 60)} min`*/}
-                                                                        {/*)}*/}
-                                                                        {formatDateTime.convertMinutesToHours(item.total_break_hours)}
-                                                                    </td>
-                                                                    <td>{total_time_in_hours}</td>
-                                                                    <td>
-                                                                        {Math.floor((item.check_hours * 60 - item.total_break_hours) / 60)}:
-                                                                        {Math.floor((item.check_hours * 60 - item.total_break_hours) % 60)}
-                                                                    </td>
-                                                                </tr>
+                                                                <>
+                                                                    <tr key={index}>
+                                                                        <td>{moment(item.date).format('DD-MM-YYYY')} / {getDayOfWeek(item.date)}</td>
+                                                                        <td>{formatDateTime.formatTime(item.check_in)}</td>
+                                                                        <td>{formatDateTime.formatTime(item.check_out)}</td>
+                                                                        <td>{formatDateTime.TimeDifference(item.check_in, item.check_out)}</td>
+                                                                        <td>{formatDateTime.convertMinutesToHours(item.total_break_hours)}
+                                                                        </td>
+                                                                        <td>{total_time_in_hours}</td>
+                                                                        <td>
+                                                                            {Math.floor((item.check_hours * 60 - item.total_break_hours) / 60)}:
+                                                                            {Math.floor((item.check_hours * 60 - item.total_break_hours) % 60)}
+                                                                        </td>
+                                                                    </tr>
+                                                                </>
                                                             );
                                                         })
                                                     )}
+
+                                                    <tfoot className="table-footer">
+                                                        <tr className="th_dat">
+                                                            <th>Days</th> <td colSpan="2">{totalUniqueDays}</td>
+                                                            <th>Month</th><td colSpan="2">Feb</td>
+                                                            <th>Worked Hour</th><td colSpan="2">{totalWorkedHours.toFixed(2)}</td>
+                                                            <th>Working Hour</th><td colSpan="2">{totalUniqueDays * 8}</td>
+                                                        </tr>
+                                                    </tfoot>
                                                 </tbody>
 
                                             </table>
