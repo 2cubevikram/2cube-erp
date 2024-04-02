@@ -103,7 +103,7 @@ const LeaveList = () => {
                                     <th>End Date</th>
                                     <th>Leave Type</th>
                                     <th>Leave Reason</th>
-                                    <th>Status</th>
+                                    <th>total days</th>
                                     <input type="date" name="startDate" value={startDate} onChange={startDateChange}/>
                                     <input type="date" name="endDate" value={endDate} onChange={endDateChange}/>
                                     <button onClick={handleClick}>filter</button>
@@ -149,6 +149,11 @@ const LeaveList = () => {
                                                 <td>
                                                     {/*<span className="badge bg-label-warning me-1">*/}
                                                     {excerpt(item.reason)}
+                                                    {/*</span>*/}
+                                                </td>
+                                                <td>
+                                                    {/*<span className="badge bg-label-warning me-1">*/}
+                                                    {item.days}
                                                     {/*</span>*/}
                                                 </td>
                                                 <td>

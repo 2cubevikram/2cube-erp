@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/profile/profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/profile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/actions/leaveActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/actions/leaveActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/reducers/leaveReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/reducers/leaveReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controllers/leave_app_controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/models/leave_app_model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/leave_app_model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/routes/auth.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/auth.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/LeaveList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/LeaveList.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,7 +278,7 @@
       <workItem from="1707996647297" duration="10889000" />
       <workItem from="1708058220308" duration="759000" />
       <workItem from="1711091639713" duration="36000" />
-      <workItem from="1712042381295" duration="15961000" />
+      <workItem from="1712042381295" duration="17169000" />
     </task>
     <servers />
   </component>
