@@ -49,6 +49,24 @@ export const getAllLeave = ({user, filterDate}) => async (dispatch) => {
     }
 };
 
+export const getYearlyLeaveById = ({user, startDate, endDate, current_user_id}) => async (dispatch) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/auth/leaves-by-year`, {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+            params: {
+                id: current_user_id,
+                start_date: startDate,
+                end_date: endDate,
+            }
+        });
+        dispatch({type: 'GET_ALL_YEARLY_LEAVE_SUCCESS', payload: response.data});
+    } catch (error) {
+        dispatch({type: 'GET_YEARLY_LEAVE_FAILED', payload: error.message});
+    }
+};
+
 export const updateLeave = ({user, obj}) => async (dispatch) => {
     try {
         const response = await axios.patch(`${API_BASE_URL}/auth/leave-update`, obj, {

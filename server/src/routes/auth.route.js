@@ -57,6 +57,7 @@ router.post('/add-increment', auth(), awaitHandlerFactory(EmployeeController.add
 router.post('/leave-applied', auth(), awaitHandlerFactory(LeaveAppController.create));
 router.get('/leave-by-id', auth(), awaitHandlerFactory(LeaveAppController.getLeavesById));
 router.get('/all-leaves', auth(), awaitHandlerFactory(LeaveAppController.getAllLeaves));
+router.get('/leaves-by-year', auth(), awaitHandlerFactory(LeaveAppController.getYearlyLiveById));
 router.patch('/leave-update', auth(), awaitHandlerFactory(LeaveAppController.update));
 router.delete('/leave-delete', auth(), awaitHandlerFactory(LeaveAppController.delete));
 router.get('/get-notification', auth(), awaitHandlerFactory(NotificationController.getAllNotification));

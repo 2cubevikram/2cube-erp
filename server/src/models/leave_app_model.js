@@ -71,8 +71,13 @@ class LeaveAppModel {
         }
     };
 
+    getYearlyLiveById = async (start_date, end_date, id) => {
+        let sql = `SELECT * FROM ${this.tableName} WHERE start_date >= ? AND start_date < ? AND employee_id = ? AND status = "Approved" `;
+        return await query(sql, [start_date, end_date, id]);
+    }
+
     delete = async (id) => {
-        return await commonModel.delete(this.tableName, id);
+        return await commonModel.delete(start_date, end_date, id);
     }
 }
 

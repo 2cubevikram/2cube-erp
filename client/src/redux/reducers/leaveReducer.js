@@ -1,5 +1,6 @@
 const initialState = {
     leave: [],
+    yearlyleave: [],
     loading: true,
     error: null
 }
@@ -51,6 +52,20 @@ const leaveReducer = (state = initialState, action) => {
             return {
                 ...state,
                 leave: [],
+                loading: false,
+                error: action.payload,
+            };
+        case 'GET_ALL_YEARLY_LEAVE_SUCCESS':
+            return {
+                ...state,
+                yearlyleave: action.payload,
+                loading: false,
+                error: null,
+            };
+        case 'GET_YEARLY_LEAVE_FAILED':
+            return {
+                ...state,
+                yearlyleave: [],
                 loading: false,
                 error: action.payload,
             };

@@ -60,6 +60,18 @@ class LeaveAppController {
         res.status(200).send(result);
     };
 
+    getYearlyLiveById = async (req, res, next) => {
+        const currentYear = moment().year();
+        const s_date = `${currentYear}-04-01`;
+        const e_date = `${currentYear + 1}-04-01`;
+        const id = req.query.id;
+        let start_date =  req.query.start_date !== undefined ? moment(req.query.start_date).format('YYYY-MM-DD') : moment(s_date).format('YYYY-MM-DD');
+        let end_date =  req.query.start_date !== undefined ? moment(req.query.end_date).format('YYYY-MM-DD') : moment(e_date).format('YYYY-MM-DD');
+
+        const result = await LeaveAppModel.getYearlyLiveById(start_date, end_date, id)
+        res.status(200).send(result);
+    }
+
     update = async (req, res, next) => {
         const userId = req.currentUser.id;
         const row_id = req.body.id;

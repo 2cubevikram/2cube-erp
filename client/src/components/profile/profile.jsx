@@ -5,6 +5,7 @@ import Account from "./Account";
 import Attendance from "./Attendance";
 import {getProfile} from "../../redux/actions/profileAction";
 import Leave from "./Leave";
+import LeaveList from "../profile/LeaveList"
 
 const Profile = () => {
     const location = useLocation();
@@ -20,7 +21,7 @@ const Profile = () => {
     const user = useSelector((state) => state.login.user);
     const profile = useSelector((state) => state.user.profile);
     const [activeTab, setActiveTab] = useState(1);
-    let currentTab = activeTab === 1 ? "Account" : activeTab === 2 ? "Attendance" : activeTab === 3 ? "Leave" : "";
+    let currentTab = activeTab === 1 ? "Account" : activeTab === 2 ? "Attendance" : activeTab === 3 ? "Leave" : activeTab === 4 ? "LeaveList" : "";
 
 
     const handleTabClick = (tabNumber) => {
@@ -79,11 +80,22 @@ const Profile = () => {
                                         </button>
                                     </li> : ""
                             }
+                            {
+                                user.role === "Admin" || user.role === "Hr" ?
+                                    <li className="nav-item">
+                                        <button
+                                            className={`nav-link ${activeTab === 4 ? 'active' : ''}`}
+                                            onClick={() => handleTabClick(4)}>
+                                            <i className="bx bx-link-alt me-1"></i> List Of Leaves
+                                        </button>
+                                    </li> : ""
+                            }
                         </ul>
                     </div>
                     {activeTab === 1 && <Account profile={profile}/>}
                     {activeTab === 2 && <Attendance/>}
                     {activeTab === 3 && <Leave/>}
+                    {activeTab === 4 && <LeaveList/>}
                 </div>
             </div>
         </>
