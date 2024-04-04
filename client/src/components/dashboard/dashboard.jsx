@@ -14,6 +14,7 @@ import {
 } from "../../function/excerpt";
 import {getHoliday} from "../../redux/actions/holidayActions";
 import {checkLogin} from "../../function/check_login";
+import GraphBar from './GraphBar';
 
 
 const Dashboard = () => {
@@ -93,6 +94,26 @@ const Dashboard = () => {
                                                 data-app-dark-img="illustrations/man-with-laptop-dark.png"
                                                 data-app-light-img="illustrations/man-with-laptop-light.png"
                                             />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* i want to display here graph bar*/}
+
+                            <div className="mt-4 card box__top">
+                                <div className="row row-bordered g-0">
+                                    <div className="col-md-12">
+                                        <div className="cs-card-body">
+                                            <div className="card-body">
+                                                {check_status.status && check_status.day && (
+                                                    <GraphBar
+                                                        checkInTime={check_status.day._in}
+                                                        breakTimes={break_status.break}
+                                                        checkOutTime={check_status.day._out}
+                                                    />
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

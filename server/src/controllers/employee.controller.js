@@ -100,7 +100,7 @@ class EmployeeController {
             const result = await EmployeeModel.work_hours(employeeId, date);
 
             let workingHours = 0;
-            let minimumWorkingHours = 8;
+            let minimumWorkingHours = 8.30;
 
             for (const row of result) {
 

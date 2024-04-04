@@ -382,3 +382,144 @@ tr.table-default a.td-color :hover {
 .tabbottom {
     font-weight: bold;
 }
+
+
+/* */
+.custom_progress {
+    margin: 50px 0 0;
+}
+
+.custom_progress .fill_bar {
+    height: 16px;
+    position: relative;
+    overflow: hidden;
+    border-radius:15px;
+}
+.custom_progress .fill_bar .break {
+    font-size: 10px;
+    color: #000;
+    font-weight: 700;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom_progress .fill_bar .basic, .custom_progress .fill_bar .fill,.custom_progress .fill_bar .break {position: absolute;top: 0;left: 0;height: 100%;width: 100%;background: #e5e5e5;}
+
+.custom_progress .fill_bar .fill {}
+
+.custom_progress .fill_bar .fill {
+    background: #696cff;
+    width: 30%;
+}
+
+.custom_progress .fill_bar .break {
+    background: #ffab00;
+    width: auto;
+    left: 0%;
+}
+.custom_progress .number {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 7px 0 0;
+}
+
+.custom_progress .number .hour {font-size: 64%;color: #000; writing-mode: tb-rl; font-weight:700;}
+
+.custom_progress {
+    position: relative;
+}
+
+.custom_progress .current_stamp {
+    position: absolute;
+    bottom: 100%;
+    background: #696cff;
+    color: #fff;
+    font-size: 10px;
+    padding: 5px 15px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    left: 40%;
+    margin-left: -57px;
+
+}
+
+.custom_progress .current_stamp:before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #696cff;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+
+.fill_bar {}
+
+
+
+.custom_progress.completed .current_stamp {
+    display: none;
+}
+
+.custom_progress.completed .fill {
+    background: #28a745;
+}
+
+.custom_progress.completed .break {
+    background: white;
+}
+
+.custom_progress .fill_bar {
+    border: 1px solid #ddd;
+}
+
+.daytime_label {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.daytime_label > div {
+    width: calc(50% - 15px);
+    padding: 15px;
+    margin: 7px;
+    background: #f5f5f8;
+    border: 1px solid rgb(172 172 197 / 45%);
+    border-radius: 5px;
+}
+
+.daytime_label > .daytime_break_label {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 12px;
+}
+
+.daytime_label strong {
+}
+
+.daytime_label span {
+    background: #696cff;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+.custom_progress.completed {
+    margin-top: 20px;
+}

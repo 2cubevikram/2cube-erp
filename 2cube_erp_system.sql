@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 12, 2023 at 08:55 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Apr 04, 2024 at 01:52 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,7 +43,8 @@ CREATE TABLE `attendance` (
 INSERT INTO `attendance` (`id`, `employee_id`, `_in`, `_out`, `status`, `updated_by`) VALUES
 (1, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-08-11 10:05:00', '0000-00-00 00:00:00', 'CHECK_IN', 'HR'),
 (2, '8192f06b-9e76-4abb-8183-e24c682aa0e5', '2023-08-11 10:49:00', '0000-00-00 00:00:00', 'CHECK_IN', 'Admin'),
-(3, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-08-12 10:27:13', '2023-08-11 09:27:27', 'CHECK_OUT', NULL);
+(3, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-08-12 10:27:13', '2023-08-11 09:27:27', 'CHECK_OUT', NULL),
+(4, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2024-04-04 10:00:00', NULL, 'CHECK_IN', NULL);
 
 -- --------------------------------------------------------
 
@@ -66,7 +67,9 @@ CREATE TABLE `break_in_out` (
 
 INSERT INTO `break_in_out` (`id`, `employee_id`, `_in`, `_out`, `status`, `updated_by`) VALUES
 (1, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2023-08-11 13:09:00', '2023-08-11 14:01:00', 'BREAK_OUT', 'HR'),
-(2, '8192f06b-9e76-4abb-8183-e24c682aa0e5', '2023-08-11 10:50:00', '2023-08-11 10:53:00', 'BREAK_OUT', 'Admin');
+(2, '8192f06b-9e76-4abb-8183-e24c682aa0e5', '2023-08-11 10:50:00', '2023-08-11 10:53:00', 'BREAK_OUT', 'Admin'),
+(3, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2024-04-04 13:00:00', '2024-04-04 13:05:00', 'BREAK_OUT', NULL),
+(5, 'c39bf89d-9613-44bc-baab-9878ca4bc56b', '2024-04-04 14:00:00', '2024-04-04 14:50:00', 'BREAK_OUT', NULL);
 
 -- --------------------------------------------------------
 
@@ -93,6 +96,22 @@ INSERT INTO `holidays` (`id`, `date`, `label`, `post_by`, `created_at`) VALUES
 (6, '2023-08-31', 'asdasd', 'Admin', '2023-08-09 11:08:00'),
 (7, '2023-08-24', 'gsdfgdsgds', 'Admin', '2023-08-09 11:10:39'),
 (8, '2023-08-25', '654afa', 'Admin', '2023-08-09 11:37:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `increment`
+--
+
+CREATE TABLE `increment` (
+  `id` int(15) NOT NULL,
+  `employee_id` varchar(36) NOT NULL,
+  `increment_date` date NOT NULL,
+  `amount` int(11) NOT NULL,
+  `status` varchar(10) NOT NULL,
+  `updated_by` varchar(20) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -261,6 +280,12 @@ ALTER TABLE `holidays`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `increment`
+--
+ALTER TABLE `increment`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `leave_application`
 --
 ALTER TABLE `leave_application`
@@ -292,19 +317,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `break_in_out`
 --
 ALTER TABLE `break_in_out`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `holidays`
 --
 ALTER TABLE `holidays`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `increment`
+--
+ALTER TABLE `increment`
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `leave_application`

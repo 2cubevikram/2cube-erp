@@ -34,7 +34,7 @@ const Attendance = () => {
         let checkin_to_current_time_minutes = formatDateTime.convertToMinutes(checkin_to_current_time);
         const totalBreakMinutes = formatDateTime.convertToMinutes(footer_data.break_time);
         const minutes_to_hours = checkin_to_current_time_minutes - totalBreakMinutes;
-        const h = formatDateTime.convertToHour("8:00");
+        const h = formatDateTime.convertToHour("8:30");
         const hh = h - minutes_to_hours;
 
         footer_data.remaining_hours = hh > 0 ? formatDateTime.convertMinutesToHours(hh) : 'completed';
