@@ -445,6 +445,7 @@ tr.table-default a.td-color :hover {
     text-transform: uppercase;
     left: 40%;
     margin-left: -57px;
+    white-space: pre;
 
 }
 
