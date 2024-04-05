@@ -4,8 +4,8 @@ import moment from 'moment';
 import {formatDateTime} from '../../function/time';
 
 const GraphBar = ({ checkInTime, breakTimes, checkOutTime }) => {
-    // const currentTimeStamp = checkOutTime ? moment(checkOutTime) : moment();
-    const currentTimeStamp = moment().set({ hour: 19, minute: 26 }); // for testing time complated
+    const currentTimeStamp = checkOutTime ? moment(checkOutTime) : moment();
+    // const currentTimeStamp = moment().set({ hour: 19, minute: 26 }); // for testing time complated
 
     // Calculate the total shift duration in minutes
     const shiftDuration = (9 * 60) + 30;
