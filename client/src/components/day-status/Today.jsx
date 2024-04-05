@@ -7,6 +7,7 @@ import {formatDateTime} from "../../function/time";
 import {TimeBadge, UserProfile} from "../general-component";
 import {formatText} from "../../function/format-text";
 import {getLastStatus} from "../../function/check-status";
+import GraphBar from "../dashboard/GraphBar";
 
 const Today = () => {
     const dispatch = useDispatch();
@@ -127,64 +128,81 @@ const Today = () => {
                                                         item.id === openList.index && openList.open ? (
                                                             <tr className="full-width">
                                                                 <td colSpan="5">
-                                                                    <div
-                                                                        className={`container-xxl flex-grow-1 container-p-y`}>
+                                                                    {/*<div className={`container-xxl flex-grow-1 container-p-y`}>*/}
+                                                                    {/*    <div className={`card`}>*/}
+                                                                    {/*        <div className={`card-body`}>*/}
+                                                                    {/*            <div className={`row g-0`}>*/}
+                                                                    {/*                {*/}
+                                                                    {/*                    // if data is not available at that time want to add h2 tag with text "Data is not available"*/}
+                                                                    {/*                    attendance.check != null && attendance.check.in === null &&*/}
+                                                                    {/*                    attendance.breakin.length === 0 ? (*/}
+                                                                    {/*                        <h2 className={`m-0 text-center`}>Data*/}
+                                                                    {/*                            is not available</h2>*/}
+                                                                    {/*                    ) : (*/}
+                                                                    {/*                        <table className={`table `}>*/}
+                                                                    {/*                            <tbody*/}
+                                                                    {/*                                className={`table-border-bottom-0`}>*/}
+                                                                    {/*                            {*/}
+                                                                    {/*                                attendance.check === null ? "Loading " : (*/}
+                                                                    {/*                                    <tr className="">*/}
+                                                                    {/*                                        <td className={`p-2`}>{inTime}</td>*/}
+                                                                    {/*                                        <td className={`p-1`}>{outTime}</td>*/}
+                                                                    {/*                                        /!*<td className={`p-1`}>{attendanceStatus}</td>*!/*/}
+                                                                    {/*                                        <td className={`p-1`}>{attendanceStatus ? formatText(attendanceStatus) : 'Status not available'}</td>*/}
+                                                                    {/*                                        <td>*/}
+                                                                    {/*                                            <TimeBadge*/}
+                                                                    {/*                                                _in={attendance.check._in}*/}
+                                                                    {/*                                                _out={attendance.check._out}/>*/}
+                                                                    {/*                                        </td>*/}
+                                                                    {/*                                    </tr>*/}
+                                                                    {/*                                )*/}
+                                                                    {/*                            }*/}
+                                                                    {/*                            {*/}
+                                                                    {/*                                attendance.check === null ? "Loading " : (*/}
+                                                                    {/*                                    attendance.breakin.map((item, index) => {*/}
+                                                                    {/*                                            const breakInTime = formatDateTime.getTime(item._in);*/}
+                                                                    {/*                                            const breakOutTime = item._out ? formatDateTime.getTime(item._out) : 'Out time not available';*/}
+                                                                    {/*                                            return (*/}
+                                                                    {/*                                                <React.Fragment*/}
+                                                                    {/*                                                    key={index}>*/}
+                                                                    {/*                                                    <tr className="">*/}
+                                                                    {/*                                                        <td className={`p-2`}>{breakInTime}</td>*/}
+                                                                    {/*                                                        <td className={`p-1`}>{breakOutTime}</td>*/}
+                                                                    {/*                                                        /!*<td className={`p-1`}>{item.status}</td>*!/*/}
+                                                                    {/*                                                        <td className={`p-1`}>{item.status ? formatText(item.status) : 'Status not available'}</td>*/}
+                                                                    {/*                                                        <td>*/}
+                                                                    {/*                                                            <TimeBadge*/}
+                                                                    {/*                                                                _in={item._in}*/}
+                                                                    {/*                                                                _out={item._out}/>*/}
+                                                                    {/*                                                        </td>*/}
+                                                                    {/*                                                    </tr>*/}
+                                                                    {/*                                                </React.Fragment>*/}
+                                                                    {/*                                            )*/}
+                                                                    {/*                                        }*/}
+                                                                    {/*                                    )*/}
+                                                                    {/*                                )*/}
+                                                                    {/*                            }*/}
+                                                                    {/*                            </tbody>*/}
+                                                                    {/*                        </table>*/}
+                                                                    {/*                    )*/}
+                                                                    {/*                }*/}
+                                                                    {/*            </div>*/}
+                                                                    {/*        </div>*/}
+                                                                    {/*    </div>*/}
+                                                                    {/*</div>*/}
+
+                                                                    <div className={`container-xxl flex-grow-1 container-p-y`}>
                                                                         <div className={`card`}>
                                                                             <div className={`card-body`}>
                                                                                 <div className={`row g-0`}>
                                                                                     {
-                                                                                        // if data is not available at that time want to add h2 tag with text "Data is not available"
-                                                                                        attendance.check != null && attendance.check.in === null &&
-                                                                                        attendance.breakin.length === 0 ? (
-                                                                                            <h2 className={`m-0 text-center`}>Data
-                                                                                                is not available</h2>
-                                                                                        ) : (
-                                                                                            <table className={`table `}>
-                                                                                                <tbody
-                                                                                                    className={`table-border-bottom-0`}>
-                                                                                                {
-                                                                                                    attendance.check === null ? "Loading " : (
-                                                                                                        <tr className="">
-                                                                                                            <td className={`p-2`}>{inTime}</td>
-                                                                                                            <td className={`p-1`}>{outTime}</td>
-                                                                                                            {/*<td className={`p-1`}>{attendanceStatus}</td>*/}
-                                                                                                            <td className={`p-1`}>{attendanceStatus ? formatText(attendanceStatus) : 'Status not available'}</td>
-                                                                                                            <td>
-                                                                                                                <TimeBadge
-                                                                                                                    _in={attendance.check._in}
-                                                                                                                    _out={attendance.check._out}/>
-                                                                                                            </td>
-                                                                                                        </tr>
-                                                                                                    )
-                                                                                                }
-                                                                                                {
-                                                                                                    attendance.check === null ? "Loading " : (
-                                                                                                        attendance.breakin.map((item, index) => {
-                                                                                                                const breakInTime = formatDateTime.getTime(item._in);
-                                                                                                                const breakOutTime = item._out ? formatDateTime.getTime(item._out) : 'Out time not available';
-                                                                                                                return (
-                                                                                                                    <React.Fragment
-                                                                                                                        key={index}>
-                                                                                                                        <tr className="">
-                                                                                                                            <td className={`p-2`}>{breakInTime}</td>
-                                                                                                                            <td className={`p-1`}>{breakOutTime}</td>
-                                                                                                                            {/*<td className={`p-1`}>{item.status}</td>*/}
-                                                                                                                            <td className={`p-1`}>{item.status ? formatText(item.status) : 'Status not available'}</td>
-                                                                                                                            <td>
-                                                                                                                                <TimeBadge
-                                                                                                                                    _in={item._in}
-                                                                                                                                    _out={item._out}/>
-                                                                                                                            </td>
-                                                                                                                        </tr>
-                                                                                                                    </React.Fragment>
-                                                                                                                )
-                                                                                                            }
-                                                                                                        )
-                                                                                                    )
-                                                                                                }
-                                                                                                </tbody>
-                                                                                            </table>
-                                                                                        )
+                                                                                        attendance.check && attendance.check._in && attendance.breakin ? (
+                                                                                            <GraphBar
+                                                                                                checkInTime={attendance.check._in}
+                                                                                                breakTimes={attendance.breakin}
+                                                                                                checkOutTime={attendance.check._out}
+                                                                                            />
+                                                                                        ): <h2 className={`m-0 text-center`}>Current Day data not available</h2>
                                                                                     }
                                                                                 </div>
                                                                             </div>

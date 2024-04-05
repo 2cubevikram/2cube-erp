@@ -106,12 +106,19 @@ const Dashboard = () => {
                                     <div className="col-md-12">
                                         <div className="cs-card-body">
                                             <div className="card-body">
-                                                {check_status.status && check_status.day && (
-                                                    <GraphBar
-                                                        checkInTime={check_status.day._in}
-                                                        breakTimes={break_status.break}
-                                                        checkOutTime={check_status.day._out}
-                                                    />
+                                                {check_status.status && check_status.status !== null ? (
+                                                    check_status.day && (
+                                                        <GraphBar
+                                                            checkInTime={check_status.day._in}
+                                                            breakTimes={break_status.break}
+                                                            checkOutTime={check_status.day._out}
+                                                        />
+                                                    )) : (
+                                                    <div className="text-center">
+                                                        <div className="alert alert-danger" role="alert">
+                                                            <p>Time Report data No available.</p>
+                                                        </div>
+                                                    </div>
                                                 )}
                                             </div>
                                         </div>

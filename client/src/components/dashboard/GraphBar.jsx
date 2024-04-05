@@ -4,8 +4,8 @@ import moment from 'moment';
 import {formatDateTime} from '../../function/time';
 
 const GraphBar = ({ checkInTime, breakTimes, checkOutTime }) => {
-    const currentTimeStamp = moment();
-    // const currentTimeStamp = moment().set({ hour: 19, minute: 30 }); // for testing time complated
+    // const currentTimeStamp = checkOutTime ? moment(checkOutTime) : moment();
+    const currentTimeStamp = moment().set({ hour: 19, minute: 30 }); // for testing time complated
 
     // Calculate the total shift duration in minutes
     const shiftDuration = (9 * 60) + 30;
@@ -62,6 +62,16 @@ const GraphBar = ({ checkInTime, breakTimes, checkOutTime }) => {
     const remainingHours = Math.floor(remainingTime / 60);
     const remainingMinutes = remainingTime % 60;
 
+    let extraHours;
+    let extraMinutes;
+
+    if (remainingTime <= 0) {
+        // Calculate extra time
+        const extraTime = Math.abs(remainingTime); // Absolute value of remainingTime
+        extraHours = Math.floor(extraTime / 60);
+        extraMinutes = extraTime % 60;
+    }
+
     const isCompleted = remainingTime <= 0;
     const progressClass = isCompleted ? 'custom_progress completed' : 'custom_progress';
 
@@ -72,7 +82,7 @@ const GraphBar = ({ checkInTime, breakTimes, checkOutTime }) => {
                     <strong>In Time: </strong> <span>{formattedCheckInTime}</span>
                 </div>
                 <div>
-                    <strong>Expected out Time:</strong> <span>{formattedExpectedCheckOutTime}</span>
+                    <strong>Expected Out Time:</strong> <span>{formattedExpectedCheckOutTime}</span>
                 </div>
                 <div className={`daytime_break_label`}>
                     {formattedBreakTimes.map((breakTime, index) => (
@@ -81,11 +91,14 @@ const GraphBar = ({ checkInTime, breakTimes, checkOutTime }) => {
                         </div>
                     ))}
                 </div>
+                <div className={`daytime_break_label`}>
+                    <strong>Extra Hour: </strong> <span>{extraHours} : {extraMinutes} hour</span>
+                </div>
             </div>
 
             <div className={progressClass}>
                 <div className={`current_stamp`} style={currentTime1}>{remainingHours + ' : ' + remainingMinutes} Hour Left</div>
-                <div className={`fill_bar`}>
+                <div className={`fill_bar ${checkOutTime ? "done" : ""}`}>
                     <div className={`basic`}></div>
                     <div className={`fill`} style={currentTime}></div>
                     {breakDurations.map((breakDuration, index) => (

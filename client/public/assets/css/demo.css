@@ -488,6 +488,7 @@ tr.table-default a.td-color :hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin: 0 -7px;
 }
 
 .daytime_label > div {
@@ -505,10 +506,10 @@ tr.table-default a.td-color :hover {
     flex-wrap: wrap;
     gap: 15px;
     font-size: 12px;
+    align-items: center;
 }
 
-.daytime_label strong {
-}
+
 
 .daytime_label span {
     background: #696cff;
@@ -523,4 +524,13 @@ tr.table-default a.td-color :hover {
 
 .custom_progress.completed {
     margin-top: 20px;
+}
+
+
+.custom_progress .fill_bar.done .basic {
+    background: #ff0606;
+}
+
+.custom_progress.completed .fill_bar.done .basic {
+    background: #28a745;
 }
