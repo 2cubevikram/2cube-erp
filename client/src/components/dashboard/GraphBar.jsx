@@ -5,7 +5,7 @@ import {formatDateTime} from '../../function/time';
 
 const GraphBar = ({ checkInTime, breakTimes, checkOutTime }) => {
     const currentTimeStamp = checkOutTime ? moment(checkOutTime) : moment();
-    // const currentTimeStamp = moment().set({ hour: 19, minute: 26 }); // for testing time complated
+    // const currentTimeStamp = moment().set({ hour: 19, minute: 32 }); // for testing time complated
 
     // Calculate the total shift duration in minutes
     const shiftDuration = (9 * 60) + 30;
@@ -45,6 +45,7 @@ const GraphBar = ({ checkInTime, breakTimes, checkOutTime }) => {
 
     // Format the times for display
     const formattedCheckInTime = moment(checkInTime).format('hh:mm A');
+    const formattedCheckOutTime = moment(checkOutTime).format('hh:mm A');
     const formattedBreakTimes = breakTimes.map((breakTime) => ({
         start: moment(breakTime._in).format('hh:mm A'),
         end: breakTime._out ? moment(breakTime._out).format('hh:mm A') : currentTimeStamp.format('hh:mm A'),
@@ -80,6 +81,7 @@ const GraphBar = ({ checkInTime, breakTimes, checkOutTime }) => {
             <div className={`daytime_label`}>
                 <div>
                     <strong>In Time: </strong> <span>{formattedCheckInTime}</span>
+                    <strong className="out-time">Out Time: </strong> <span>{ formattedCheckOutTime !== 'Invalid date' ? formattedCheckOutTime : 'Not available' }</span>
                 </div>
                 <div>
                     <strong>Expected Out Time:</strong> <span>{formattedExpectedCheckOutTime}</span>

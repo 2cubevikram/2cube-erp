@@ -534,3 +534,5 @@ tr.table-default a.td-color :hover {
 .custom_progress.completed .fill_bar.done .basic {
     background: #28a745;
 }
+
+.out-time { padding-left: 20px; }
