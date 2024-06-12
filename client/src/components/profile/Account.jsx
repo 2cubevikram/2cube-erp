@@ -136,6 +136,28 @@ const Account = ({profile}) => {
 
     }
 
+    const activateAccount = async (e) => {
+        e.preventDefault();
+
+        if (!isRemember) {
+            alert("Please Check confirm the account activation");
+            return;
+        } else {
+            const params = {
+                status: 'Active',
+                employee_id: profile.id,
+            }
+            try {
+                await dispatch(userDelete({params, user}));
+                alert('are you sure you want to activate the account ?');
+                navigate('/employees');
+            } catch (error) {
+                alert(error);
+            }
+        }
+
+    }
+
     const isUserAdminOrHR = user.role === 'Admin' || user.role === 'HR';
     const isProfileAdminOrHR = profile.role === 'Admin' || profile.role === 'HR';
 
@@ -217,6 +239,7 @@ const Account = ({profile}) => {
                                                 id="email"
                                                 name="email"
                                                 value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
                                                 readOnly={!(user.role === 'Admin' || (user.role === 'HR' && profile.role !== 'HR'))}
                                                 placeholder="john.doe@example.com"
                                                 required
@@ -254,7 +277,7 @@ const Account = ({profile}) => {
                                             <textarea
                                                 id="Details"
                                                 name="Details"
-                                                value={extraDetails}
+                                                value={extraDetails || ''}
                                                 onChange={(e) => setExtraDetails(e.target.value)}
                                                 readOnly={!(user.role === 'Admin' || (user.role === 'HR' && profile.role !== 'HR'))}
                                                 className="form-control"
@@ -338,21 +361,14 @@ const Account = ({profile}) => {
                                     <div className="mt-2">
                                         {user.id === profile.id ? (
                                             <>
-                                                <button type="submit" className="btn btn-primary me-2">
-                                                    Save changes
-                                                </button>
-                                                <button type="reset" className="btn btn-outline-secondary">
-                                                    Cancel
-                                                </button>
+                                                <button type="submit" className="btn btn-primary me-2">Save changes</button>
+                                                <button type="reset" className="btn btn-outline-secondary">Cancel</button>
                                             </>
                                         ) : (
                                             isUserAdminOrHR || isProfileAdminOrHR ? (
                                                 <>
-                                                    <button type="submit" className="btn btn-primary me-2">
-                                                        Update
-                                                    </button>
-                                                    <button type="reset" className="btn btn-outline-secondary">
-                                                        Cancel
+                                                    <button type="submit" className="btn btn-primary me-2">Update</button>
+                                                    <button type="reset" className="btn btn-outline-secondary">Cancel
                                                     </button>
                                                 </>
                                             ) : null
@@ -365,39 +381,74 @@ const Account = ({profile}) => {
                 </>
             )}
 
-            {
+            { profile.status === "Active" ? (
                 (user.role === "Admin" || user.role === "HR" || profile.role === "Admin" || profile.role === "HR") ? (
-                    <div className="card">
-                        <h5 className="card-header">Delete Account</h5>
-                        <div className="card-body">
-                            <div className="mb-3 col-12 mb-0">
-                                <div className="alert alert-warning">
-                                    <h6 className="alert-heading fw-bold mb-1">Are you sure you want to delete your
-                                        account?</h6>
-                                    <p className="mb-0">Once you delete your account, there is no going back. Please be
-                                        certain.</p>
+                    <div className="flex-grow-1 container-p-y">
+                        <div className="card">
+                            <h5 className="card-header">Delete Account</h5>
+                            <div className="card-body">
+                                <div className="mb-3 col-12 mb-0">
+                                    <div className="alert alert-warning">
+                                        <h6 className="alert-heading fw-bold mb-1">Are you sure you want to delete your
+                                            account?</h6>
+                                        <p className="mb-0">Once you delete your account, there is no going back. Please be
+                                            certain.</p>
+                                    </div>
                                 </div>
+                                <form id="formAccountDeactivation" onSubmit={deactivateAccount}>
+                                    <div className="form-check mb-3">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            name="accountActivation"
+                                            id="accountActivation"
+                                            onChange={e => isSetRemember(e.target.checked)}
+                                        />
+                                        <label className="form-check-label" htmlFor="accountActivation">
+                                            I confirm my account deactivation
+                                        </label>
+                                    </div>
+                                    <button type="submit" className="btn btn-danger deactivate-account">
+                                        Deactivate Account
+                                    </button>
+                                </form>
                             </div>
-                            <form id="formAccountDeactivation" onSubmit={deactivateAccount}>
-                                <div className="form-check mb-3">
-                                    <input
-                                        className="form-check-input"
-                                        type="checkbox"
-                                        name="accountActivation"
-                                        id="accountActivation"
-                                        onChange={e => isSetRemember(e.target.checked)}
-                                    />
-                                    <label className="form-check-label" htmlFor="accountActivation">
-                                        I confirm my account deactivation
-                                    </label>
-                                </div>
-                                <button type="submit" className="btn btn-danger deactivate-account">
-                                    Deactivate Account
-                                </button>
-                            </form>
                         </div>
                     </div>
                 ) : ""
+            ):(
+                user.role === "Admin" || user.role === "HR" || profile.role === "Admin" || profile.role === "HR") ? (
+                    <div className="flex-grow-1 container-p-y">
+                        <div className="card">
+                            <h5 className="card-header">Activate Account</h5>
+                            <div className="card-body">
+                                <div className="mb-3 col-12 mb-0">
+                                    <div className="alert alert-warning">
+                                        <h6 className="alert-heading fw-bold mb-1">Are you sure you want to activate account?</h6>
+                                        <p className="mb-0">Once you activate the account, user can access the account. Please be certain.</p>
+                                    </div>
+                                </div>
+                                <form id="formAccountDeactivation" onSubmit={activateAccount}>
+                                    <div className="form-check mb-3">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            name="accountActivation"
+                                            id="accountActivation"
+                                            onChange={e => isSetRemember(e.target.checked)}
+                                        />
+                                        <label className="form-check-label" htmlFor="accountActivation">
+                                            I confirm the account activation
+                                        </label>
+                                    </div>
+                                    <button type="submit" className="btn btn-danger deactivate-account">
+                                        Activate Account
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                ):""
             }
 
         </>

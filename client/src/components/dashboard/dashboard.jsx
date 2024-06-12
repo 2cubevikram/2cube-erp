@@ -125,7 +125,7 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="mt-4 card box__top">
+                            <div className="mt-4 card box__top check-in-statusbox">
                                 <div className="row row-bordered g-0">
                                     <div className="col-md-12">
                                         <div className="cs-card-body ">

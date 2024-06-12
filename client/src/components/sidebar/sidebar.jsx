@@ -16,6 +16,9 @@ const Sidebar = ({to}) => {
                     <Link to={`/`}  className="app-brand-link">
                         <p>2CUBE STUDIO</p>
                     </Link>
+                    <a href="javascript:void(0);" className="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none menu_close_icon">
+                        <i className="bx bx-chevron-left bx-sm align-middle"></i>
+                    </a>
                 </div>
                 <div className="menu-inner-shadow"></div>
                 <ul className="menu-inner py-1">

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { UserProfile } from "./general-component";
 import moment from "moment";
-import {isDateBeforeToday, isThisWeek} from "../function/excerpt";
+//import {isDateBeforeToday, isThisWeek} from "../function/excerpt";
 
 export const EmployeeList = ({ employees, active_tab = 1 }) => {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -72,9 +72,9 @@ export const EmployeeList = ({ employees, active_tab = 1 }) => {
                                 </Link>
                             </td>
                             <td>{moment(item.join_date).format('DD-MM-YYYY')}</td>
-                            <td>{moment(item.increment_date).format('DD-MM-YYYY')}</td>
+                            <td>{item.status === 'Deactivate' ? '00:00:00' : moment(item.increment_date).format('DD-MM-YYYY')}</td>
                             <td>{getStay[index]} Months</td>
-                            <td><span className="badge bg-label-primary me-1">{item.status}</span></td>
+                            {/* <td><span className="badge bg-label-primary me-1">{item.status}</span></td> */}
                         </tr>
                     </React.Fragment>
                 );

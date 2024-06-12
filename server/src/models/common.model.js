@@ -148,9 +148,6 @@ class CommonModel {
     `;
 
         return await query(sql);
-        // let sql = `SELECT leave_application.*, users.first_name, users.last_name FROM leave_application JOIN users ON leave_application.employee_id = users.id ORDER BY leave_application.id DESC`;
-        //
-        // return await query(sql);
     }
 
     // findAllLeaves = async (tableName, params, order_by) => {

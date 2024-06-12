@@ -22,7 +22,7 @@ const Current = () => {
     const currentYear = currentDate.getFullYear();
     const lastDayOfMonth = new Date(currentYear, currentMonth, 0).getDate();
     // const lastMonth = moment().subtract(1).format('YYYY-MM-DD');
-    const lastMonth = moment().subtract(1, 'months').format('YYYY-MM-DD');
+    const lastMonth = moment().subtract(0, 'months').format('YYYY-MM-DD');
 
     function AddFormOpen(id, type) {
         setAddSalaryForm({
@@ -64,7 +64,7 @@ const Current = () => {
             }
             const leaveAndDays = item.leave_type.map((type, index) => `${item.days[index]}/${type}`).join(', ');
             const totalDays = item.days.reduce((sum, days) => sum + days, 0);
-            const presentDays = lastDayOfMonth - totalDays + (parseFloat(item.halfDayCount) + parseFloat(item.halfDay));
+            const presentDays = lastDayOfMonth - totalDays + (parseFloat(item.halfDayCount) + parseFloat(item.halfDay) + parseFloat(item.halfDayCl));
             const paidDays = lastDayOfMonth - item.plDays - parseFloat(item.halfDayCount);
             item.finalSalary = ((item.basic_salary + item.increment) / lastDayOfMonth) * paidDays;
             item.presentDays = presentDays;
@@ -83,15 +83,15 @@ const Current = () => {
         <>
             {
                 serverDate !== currentDate1 ?
-                    <button type="button" className="btn btn-primary me-2 salary-btn"
-                            onClick={() => handleAddSalary(calculatedData)}
-                    > Generate Salary</button> : ""
+                   <div className="salary_btn_cover"><button type="button" className="btn btn-primary me-2 salary-btn"
+                   onClick={() => handleAddSalary(calculatedData)}
+           > Generate Salary</button></div> : ""
             }
             {
                 serverDate === currentDate1 ?
-                    <button type="button" className="btn btn-primary me-2 salary-btn"
+                <div className="salary_btn_cover"><button type="button" className="btn btn-primary me-2 salary-btn"
                             onClick={() => handleReGenerateSalary(calculatedData)}
-                    > Re-Generate Salary</button> : ""
+                    > Re-Generate Salary</button></div> : ""
             }
             <div className="flex-grow-1 container-p-y">
                 <div className="card text-center">
@@ -170,10 +170,7 @@ const Current = () => {
                                                     {
                                                         addSalaryForm.state && addSalaryForm.id === item.id ? (
                                                             <tr className={"full-width"}>
-                                                                <td colSpan="8">
-                                                                    <AddSalaryForm data={item} type={addSalaryForm.type}
-                                                                                   formClose={handleFormClose}/>
-                                                                </td>
+                                                                <td colSpan="8"><AddSalaryForm data={item} type={addSalaryForm.type} formClose={handleFormClose}/></td>
                                                             </tr>
                                                         ) : ""
                                                     }

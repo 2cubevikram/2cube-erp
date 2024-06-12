@@ -98,7 +98,7 @@ const Report = () => {
                                             <div><span className="startDate">From :</span></div><div><input type="date" name="startDate" className="btn btn-primary dropdown-toggle" value={startDate} onChange={(e) => setFromDate(e.target.value)} /></div>
                                         </div>
                                         <div className="btn-group">
-                                            <div className="text__"><span className="startDate">From :</span></div><div className="btn__input"><input type="date" name="endDate" className="btn btn-primary dropdown-toggle" value={endDate} onChange={(e) => setEndDate(e.target.value)} /></div>
+                                            <div className="text__"><span className="startDate">To :</span></div><div className="btn__input"><input type="date" name="endDate" className="btn btn-primary dropdown-toggle" value={endDate} onChange={(e) => setEndDate(e.target.value)} /></div>
                                         </div>
                                         <div className="btn-group">
                                             <button type="submit" className="btn btn-primary" onClick={handleClick}>Generate</button>
@@ -180,7 +180,7 @@ const Report = () => {
 
 
 
-                                                    <tr class="tabbottom">
+                                                    <tr className="tabbottom">
                                                         <td>
                                                             Days : {totalUniqueDays}
                                                         </td>

@@ -38,7 +38,9 @@ const Leave = () => {
 
     return (
         <>
-            <div className=" flex-grow-1 container-p-y">
+            <LeaveForm type={"APPLIED"}/>
+
+            <div className="flex-grow-1 container-p-y">
                 <div className="card">
                     <h5 className="card-header">List Of Leaves</h5>
                     {loading ? (
@@ -116,9 +118,6 @@ const Leave = () => {
                     )}
                 </div>
             </div>
-
-            <LeaveForm type={"APPLIED"}/>
-
         </>
     );
 };

@@ -143,8 +143,12 @@ class SalaryController {
                 const plDays = leave_type.includes('PL') ? leave_days[leave_type.indexOf('PL')] : 0;
                 const hplCount = leave_type.includes('HPL') ? leave_days[leave_type.indexOf('HPL')] : 0;
                 const halfPaidDayCount = hplCount * 0.5; // Convert half-days to actual days
-                const hlCount = leave_type.includes('HL') ? leave_days[leave_type.indexOf('HL')] : 0;
+                // const hlCount = leave_type.includes('HL') ? leave_days[leave_type.indexOf('HL')] : 0;
+                const hlCount = leave_type.includes('HSL') ? leave_days[leave_type.indexOf('HSL')] : 0;
                 const halfDayCount = hlCount * 0.5; // Convert half-days to actual days
+                const hlClCount = leave_type.includes('HCL') ? leave_days[leave_type.indexOf('HCL')] : 0;
+                const halfDayClCount = hlClCount * 0.5; // Convert half-days to actual days
+
 
                 const mergedResult = {
                     id: user.id,
@@ -158,7 +162,8 @@ class SalaryController {
                     days: leave_days,
                     plDays: plDays,
                     halfDayCount: halfPaidDayCount,
-                    halfDay: halfDayCount
+                    halfDay: halfDayCount,
+                    halfDayCl: halfDayClCount
                 };
                 mergedResults.push(mergedResult);
             }

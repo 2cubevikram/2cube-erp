@@ -75,14 +75,35 @@ class AdminController {
                 }
             }
 
-            const sanitizedResults = results.map(({
-                                                      password,
-                                                      status,
-                                                      created_at,
-                                                      updated_at,
-                                                      lastIncrement,
-                                                      ...userWithoutPassword
-                                                  }) => ({
+            const sanitizedResults = results.map(({password, created_at, updated_at, lastIncrement, ...userWithoutPassword }) => ({
+                ...userWithoutPassword,
+                employee_id: userWithoutPassword.employee_id,
+                increment_date: userWithoutPassword.increment_date,
+                amount: userWithoutPassword.amount
+            }));
+
+            res.send(sanitizedResults);
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    getOldEmployee = async (req, res, next) => {
+        try {
+            const results = await AuthModel.find({'status': 'Deactivate'}, {'created_at': 'ASC'});
+
+            for (const item of results) {
+                const increments = await EmployeeModel.getIncrementById({employee_id: item.id});
+                const lastIncrement = increments[increments.length - 1];
+
+                if (lastIncrement) {
+                    item.employee_id = lastIncrement.employee_id;
+                    item.increment_date = lastIncrement.increment_date;
+                    item.amount = lastIncrement.amount;
+                }
+            }
+
+            const sanitizedResults = results.map(({password, created_at, updated_at, lastIncrement, ...userWithoutPassword }) => ({
                 ...userWithoutPassword,
                 employee_id: userWithoutPassword.employee_id,
                 increment_date: userWithoutPassword.increment_date,
@@ -121,10 +142,10 @@ class AdminController {
         if (increments && increments.length > 0) {
             const lastIncrement = increments[increments.length - 1];
             const {id: incrementId, ...incrementWithoutId} = lastIncrement;
-            result = {...result, ...incrementWithoutId, id: result.id}; // Merge the result and incrementWithoutId objects
+            result = {...result, ...incrementWithoutId, id: result.id, status: result.status}; // Merge the result and incrementWithoutId objects
         }
 
-        const {password, status, created_at, updated_at, ...userWithoutPassword} = result;
+        const {password, created_at, updated_at, ...userWithoutPassword} = result;
 
         res.send(userWithoutPassword)
     };

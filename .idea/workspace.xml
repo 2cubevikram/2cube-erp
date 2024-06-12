@@ -7,7 +7,6 @@
     <list default="true" id="930f2002-4f8d-4906-b712-60cc0b2eb04b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/public/assets/css/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/css/demo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/GraphBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/GraphBar.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -299,7 +298,8 @@
       <workItem from="1712291302010" duration="7543000" />
       <workItem from="1712300339193" duration="4529000" />
       <workItem from="1712308067170" duration="32000" />
-      <workItem from="1712551743356" duration="1212000" />
+      <workItem from="1712551743356" duration="1766000" />
+      <workItem from="1712554269730" duration="198000" />
     </task>
     <servers />
   </component>

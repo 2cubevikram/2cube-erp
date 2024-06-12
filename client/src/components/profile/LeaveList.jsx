@@ -1,11 +1,10 @@
 import {useDispatch, useSelector} from "react-redux";
 import React, {Fragment, useEffect, useState} from "react";
-import {deleteLeave, getAllLeave, getYearllyLeaveById, getYearlyLeaveById} from "../../redux/actions/leaveActions";
+import {getYearlyLeaveById} from "../../redux/actions/leaveActions";
 import moment from "moment/moment";
 import {excerpt} from "../../function/excerpt";
-import LeaveForm from "../leave-form";
-import {Link, useLocation} from "react-router-dom";
-
+// import LeaveForm from "../leave-form";
+import {useLocation} from "react-router-dom";
 
 const LeaveList = () => {
     const dispatch = useDispatch();
@@ -18,11 +17,10 @@ const LeaveList = () => {
     const notification_id = location.state ? location.state.id : 0 || 0;
     const [startDate, setStartDate] = useState();
     const [endDate, setEndtDate] = useState();
-    const [leaveForm, setLeaveForm] = useState({
-        id: null,
-        state: false
-    })
-    console.log('this is current user id', {current_user_id})
+    // const [leaveForm, setLeaveForm] = useState({
+    //     id: null,
+    //     state: false
+    // })
     const startDateChange = (event) => {
         setStartDate(event.target.value);
     }
@@ -47,31 +45,41 @@ const LeaveList = () => {
         // eslint-disable-next-line
     }, [user]);
 
-    function LeaveFormOpen(index) {
-        setLeaveForm({
-            id: index,
-            state: !leaveForm.state
-        })
-    }
+    // function LeaveFormOpen(index) {
+    //     setLeaveForm({
+    //         id: index,
+    //         state: !leaveForm.state
+    //     })
+    // }
 
-    const handleFormClose = () => {
-        setLeaveForm({
-            id: null,
-            state: false
-        })
-    }
+    // const handleFormClose = () => {
+    //     setLeaveForm({
+    //         id: null,
+    //         state: false
+    //     })
+    // }
 
-    const handleLeaveDelete = async (id) => {
-        await dispatch(deleteLeave({id, user, date:startDate}));
-    }
+    // const handleLeaveDelete = async (id) => {
+    //     await dispatch(deleteLeave({id, user, date:startDate}));
+    // }
 
     const calculateLeaveStats = (yearlyleave) => {
         const totalLeave = 10;
         let usedLeave = 0;
 
+        // yearlyleave.forEach((leave) => {
+        //     if (leave.leave_type !== 'SL') {
+        //         if (leave.leave_type === 'HL' || leave.leave_type === 'HPL') {
+        //             usedLeave += 0.5 * leave.days;
+        //         } else {
+        //             usedLeave += leave.days;
+        //         }
+        //     }
+        // });
+
         yearlyleave.forEach((leave) => {
-            if (leave.leave_type !== 'SL') {
-                if (leave.leave_type === 'HL' || leave.leave_type === 'HPL') {
+            if (leave.leave_type !== 'PL' && leave.leave_type !== 'HPL' && leave.status === 'Approved' ) {
+                if (leave.leave_type === 'HCL' || leave.leave_type === 'HSL') {
                     usedLeave += 0.5 * leave.days;
                 } else {
                     usedLeave += leave.days;
@@ -82,8 +90,6 @@ const LeaveList = () => {
         const remainingLeave = totalLeave - usedLeave;
         return { totalLeave, usedLeave, remainingLeave };
     };
-
-
 
     return (
         <>
@@ -99,11 +105,11 @@ const LeaveList = () => {
                                 <thead>
                                 <tr>
                                     <th>Applied Date</th>
+                                    <th>total days</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Leave Type</th>
                                     <th>Leave Reason</th>
-                                    <th>total days</th>
                                     <input type="date" name="startDate" value={startDate} onChange={startDateChange}/>
                                     <input type="date" name="endDate" value={endDate} onChange={endDateChange}/>
                                     <button onClick={handleClick}>filter</button>
@@ -133,6 +139,11 @@ const LeaveList = () => {
                                                 </td>
                                                 <td>
                                                     {/*<span className="badge bg-label-warning me-1">*/}
+                                                    {item.days}
+                                                    {/*</span>*/}
+                                                </td>
+                                                <td>
+                                                    {/*<span className="badge bg-label-warning me-1">*/}
                                                     {moment(item.start_date).format("DD-MM-YYYY")}
                                                     {/*</span>*/}
                                                 </td>
@@ -149,11 +160,6 @@ const LeaveList = () => {
                                                 <td>
                                                     {/*<span className="badge bg-label-warning me-1">*/}
                                                     {excerpt(item.reason)}
-                                                    {/*</span>*/}
-                                                </td>
-                                                <td>
-                                                    {/*<span className="badge bg-label-warning me-1">*/}
-                                                    {item.days}
                                                     {/*</span>*/}
                                                 </td>
                                                 <td>

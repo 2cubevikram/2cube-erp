@@ -27,4 +27,17 @@ export const getAllEmployee = ({user}) => async (dispatch) => {
     }
 }
 
+export const getOldEmployee = ({user}) => async (dispatch) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/auth/old-employees`, {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
+        dispatch({type: 'GET_OLD_EMPLOYEE_SUCCESS', payload: response.data});
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 

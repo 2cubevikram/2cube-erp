@@ -18,6 +18,7 @@ router.post('/register', awaitHandlerFactory(AdminController.register));
 router.post('/login', awaitHandlerFactory(AdminController.login));
 router.patch('/edit', auth(), awaitHandlerFactory(AdminController.edit));
 router.get('/employees', auth(), awaitHandlerFactory(AdminController.getActiveEmployee));
+router.get('/old-employees', auth(), awaitHandlerFactory(AdminController.getOldEmployee));
 router.get('/all-employees', auth(), awaitHandlerFactory(AdminController.getAllEmployee));
 router.get('/id/:id', auth(), awaitHandlerFactory(AdminController.getEmployeeById));
 router.get('/employees/profile/:id', auth(), awaitHandlerFactory(AdminController.getEmployeeById));

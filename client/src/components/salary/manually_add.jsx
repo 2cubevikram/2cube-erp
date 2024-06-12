@@ -37,8 +37,7 @@ const ManuallyAdd = () => {
         if (!updatedData[index]) {
             updatedData[index] = {
                 employee_id: allUsers[index]?.id,
-                employee_name:
-                    allUsers[index]?.first_name + " " + allUsers[index]?.last_name,
+                employee_name: allUsers[index]?.first_name + " " + allUsers[index]?.last_name,
                 leave: "",
                 presentDays: "",
                 salary: "",

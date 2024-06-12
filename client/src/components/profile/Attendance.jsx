@@ -289,7 +289,7 @@ const EditableRow = ({_data, inTime, outTime, onChildClick}) => {
                             <div className="row">
                                 <div className=" col-md-3">
                                     <label htmlFor="firstName" className="form-label">
-                                        Start Date
+                                        In Time
                                     </label>
                                     <input className={"form-control"} type="time" name="inTime"
                                            value={moment(_inTime, "h:mm A").format("HH:mm:ss")}
@@ -297,7 +297,7 @@ const EditableRow = ({_data, inTime, outTime, onChildClick}) => {
                                 </div>
                                 <div className="col-md-3">
                                     <label htmlFor="firstName" className="form-label">
-                                        Start Date
+                                        Out Time
                                     </label>
                                     <input className={"form-control"} type="time" name="outTime"
                                            value={moment(_outTime, "h:mm A").format("HH:mm:ss")}
@@ -305,7 +305,7 @@ const EditableRow = ({_data, inTime, outTime, onChildClick}) => {
                                 </div>
                                 <div className=" col-md-3">
                                     <label htmlFor="firstName" className="form-label">
-                                        Start Date
+                                        Status
                                     </label>
                                     <div className={"form-control"}>{_status}</div>
                                 </div>

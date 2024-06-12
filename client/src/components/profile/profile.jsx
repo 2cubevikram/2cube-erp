@@ -48,7 +48,7 @@ const Profile = () => {
 
     return (
         <>
-            <div className="container-xxl flex-grow-1 container-p-y">
+            <div className="container-xxl flex-grow-1 container-p-y profile-view">
                 <h4 className="fw-bold py-3 mb-4"><span
                     className="text-muted fw-light">Account Settings /</span> {currentTab} <span
                     className="text-muted fw-light"> Of {profile.first_name} {profile.last_name}</span></h4>
@@ -80,7 +80,8 @@ const Profile = () => {
                                         </button>
                                     </li> : ""
                             }
-                            {
+                            { 
+                                user.role !== profile.role ? (
                                 user.role === "Admin" || user.role === "Hr" ?
                                     <li className="nav-item">
                                         <button
@@ -88,7 +89,7 @@ const Profile = () => {
                                             onClick={() => handleTabClick(4)}>
                                             <i className="bx bx-link-alt me-1"></i> List Of Leaves
                                         </button>
-                                    </li> : ""
+                                    </li> : "") : ''
                             }
                         </ul>
                     </div>

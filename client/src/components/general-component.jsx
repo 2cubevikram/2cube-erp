@@ -1,6 +1,5 @@
 import {formatDateTime} from "../function/time";
 
-
 export const TimeBadge = ({_in=null,_out=null}) => {
     if (!_out){
         return false;
@@ -22,7 +21,6 @@ export const TimeBadge = ({_in=null,_out=null}) => {
     )
 }
 
-
 export const UserProfile = ({profile, name , isActive = true , isBold = true}) => {
     return (
         <>
@@ -34,7 +32,7 @@ export const UserProfile = ({profile, name , isActive = true , isBold = true}) =
                         <strong className={`${!isActive && 'badge bg-label-danger me-1'}`}>{name}</strong> :
                         <span className={`${!isActive && 'badge bg-label-danger me-1'}`}>{name}</span>
                 }
-                </div>
+            </div>
         </>
     )
 }

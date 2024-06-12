@@ -57,10 +57,10 @@ class LeaveAppModel {
         let values;
 
         if (status !== undefined && status !== null) {
-            sql = `SELECT * FROM ${this.tableName} WHERE employee_id IN (${placeholders}) AND start_date LIKE ? AND status = ?`;
+            sql = `SELECT * FROM ${this.tableName} WHERE employee_id IN (${placeholders}) AND start_date LIKE ? AND status = ? ORDER BY id DESC`;
             values = [...employee_ids, `${start_date}%`, status];
         } else {
-            sql = `SELECT * FROM ${this.tableName} WHERE employee_id IN (${placeholders}) AND start_date LIKE ?`;
+            sql = `SELECT * FROM ${this.tableName} WHERE employee_id IN (${placeholders}) AND start_date LIKE ? ORDER BY id DESC`;
             values = [...employee_ids, `${start_date}%`];
         }
 
@@ -72,7 +72,8 @@ class LeaveAppModel {
     };
 
     getYearlyLiveById = async (start_date, end_date, id) => {
-        let sql = `SELECT * FROM ${this.tableName} WHERE start_date >= ? AND start_date < ? AND employee_id = ? AND status = "Approved" `;
+        // let sql = `SELECT * FROM ${this.tableName} WHERE start_date >= ? AND start_date < ? AND employee_id = ? AND status = "Approved" `;
+        let sql = `SELECT * FROM ${this.tableName} WHERE start_date >= ? AND start_date < ? AND employee_id = ? ORDER BY id DESC`;
         return await query(sql, [start_date, end_date, id]);
     }
 

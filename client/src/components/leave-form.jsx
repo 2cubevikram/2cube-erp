@@ -70,7 +70,7 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
 
 
     return (
-        <div className="container-xxl flex-grow-1 container-p-y">
+        <div className="flex-grow-1 container-p-y">
             <div className="card">
                 {
                     type === "APPLIED" ? (
@@ -121,12 +121,14 @@ const LeaveForm = ({data = null, type = "APPLIED", formClose = null}) => {
                                         onChange={(e) => setLeaveType(e.target.value)}
                                         required
                                 >
-                                    <option value="" disabled>Select Type</option>
-                                    <option value="CL">Casual Leave</option>
-                                    <option value="PL">Paid Leave</option>
-                                    <option value="SL">Sick Leave</option>
-                                    <option value="HL">Half-Day</option>
-                                    <option value="HPL">Half-Day PL</option>
+                                    <option value="" disabled>Select Type</option>                                    
+                                    <option value="CL">CL - Casual Leave</option>
+                                    <option value="SL">SL - Sick Leave</option>
+                                    <option value="PL">PL - Paid Leave</option>
+                                    <option value="HCL">HCL - Half-Day Casual Leave</option>                                  
+                                    {/* <option value="HL">HSL - Half-Day Sick Leave</option> */}
+                                    <option value="HSL">HSL - Half-Day Sick Leave</option>
+                                    <option value="HPL">HPL - Half-Day Paid Leave</option>
                                 </select>
                             </div>
                             <div className="mb-3 col-md-6">
