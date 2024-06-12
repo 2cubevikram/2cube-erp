@@ -8,7 +8,6 @@ const Employee = () => {
     const dispatch = useDispatch();
     let user = useSelector(state => state.login.user);
     let employee = useSelector(state => state.employee);
-    const loading = useSelector((state) => state.login.loading);
     const allUsers = useSelector((state) => state.login.allOldUsers);
 
     useEffect(() => {

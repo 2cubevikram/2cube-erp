@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
-import {getLeaveById} from "../../redux/actions/leaveActions";
+import {getLeaveById, getYearlyLeaveById} from "../../redux/actions/leaveActions";
 import LeaveForm from "../leave-form";
 import {excerpt} from "../../function/excerpt";
 import {useLocation} from "react-router-dom";
@@ -36,6 +36,42 @@ const Leave = () => {
         // eslint-disable-next-line
     }, [user]);
 
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+
+    const startDate = `${currentYear}-04-01`; 
+    const endDate = `${currentYear + 1}-04-01`;
+    const current_user_id = user.id;
+
+    console.log(startDate, endDate)
+
+    useEffect(() => {
+        setHighlightedId(notification_id);
+        dispatch(getYearlyLeaveById({user, startDate, endDate, current_user_id}));
+        // eslint-disable-next-line
+    }, [user]);    
+
+    const calculateLeaveStats = (yearlyleave) => {
+        const totalLeave = 10;
+        let usedLeave = 0;
+
+        yearlyleave.forEach((leave) => {
+            if (leave.leave_type !== 'PL' && leave.leave_type !== 'HPL' && leave.status === 'Approved' ) {
+                if (leave.leave_type === 'HCL' || leave.leave_type === 'HSL') {
+                    usedLeave += 0.5 * leave.days;
+                } else {
+                    usedLeave += leave.days;
+                }
+            }
+        });
+
+        const remainingLeave = totalLeave - usedLeave;
+        return { totalLeave, usedLeave, remainingLeave };
+    };
+
+    console.log(leaves.yearlyleave)
+
     return (
         <>
             <LeaveForm type={"APPLIED"}/>
@@ -51,6 +87,7 @@ const Leave = () => {
                                 <thead>
                                 <tr>
                                     <th>Applied Date</th>
+                                    <th>Total Days</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Leave Type</th>
@@ -78,33 +115,24 @@ const Leave = () => {
                                 ) : (
                                     <tbody className="table-border-bottom-0">
                                     {
-                                        leaves.leave.map((item, index) => (
+                                        // leaves.leave.map((item, index) => (
+                                        leaves.yearlyleave.map((item, index) => (
                                             <Fragment key={item.key || index}>
                                                 <tr className={highlightedId === item.id ? "highlighted-row" : ""}>
                                                     <td>
                                                         {moment(item.app_date).format("DD-MM-YYYY")}
                                                     </td>
                                                     <td>
-                                                <span className="badge bg-label-warning me-1">
-                                                    {moment(item.start_date).format("DD-MM-YYYY")}
-                                                </span>
+                                                        {/*<span className="badge bg-label-warning me-1">*/}
+                                                        {item.days}
+                                                        {/*</span>*/}
                                                     </td>
+                                                    <td>{moment(item.start_date).format("DD-MM-YYYY")}</td>
+                                                    <td>{moment(item.end_date).format("DD-MM-YYYY")}</td>
+                                                    <td>{item.leave_type}</td>
+                                                    <td>{excerpt(item.reason)}</td>
                                                     <td>
-                                                <span className="badge bg-label-warning me-1">
-                                                    {moment(item.end_date).format("DD-MM-YYYY")}
-                                                </span>
-                                                    </td>
-                                                    <td>
-                                                    <span
-                                                        className="badge bg-label-warning me-1">{item.leave_type}</span>
-                                                    </td>
-                                                    <td><span
-                                                        className="badge bg-label-warning me-1">{excerpt(item.reason)}</span>
-                                                    </td>
-
-                                                    <td>
-                                                        <span
-                                                            className="badge bg-label-warning me-1">{item.status}</span>
+                                                        <span className="badge bg-label-warning me-1">{item.status}</span>
                                                     </td>
                                                 </tr>
                                             </Fragment>
@@ -112,8 +140,16 @@ const Leave = () => {
                                     }
                                     </tbody>
                                 )}
+                                <tfoot className="table-border-bottom-0">
+                                <tr>
+                                    <th>Total Leave: {calculateLeaveStats(leaves.yearlyleave).totalLeave}</th>
+                                    <th>-</th>
+                                    <th>Used Leave: {calculateLeaveStats(leaves.yearlyleave).usedLeave}</th>
+                                    <th>-</th>
+                                    <th>Remaining Leave: {calculateLeaveStats(leaves.yearlyleave).remainingLeave}</th>
+                                </tr>
+                                </tfoot>
                             </table>
-
                         </div>
                     )}
                 </div>
