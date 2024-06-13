@@ -35,7 +35,8 @@ const LeaveList = () => {
 
     const handleClear = () => {
         setStartDate('');
-        dispatch(getYearlyLeaveById({user, startDate, endDate, current_user_id}));
+        setEndtDate('');
+        dispatch(getYearlyLeaveById({user, current_user_id}));
         // eslint-disable-next-line
     }
 

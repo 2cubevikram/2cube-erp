@@ -15,7 +15,7 @@ export const leaveApplied = ({user, obj}) => async (dispatch) => {
     }
 };
 
-export const getLeaveById = ({user, filterDate}) => async (dispatch) => {
+export const getLeaveById = ({user, startDate, endDate}) => async (dispatch) => {
     try {
         const response = await axios.get(`${API_BASE_URL}/auth/leave-by-id`, {
             headers: {
@@ -23,7 +23,8 @@ export const getLeaveById = ({user, filterDate}) => async (dispatch) => {
             },
             params: {
                 id: `${user.id}`,
-                date: filterDate,
+                start_date: startDate,
+                end_date: endDate
             }
         });
         dispatch({type: 'GET_LEAVE_SUCCESS', payload: response.data});

@@ -63,9 +63,9 @@ class LeaveAppController {
         const s_date = `${currentYear}-04-01`;
         const e_date = `${currentYear + 1}-04-01`;
         const id = req.body.user_id !== undefined ? req.body.user_id : req.currentUser.id;
-        let start_date =  req.query.date !== undefined ? moment(req.query.date).format('YYYY-MM-DD') : moment(s_date).format('YYYY-MM-DD');
-        let end_date =  req.query.date !== undefined ? moment(req.query.date).format('YYYY-MM-DD') : moment(e_date).format('YYYY-MM-DD');
-
+        let start_date =  req.query.start_date !== undefined && req.query.start_date !== '' ? moment(req.query.start_date).format('YYYY-MM-DD') : moment(s_date).format('YYYY-MM-DD');
+        let end_date =  req.query.start_date !== undefined && req.query.start_date !== '' ? moment(req.query.end_date).format('YYYY-MM-DD') : moment(e_date).format('YYYY-MM-DD');
+        
         const result = await LeaveAppModel.getYearlyLiveById(start_date, end_date, id)
         res.status(200).send(result);
     };
@@ -75,8 +75,8 @@ class LeaveAppController {
         const s_date = `${currentYear}-04-01`;
         const e_date = `${currentYear + 1}-04-01`;
         const id = req.query.id;
-        let start_date =  req.query.start_date !== undefined ? moment(req.query.start_date).format('YYYY-MM-DD') : moment(s_date).format('YYYY-MM-DD');
-        let end_date =  req.query.start_date !== undefined ? moment(req.query.end_date).format('YYYY-MM-DD') : moment(e_date).format('YYYY-MM-DD');
+        let start_date =  req.query.start_date !== undefined && req.query.start_date !== '' ? moment(req.query.start_date).format('YYYY-MM-DD') : moment(s_date).format('YYYY-MM-DD');
+        let end_date =  req.query.start_date !== undefined && req.query.start_date !== '' ? moment(req.query.end_date).format('YYYY-MM-DD') : moment(e_date).format('YYYY-MM-DD');
 
         const result = await LeaveAppModel.getYearlyLiveById(start_date, end_date, id)
         res.status(200).send(result);

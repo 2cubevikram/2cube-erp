@@ -10,30 +10,39 @@ const Leave = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.login.user);
     const leaves = useSelector((state) => state.leave);
-    const yearlyleave = useSelector((state) => state.yearlyleave);
     const loading = useSelector((state) => state.leave.loading);
     const [highlightedId, setHighlightedId] = useState(null);
     const location = useLocation();
     const notification_id = location.state ? location.state.id : 0 || 0;
-    const [filterDate, setFilterDate] = useState();
+    // const [filterDate, setFilterDate] = useState();
+    const [startDate, setStartDate] = useState();
+    const [endDate, setEndtDate] = useState();
 
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
+    // const currentDate = new Date();
+    // const currentYear = currentDate.getFullYear();
 
-    const startDate = `${currentYear}-04-01`; 
-    const endDate = `${currentYear + 1}-04-01`;
+    // const startDate = `${currentYear}-04-01`; 
+    // const endDate = `${currentYear + 1}-04-01`;
     const current_user_id = user.id;
 
-    const handleChange = (event) => {
-        setFilterDate(event.target.value);
-    };
+    const startDateChange = (event) => {
+        setStartDate(event.target.value);
+    }
+
+    const endDateChange = (event) => {
+        setEndtDate(event.target.value);
+    }
+
+    // const handleChange = (event) => {
+    //     setFilterDate(event.target.value);
+    // };
 
     const handleClick = () => {
-        dispatch(getLeaveById({user, filterDate}));
+        dispatch(getLeaveById({user, startDate, endDate}));
     }
 
     const handleClear = () => {
-        setFilterDate('');
+        // setFilterDate('');
         dispatch(getLeaveById({user}));
         // eslint-disable-next-line
     }
@@ -47,7 +56,6 @@ const Leave = () => {
     useEffect(() => {
         setHighlightedId(notification_id);
         dispatch(getYearlyLeaveById({user, startDate, endDate, current_user_id}));
-        console.log('this is test trigger', user.id, startDate, endDate, current_user_id)
         // eslint-disable-next-line
     }, [user]);    
 
@@ -92,8 +100,9 @@ const Leave = () => {
                                     <th>Leave Type</th>
                                     <th>Leave Reason</th>
                                     <th>Status</th>
-                                    <input type="date" name="filterDate" value={filterDate}
-                                           onChange={handleChange}/>
+                                    {/* <input type="date" name="filterDate" value={filterDate} onChange={handleChange}/> */}
+                                    <input type="date" name="startDate" value={startDate} onChange={startDateChange}/>
+                                    <input type="date" name="endDate" value={endDate} onChange={endDateChange}/>
                                     <button onClick={handleClick}>filter</button>
                                     <button onClick={handleClear}>clear</button>
                                 </tr>
