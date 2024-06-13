@@ -10,11 +10,19 @@ const Leave = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.login.user);
     const leaves = useSelector((state) => state.leave);
+    const yearlyleave = useSelector((state) => state.yearlyleave);
     const loading = useSelector((state) => state.leave.loading);
     const [highlightedId, setHighlightedId] = useState(null);
     const location = useLocation();
     const notification_id = location.state ? location.state.id : 0 || 0;
     const [filterDate, setFilterDate] = useState();
+
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+
+    const startDate = `${currentYear}-04-01`; 
+    const endDate = `${currentYear + 1}-04-01`;
+    const current_user_id = user.id;
 
     const handleChange = (event) => {
         setFilterDate(event.target.value);
@@ -34,21 +42,12 @@ const Leave = () => {
         setHighlightedId(notification_id);
         dispatch(getLeaveById({user}));
         // eslint-disable-next-line
-    }, [user]);
-
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-    const currentYear = currentDate.getFullYear();
-
-    const startDate = `${currentYear}-04-01`; 
-    const endDate = `${currentYear + 1}-04-01`;
-    const current_user_id = user.id;
-
-    console.log(startDate, endDate)
+    }, [user]);    
 
     useEffect(() => {
         setHighlightedId(notification_id);
         dispatch(getYearlyLeaveById({user, startDate, endDate, current_user_id}));
+        console.log('this is test trigger', user.id, startDate, endDate, current_user_id)
         // eslint-disable-next-line
     }, [user]);    
 
@@ -56,7 +55,7 @@ const Leave = () => {
         const totalLeave = 10;
         let usedLeave = 0;
 
-        yearlyleave.forEach((leave) => {
+        leaves.leave.forEach((leave) => {
             if (leave.leave_type !== 'PL' && leave.leave_type !== 'HPL' && leave.status === 'Approved' ) {
                 if (leave.leave_type === 'HCL' || leave.leave_type === 'HSL') {
                     usedLeave += 0.5 * leave.days;
@@ -70,7 +69,7 @@ const Leave = () => {
         return { totalLeave, usedLeave, remainingLeave };
     };
 
-    console.log(leaves.yearlyleave)
+    console.log(leaves)
 
     return (
         <>
@@ -115,8 +114,8 @@ const Leave = () => {
                                 ) : (
                                     <tbody className="table-border-bottom-0">
                                     {
-                                        // leaves.leave.map((item, index) => (
-                                        leaves.yearlyleave.map((item, index) => (
+                                        leaves.leave.map((item, index) => (
+                                        // leaves.yearlyleave.map((item, index) => (
                                             <Fragment key={item.key || index}>
                                                 <tr className={highlightedId === item.id ? "highlighted-row" : ""}>
                                                     <td>
@@ -124,7 +123,7 @@ const Leave = () => {
                                                     </td>
                                                     <td>
                                                         {/*<span className="badge bg-label-warning me-1">*/}
-                                                        {item.days}
+                                                        { item.leave_type === 'HPL' || item.leave_type === 'HCL' || item.leave_type === 'HSL' ? '0.5' :  item.days}
                                                         {/*</span>*/}
                                                     </td>
                                                     <td>{moment(item.start_date).format("DD-MM-YYYY")}</td>
@@ -142,11 +141,11 @@ const Leave = () => {
                                 )}
                                 <tfoot className="table-border-bottom-0">
                                 <tr>
-                                    <th>Total Leave: {calculateLeaveStats(leaves.yearlyleave).totalLeave}</th>
+                                    <th>Total Leave: {calculateLeaveStats(leaves.leave).totalLeave}</th>
                                     <th>-</th>
-                                    <th>Used Leave: {calculateLeaveStats(leaves.yearlyleave).usedLeave}</th>
+                                    <th>Used Leave: {calculateLeaveStats(leaves.leave).usedLeave}</th>
                                     <th>-</th>
-                                    <th>Remaining Leave: {calculateLeaveStats(leaves.yearlyleave).remainingLeave}</th>
+                                    <th>Remaining Leave: {calculateLeaveStats(leaves.leave).remainingLeave}</th>
                                 </tr>
                                 </tfoot>
                             </table>

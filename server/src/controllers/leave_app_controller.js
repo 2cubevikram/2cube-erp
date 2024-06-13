@@ -20,7 +20,7 @@ class LeaveAppController {
         const duration = moment.duration(end_date.diff(start_date));
         const days = duration.asDays();
 
-        if(req.body.leave_type === 'HL' || req.body.leave_type === 'HPL'){
+        if(req.body.leave_type === 'HCL' || req.body.leave_type === 'HSL' || req.body.leave_type === 'HPL'){
             req.body.days = 0.5
         }else {
             req.body.days = days + 1;
@@ -44,19 +44,29 @@ class LeaveAppController {
 
     getLeavesById = async (req, res, next) => {
         // let date = req.query.date !== undefined ? moment(req.query.date).format('YYYY-MM') : moment(new Date()).format('YYYY-MM');
-        let date = req.query.date !== undefined ? moment(req.query.date, 'YYYY-MM-DD').format('YYYY-MM') : moment(new Date(), moment.ISO_8601).format('YYYY-MM');
-        let user_id = req.body.user_id !== undefined ? req.body.user_id : req.currentUser.id;
-        let status = req.body.status !== undefined ? req.body.status : 'Applied';
+        // let date = req.query.date !== undefined ? moment(req.query.date, 'YYYY-MM-DD').format('YYYY-MM') : moment(new Date(), moment.ISO_8601).format('YYYY-MM');
+        // let user_id = req.body.user_id !== undefined ? req.body.user_id : req.currentUser.id;
+        // let status = req.body.status !== undefined ? req.body.status : 'Applied';
 
-        const params = {
-            employee_id: user_id,
-            start_date: date,
-            // status: status
-        };
-        const result = await LeaveAppModel.findWhere(params)
-        if (!result) {
-            return res.status(500).send({message: 'Something went wrong'});
-        }
+        // const params = {
+        //     employee_id: user_id,
+        //     start_date: date,
+        //     // status: status
+        // };
+        // const result = await LeaveAppModel.findWhere(params)
+        // if (!result) {
+        //     return res.status(500).send({message: 'Something went wrong'});
+        // }
+        // res.status(200).send(result);
+
+        const currentYear = moment().year();
+        const s_date = `${currentYear}-04-01`;
+        const e_date = `${currentYear + 1}-04-01`;
+        const id = req.body.user_id !== undefined ? req.body.user_id : req.currentUser.id;
+        let start_date =  req.query.date !== undefined ? moment(req.query.date).format('YYYY-MM-DD') : moment(s_date).format('YYYY-MM-DD');
+        let end_date =  req.query.date !== undefined ? moment(req.query.date).format('YYYY-MM-DD') : moment(e_date).format('YYYY-MM-DD');
+
+        const result = await LeaveAppModel.getYearlyLiveById(start_date, end_date, id)
         res.status(200).send(result);
     };
 
