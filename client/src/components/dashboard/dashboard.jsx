@@ -212,7 +212,7 @@ const Dashboard = () => {
                                                     <li key={index}
                                                         className={`d-flex ${isBirthdayToday(item.birth_date, item.serverCurrentTime) ? 'active-highlight' : ''} ${isDateMonthBeforeToday(item.birth_date) ? 'completed-highlight' : ''}`}>
                                                         <div className="avatar flex-shrink-0 me-3">
-                                                            <img src={PF + item.profile} alt="User" className="rounded"/>
+                                                        <img src={item.profile !== null ? PF + item.profile : PF + 'avatar.png'} alt="User" className="rounded"/>
                                                         </div>
                                                         <div
                                                             className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">

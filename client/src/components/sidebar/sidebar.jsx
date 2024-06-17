@@ -33,7 +33,7 @@ const Sidebar = ({to}) => {
                             </svg>
                         </div>
                     </Link>
-                    <a href="javascript:void(0);" className="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none menu_close_icon">
+                    <a href="/#" onClick={(e) => e.preventDefault()} className="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none menu_close_icon">
                         <i className="bx bx-chevron-left bx-sm align-middle"></i>
                     </a>
                 </div>

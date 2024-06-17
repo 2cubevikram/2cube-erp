@@ -77,8 +77,6 @@ const Leave = () => {
         return { totalLeave, usedLeave, remainingLeave };
     };
 
-    console.log(leaves)
-
     return (
         <>
             <LeaveForm type={"APPLIED"}/>
