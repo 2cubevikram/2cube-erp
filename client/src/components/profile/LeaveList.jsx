@@ -65,7 +65,7 @@ const LeaveList = () => {
     // }
 
     const calculateLeaveStats = (yearlyleave) => {
-        const totalLeave = 10;
+        const totalLeave = 16;
         let usedLeave = 0;
 
         // yearlyleave.forEach((leave) => {
