@@ -198,9 +198,7 @@ const Dashboard = () => {
                                         <div className="row row-bordered g-0">
                                             <div className="col-md-12">
                                                 <div className="cs-card-body ">
-                                                    <div className="card-body">
-                                                        <CurrentMonth />
-                                                    </div>
+                                                    <CurrentMonth />
                                                 </div>
                                             </div>
                                         </div>
@@ -215,9 +213,7 @@ const Dashboard = () => {
                                         <div className="row row-bordered g-0">
                                             <div className="col-md-12">
                                                 <div className="cs-card-body ">
-                                                    <div className="card-body">
-                                                        <PreviousMonth />
-                                                    </div>
+                                                    <PreviousMonth />
                                                 </div>
                                             </div>
                                         </div>

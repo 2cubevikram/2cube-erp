@@ -535,9 +535,9 @@ tr.table-default a.td-color :hover {
 }
 
 @media (max-width:1700px){
-    .btn_wrp1 {
-        display: none;
-    }
+    .btn_wrp1 { display: none; }
+    .notification-button { display: none; }
+    .scroll__bar .birthday-list{max-height: none;}
 }
 
 
