@@ -15,6 +15,8 @@ import {
 import {getHoliday} from "../../redux/actions/holidayActions";
 import {checkLogin} from "../../function/check_login";
 import GraphBar from './GraphBar';
+import CurrentMonth from './CurrentMonth';
+import PreviousMonth from './PreviousMonth';
 
 
 const Dashboard = () => {
@@ -188,6 +190,41 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
+
+                            {/* current month leaves */}
+                            { 
+                                (user.role === 'Admin' || user.role === 'HR') ? (
+                                    <div className="mt-4 card box__top check-in-statusbox">
+                                        <div className="row row-bordered g-0">
+                                            <div className="col-md-12">
+                                                <div className="cs-card-body ">
+                                                    <div className="card-body">
+                                                        <CurrentMonth />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ) : ""
+                            }
+
+                            {/* Previous month leaves */}
+                            { 
+                                (user.role === 'Admin' || user.role === 'HR') ? (
+                                    <div className="mt-4 card box__top check-in-statusbox">
+                                        <div className="row row-bordered g-0">
+                                            <div className="col-md-12">
+                                                <div className="cs-card-body ">
+                                                    <div className="card-body">
+                                                        <PreviousMonth />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ) : ""
+                            }
+
                         </div>
 
                         <div className="scroll__bar col-md-6 col-lg-4  mb-4">

@@ -1,17 +1,32 @@
 import moment from "moment";
 import React, {Fragment, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteSalary, getSalaryStatus} from "../../redux/actions/salaryActions";
+import {deleteSalary, generateSalary, generateSalaryData, getSalaryStatus} from "../../redux/actions/salaryActions";
 import {Link} from "react-router-dom";
 
 const Previous = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.login.user);
     const salaries = useSelector(state => state.salary);
+    const dataGenerate = useSelector(state => state.salary.dataGenerate);
     const loading = useSelector((state) => state.salary.loading);
     const [filterDate, setFilterDate] = useState();
+    const [calculatedData, setCalculatedData] = useState([]);
 
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+    const lastDayOfMonth = new Date(currentYear, currentMonth, 0).getDate();
     const lastMonth = moment().subtract(1, 'months').format('YYYY-MM-DD');
+
+    const preMonth = String(new Date().getMonth()).padStart(2, '0');
+    const prevMonthSalary = `${currentYear}-${preMonth}-${lastDayOfMonth}`;
+
+    // console.log(prevMonthSalary)
+
+    const handleAddSalary = async (calculatedData) => {
+        await dispatch(generateSalary({user, obj: calculatedData}));
+    }
 
     const handleClick = () => {
         dispatch(getSalaryStatus({user, filterDate}));
@@ -22,7 +37,7 @@ const Previous = () => {
 
     const handleClear = () => {
         setFilterDate('');
-        dispatch(getSalaryStatus({user}));
+        dispatch(getSalaryStatus({user, filterDate: lastMonth}));
         // eslint-disable-next-line
     }
 
@@ -48,12 +63,49 @@ const Previous = () => {
     }
 
     useEffect(() => {
-        dispatch(getSalaryStatus({user, filterDate: lastMonth}))
+        console.log('this is test')
+        dispatch(generateSalaryData({user, filterDate: lastMonth}))
+        dispatch(getSalaryStatus({user, filterDate: lastMonth }))
         // eslint-disable-next-line
-    }, [user])
+    }, [user]);
+
+    useEffect(() => {
+        const calculatedSalaries = dataGenerate.map((item, index) => {
+            const employeeId = item.id;
+            const matchingSalary = salaries.salary.find(salaryItem => salaryItem.employee_id === employeeId);
+            if (matchingSalary) {
+                item.salaryIds = matchingSalary.id;
+            } else {
+                item.salaryIds = null;
+            }
+            const leaveAndDays = item.leave_type.map((type, index) => `${item.days[index]}/${type}`).join(', ');
+            const totalDays = item.days.reduce((sum, days) => sum + days, 0);
+            const presentDays = lastDayOfMonth - totalDays + (parseFloat(item.halfDayCount) + parseFloat(item.halfDay) + parseFloat(item.halfDayCl));
+            const paidDays = lastDayOfMonth - item.plDays - parseFloat(item.halfDayCount);
+            item.finalSalary = ((item.basic_salary + item.increment) / lastDayOfMonth) * paidDays;
+            item.presentDays = presentDays;
+            item.leaveAndDays = leaveAndDays;
+            item.createDate = prevMonthSalary;
+
+            return item;
+        });
+        setCalculatedData(calculatedSalaries);
+        // eslint-disable-next-line
+    }, [salaries, lastDayOfMonth]);
+
+
+    const serverDate = salaries.salary.length > 0 ? moment(salaries.salary[0].salary_date).format('YYYY-MM') : null;
+    const currentDate1 = moment().subtract(1, 'months').format('YYYY-MM');
 
     return (
         <>
+            {
+                serverDate == null || (serverDate !== currentDate1 && serverDate < currentDate1) ?
+                <div className="salary_btn_cover">
+                    <button type="button" className="btn btn-primary me-2 salary-btn" onClick={() => handleAddSalary(calculatedData)}> Generate Salary</button>
+                </div> : ""
+            }
+
             <div className="flex-grow-1 container-p-y">
                 <div className="card text-center">
                     <h5 className="card-header">Status of Employee Salary</h5>

@@ -23,7 +23,7 @@ const Navbar = () => {
 
     useEffect(() => {
         // const newSocket = io('http://localhost:3030');
-        const newSocket = io('http://192.168.1.20:3030');
+        const newSocket = io('http://64.227.130.68:3030');
 
 
         dispatch(getNotification({user}));

@@ -60,7 +60,7 @@ const Leave = () => {
     }, [user]);    
 
     const calculateLeaveStats = (yearlyleave) => {
-        const totalLeave = 10;
+        const totalLeave = 16;
         let usedLeave = 0;
 
         leaves.leave.forEach((leave) => {

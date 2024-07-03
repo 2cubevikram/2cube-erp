@@ -34,7 +34,7 @@ class SalaryController {
                     present_day: user.presentDays,
                     amount: user.finalSalary,
                     extra_allowance: 0,
-                    salary_date: user.salary_date || moment(new Date()).format('YYYY-MM-DD'),
+                    salary_date: user.createDate || moment(new Date()).format('YYYY-MM-DD'),
                     status: null,
                 };
                 // console.log(params)
@@ -45,7 +45,13 @@ class SalaryController {
             const allUsersInserted = results.every(result => result > 0);
 
             if (allUsersInserted) {
-                await this.getAllSalaryStatus(req, res, next);
+                const data = req.body;
+                if(data[0].createDate == undefined){
+                    await this.getAllSalaryStatus(req, res, next);
+                } else { 
+                    await this.getAllPreSalaryStatus(req, res, next);
+                }
+                // await this.getAllSalaryStatus(req, res, next);
             } else {
                 res.status(500).json({message: 'Some users failed to insert'});
             }
@@ -191,13 +197,35 @@ class SalaryController {
 
     getAllSalaryStatus = async (req, res, next) => {
         let currentDate = req.query.date && !isNaN(new Date(req.query.date)) ? new Date(req.query.date) : new Date();
+
         const currentMonth = currentDate.getMonth(); // Months are 0-indexed
         const currentYear = currentDate.getFullYear();
 
         const result = await SalaryModel.findAll({currentMonth, currentYear});
 
         if (result.length < 1) {
-            return res.status(500).send({message: "Salary not found"});
+            return res.status(400).send({message: "Salary not found"});
+        }
+        res.status(200).send(result);
+    }
+
+    getAllPreSalaryStatus = async (req, res, next) => {
+        let currentDate;
+
+        if (req.query.date && !isNaN(new Date(req.query.date))) {
+            currentDate = new Date(req.query.date);
+        } else {
+            currentDate = new Date();
+            currentDate.setMonth(currentDate.getMonth() - 1);
+        }
+
+        const currentMonth = currentDate.getMonth(); // Months are 0-indexed
+        const currentYear = currentDate.getFullYear();
+
+        const result = await SalaryModel.findAll({currentMonth, currentYear});
+
+        if (result.length < 1) {
+            return res.status(400).send({message: "Salary not found"});
         }
         res.status(200).send(result);
     }

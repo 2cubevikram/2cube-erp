@@ -12,6 +12,7 @@ const Current = () => {
     const dataGenerate = useSelector(state => state.salary.dataGenerate);
     const loading = useSelector((state) => state.salary.loading);
     const [calculatedData, setCalculatedData] = useState([]);
+    // const [dateSet, setFilterDate] = useState();
     const [addSalaryForm, setAddSalaryForm] = useState({
         id: null,
         state: false
@@ -20,9 +21,11 @@ const Current = () => {
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
-    const lastDayOfMonth = new Date(currentYear, currentMonth, 0).getDate();
-    // const lastMonth = moment().subtract(1).format('YYYY-MM-DD');
-    const lastMonth = moment().subtract(0, 'months').format('YYYY-MM-DD');
+    const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate(); // Correct calculation for last day of the current month
+    const lastMonth = moment().startOf('month').format('YYYY-MM-DD'); // Correct calculation for the start of the current month
+
+    // console.log({ currentMonth, lastDayOfMonth, lastMonth });
+
 
     function AddFormOpen(id, type) {
         setAddSalaryForm({
@@ -46,6 +49,24 @@ const Current = () => {
     const handleReGenerateSalary = async (calculatedData) => {
         await dispatch(ReGenerateSalary({user, obj: calculatedData}));
     }
+
+    // const handleChange = (event) => {
+    //     setFilterDate(event.target.value);
+    // };
+
+    // const handleClear = () => {
+    //     setFilterDate('');
+    //     dispatch(getSalaryStatus({user}));
+    //     // eslint-disable-next-line
+    // }
+
+    // const handleAddSalary = async (calculatedData) => {
+    //     const dataWithDate = calculatedData.map(user => ({
+    //         ...user,
+    //         createDate: dateSet
+    //     }));
+    //     await dispatch(generateSalary({ user, obj: dataWithDate }));
+    // }
 
     useEffect(() => {
         dispatch(generateSalaryData({user, filterDate: lastMonth}))
@@ -83,9 +104,11 @@ const Current = () => {
         <>
             {
                 serverDate !== currentDate1 ?
-                   <div className="salary_btn_cover"><button type="button" className="btn btn-primary me-2 salary-btn"
-                   onClick={() => handleAddSalary(calculatedData)}
-           > Generate Salary</button></div> : ""
+                <div className="salary_btn_cover">
+                        {/* <div className="btn btn-primary me-2 salary-btn"><input type="date" name="dateSet" value={dateSet} onChange={handleChange}/></div>
+                        <div className="btn btn-primary me-2 salary-btn"><button onClick={handleClear}>clear</button></div> */}
+                        <button type="button" className="btn btn-primary me-2 salary-btn" onClick={() => handleAddSalary(calculatedData)}> Generate Salary</button>
+                </div> : ""
             }
             {
                 serverDate === currentDate1 ?

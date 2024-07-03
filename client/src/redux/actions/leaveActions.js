@@ -50,6 +50,23 @@ export const getAllLeave = ({user, filterDate}) => async (dispatch) => {
     }
 };
 
+export const getAllPreviousLeave = ({user, filterDate}) => async (dispatch) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/auth/all-previous-leaves`, {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+            params: {
+                date: filterDate,
+            }
+        });
+        console.log( response.data);
+        dispatch({type: 'GET_PREIVIOUS_LEAVES_SUCCESS', payload: response.data});
+    } catch (error) {
+        dispatch({type: 'GET_PREIVIOUS_LEAVES_FAILED', payload: error.message});
+    }
+};
+
 export const getYearlyLeaveById = ({user, startDate, endDate, current_user_id}) => async (dispatch) => {
     try {
         const response = await axios.get(`${API_BASE_URL}/auth/leaves-by-year`, {

@@ -11,15 +11,18 @@ import holidayReducer from "./holidayReducer";
 import salaryReducer from "./salaryReducer";
 import lastCheckReducer from "./lastCheckReducer";
 import reportGenerateReducer from "./reportGenerateReducer";
+import oldEmployeeReducer from './oldEmployeeReducer';
 
 const rootReducer = combineReducers({
     login:authReducer,
     check:checkReducer,
     break:breakReducer,
     employee:employeeReducer,
+    oldemployee:oldEmployeeReducer,
     user:profileReducer,
     today:dayReducer,
     leave:leaveReducer,
+    prleave:leaveReducer,
     birthday:birthdayReducer,
     holiday:holidayReducer,
     salary:salaryReducer,

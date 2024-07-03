@@ -4,7 +4,7 @@ let initialState = {
     isLoggedIn: false,
     user: null,
     allUsers: [],
-    allOldUsers: [],
+    // allOldUsers: [],
     loading: true,
     error: null,
 };
@@ -94,13 +94,6 @@ const authReducer = (state = initialState, action) => {
                 loading: false,
                 error: null,
             }
-            case 'GET_OLD_EMPLOYEE_SUCCESS':
-                return {
-                    ...state,
-                    allOldUsers: action.payload,
-                    loading: false,
-                    error: null,
-                }
         default:
             return state;
     }

@@ -534,6 +534,12 @@ tr.table-default a.td-color :hover {
     margin-left: 0;
 }
 
+@media (max-width:1700px){
+    .btn_wrp1 {
+        display: none;
+    }
+}
+
 
 @media(max-width:991px){
     .layout-menu {
@@ -556,7 +562,7 @@ tr.table-default a.td-color :hover {
 
     .avatar.avatar-online {
         margin-left: 12px;
-    }
+    }    
 }
 
 @media(max-width:767px){

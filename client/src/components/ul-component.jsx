@@ -49,7 +49,6 @@ export const EmployeeList = ({ employees, active_tab = 1 }) => {
             {sortedEmployees.map((item, index) => {
                 const isIncrementDateCurrentDay = isCurrentDay(item.increment_date);
                 const isIncrementDateCurrentMonth = isCurrentMonth(item.increment_date);
-                console.log(isIncrementDateCurrentDay, isIncrementDateCurrentMonth)
 
                 return (
                     <React.Fragment key={item.id}>

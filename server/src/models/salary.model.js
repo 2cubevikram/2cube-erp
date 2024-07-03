@@ -75,7 +75,7 @@ class SalaryModel {
         try {
             return await query(sql, values);
         } catch (error) {
-            throw error;
+            return 0;
         }
     }
 

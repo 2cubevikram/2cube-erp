@@ -42,6 +42,12 @@ class LeaveAppController {
         res.status(200).send(result);
     };
 
+    getAllPreviousLeaves = async (req, res, next) => {
+        let date = req.query.date !== undefined ? moment(req.query.date).format('YYYY-MM') : moment(new Date()).format('YYYY-MM');
+        const result = await LeaveAppModel.findAllLeaves({date}, {id: 'DESC'});
+        res.status(200).send(result);
+    };
+
     getLeavesById = async (req, res, next) => {
         // let date = req.query.date !== undefined ? moment(req.query.date).format('YYYY-MM') : moment(new Date()).format('YYYY-MM');
         // let date = req.query.date !== undefined ? moment(req.query.date, 'YYYY-MM-DD').format('YYYY-MM') : moment(new Date(), moment.ISO_8601).format('YYYY-MM');
