@@ -1,7 +1,7 @@
 import moment from "moment";
 import React, {Fragment, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteSalary, generateSalary, generateSalaryData, getSalaryStatus} from "../../redux/actions/salaryActions";
+import {deleteSalary, generateSalary, generateSalaryData, getSalaryStatus, ReGenerateSalary} from "../../redux/actions/salaryActions";
 import {Link} from "react-router-dom";
 
 const Previous = () => {
@@ -26,6 +26,10 @@ const Previous = () => {
 
     const handleAddSalary = async (calculatedData) => {
         await dispatch(generateSalary({user, obj: calculatedData}));
+    }
+
+    const handleReGenerateSalary = async (calculatedData) => {
+        await dispatch(ReGenerateSalary({user, obj: calculatedData}));
     }
 
     const handleClick = () => {
@@ -97,12 +101,21 @@ const Previous = () => {
     const serverDate = salaries.salary.length > 0 ? moment(salaries.salary[0].salary_date).format('YYYY-MM') : null;
     const currentDate1 = moment().subtract(1, 'months').format('YYYY-MM');
 
+    // console.log({serverDate, currentDate1})
+
     return (
         <>
             {
                 serverDate == null || (serverDate !== currentDate1 && serverDate < currentDate1) ?
                 <div className="salary_btn_cover">
                     <button type="button" className="btn btn-primary me-2 salary-btn" onClick={() => handleAddSalary(calculatedData)}> Generate Salary</button>
+                </div> : ""
+            }
+
+            {
+                serverDate === currentDate1 ?
+                <div className="salary_btn_cover">
+                    <button type="button" className="btn btn-primary me-2 salary-btn" onClick={() => handleReGenerateSalary(calculatedData)}> Re-Generate Salary</button>
                 </div> : ""
             }
 

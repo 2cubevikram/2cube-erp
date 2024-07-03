@@ -73,19 +73,29 @@ class SalaryController {
                     present_day: user.presentDays,
                     amount: user.finalSalary,
                     extra_allowance: 0,
-                    salary_date: moment(new Date()).format('YYYY-MM-DD'),
-                    status: null,
+                    salary_date: user.createDate || moment(new Date()).format('YYYY-MM-DD'),
+                    status: user.createDate ? 'CREDIT' : null,
                 };
                 const conditionalParams = {
                     id: user.salaryIds,
                     employee_id: user.id,
                 }
 
+                
+                // console.log({params, conditionalParams});
                 await SalaryModel.updateWhere(params, conditionalParams);
                 // console.log(`Updated iD ${user.salaryIds} user id ${user.id}`);
             }
 
-            await this.getAllSalaryStatus(req, res, next);
+            if(updates[0].createDate == undefined){
+                console.log('if condition')
+                await this.getAllSalaryStatus(req, res, next);
+            } else { 
+                console.log('else condition')
+                await this.getAllPreSalaryStatus(req, res, next);
+            }
+
+            // await this.getAllSalaryStatus(req, res, next);
         } catch (error) {
             next(error);
         }
