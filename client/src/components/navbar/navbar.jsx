@@ -4,7 +4,7 @@ import {getUser} from "../../redux/reducers/authReducer";
 import {useDispatch} from 'react-redux';
 import {getNotification, logoutUser} from "../../redux/actions/authActions";
 import React, {useEffect, useState} from "react";
-import io from "socket.io-client";
+// import io from "socket.io-client";
 
 const Navbar = () => {
     const user = useSelector(getUser);
@@ -23,18 +23,18 @@ const Navbar = () => {
 
     useEffect(() => {
         // const newSocket = io('http://localhost:3030');
-        const newSocket = io('http://64.227.130.68:3030');
+        // const newSocket = io('http://64.227.130.68:3030');
 
 
         dispatch(getNotification({user}));
 
-        newSocket.on('new_leave_application', (notificationMessage) => {
-            setNotification(notificationMessage);
-        });
+        // newSocket.on('new_leave_application', (notificationMessage) => {
+        //     setNotification(notificationMessage);
+        // });
 
-        return () => {
-            newSocket.off('new_leave_application');
-        };
+        // return () => {
+        //     newSocket.off('new_leave_application');
+        // };
     }, [dispatch, user]);
 
     return (

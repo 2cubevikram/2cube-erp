@@ -1,5 +1,5 @@
 import notificationModel from "../models/notification.model.js";
-import {io} from '../server.js';
+// import {io} from '../server.js';
 import LeaveController from "./leave_app_controller.js";
 import AuthModel from "../models/auth.model.js";
 import moment from "moment";
@@ -26,11 +26,11 @@ class NotificationController {
         await notificationModel.findById({application_id: req.body.id, status: 'null'}, {});
 
         if (result === 1) {
-            io.emit('new_leave_application', {
-                id: params.application_id,
-                message: params.message,
-                link: '/leave-app'
-            });
+            // io.emit('new_leave_application', {
+            //     id: params.application_id,
+            //     message: params.message,
+            //     link: '/leave-app'
+            // });
             await LeaveController.getLeavesById(req, res);
         } else {
             return res.status(500).send({message: 'Something went wrong while applied leave'});
