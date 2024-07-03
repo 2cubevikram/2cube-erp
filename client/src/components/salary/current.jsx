@@ -60,14 +60,6 @@ const Current = () => {
     //     // eslint-disable-next-line
     // }
 
-    // const handleAddSalary = async (calculatedData) => {
-    //     const dataWithDate = calculatedData.map(user => ({
-    //         ...user,
-    //         createDate: dateSet
-    //     }));
-    //     await dispatch(generateSalary({ user, obj: dataWithDate }));
-    // }
-
     useEffect(() => {
         dispatch(generateSalaryData({user, filterDate: lastMonth}))
         dispatch(getSalaryStatus({user, filterDate: moment().format('YYYY-MM-DD')}))
