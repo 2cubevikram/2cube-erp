@@ -4,8 +4,6 @@ const employeeReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'GET_EMPLOYEE_SUCCESS':
             return action.payload;
-        case 'GET_OLD_EMPLOYEE_SUCCESS':
-                return action.payload;
         case 'GET_EMPLOYEE_FAILURE':
             return action.payload;
         case 'BREAK_TIME_EDIT':

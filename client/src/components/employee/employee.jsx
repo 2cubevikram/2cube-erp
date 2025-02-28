@@ -7,7 +7,7 @@ const Employee = () => {
     const dispatch = useDispatch();
     let user = useSelector(state => state.login.user);
     let employee = useSelector(state => state.employee);
-    const oldemployee = useSelector((state) => state.oldemployee);
+    let oldemployee = useSelector((state) => state.oldemployee);
 
     useEffect(() => {
         dispatch(getEmployee({user}));

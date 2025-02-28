@@ -59,8 +59,7 @@ const LoginForm = () => {
                                         <span className="app-brand-text demo text-body fw-bolder">Well Come</span>
                                     </a>
                                 </div>
-                                <h4 className="mb-2">Welcome <strong
-                                    style={{color: '#FF5733'}}> {firstName} {lastName} </strong> ! 👋</h4>
+                                <h4 className="mb-2">Welcome <strong style={{color: '#FF5733'}}> {firstName} {lastName} </strong> ! 👋</h4>
                                 <p className="mb-4">Please sign-in to your account and start the session</p>
 
                                 <form id="formAuthentication" className="mb-3" onSubmit={handleSubmit}>
