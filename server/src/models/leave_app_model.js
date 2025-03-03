@@ -78,8 +78,8 @@ class LeaveAppModel {
     }
 
     delete = async (id) => {
-        // return await commonModel.delete(start_date, end_date, id);
         return await commonModel.delete(this.tableName,id);
+        // return await commonModel.delete(start_date, end_date, id);
     }
 }
 
